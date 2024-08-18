@@ -135,3 +135,5 @@ const StyledLogo = styled.img`
   height: 90px; /* Adjust the size as needed */
   margin-right: 10px; /* Add spacing between logos if there are multiple */
 `;
+
+
