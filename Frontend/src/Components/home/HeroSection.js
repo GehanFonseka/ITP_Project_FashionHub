@@ -69,7 +69,7 @@ const HeroTextBox = styled.div`
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   color: #ffffff; /* White text color inside the box */
-  text-align: left;
+  text-align: center;
   box-sizing: border-box; /* Ensures padding doesn't affect the width */
 `;
 
@@ -82,6 +82,7 @@ const HeroHeading = styled.h2`
 const ShopButton = styled.a`
   display: inline-block;
   margin-top: 10px;
+   text-align: center;
   padding: 10px 20px;
   background-color: #323952; /* Bright green button for strong contrast and visibility */
   color: #ffffff;

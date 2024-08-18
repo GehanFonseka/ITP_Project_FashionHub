@@ -55,6 +55,7 @@ const FooterContainer = styled.footer`
   background-color: black;
   color: white;
   padding: 40px 20px;
+  fixed;
 `;
 
 const FooterContent = styled.div`
@@ -85,7 +86,10 @@ const FooterLink = styled.a`
 `;
 
 const FooterText = styled.p`
-  margin-bottom: 15px;
+  margin-bottom: 2
+  
+  
+  0px;
 `;
 
 const FooterInput = styled.input`

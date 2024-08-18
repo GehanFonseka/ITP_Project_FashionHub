@@ -2,84 +2,80 @@ import React, { useState } from "react";
 import './AppointmentForm.css'; // Import the CSS file
 
 function AppointmentForm() {
-  const [name, setName] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [services, setServices] = useState([]);
-  const [requests, setRequests] = useState("");
+  // State variables to manage form data
+  const [formData, setFormData] = useState({
+    name: "",
+    contactNumber: "",
+    email: "",
+    date: "",
+    time: "",
+    services: [],
+    requests: ""
+  });
 
+  // Service options with categories and prices
   const serviceOptions = {
-    Hair: [
-      { name: "Haircut", price: 9600 },
-      { name: "Hair Coloring", price: 25600 },
-      { name: "Hair Treatment", price: 16000 },
-      { name: "Hair Extensions", price: 38400 },
-      { name: "Blowout", price: 12800 },
-    ],
-    Facial: [
-      { name: "Basic Facial", price: 22400 },
-      { name: "Anti-Aging Facial", price: 32000 },
-      { name: "Acne Treatment Facial", price: 27200 },
-      { name: "Brightening Facial", price: 28800 },
-    ],
-    "Body Treatment": [
-      { name: "Body Scrub", price: 19200 },
-      { name: "Body Wrap", price: 25600 },
-      { name: "Cellulite Treatment", price: 32000 },
-      { name: "Tanning", price: 16000 },
-    ],
-    Nail: [
-      { name: "Manicure", price: 8000 },
-      { name: "Pedicure", price: 11200 },
-      { name: "Gel Manicure", price: 12800 },
-      { name: "Nail Art", price: 4800 },
-    ],
-    Makeup: [
-      { name: "Basic Makeup Application", price: 16000 },
-      { name: "Bridal Makeup", price: 48000 },
-      { name: "Makeup Lesson", price: 22400 },
-    ],
-    Massage: [
-      { name: "Swedish Massage", price: 28800 },
-      { name: "Deep Tissue Massage", price: 38400 },
-      { name: "Hot Stone Massage", price: 35200 },
-      { name: "Aromatherapy Massage", price: 32000 },
-    ],
+    Hair: ["Haircut", "Hair Coloring", "Hair Treatment", "Hair Extensions", "Blowout"],
+    Facial: ["Basic Facial", "Anti-Aging Facial", "Acne Treatment Facial", "Brightening Facial"],
+    "Body Treatment": ["Body Scrub", "Body Wrap", "Cellulite Treatment", "Tanning"],
+    Nail: ["Manicure", "Pedicure", "Gel Manicure", "Nail Art"],
+    Makeup: ["Basic Makeup Application", "Bridal Makeup", "Makeup Lesson"],
+    Massage: ["Swedish Massage", "Deep Tissue Massage", "Hot Stone Massage", "Aromatherapy Massage"]
   };
 
-  const handleServiceChange = (category, service) => {
-    setServices((prevServices) => {
-      const exists = prevServices.some(
-        (s) => s.name === service.name && s.category === category
-      );
-      if (exists) {
-        return prevServices.filter(
-          (s) => !(s.name === service.name && s.category === category)
-        );
-      } else {
-        return [...prevServices, { category, ...service }];
-      }
+  // Prices for each service
+  const servicePrices = {
+    "Haircut": 9600,
+    "Hair Coloring": 25600,
+    "Hair Treatment": 16000,
+    "Hair Extensions": 38400,
+    "Blowout": 12800,
+    "Basic Facial": 22400,
+    "Anti-Aging Facial": 32000,
+    "Acne Treatment Facial": 27200,
+    "Brightening Facial": 28800,
+    "Body Scrub": 19200,
+    "Body Wrap": 25600,
+    "Cellulite Treatment": 32000,
+    "Tanning": 16000,
+    "Manicure": 8000,
+    "Pedicure": 11200,
+    "Gel Manicure": 12800,
+    "Nail Art": 4800,
+    "Basic Makeup Application": 16000,
+    "Bridal Makeup": 48000,
+    "Makeup Lesson": 22400,
+    "Swedish Massage": 28800,
+    "Deep Tissue Massage": 38400,
+    "Hot Stone Massage": 35200,
+    "Aromatherapy Massage": 32000
+  };
+
+  // Function to handle form data changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Function to handle service selection
+  const handleServiceChange = (service) => {
+    setFormData((prevData) => {
+      const services = prevData.services.includes(service)
+        ? prevData.services.filter((s) => s !== service)
+        : [...prevData.services, service];
+      return { ...prevData, services };
     });
   };
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Submit form data
-    console.log({
-      name,
-      contactNumber,
-      email,
-      date,
-      time,
-      services,
-      requests,
-    });
+    console.log(formData);
     alert("Thank you! Your appointment has been booked.");
   };
 
-  const totalCost = services.reduce((acc, service) => acc + service.price, 0);
+  // Calculate the total cost of selected services
+  const totalCost = formData.services.reduce((acc, service) => acc + servicePrices[service], 0);
 
   return (
     <div className="appointment-form-background">
@@ -91,8 +87,9 @@ function AppointmentForm() {
             <label>Full Name:</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
               required
             />
           </div>
@@ -100,8 +97,9 @@ function AppointmentForm() {
             <label>Contact Number:</label>
             <input
               type="text"
-              value={contactNumber}
-              onChange={(e) => setContactNumber(e.target.value)}
+              name="contactNumber"
+              value={formData.contactNumber}
+              onChange={handleChange}
               required
             />
           </div>
@@ -109,8 +107,9 @@ function AppointmentForm() {
             <label>Email Address:</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               required
             />
           </div>
@@ -120,16 +119,18 @@ function AppointmentForm() {
             <label>Select Date:</label>
             <input
               type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
               required
             />
           </div>
           <div>
             <label>Select Time:</label>
             <select
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
               required
             >
               <option value="">Select Time</option>
@@ -151,12 +152,13 @@ function AppointmentForm() {
               <div className="service-category" key={category}>
                 <h4>{category}</h4>
                 {serviceOptions[category].map((service) => (
-                  <label key={service.name}>
+                  <label key={service}>
                     <input
                       type="checkbox"
-                      onChange={() => handleServiceChange(category, service)}
+                      checked={formData.services.includes(service)}
+                      onChange={() => handleServiceChange(service)}
                     />
-                    {service.name} - LKR {service.price.toLocaleString()}
+                    {service} - LKR {servicePrices[service].toLocaleString()}
                   </label>
                 ))}
               </div>
@@ -167,8 +169,9 @@ function AppointmentForm() {
           <div>
             <label>Any Special Requests?</label>
             <textarea
-              value={requests}
-              onChange={(e) => setRequests(e.target.value)}
+              name="requests"
+              value={formData.requests}
+              onChange={handleChange}
               placeholder="Let us know if you have any special requests..."
             />
           </div>
@@ -177,9 +180,9 @@ function AppointmentForm() {
           <div>
             <h3>Selected Services</h3>
             <ul>
-              {services.map((service, index) => (
+              {formData.services.map((service, index) => (
                 <li key={index}>
-                  {service.name} - LKR {service.price.toLocaleString()}
+                  {service} - LKR {servicePrices[service].toLocaleString()}
                 </li>
               ))}
             </ul>
