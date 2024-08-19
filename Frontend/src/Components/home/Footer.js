@@ -72,6 +72,7 @@ const FooterColumn = styled.div`
 
 const FooterTitle = styled.h3`
   margin-bottom: 15px;
+  color:#8b0000;
 `;
 
 const FooterLink = styled.a`
@@ -81,7 +82,7 @@ const FooterLink = styled.a`
   margin-bottom: 10px;
 
   &:hover {
-    color: #323952;
+    color: #8b0000;
   }
 `;
 
@@ -113,7 +114,7 @@ const SocialLink = styled.a`
   text-decoration: none;
 
   &:hover {
-    color: #323952;
+    color: #AE2012;
   }
 `;
 

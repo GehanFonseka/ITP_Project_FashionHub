@@ -74,7 +74,7 @@ const HeroTextBox = styled.div`
 `;
 
 const HeroHeading = styled.h2`
-  color: #ffffff; /* Bright cyan color for high visibility */
+  color: #e0f7fa; /* Bright cyan color for high visibility */
   margin-bottom: 10px;
   text-shadow: none; /* Removing text shadow to let the box do the work */
 `;
@@ -84,7 +84,7 @@ const ShopButton = styled.a`
   margin-top: 10px;
    text-align: center;
   padding: 10px 20px;
-  background-color: #323952; /* Bright green button for strong contrast and visibility */
+  background-color: #8b0000; /* Bright green button for strong contrast and visibility */
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;

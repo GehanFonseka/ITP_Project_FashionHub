@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Components/home/Header';
 import HeroSection from './Components/home/HeroSection';
 import AppointmentForm from './Components/salon/AppointmentForm';
+
+import Salonhome from './Components/salon/Salonhome';
 import Footer from './Components/home/Footer';
+
 
 function App() {
   return (
@@ -14,12 +17,12 @@ function App() {
       <Routes>
       
       <Route path="/" element={<HeroSection/>} />
-      <Route path="/salon" element={<AppointmentForm />} />
+      <Route path="/salon" element={<Salonhome/>} />
       
       </Routes>
-      <Footer />
+   <Footer />
     </Router>
-    
+   
   );
  
 }

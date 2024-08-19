@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import logo from '../../assets/Logo5.png'; 
+import logo from '../../assets/Logo6.png'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -68,7 +68,7 @@ const MenuItem = styled.a`
   margin-left: 15px;
 
    &:hover {
-    color: #323952; /* Optional: Add hover effect */
+    color: #AE2012; /* Optional: Add hover effect */
   }
 `;
 
@@ -89,7 +89,7 @@ const SearchInput = styled.input`
 
 
   &:focus {
-    border-color: #323952; /* Change the border color when focused */
+    border-color: #AE2012; /* Change the border color when focused */
   }
 `;
 const IconContainer = styled.div`
@@ -106,6 +106,6 @@ const IconLink = styled.a`
   text-decoration: none;
 
   &:hover {
-    color: #323952; /* Optional: Add hover effect */
+    color: #8b0000; /* Optional: Add hover effect */
   }
 `;
