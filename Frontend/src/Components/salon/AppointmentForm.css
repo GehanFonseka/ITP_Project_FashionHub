@@ -1,101 +1,124 @@
-/* AppointmentForm.css */
+/* Background styling */
+.appointment-form-background {
+  background: url('../../assets/salon.jpg') no-repeat center center fixed; /* Add your background image */
+  background-size: cover; /* Make sure the background image covers the entire container */
+  padding: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+}
 
+/* Container styling */
 .container {
-    max-width: 800px;
-   
-    margin: auto;
-    padding: 150px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="date"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  
-  textarea {
-    resize: vertical;
-  }
-  
-  button {
-    padding: 15px;
-    background-color: #0172B2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #015a8b;
-  }
-  
-  h3, h4 {
-    margin: 20px 0 10px;
-    color: #333;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    padding: 5px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .service-category {
-    margin-bottom: 20px;
-  }
-  
-  .service-category h4 {
-    margin-bottom: 10px;
-  }
-  
-  .checkbox-group {
-    margin-bottom: 20px;
-  }
-  
-  .checkbox-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .total-cost {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-  }
-  
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adjusted shadow for better visibility */
+  width: 90%;
+  max-width: 800px;
+}
+
+/* Headings */
+h2 {
+  font-size: 2rem;
+  color: #f5f5f5; /* Light text color */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #e0e0e0; /* Light text color */
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 1.25rem;
+  color: #d0d0d0; /* Light text color */
+  margin: 10px 0;
+}
+
+/* Input fields and labels */
+label {
+  display: block;
+  font-size: 1rem;
+  color: #f5f5f5; /* Light text color */
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #444; /* Dark border for contrast */
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  background-color: #333; /* Dark background for inputs */
+  color: #f5f5f5; /* Light text color for readability */
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.checkbox-group {
+  margin-top: 20px;
+}
+
+/* Service category styling */
+.service-category {
+  margin-bottom: 20px;
+}
+
+/* Special requests textarea */
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* Summary section */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  font-size: 1rem;
+  color: #ccc; /* Light text color */
+  margin-bottom: 5px;
+}
+
+.total-cost {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fff; /* Light text color */
+  margin-top: 10px;
+}
+
+/* Button styling */
+button[type="submit"] {
+  background-color: #e63946; /* Adjusted for better contrast */
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #d62839; /* Slightly darker red for hover effect */
+}
