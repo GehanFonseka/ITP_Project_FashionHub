@@ -1,30 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './Components/home/Header';
-import HeroSection from './Components/home/HeroSection';
-import AppointmentForm from './Components/salon/AppointmentForm';
 
-import Salonhome from './Components/salon/Salonhome';
-import Footer from './Components/home/Footer';
-
+import './App.css';
+import ReviewForm from './Components/review/ReviewForm';
 
 function App() {
   return (
-    <Router>
-    
-      <Header />
+    <div className="App">
      
-      <Routes>
       
-      <Route path="/" element={<HeroSection/>} />
-      <Route path="/salon" element={<Salonhome/>} />
+      <ReviewForm />
       
-      </Routes>
-   <Footer />
-    </Router>
-   
+    </div>
   );
- 
 }
 
 export default App;
