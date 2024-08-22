@@ -1,16 +1,30 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './Components/home/Header';
+import HeroSection from './Components/home/HeroSection';
 
-import './App.css';
-import ReviewForm from './Components/review/ReviewForm';
+import Footer from './Components/home/Footer';
+import ReviewForm from './Components/Review/ReviewForm';
+
 
 function App() {
   return (
-    <div className="App">
+    <Router>
+    
+      <Header />
      
+      <Routes>
       
-      <ReviewForm />
+      <Route path="/" element={<HeroSection/>} />
+      <Route path="/ReviewForm" element={<ReviewForm/>} />
+    
       
-    </div>
+      </Routes>
+   <Footer />
+    </Router>
+   
   );
+ 
 }
 
 export default App;
