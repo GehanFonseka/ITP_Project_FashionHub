@@ -17,13 +17,6 @@ import MyAppointmentForm from './Components/salon/MyAppointmentForm';
 
 
 
-
-//review
-import ReviewForm from './Components/Review/ReviewForm';
-
-
-
-
 function App() {
   return (
     <Router>
@@ -37,14 +30,7 @@ function App() {
         <Route path="/MyAppointmentForm" element={<><Sidebar /><MyAppointmentForm /></>} />
 
       
-      
-
-
-
-
-      <Route path="/" element={<ReviewForm />} />
-
-      
+    
       
 
       </Routes>
