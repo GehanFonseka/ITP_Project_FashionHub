@@ -13,7 +13,7 @@ import bodyTreatmentImage from "../../assets/BodyThreatment.jpg";
 
 
 // Main Salon Home Component
-const SalonHome = () => {
+const Salonhome = () => {
   return (
     <MainContainer>
       
@@ -199,4 +199,4 @@ const ActionButton = styled.a`
   }
 `;
 
-export default SalonHome;
+export default Salonhome;
