@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import './AppointmentForm.css'; // Import the CSS file
 import Layout from "./Layout";
 
-function AppointmentForm() {
-  // State variables to manage form data
+const AppointmentForm = () => {
+  // State variables to manage form data and validation errors
   const [formData, setFormData] = useState({
     name: "",
     contactNumber: "",
@@ -11,8 +11,9 @@ function AppointmentForm() {
     date: "",
     time: "",
     services: [],
-    requests: ""
+    requests: "",
   });
+  const [errors, setErrors] = useState({});
 
   // Service options with categories and prices
   const serviceOptions = {
@@ -21,7 +22,7 @@ function AppointmentForm() {
     "Body Treatment": ["Body Scrub", "Body Wrap", "Cellulite Treatment", "Tanning"],
     Nail: ["Manicure", "Pedicure", "Gel Manicure", "Nail Art"],
     Makeup: ["Basic Makeup Application", "Bridal Makeup", "Makeup Lesson"],
-    Massage: ["Swedish Massage", "Deep Tissue Massage", "Hot Stone Massage", "Aromatherapy Massage"]
+    Massage: ["Swedish Massage", "Deep Tissue Massage", "Hot Stone Massage", "Aromatherapy Massage"],
   };
 
   // Prices for each service
@@ -49,13 +50,16 @@ function AppointmentForm() {
     "Swedish Massage": 28800,
     "Deep Tissue Massage": 38400,
     "Hot Stone Massage": 35200,
-    "Aromatherapy Massage": 32000
+    "Aromatherapy Massage": 32000,
   };
 
   // Function to handle form data changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // Trigger validation for the specific field
+    validateField(name, value);
   };
 
   // Function to handle service selection
@@ -68,18 +72,103 @@ function AppointmentForm() {
     });
   };
 
+  // Validate specific field
+  const validateField = (name, value) => {
+    const newErrors = { ...errors };
+    const namePattern = /^[A-Za-z\s]+$/; // Letters and spaces only
+    const contactNumberPattern = /^\d{10}$/; // Exactly 10 digits
+
+    switch (name) {
+      case "name":
+        newErrors.name = !value || !namePattern.test(value) || value.length < 6 
+          ? "Full Name must only contain letters and spaces, and be at least 6 characters long." 
+          : "";
+        break;
+      case "contactNumber":
+        newErrors.contactNumber = !value || !contactNumberPattern.test(value) 
+          ? "Contact Number must be exactly 10 digits & Only contain Numbers." 
+          : "";
+        break;
+      case "email":
+        newErrors.email = !value || !value.includes('@') || value.length < 11 
+          ? "Email Address must include '@' and be at least 11 characters long." 
+          : "";
+        break;
+      case "date":
+        const today = new Date();
+        const selectedDate = new Date(value);
+        const twoMonthsLater = new Date(today.setMonth(today.getMonth() + 2));
+        newErrors.date = !value || selectedDate < new Date() || selectedDate > twoMonthsLater 
+          ? "Date must be within the next 2 months and not a past date." 
+          : "";
+        break;
+      case "time":
+        newErrors.time = !value ? "You must select a time." : "";
+        break;
+      default:
+        break;
+    }
+
+    setErrors(newErrors);
+  };
+
+  // Validate all fields before submission
+  const validateForm = () => {
+    const newErrors = {};
+    const namePattern = /^[A-Za-z\s]+$/; // Letters and spaces only
+    const contactNumberPattern = /^\d{10}$/; // Exactly 10 digits
+
+    // Name validation
+    if (!formData.name || !namePattern.test(formData.name) || formData.name.length < 6) {
+      newErrors.name = "Full Name must only contain letters and spaces, and be at least 6 characters long.";
+    }
+
+    // Contact number validation
+    if (!formData.contactNumber || !contactNumberPattern.test(formData.contactNumber)) {
+      newErrors.contactNumber = "Contact Number must be exactly 10 digits.";
+    }
+
+    // Email validation
+    if (!formData.email || !formData.email.includes('@') || formData.email.length < 11) {
+      newErrors.email = "Email Address must include '@' and be at least 11 characters long.";
+    }
+
+    // Date validation
+    const today = new Date();
+    const selectedDate = new Date(formData.date);
+    const twoMonthsLater = new Date(today.setMonth(today.getMonth() + 2));
+    if (!formData.date || selectedDate < new Date() || selectedDate > twoMonthsLater) {
+      newErrors.date = "Date must be within the next 2 months and not a past date.";
+    }
+
+    // Time validation
+    if (!formData.time) {
+      newErrors.time = "You must select a time.";
+    }
+
+    // Services validation
+    if (formData.services.length === 0) {
+      newErrors.services = "You must select at least one service.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Thank you! Your appointment has been booked.");
+    if (validateForm()) {
+      console.log(formData);
+      alert("Thank you! Your appointment has been booked.");
+    }
   };
 
   // Calculate the total cost of selected services
   const totalCost = formData.services.reduce((acc, service) => acc + servicePrices[service], 0);
 
   return (
-    
+    <Layout>
       <div className="appointment-form-background">
         <div className="container">
           <h2>Book Your Appointment</h2>
@@ -92,8 +181,10 @@ function AppointmentForm() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                onBlur={() => validateField('name', formData.name)}
                 required
               />
+              {errors.name && <p className="error">{errors.name}</p>}
             </div>
             <div>
               <label>Contact Number:</label>
@@ -102,8 +193,10 @@ function AppointmentForm() {
                 name="contactNumber"
                 value={formData.contactNumber}
                 onChange={handleChange}
+                onBlur={() => validateField('contactNumber', formData.contactNumber)}
                 required
               />
+              {errors.contactNumber && <p className="error">{errors.contactNumber}</p>}
             </div>
             <div>
               <label>Email Address:</label>
@@ -112,8 +205,10 @@ function AppointmentForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                onBlur={() => validateField('email', formData.email)}
                 required
               />
+              {errors.email && <p className="error">{errors.email}</p>}
             </div>
 
             {/* Date and Time Selection */}
@@ -124,8 +219,10 @@ function AppointmentForm() {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
+                onBlur={() => validateField('date', formData.date)}
                 required
               />
+              {errors.date && <p className="error">{errors.date}</p>}
             </div>
             <div>
               <label>Select Time:</label>
@@ -133,6 +230,7 @@ function AppointmentForm() {
                 name="time"
                 value={formData.time}
                 onChange={handleChange}
+                onBlur={() => validateField('time', formData.time)}
                 required
               >
                 <option value="">Select Time</option>
@@ -145,6 +243,7 @@ function AppointmentForm() {
                 <option value="3:00 PM">3:00 PM</option>
                 <option value="4:00 PM">4:00 PM</option>
               </select>
+              {errors.time && <p className="error">{errors.time}</p>}
             </div>
 
             {/* Service Selection */}
@@ -165,6 +264,7 @@ function AppointmentForm() {
                   ))}
                 </div>
               ))}
+              {errors.services && <p className="error">{errors.services}</p>}
             </div>
 
             {/* Additional Requests */}
@@ -196,7 +296,7 @@ function AppointmentForm() {
           </form>
         </div>
       </div>
-   
+    </Layout>
   );
 }
 
