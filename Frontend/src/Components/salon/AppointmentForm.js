@@ -168,7 +168,7 @@ const AppointmentForm = () => {
   const totalCost = formData.services.reduce((acc, service) => acc + servicePrices[service], 0);
 
   return (
-    <Layout>
+    
       <div className="appointment-form-background">
         <div className="container">
           <h2>Book Your Appointment</h2>
@@ -296,7 +296,7 @@ const AppointmentForm = () => {
           </form>
         </div>
       </div>
-    </Layout>
+   
   );
 }
 
