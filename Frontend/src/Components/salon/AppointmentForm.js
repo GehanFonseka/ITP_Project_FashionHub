@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './AppointmentForm.css'; // Import the CSS file
+import Layout from "./Layout";
 
 function AppointmentForm() {
   // State variables to manage form data
@@ -78,124 +79,125 @@ function AppointmentForm() {
   const totalCost = formData.services.reduce((acc, service) => acc + servicePrices[service], 0);
 
   return (
-    <div className="appointment-form-background">
-      <div className="container">
-        <h2>Book Your Appointment</h2>
-        <form onSubmit={handleSubmit}>
-          {/* Personal Information */}
-          <div>
-            <label>Full Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Contact Number:</label>
-            <input
-              type="text"
-              name="contactNumber"
-              value={formData.contactNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Email Address:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+    
+      <div className="appointment-form-background">
+        <div className="container">
+          <h2>Book Your Appointment</h2>
+          <form onSubmit={handleSubmit}>
+            {/* Personal Information */}
+            <div>
+              <label>Full Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Contact Number:</label>
+              <input
+                type="text"
+                name="contactNumber"
+                value={formData.contactNumber}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Email Address:</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          {/* Date and Time Selection */}
-          <div>
-            <label>Select Date:</label>
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Select Time:</label>
-            <select
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Time</option>
-              <option value="9:00 AM">9:00 AM</option>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="11:00 AM">11:00 AM</option>
-              <option value="12:00 PM">12:00 PM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="2:00 PM">2:00 PM</option>
-              <option value="3:00 PM">3:00 PM</option>
-              <option value="4:00 PM">4:00 PM</option>
-            </select>
-          </div>
+            {/* Date and Time Selection */}
+            <div>
+              <label>Select Date:</label>
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Select Time:</label>
+              <select
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Time</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+              </select>
+            </div>
 
-          {/* Service Selection */}
-          <div className="checkbox-group">
-            <h3>Choose Your Service(s)</h3>
-            {Object.keys(serviceOptions).map((category) => (
-              <div className="service-category" key={category}>
-                <h4>{category}</h4>
-                {serviceOptions[category].map((service) => (
-                  <label key={service}>
-                    <input
-                      type="checkbox"
-                      checked={formData.services.includes(service)}
-                      onChange={() => handleServiceChange(service)}
-                    />
-                    {service} - LKR {servicePrices[service].toLocaleString()}
-                  </label>
-                ))}
-              </div>
-            ))}
-          </div>
-
-          {/* Additional Requests */}
-          <div>
-            <label>Any Special Requests?</label>
-            <textarea
-              name="requests"
-              value={formData.requests}
-              onChange={handleChange}
-              placeholder="Let us know if you have any special requests..."
-            />
-          </div>
-
-          {/* Summary of Selected Services */}
-          <div>
-            <h3>Selected Services</h3>
-            <ul>
-              {formData.services.map((service, index) => (
-                <li key={index}>
-                  {service} - LKR {servicePrices[service].toLocaleString()}
-                </li>
+            {/* Service Selection */}
+            <div className="checkbox-group">
+              <h3>Choose Your Service(s)</h3>
+              {Object.keys(serviceOptions).map((category) => (
+                <div className="service-category" key={category}>
+                  <h4>{category}</h4>
+                  {serviceOptions[category].map((service) => (
+                    <label key={service}>
+                      <input
+                        type="checkbox"
+                        checked={formData.services.includes(service)}
+                        onChange={() => handleServiceChange(service)}
+                      />
+                      {service} - LKR {servicePrices[service].toLocaleString()}
+                    </label>
+                  ))}
+                </div>
               ))}
-            </ul>
-            <h4 className="total-cost">Total: LKR {totalCost.toLocaleString()}</h4>
-          </div>
+            </div>
 
-          {/* Submit Button */}
-          <button type="submit">Confirm Appointment</button>
-        </form>
+            {/* Additional Requests */}
+            <div>
+              <label>Any Special Requests?</label>
+              <textarea
+                name="requests"
+                value={formData.requests}
+                onChange={handleChange}
+                placeholder="Let us know if you have any special requests..."
+              />
+            </div>
+
+            {/* Summary of Selected Services */}
+            <div>
+              <h3>Selected Services</h3>
+              <ul>
+                {formData.services.map((service, index) => (
+                  <li key={index}>
+                    {service} - LKR {servicePrices[service].toLocaleString()}
+                  </li>
+                ))}
+              </ul>
+              <h4 className="total-cost">Total: LKR {totalCost.toLocaleString()}</h4>
+            </div>
+
+            {/* Submit Button */}
+            <button type="submit">Confirm Appointment</button>
+          </form>
+        </div>
       </div>
-    </div>
+   
   );
 }
 
 export default AppointmentForm;
-
