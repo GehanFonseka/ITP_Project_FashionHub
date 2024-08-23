@@ -16,7 +16,7 @@ function App() {
       <Routes>
       
       <Route path="/" element={<HeroSection/>} />
-      <Route path="/ReviewForm" element={<ReviewForm/>} />
+      <Route path="/help" element={<ReviewForm/>} />
     
       
       </Routes>

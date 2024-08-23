@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 import menImage from '../../assets/menImage.jpg'; // Use your own image paths
 import womenImage from '../../assets/womenImage.jpg';

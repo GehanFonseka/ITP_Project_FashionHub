@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styled, { createGlobalStyle } from 'styled-components';
+import backgroundImage from '../../assets/car-review-reputation-text-online-260nw-2357632809.webp';
+// Import the image
 
 // Global style for the background image
 const GlobalStyle = createGlobalStyle`
-  body {
-    
+   body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url("./assets/images.jpeg"); /* Local image URL */
+    background-image:  url(${backgroundImage});  /* Local image URL */
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Optional: makes the background image fixed during scroll */
@@ -54,13 +55,11 @@ const ReviewForm = () => {
       <GlobalStyle />
       <Container>
         <ProductInfo>
-          <ProductImage
-          // Placeholder image, replace with actual product image URL
-            alt="Bjorg chair"
-          />
+          
+          
           <ProductDetails>
-            <ProductTitle>Bjorg chair White Plastic</ProductTitle>
-            <ProductDescription>Armchair in polypropylene. Seat and legs in solid natural beech wood.</ProductDescription>
+            <ProductTitle>Your feedback helps us improve and continue delivering excellence.</ProductTitle>
+          
           </ProductDetails>
         </ProductInfo>
 
@@ -120,16 +119,17 @@ const ReviewForm = () => {
 export default ReviewForm;
 
 const Container = styled.div`
-  max-width: 600px;
-  height: 600px;
-  margin: 100px auto; /* Adjust margin to fit with fixed header */
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: black;
-  color: white;
-  border: 2px solid #AE2012;
-  border-radius: 10px;
+max-width: 600px;
+height: 600px;
+margin: 100px auto;
+padding: 20px;
+font-family: Arial, sans-serif;
+background-color: rgba(0, 0, 0, 0.6); /* Black background with 60% opacity */
+color: white;
+border: 2px solid #AE2012;
+border-radius: 10px;
 `;
+
 
 const ProductInfo = styled.div`
   display: flex;
@@ -147,9 +147,12 @@ const ProductDetails = styled.div`
 `;
 
 const ProductTitle = styled.h3`
-  color: #AE2012;
+  color: #FFFF00 /* Soft gold color */
   margin: 0;
+  text-align: center;
+  font-size: 20px;
 `;
+
 
 const ProductDescription = styled.p`
   margin: 5px 0 0 0;
