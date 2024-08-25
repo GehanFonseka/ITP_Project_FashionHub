@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import './AppointmentForm.css'; // Import the CSS file
-import Layout from "./Layout";
+import axios from 'axios'; // Import axios for HTTP requests
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AppointmentForm = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const editData = location.state?.editData || {}; // Get the data passed for editing, if any
+
   // State variables to manage form data and validation errors
   const [formData, setFormData] = useState({
-    name: "",
-    contactNumber: "",
-    email: "",
-    date: "",
-    time: "",
-    services: [],
-    requests: "",
+    name: editData.name || "",
+    contactNumber: editData.contactNumber || "",
+    email: editData.email || "",
+    date: editData.date || "",
+    time: editData.time || "",
+    services: editData.services || [],
+    requests: editData.requests || "",
   });
   const [errors, setErrors] = useState({});
 
@@ -56,7 +61,7 @@ const AppointmentForm = () => {
   // Function to handle form data changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevData => ({ ...prevData, [name]: value }));
 
     // Trigger validation for the specific field
     validateField(name, value);
@@ -64,9 +69,9 @@ const AppointmentForm = () => {
 
   // Function to handle service selection
   const handleServiceChange = (service) => {
-    setFormData((prevData) => {
+    setFormData(prevData => {
       const services = prevData.services.includes(service)
-        ? prevData.services.filter((s) => s !== service)
+        ? prevData.services.filter(s => s !== service)
         : [...prevData.services, service];
       return { ...prevData, services };
     });
@@ -80,26 +85,26 @@ const AppointmentForm = () => {
 
     switch (name) {
       case "name":
-        newErrors.name = !value || !namePattern.test(value) || value.length < 6 
-          ? "Full Name must only contain letters and spaces, and be at least 6 characters long." 
+        newErrors.name = !value || !namePattern.test(value) || value.length < 6
+          ? "Full Name must only contain letters and spaces, and be at least 6 characters long."
           : "";
         break;
       case "contactNumber":
-        newErrors.contactNumber = !value || !contactNumberPattern.test(value) 
-          ? "Contact Number must be exactly 10 digits & Only contain Numbers." 
+        newErrors.contactNumber = !value || !contactNumberPattern.test(value)
+          ? "Contact Number must be exactly 10 digits & Only contain Numbers."
           : "";
         break;
       case "email":
-        newErrors.email = !value || !value.includes('@') || value.length < 11 
-          ? "Email Address must include '@' and be at least 11 characters long." 
+        newErrors.email = !value || !value.includes('@') || value.length < 11
+          ? "Email Address must include '@' and be at least 11 characters long."
           : "";
         break;
       case "date":
         const today = new Date();
         const selectedDate = new Date(value);
         const twoMonthsLater = new Date(today.setMonth(today.getMonth() + 2));
-        newErrors.date = !value || selectedDate < new Date() || selectedDate > twoMonthsLater 
-          ? "Date must be within the next 2 months and not a past date." 
+        newErrors.date = !value || selectedDate < new Date() || selectedDate > twoMonthsLater
+          ? "Date must be within the next 2 months and not a past date."
           : "";
         break;
       case "time":
@@ -156,11 +161,37 @@ const AppointmentForm = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validateForm()) {
-      console.log(formData);
-      alert("Thank you! Your appointment has been booked.");
+      try {
+        if (editData._id) {
+          // Editing existing appointment
+          await axios.put(`/api/appointment/${editData._id}`, formData);
+          alert("Your appointment has been updated.");
+        } else {
+          // Creating new appointment
+          await axios.post('/api/appointment', formData);
+          alert("Thank you! Your appointment has been booked.");
+        }
+
+        // Reset form data and errors
+        setFormData({
+          name: "",
+          contactNumber: "",
+          email: "",
+          date: "",
+          time: "",
+          services: [],
+          requests: "",
+        });
+        setErrors({});
+        navigate('/MyAppointmentForm');
+      } catch (error) {
+        console.error("Error submitting the form:", error);
+        alert("There was an error submitting your appointment. Please try again later.");
+      }
     }
   };
 
@@ -168,136 +199,137 @@ const AppointmentForm = () => {
   const totalCost = formData.services.reduce((acc, service) => acc + servicePrices[service], 0);
 
   return (
-    
-      <div className="appointment-form-background">
-        <div className="container">
-          <h2>Book Your Appointment</h2>
-          <form onSubmit={handleSubmit}>
-            {/* Personal Information */}
-            <div>
-              <label>Full Name:</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                onBlur={() => validateField('name', formData.name)}
-                required
-              />
-              {errors.name && <p className="error">{errors.name}</p>}
-            </div>
-            <div>
-              <label>Contact Number:</label>
-              <input
-                type="text"
-                name="contactNumber"
-                value={formData.contactNumber}
-                onChange={handleChange}
-                onBlur={() => validateField('contactNumber', formData.contactNumber)}
-                required
-              />
-              {errors.contactNumber && <p className="error">{errors.contactNumber}</p>}
-            </div>
-            <div>
-              <label>Email Address:</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                onBlur={() => validateField('email', formData.email)}
-                required
-              />
-              {errors.email && <p className="error">{errors.email}</p>}
-            </div>
+    <div className="appointment-form-background">
+      <div className="container">
+        <h2>Book Your Appointment</h2>
+        <form onSubmit={handleSubmit}>
+          {/* Personal Information */}
+          <div>
+            <label>Full Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              onBlur={() => validateField('name', formData.name)}
+              required
+            />
+            {errors.name && <p className="error">{errors.name}</p>}
+          </div>
+          <div>
+            <label>Contact Number:</label>
+            <input
+              type="text"
+              name="contactNumber"
+              value={formData.contactNumber}
+              onChange={handleChange}
+              onBlur={() => validateField('contactNumber', formData.contactNumber)}
+              required
+            />
+            {errors.contactNumber && <p className="error">{errors.contactNumber}</p>}
+          </div>
+          <div>
+            <label>Email Address:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              onBlur={() => validateField('email', formData.email)}
+              required
+            />
+            {errors.email && <p className="error">{errors.email}</p>}
+          </div>
 
-            {/* Date and Time Selection */}
-            <div>
-              <label>Select Date:</label>
-              <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                onBlur={() => validateField('date', formData.date)}
-                required
-              />
-              {errors.date && <p className="error">{errors.date}</p>}
-            </div>
-            <div>
-              <label>Select Time:</label>
-              <select
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                onBlur={() => validateField('time', formData.time)}
-                required
-              >
-                <option value="">Select Time</option>
-                <option value="9:00 AM">9:00 AM</option>
-                <option value="10:00 AM">10:00 AM</option>
-                <option value="11:00 AM">11:00 AM</option>
-                <option value="12:00 PM">12:00 PM</option>
-                <option value="1:00 PM">1:00 PM</option>
-                <option value="2:00 PM">2:00 PM</option>
-                <option value="3:00 PM">3:00 PM</option>
-                <option value="4:00 PM">4:00 PM</option>
-              </select>
-              {errors.time && <p className="error">{errors.time}</p>}
-            </div>
+          {/* Date and Time Selection */}
+          <div>
+            <label>Select Date:</label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              onBlur={() => validateField('date', formData.date)}
+              required
+            />
+            {errors.date && <p className="error">{errors.date}</p>}
+          </div>
+          <div>
+            <label>Select Time:</label>
+            <select
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
+              onBlur={() => validateField('time', formData.time)}
+              required
+            >
+              <option value="">Select Time</option>
+              <option value="9:00 AM">9:00 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="3:00 PM">3:00 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+              <option value="5:00 PM">5:00 PM</option>
+              <option value="6:00 PM">6:00 PM</option>
+            </select>
+            {errors.time && <p className="error">{errors.time}</p>}
+          </div>
 
-            {/* Service Selection */}
-            <div className="checkbox-group">
-              <h3>Choose Your Service(s)</h3>
-              {Object.keys(serviceOptions).map((category) => (
-                <div className="service-category" key={category}>
+          {/* Service Selection */}
+          <div>
+            <label>Select Services:</label>
+            <div className="service-categories">
+              {Object.entries(serviceOptions).map(([category, services]) => (
+                <div key={category}>
                   <h4>{category}</h4>
-                  {serviceOptions[category].map((service) => (
-                    <label key={service}>
-                      <input
-                        type="checkbox"
-                        checked={formData.services.includes(service)}
-                        onChange={() => handleServiceChange(service)}
-                      />
-                      {service} - LKR {servicePrices[service].toLocaleString()}
-                    </label>
+                  {services.map((service) => (
+                    <div key={service}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          id={service}
+                          name="services"
+                          value={service}
+                          checked={formData.services.includes(service)}
+                          onChange={() => handleServiceChange(service)}
+                        />
+                        {service} - {servicePrices[service]} LKR
+                      </label>
+                    </div>
                   ))}
                 </div>
               ))}
               {errors.services && <p className="error">{errors.services}</p>}
             </div>
+          </div>
 
-            {/* Additional Requests */}
-            <div>
-              <label>Any Special Requests?</label>
-              <textarea
-                name="requests"
-                value={formData.requests}
-                onChange={handleChange}
-                placeholder="Let us know if you have any special requests..."
-              />
-            </div>
+          {/* Special Requests */}
+          <div>
+            <label>Any Special Requests?</label>
+            <textarea
+              name="requests"
+              value={formData.requests}
+              onChange={handleChange}
+              placeholder="Let us know if you have any special requests..."
+            />
+          </div>
 
-            {/* Summary of Selected Services */}
-            <div>
-              <h3>Selected Services</h3>
-              <ul>
-                {formData.services.map((service, index) => (
-                  <li key={index}>
-                    {service} - LKR {servicePrices[service].toLocaleString()}
-                  </li>
-                ))}
-              </ul>
-              <h4 className="total-cost">Total: LKR {totalCost.toLocaleString()}</h4>
-            </div>
+          {/* Total Cost */}
+          <div>
+            <h3>Total Cost: {totalCost.toLocaleString()} LKR</h3>
+          </div>
 
-            {/* Submit Button */}
-            <button type="submit">Confirm Appointment</button>
-          </form>
-        </div>
+          {/* Submit Button */}
+          <button type="submit">
+            {editData._id ? "Update Appointment" : "Book Appointment"}
+          </button>
+        </form>
       </div>
-   
+    </div>
   );
-}
+};
 
 export default AppointmentForm;

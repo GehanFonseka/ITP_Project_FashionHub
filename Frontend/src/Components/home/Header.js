@@ -16,6 +16,7 @@ const Header = () => {
         <MenuItem href="/footwear">Footwear</MenuItem>
         <MenuItem href="/accessories">Accessories</MenuItem>
         <MenuItem href="/help">Help</MenuItem>
+        <MenuItem href="/register">Register</MenuItem>
       </Menu>
       <SearchContainer>
         <SearchInput type="text" placeholder="Search..." />
@@ -69,7 +70,7 @@ const MenuItem = styled.a`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 360px; /* Adjust this to position the search bar */
+  margin-left: 260px; /* Adjust this to position the search bar */
   margin-top: 15px; /* Adjusted margin to align search bar */
 `;
 

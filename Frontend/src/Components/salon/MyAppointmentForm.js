@@ -1,65 +1,91 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const MyAppointmentForm = () => {
-  const appointments = [
-    {
-      category: 'Facial',
-      service: 'Basic Facial',
-      dateTime: '13-Aug-2023 at 10:00 AM',
-      price: 'LKR 1,000',
-    },
-    {
-      category: 'Massage',
-      service: 'Hair Coloring',
-      dateTime: '13-Aug-2023 at 10:00 AM',
-      price: 'LKR 5,000',
-    },
-    {
-      category: 'Massage',
-      service: 'Hot Stone Massage',
-      dateTime: '13-Aug-2023 at 10:00 AM',
-      price: 'LKR 5,000',
-    },
-  ];
+  const [appointments, setAppointments] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get('/api/appointment');
+        setAppointments(response.data);
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
+
+  // Function to handle the Edit button click
+  const handleEdit = (appointment) => {
+    navigate('/AppointmentForm', { state: { editData: appointment } });
+  };
+
+  const handleDelete = async (id) => {
+    // Confirm deletion
+    const confirmDelete = window.confirm('Are you sure you want to delete this appointment?');
+    if (!confirmDelete) return; // Exit if user cancels
+
+    try {
+      await axios.delete(`/api/appointment/${id}`);
+      setAppointments(appointments.filter((appointment) => appointment._id !== id));
+      alert('Appointment deleted successfully'); // Show success message
+    } catch (error) {
+      console.error('Error deleting appointment:', error);
+      alert('Error deleting appointment. Please try again.'); // Show error message
+    }
+  };
 
   return (
     <Container>
       <TitleContainer>
-        <Title>MY APPOINTMENTS</Title>
+        <Title>My Appointments</Title>
         <BookNowButton href="/AppointmentForm">Book now</BookNowButton>
       </TitleContainer>
-      <Table>
-        <thead>
-          <TableRow>
-            <TableHeader>Service Category</TableHeader>
-            <TableHeader>Service Name</TableHeader>
-            <TableHeader>Appointment Date & Time</TableHeader>
-            <TableHeader>Price (LKR)</TableHeader>
-            <TableHeader>Action</TableHeader>
-          </TableRow>
-        </thead>
-        <tbody>
-          {appointments.map((appointment, index) => (
-            <TableRow key={index}>
-              <TableData>{appointment.category}</TableData>
-              <TableData>{appointment.service}</TableData>
-              <TableData>{appointment.dateTime}</TableData>
-              <TableData>{appointment.price}</TableData>
-              <TableData>
-                <ActionButton>Edit</ActionButton>
-                <ActionButton>Delete</ActionButton>
-              </TableData>
-            </TableRow>
-          ))}
-        </tbody>
-      </Table>
+      {appointments.length === 0 ? (
+        <p>No appointments found.</p>
+      ) : (
+        <Table>
+          <thead>
+            <tr>
+              <TableHeader>Name</TableHeader>
+              <TableHeader>Contact Number</TableHeader>
+              <TableHeader>Email</TableHeader>
+              <TableHeader>Date</TableHeader>
+              <TableHeader>Time</TableHeader>
+              <TableHeader>Services</TableHeader>
+              <TableHeader>Action</TableHeader>
+            </tr>
+          </thead>
+          <tbody>
+            {appointments.map((appt) => (
+              <TableRow key={appt._id}>
+                <TableData>{appt.name}</TableData>
+                <TableData>{appt.contactNumber}</TableData>
+                <TableData>{appt.email}</TableData>
+                <TableData>{new Date(appt.date).toLocaleDateString()}</TableData>
+                <TableData>{appt.time}</TableData>
+                <TableData>{appt.services.join(', ')}</TableData>
+                <TableData>
+                  <ActionButtonContainer>
+                    <ActionButton onClick={() => handleEdit(appt)}>Edit</ActionButton>
+                    <ActionButton onClick={() => handleDelete(appt._id)}>Delete</ActionButton>
+                  </ActionButtonContainer>
+                </TableData>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </Container>
   );
 };
 
 // Styled Components
-
 const Container = styled.div`
   margin: 80px;
   background-color: #fff;
@@ -100,12 +126,6 @@ const Table = styled.table`
   border-collapse: collapse;
 `;
 
-const TableRow = styled.tr`
-  &:nth-child(even) {
-    background-color: #f8f8f8;
-  }
-`;
-
 const TableHeader = styled.th`
   padding: 15px;
   background-color: #333;
@@ -114,10 +134,21 @@ const TableHeader = styled.th`
   border-bottom: 2px solid #ddd;
 `;
 
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f8f8f8;
+  }
+`;
+
 const TableData = styled.td`
   padding: 15px;
   border-bottom: 1px solid #ddd;
   color: #333;
+`;
+
+const ActionButtonContainer = styled.div`
+  display: flex;
+  gap: 5px; /* Space between buttons */
 `;
 
 const ActionButton = styled.button`
@@ -125,10 +156,11 @@ const ActionButton = styled.button`
   color: white;
   border: none;
   padding: 8px 12px;
-  margin-right: 5px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  flex: 1; /* Ensure buttons are the same size */
+  text-align: center; /* Center text in buttons */
 
   &:hover {
     background-color: #920d0d;
