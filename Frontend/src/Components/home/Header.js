@@ -45,14 +45,15 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.img`
-  height: 42px; /* Slightly increased logo height */
+padding-top:9px;
+  height: 49px; /* Slightly increased logo height */
 `;
 
 const Menu = styled.div`
   margin-left: 50px;
   display: flex;
   gap: 25px;
-  padding-top: 8px; /* Adjusted padding to align menu items */
+  padding-top: 23px; /* Adjusted padding to align menu items */
 `;
 
 const MenuItem = styled.a`
@@ -68,8 +69,8 @@ const MenuItem = styled.a`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 220px; /* Adjust this to position the search bar */
-  margin-top: 5px; /* Adjusted margin to align search bar */
+  margin-left: 360px; /* Adjust this to position the search bar */
+  margin-top: 15px; /* Adjusted margin to align search bar */
 `;
 
 const SearchInput = styled.input`
@@ -87,7 +88,7 @@ const SearchInput = styled.input`
 
 const IconContainer = styled.div`
   display: flex;
-  padding-top: 8px; /* Adjusted padding to align icons */
+  padding-top: 23px; /* Adjusted padding to align icons */
   gap: 35px; /* Adjusted gap between icons */
   margin-left: 55px; /* Adjust this value as needed */
 `;
