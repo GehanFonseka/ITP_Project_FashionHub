@@ -13,8 +13,8 @@ const Header = () => {
         <MenuItem href="/">Home</MenuItem>
         <MenuItem href="/clothing1">Clothing</MenuItem>
         <MenuItem href="/salon">Saloon</MenuItem>
-        <MenuItem href="/footwear">Footwear</MenuItem>
-        <MenuItem href="/accessories">Accessories</MenuItem>
+        <MenuItem href="/F_Home">Footwear</MenuItem>
+        <MenuItem href="/A_Home">Accessories</MenuItem>
         <MenuItem href="/help">Help</MenuItem>
       </Menu>
       <SearchContainer>
