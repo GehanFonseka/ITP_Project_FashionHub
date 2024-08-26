@@ -16,7 +16,6 @@ const Header = () => {
         <MenuItem href="/footwear">Footwear</MenuItem>
         <MenuItem href="/Dashboard">Accessories</MenuItem>
         <MenuItem href="">Help</MenuItem>
-        
       </Menu>
       <SearchContainer>
         <SearchInput type="text" placeholder="Search..." />
