@@ -29,6 +29,7 @@ const Header = () => {
         <IconLink href="#">
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
+        
       </IconContainer>
     </Nav>
   );
