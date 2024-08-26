@@ -16,7 +16,7 @@ const Header = () => {
         <MenuItem href="/salon">Saloon</MenuItem>
         <MenuItem href="/footwear">Footwear</MenuItem>
         <MenuItem href="/accessories">Accessories</MenuItem>
-        <MenuItem href="/help">Help</MenuItem>
+        <MenuItem href="/Help">Help</MenuItem>
 
       </Menu>
       <SearchContainer>
@@ -38,7 +38,7 @@ export default Header;
 
 const Nav = styled.nav`
    display: flex;
-  padding: 20px;
+  padding: 10px;
   background-color: #000;
   position: fixed;
   top: 0;
@@ -54,9 +54,9 @@ height: 50px;
 
 
 const Menu = styled.div`
-margin-left: 50px;
+margin-left: 0px;
   display: flex;
-  gap: 25px;
+  gap: 15px;
   padding-top:15px;
 `;
 
@@ -85,6 +85,7 @@ const SearchInput = styled.input`
   border: 1px solid #ccc;
   font-size: 16px;
   width: 250px; /* Adjust width as needed */
+  height: 1px;
   outline: none;
 
 
