@@ -78,13 +78,13 @@ const WeeklySales = () => {
       { week: '2024-W01', revenue: 3000, expenses: 2000, profit: 1000, profitLossPercentage: 33.33 },
       { week: '2024-W02', revenue: 3500, expenses: 2500, profit: 1000, profitLossPercentage: 28.57 },
       { week: '2024-W03', revenue: 3200, expenses: 2200, profit: 1000, profitLossPercentage: 31.25 },
-      { week: '2024-W04', revenue: 3300, expenses: 2400, profit: 900, profitLossPercentage: 27.27 },
-      { week: '2024-W05', revenue: 3400, expenses: 2600, profit: 800, profitLossPercentage: 23.53 },
-      { week: '2024-W06', revenue: 3100, expenses: 2300, profit: 800, profitLossPercentage: 25.81 },
-      { week: '2024-W07', revenue: 2900, expenses: 2800, profit: 100, profitLossPercentage: 3.45 }, // Small profit
-      { week: '2024-W08', revenue: 3000, expenses: 3200, profit: -200, profitLossPercentage: -6.67 }, // Loss data
-      { week: '2024-W09', revenue: 2800, expenses: 3400, profit: -600, profitLossPercentage: -21.43 }, // Loss data
-      { week: '2024-W10', revenue: 2700, expenses: 3500, profit: -800, profitLossPercentage: -29.63 }, // Loss data
+      // { week: '2024-W04', revenue: 3300, expenses: 2400, profit: 900, profitLossPercentage: 27.27 },
+      // { week: '2024-W05', revenue: 3400, expenses: 2600, profit: 800, profitLossPercentage: 23.53 },
+      // { week: '2024-W06', revenue: 3100, expenses: 2300, profit: 800, profitLossPercentage: 25.81 },
+      // { week: '2024-W07', revenue: 2900, expenses: 2800, profit: 100, profitLossPercentage: 3.45 }, // Small profit
+      // { week: '2024-W08', revenue: 3000, expenses: 3200, profit: -200, profitLossPercentage: -6.67 }, // Loss data
+      // { week: '2024-W09', revenue: 2800, expenses: 3400, profit: -600, profitLossPercentage: -21.43 }, // Loss data
+      // { week: '2024-W10', revenue: 2700, expenses: 3500, profit: -800, profitLossPercentage: -29.63 }, // Loss data
     ];
 
     setSalesData(sampleData);

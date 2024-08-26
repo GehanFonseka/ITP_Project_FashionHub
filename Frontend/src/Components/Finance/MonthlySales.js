@@ -97,13 +97,13 @@ const MonthlySales = () => {
       { month: '2024-01', revenue: 12000, expenses: 8000, profit: 4000, profitLossPercentage: 33.33 },
       { month: '2024-02', revenue: 15000, expenses: 9000, profit: 6000, profitLossPercentage: 40.00 },
       { month: '2024-03', revenue: 11000, expenses: 7000, profit: 4000, profitLossPercentage: 36.36 },
-      { month: '2024-04', revenue: 13000, expenses: 8500, profit: 4500, profitLossPercentage: 34.62 },
-      { month: '2024-05', revenue: 14000, expenses: 9500, profit: 4500, profitLossPercentage: 32.14 },
-      { month: '2024-06', revenue: 12500, expenses: 7500, profit: 5000, profitLossPercentage: 40.00 },
-      { month: '2024-07', revenue: 16000, expenses: 10000, profit: 6000, profitLossPercentage: 37.50 },
-      { month: '2024-08', revenue: 13500, expenses: 14500, profit: -1000, profitLossPercentage: -7.41 }, // Loss data with negative percentage
-      { month: '2024-09', revenue: 14500, expenses: 15500, profit: -1000, profitLossPercentage: -6.90 }, // Loss data with negative percentage
-      { month: '2024-10', revenue: 15500, expenses: 17000, profit: -1500, profitLossPercentage: -9.68 }, // Loss data with negative percentage
+      // { month: '2024-04', revenue: 13000, expenses: 8500, profit: 4500, profitLossPercentage: 34.62 },
+      // { month: '2024-05', revenue: 14000, expenses: 9500, profit: 4500, profitLossPercentage: 32.14 },
+      // { month: '2024-06', revenue: 12500, expenses: 7500, profit: 5000, profitLossPercentage: 40.00 },
+      // { month: '2024-07', revenue: 16000, expenses: 10000, profit: 6000, profitLossPercentage: 37.50 },
+      // { month: '2024-08', revenue: 13500, expenses: 14500, profit: -1000, profitLossPercentage: -7.41 }, // Loss data with negative percentage
+      // { month: '2024-09', revenue: 14500, expenses: 15500, profit: -1000, profitLossPercentage: -6.90 }, // Loss data with negative percentage
+      // { month: '2024-10', revenue: 15500, expenses: 17000, profit: -1500, profitLossPercentage: -9.68 }, // Loss data with negative percentage
     ];
 
     // Filter data based on selected month and store

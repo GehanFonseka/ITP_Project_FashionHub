@@ -64,16 +64,9 @@ const Customers = () => {
   useEffect(() => {
     // Sample customer data
     const sampleData = [
-      { name: 'John Doe', email: 'john.doe@example.com', phone: '123-456-7890' },
-      { name: 'Jane Smith', email: 'jane.smith@example.com', phone: '987-654-3210' },
-      { name: 'Alice Johnson', email: 'alice.johnson@example.com', phone: '555-555-5555' },
-      { name: 'Bob Brown', email: 'bob.brown@example.com', phone: '444-444-4444' },
-      { name: 'Charlie White', email: 'charlie.white@example.com', phone: '333-333-3333' },
-      { name: 'Daisy Blue', email: 'daisy.blue@example.com', phone: '222-222-2222' },
-      { name: 'Edward Black', email: 'edward.black@example.com', phone: '111-111-1111' },
-      { name: 'Fiona Gray', email: 'fiona.gray@example.com', phone: '666-666-6666' },
-      { name: 'George Pink', email: 'george.pink@example.com', phone: '777-777-7777' },
-      { name: 'Hannah Purple', email: 'hannah.purple@example.com', phone: '888-888-8888' },
+      { name: 'Kavishka', email: 'Kavishka@example.com', phone: '0779867546' },
+      { name: 'Omash', email: 'Omash@example.com', phone: '0342345633' },
+
     ];
 
     setCustomersData(sampleData);

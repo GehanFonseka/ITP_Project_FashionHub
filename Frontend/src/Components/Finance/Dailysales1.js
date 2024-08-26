@@ -79,13 +79,13 @@ const DailySalesPage = () => {
       { date: '2024-08-01', revenue: 1200, expenses: 800, profit: 400, profitLossPercentage: 33.33 },
       { date: '2024-08-02', revenue: 1500, expenses: 900, profit: 600, profitLossPercentage: 40.00 },
       { date: '2024-08-03', revenue: 1100, expenses: 1200, profit: -100, profitLossPercentage: -9.09 },
-      { date: '2024-08-04', revenue: 1300, expenses: 1350, profit: -50, profitLossPercentage: -3.85 },
-      { date: '2024-08-05', revenue: 1400, expenses: 950, profit: 450, profitLossPercentage: 32.14 },
-      { date: '2024-08-06', revenue: 1250, expenses: 1450, profit: -200, profitLossPercentage: -13.79 },
-      { date: '2024-08-07', revenue: 1600, expenses: 1000, profit: 600, profitLossPercentage: 37.50 },
-      { date: '2024-08-08', revenue: 1350, expenses: 1450, profit: -100, profitLossPercentage: -7.41 },
-      { date: '2024-08-09', revenue: 1450, expenses: 1500, profit: -50, profitLossPercentage: -3.33 },
-      { date: '2024-08-10', revenue: 1550, expenses: 1000, profit: 550, profitLossPercentage: 35.48 },
+      // { date: '2024-08-04', revenue: 1300, expenses: 1350, profit: -50, profitLossPercentage: -3.85 },
+      // { date: '2024-08-05', revenue: 1400, expenses: 950, profit: 450, profitLossPercentage: 32.14 },
+      // { date: '2024-08-06', revenue: 1250, expenses: 1450, profit: -200, profitLossPercentage: -13.79 },
+      // { date: '2024-08-07', revenue: 1600, expenses: 1000, profit: 600, profitLossPercentage: 37.50 },
+      // { date: '2024-08-08', revenue: 1350, expenses: 1450, profit: -100, profitLossPercentage: -7.41 },
+      // { date: '2024-08-09', revenue: 1450, expenses: 1500, profit: -50, profitLossPercentage: -3.33 },
+      // { date: '2024-08-10', revenue: 1550, expenses: 1000, profit: 550, profitLossPercentage: 35.48 },
     ];
 
     // Update sales data with currency as Rs.

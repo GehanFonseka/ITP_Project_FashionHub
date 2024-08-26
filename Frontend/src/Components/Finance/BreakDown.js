@@ -3,6 +3,7 @@ import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import SideBar from './SideBar';
 
+
 const styles = {
   container: {
     display: 'flex',
@@ -63,6 +64,7 @@ const BreakDown = () => {
 
   return (
     <div style={styles.container}>
+        
         <SideBar/>
       <h1 style={styles.title}>Sales Breakdown</h1>
       <div style={styles.pickerContainer}>

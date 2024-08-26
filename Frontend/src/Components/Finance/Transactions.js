@@ -67,13 +67,13 @@ const Transactions = () => {
       { username: 'JohnDoe', date: '2024-08-01', numProducts: 3, totalPrice: 'Rs. 150' },
       { username: 'JaneSmith', date: '2024-08-02', numProducts: 2, totalPrice: 'Rs. 200' },
       { username: 'AliceBrown', date: '2024-08-03', numProducts: 1, totalPrice: 'Rs. 90' },
-      { username: 'BobGreen', date: '2024-08-04', numProducts: 4, totalPrice: 'Rs. 300' },
-      { username: 'CharlieWhite', date: '2024-08-05', numProducts: 5, totalPrice: 'Rs. 500' },
-      { username: 'DaisyBlue', date: '2024-08-06', numProducts: 2, totalPrice: 'Rs. 120' },
-      { username: 'EdwardBlack', date: '2024-08-07', numProducts: 3, totalPrice: 'Rs. 180' },
-      { username: 'FionaGray', date: '2024-08-08', numProducts: 4, totalPrice: 'Rs. 250' },
-      { username: 'GeorgePink', date: '2024-08-09', numProducts: 1, totalPrice: 'Rs. 80' },
-      { username: 'HannahPurple', date: '2024-08-10', numProducts: 6, totalPrice: 'Rs. 600' },
+      // { username: 'BobGreen', date: '2024-08-04', numProducts: 4, totalPrice: 'Rs. 300' },
+      // { username: 'CharlieWhite', date: '2024-08-05', numProducts: 5, totalPrice: 'Rs. 500' },
+      // { username: 'DaisyBlue', date: '2024-08-06', numProducts: 2, totalPrice: 'Rs. 120' },
+      // { username: 'EdwardBlack', date: '2024-08-07', numProducts: 3, totalPrice: 'Rs. 180' },
+      // { username: 'FionaGray', date: '2024-08-08', numProducts: 4, totalPrice: 'Rs. 250' },
+      // { username: 'GeorgePink', date: '2024-08-09', numProducts: 1, totalPrice: 'Rs. 80' },
+      // { username: 'HannahPurple', date: '2024-08-10', numProducts: 6, totalPrice: 'Rs. 600' },
     ];
 
     setTransactionsData(sampleData);

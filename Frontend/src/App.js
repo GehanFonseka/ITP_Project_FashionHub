@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Components/home/Header';
 
 import HeroSection from './Components/home/HeroSection';
-
 import Dailysales1 from './Components/Finance/Dailysales1';
 import Dashboard from './Components/Finance/Dashboard';
 import MonthlySales from './Components/Finance/MonthlySales';
@@ -12,6 +11,7 @@ import Customers from './Components/Finance/Customers';
 import Transactions from './Components/Finance/Transactions';
 import BreakDown from './Components/Finance/BreakDown';
 import Salaries from './Components/Finance/Salaries';
+
 
 import Footer from './Components/home/Footer';
 
@@ -37,6 +37,7 @@ function App() {
       <Route path="/Transactions" element={<Transactions />} />
       <Route path="/BreakDown" element={<BreakDown/>} />
       <Route path="/Salaries" element={<Salaries/>} />
+     
 
 
 
