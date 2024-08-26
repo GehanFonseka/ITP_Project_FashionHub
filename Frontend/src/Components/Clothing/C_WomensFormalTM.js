@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import C9 from '../../assets/C9.webp';
-import C10 from '../../assets/C10.webp';
-import C11 from '../../assets/C11.jpg';
+import C23 from '../../assets/C23.jpg'; // Updated image path for Blazers
+import C24 from '../../assets/C24.webp'; // Updated image path for Trousers
+import C25 from '../../assets/C25.webp'; // Updated image path for Shirts
 
 // Container for the entire page
 const Container = styled.div`
@@ -67,44 +67,28 @@ const BlackLabel = styled.div`
   z-index: 2; /* Ensure label is above the overlay */
 `;
 
-const C_MensCasual = () => {
+const C_WomensFormalTM = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
-  // Function to handle navigation to the Pants page
-  const handlePantsClick = () => {
-    navigate('/C_MensCasualPants'); // Navigate to the C_MensCasualPants page
-  };
-
-  // Function to handle navigation to the T-Shirts page
-  const handleTShirtsClick = () => {
-    navigate('/C_MensCasualTShirts'); // Replace with actual path if needed
-  };
-
-  // Function to handle navigation to the Shirts page
-  const handleShirtsClick = () => {
-    navigate('/C_MensCasualShirts'); // Replace with actual path if needed
+  // Function to handle navigation to the Blazers page
+  const handleBlazersClick = () => {
+    navigate('/C_WomensFormalBlazers'); // Navigate to the appropriate Blazers page
   };
 
   return (
     <Container>
-      <Quote>Elevate Your Everyday Style – Discover the Perfect Blend of Comfort and Class</Quote>
+      <Quote>Experience Unmatched Elegance – Tailor-Made for Your Perfect Fit</Quote>
       <Row>
         <ImageBox 
-          style={{ backgroundImage: `url(${C9})` }} 
-          onClick={handlePantsClick} // Add onClick to navigate
+          style={{ backgroundImage: `url(${C23})` }} 
+          onClick={handleBlazersClick} // Add onClick to navigate
         >
-          <BlackLabel>Pants</BlackLabel>
+          <BlackLabel>Blazers</BlackLabel>
         </ImageBox>
-        <ImageBox 
-          style={{ backgroundImage: `url(${C10})` }} 
-          onClick={handleTShirtsClick} // Add onClick to navigate
-        >
-          <BlackLabel>T-Shirts</BlackLabel>
+        <ImageBox style={{ backgroundImage: `url(${C24})` }}>
+          <BlackLabel>Trousers</BlackLabel>
         </ImageBox>
-        <ImageBox 
-          style={{ backgroundImage: `url(${C11})` }} 
-          onClick={handleShirtsClick} // Add onClick to navigate
-        >
+        <ImageBox style={{ backgroundImage: `url(${C25})` }}>
           <BlackLabel>Shirts</BlackLabel>
         </ImageBox>
       </Row>
@@ -113,4 +97,4 @@ const C_MensCasual = () => {
   );
 };
 
-export default C_MensCasual;
+export default C_WomensFormalTM;

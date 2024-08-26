@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // Container for the entire page
 const Container = styled.div`
@@ -10,7 +10,7 @@ const Container = styled.div`
   justify-content: flex-start;
   min-height: 100vh;
   margin: 0;
-  padding-top: 70px; /* Increased padding-top to move the heading lower */
+  padding-top: 70px;
   padding-bottom: 50px;
   position: relative;
 `;
@@ -35,8 +35,15 @@ const ColorOptions = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 30%; /* Occupying 30% of the width */
+  width: 30%;
   margin-right: 20px;
+`;
+
+// Container for each color and its description
+const ColorContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
 // Each color box
@@ -53,14 +60,6 @@ const ColorBox = styled.div`
   &:hover {
     border: 3px solid #555;
   }
-`;
-
-// Container for each color and its description
-const ColorContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%;
 `;
 
 // Description box next to each color
@@ -82,7 +81,7 @@ const ColorText = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   width: 500%;
-  max-width: 4000px; /* Adjusted for better responsiveness */
+  max-width: 4000px;
   border: 3px solid ${(props) => (props.isSelected ? props.borderColor : 'transparent')};
   transition: border-color 0.3s;
 `;
@@ -108,10 +107,11 @@ const NextButton = styled.button`
 `;
 
 const C_MensTMBlazerColors = () => {
-  const [selectedColor, setSelectedColor] = useState(null); // State to track selected color
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [selectedColor, setSelectedColor] = useState(null); // Now stores the entire object
+  const navigate = useNavigate();
+  const location = useLocation(); // Get location to access state
+  const { blazerType } = location.state || {}; // Destructure blazerType from state
 
-  // Array of common blazer colors with names and descriptions
   const blazerColors = [
     { color: '#000000', name: 'Black', description: 'Classic and timeless, perfect for any formal occasion.' },
     { color: '#1A1A1A', name: 'Charcoal', description: 'A deep, rich color that exudes confidence and sophistication.' },
@@ -123,16 +123,14 @@ const C_MensTMBlazerColors = () => {
     { color: '#FFD700', name: 'Gold', description: 'Luxurious and eye-catching, ideal for special occasions.' }
   ];
 
-  // Function to handle color selection
-  const handleColorClick = (color) => {
-    setSelectedColor(color);
+  const handleColorClick = (blazer) => {
+    setSelectedColor(blazer); // Store the entire blazer object
   };
 
-  // Function to handle navigation on Next button click
   const handleNextClick = () => {
     if (selectedColor) {
-      // You can store the selected color information as needed, e.g., in local storage or pass it via route
-      navigate('/C_MensTMBlazerMeasurements'); // Replace '/final-selection' with the actual route you want to navigate to
+      // Pass both blazer type and selected color to the next page
+      navigate('/C_MensTMBlazerMeasurements', { state: { blazerType, selectedColor: selectedColor.name } });
     } else {
       alert('Please select a color before proceeding.');
     }
@@ -147,12 +145,12 @@ const C_MensTMBlazerColors = () => {
             <ColorContainer key={index}>
               <ColorBox
                 color={blazer.color}
-                isSelected={selectedColor === blazer.color}
-                onClick={() => handleColorClick(blazer.color)}
+                isSelected={selectedColor?.name === blazer.name}
+                onClick={() => handleColorClick(blazer)}
               />
               <ColorDescription>
                 <ColorText
-                  isSelected={selectedColor === blazer.color}
+                  isSelected={selectedColor?.name === blazer.name}
                   borderColor={blazer.color}
                 >
                   <h3>{blazer.name}</h3>

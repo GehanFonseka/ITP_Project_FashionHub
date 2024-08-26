@@ -1,16 +1,15 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styled from 'styled-components';
-import C5 from '../../assets/C5.jpg'; 
-import C6 from '../../assets/C6.jpg';
+import C21 from '../../assets/C21.jpg'; 
+import C22 from '../../assets/C22.webp'; 
 
 // Container for the entire page
 const Container = styled.div`
   display: flex;
   height: 100vh;
   margin: 0; /* Ensure there's no margin affecting the layout */
-  position: relative; /* Needed for the separator */
-  padding-top: 75px;
+  padding-top:75px;
 `;
 
 // Styles for each section (left and right)
@@ -24,18 +23,18 @@ const Section = styled.div`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent image repetition */
   overflow: hidden; /* Hide any overflow */
-  cursor: pointer; /* Change cursor to pointer on hover */
-  
+  cursor: pointer; /* Add pointer cursor on hover */
+
   // Use background-image property to set different images for each section
   &:first-child {
-    background-image: url(${C6});
+    background-image: url(${C21}); // Use the new image for Women's Tailor Made
   }
   
   &:last-child {
-    background-image: url(${C5});
+    background-image: url(${C22}); // Use the new image for Women's Ready Made
   }
-  
-  /* Add a separator line between sections */
+
+  // Add a separator line between sections
   &::after {
     content: "";
     position: absolute;
@@ -60,11 +59,22 @@ const BlackLabel = styled.div`
   font-size: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2; /* Ensure label is above the separator */
+  z-index: 2; /* Ensure label is above the overlay and separator */
 `;
 
-const C_WomensCasualAndFormal = () => {
-  const navigate = useNavigate();
+// Overlay to improve text visibility
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
+  z-index: 1; /* Ensure overlay is below the text */
+`;
+
+const C_WomensFormal = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -72,14 +82,16 @@ const C_WomensCasualAndFormal = () => {
 
   return (
     <Container>
-      <Section onClick={() => handleNavigation('/C_WomensCasual')}>
-        <BlackLabel>Women's Casual</BlackLabel>
+      <Section onClick={() => handleNavigation('/C_WomensFormalTM')}>
+        <Overlay />
+        <BlackLabel>Tailor Made</BlackLabel>
       </Section>
-      <Section onClick={() => handleNavigation('/C_WomensFormal')}>
-        <BlackLabel>Women's Formal</BlackLabel>
+      <Section onClick={() => handleNavigation('/C_WomensFormalRM')}>
+        <Overlay />
+        <BlackLabel>Ready Made</BlackLabel>
       </Section>
     </Container>
   );
 };
 
-export default C_WomensCasualAndFormal;
+export default C_WomensFormal;

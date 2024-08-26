@@ -11,11 +11,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 100vh; /* Changed from height to min-height */
+  min-height: 100vh;
   margin: 0;
   padding-top: 50px;
-  padding-bottom: 50px; /* Optional: Add some padding at the bottom */
-  position: relative; /* Needed for absolute positioning of the button */
+  padding-bottom: 50px;
+  position: relative;
 `;
 
 // Quote section (or header)
@@ -34,7 +34,7 @@ const BlazerRow = styled.div`
   align-items: center;
   width: 80%;
   margin-bottom: 30px;
-  cursor: pointer; /* Add cursor to indicate clickable rows */
+  cursor: pointer;
 `;
 
 // Image container for each blazer
@@ -44,7 +44,7 @@ const ImageBox = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  border: ${(props) => (props.isSelected ? '3px solid #333' : 'none')}; /* Add border if selected */
+  border: ${(props) => (props.isSelected ? '3px solid #333' : 'none')};
 `;
 
 // Information box next to each blazer
@@ -54,7 +54,7 @@ const InfoBox = styled.div`
   text-align: left;
   color: #333;
   font-size: 1.2rem;
-  background: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
@@ -79,19 +79,16 @@ const NextButton = styled.button`
 `;
 
 const C_TMMensBlazer = () => {
-  const [selectedBlazer, setSelectedBlazer] = useState(null); // State to track selected blazer
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [selectedBlazer, setSelectedBlazer] = useState(null);
+  const navigate = useNavigate();
 
-  // Function to handle blazer selection
   const handleBlazerClick = (blazerType) => {
     setSelectedBlazer(blazerType);
   };
 
-  // Function to handle navigation on Next button click
   const handleNextClick = () => {
     if (selectedBlazer) {
-      // You can store the selected blazer information as needed, e.g., in local storage or pass it via route
-      navigate('/C_MensTMBlazerColors'); // Replace '/next-page' with the actual route you want to navigate to
+      navigate('/C_MensTMBlazerColors', { state: { blazerType: selectedBlazer } });
     } else {
       alert('Please select a blazer type before proceeding.');
     }
@@ -122,7 +119,6 @@ const C_TMMensBlazer = () => {
         </InfoBox>
       </BlazerRow>
 
-      {/* Next button */}
       <NextButton onClick={handleNextClick}>Next</NextButton>
     </Container>
   );

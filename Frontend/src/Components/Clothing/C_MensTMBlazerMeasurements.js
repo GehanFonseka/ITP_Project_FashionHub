@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 
-// Container for the entire page
+// Define all styled components at the top of the file
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,9 +11,10 @@ const Container = styled.div`
   min-height: 100vh;
   margin: 0;
   padding: 20px;
+  padding-top: 70px;
+  padding-bottom: 50px;
 `;
 
-// Heading section
 const Heading = styled.h2`
   margin-bottom: 20px;
   color: #333;
@@ -21,48 +22,45 @@ const Heading = styled.h2`
   text-align: center;
 `;
 
-// Blazer and Color Display
-const InfoDisplay = styled.div`
+const SelectionDisplay = styled.div`
   margin-bottom: 30px;
-  text-align: center;
-`;
-
-const InfoItem = styled.p`
   font-size: 1.2rem;
-  color: #333;
-`;
-
-// Measurement form section
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 600px;
-`;
-
-const Label = styled.label`
-  margin-bottom: 10px;
-  font-size: 1.1rem;
   color: #555;
 `;
 
-const Input = styled.input`
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  max-width: 500px;
+`;
+
+const MeasurementField = styled.div`
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #333;
+`;
+
+const Description = styled.p`
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: -10px;
+  margin-bottom: 10px;
+`;
+
+const Input = styled.input`
   padding: 10px;
-  width: 100%;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
 `;
 
-const Description = styled.p`
-  margin-bottom: 20px;
-  font-size: 0.9rem;
-  color: #777;
-`;
-
-// Submit button
 const SubmitButton = styled.button`
   padding: 10px 20px;
   background-color: #333;
@@ -71,7 +69,8 @@ const SubmitButton = styled.button`
   cursor: pointer;
   font-size: 1rem;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  align-self: center;
   transition: background-color 0.3s;
 
   &:hover {
@@ -79,44 +78,74 @@ const SubmitButton = styled.button`
   }
 `;
 
-const MeasurementPage = () => {
-  // Sample selected data
-  const selectedBlazer = "Tailor-Made Blazer";
-  const selectedColor = "#274C77"; // Example color
+// Component definition
+const C_MensTMBlazerMeasurements = () => {
+  const location = useLocation();
+  const { blazerType, selectedColor } = location.state || {};
+  const navigate = useNavigate();
 
-  // Function to handle form submission
+  const [measurements, setMeasurements] = useState({
+    chest: '',
+    waist: '',
+    sleeve: '',
+    length: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMeasurements({
+      ...measurements,
+      [name]: value
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic
-    console.log('Measurements submitted');
+    if (measurements.chest && measurements.waist && measurements.sleeve && measurements.length) {
+      navigate('/C_MensTMBlazerAddCart', {
+        state: {
+          blazerType,
+          selectedColor,
+          measurements
+        }
+      });
+    } else {
+      alert('Please enter all measurements.');
+    }
   };
 
   return (
     <Container>
       <Heading>Enter Your Measurements</Heading>
-      <InfoDisplay>
-        <InfoItem><strong>Selected Blazer:</strong> {selectedBlazer}</InfoItem>
-        <InfoItem><strong>Selected Color:</strong> <span style={{ backgroundColor: selectedColor, padding: '0 10px', color: '#fff' }}>{selectedColor}</span></InfoItem>
-      </InfoDisplay>
+      <SelectionDisplay>
+        <p><strong>Blazer Type:</strong> {blazerType}</p>
+        <p><strong>Selected Color:</strong> {selectedColor}</p>
+      </SelectionDisplay>
       <Form onSubmit={handleSubmit}>
-        <Label htmlFor="chest">Chest</Label>
-        <Input id="chest" type="text" placeholder="Enter your chest measurement (e.g., 40 inches)" />
-        <Description>Measure around the fullest part of your chest, keeping the tape level and snug.</Description>
-        
-        <Label htmlFor="waist">Waist</Label>
-        <Input id="waist" type="text" placeholder="Enter your waist measurement (e.g., 32 inches)" />
-        <Description>Measure around your natural waistline, keeping the tape level and snug.</Description>
-
-        <Label htmlFor="hips">Hips</Label>
-        <Input id="hips" type="text" placeholder="Enter your hip measurement (e.g., 42 inches)" />
-        <Description>Measure around the fullest part of your hips and buttocks, keeping the tape level.</Description>
-
-        {/* Add more measurement fields as needed */}
-
-        <SubmitButton type="submit">Submit Measurements</SubmitButton>
+        <MeasurementField>
+          <Label htmlFor="chest">Chest (in inches):</Label>
+          <Description>Measure around the fullest part of your chest, keeping the tape under your arms and parallel to the floor.</Description>
+          <Input id="chest" name="chest" type="number" value={measurements.chest} onChange={handleChange} required />
+        </MeasurementField>
+        <MeasurementField>
+          <Label htmlFor="waist">Waist (in inches):</Label>
+          <Description>Measure around your natural waistline, at the narrowest part of your waist, usually just above the belly button.</Description>
+          <Input id="waist" name="waist" type="number" value={measurements.waist} onChange={handleChange} required />
+        </MeasurementField>
+        <MeasurementField>
+          <Label htmlFor="sleeve">Sleeve Length (in inches):</Label>
+          <Description>With your arm slightly bent, measure from the center back of your neck, over your shoulder, down to your wrist.</Description>
+          <Input id="sleeve" name="sleeve" type="number" value={measurements.sleeve} onChange={handleChange} required />
+        </MeasurementField>
+        <MeasurementField>
+          <Label htmlFor="length">Blazer Length (in inches):</Label>
+          <Description>Measure from the top of your shoulder, near the base of your neck, down to where you want the blazer to end.</Description>
+          <Input id="length" name="length" type="number" value={measurements.length} onChange={handleChange} required />
+        </MeasurementField>
+        <SubmitButton type="submit">Submit</SubmitButton>
       </Form>
     </Container>
   );
 };
 
-export default MeasurementPage;
+export default C_MensTMBlazerMeasurements;
