@@ -49,7 +49,7 @@ function Request() {
 
   // Style for the form
   const formStyle = {
-    backgroundColor: '#e0e0e0', // Light ash color
+    backgroundColor: '#a9a9a9', // Light ash color
     padding: '50px',
     borderRadius: '10px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
@@ -63,6 +63,13 @@ function Request() {
     fontWeight: 'bold',
   };
 
+  const labelStyle1 = {
+    display: 'block',
+    marginBottom: '10px',
+    fontWeight: 'bold',
+    width:'722px',
+  };
+
   // Style for input fields
   const inputStyle = {
     width: '100%',
@@ -71,8 +78,8 @@ function Request() {
     marginBottom: '20px',
     border: '1px solid #ccc',
     borderRadius: '5px',
-    backgroundColor: '#a9a9a9', // Dark ash color
-    color: 'white',
+    backgroundColor: '#ffff', // Dark ash color
+    color: 'black',
   };
 
   // Style for the textarea field
@@ -105,7 +112,7 @@ function Request() {
       <div style={headingStyle}>Submit a Request</div>
       
       <form onSubmit={handleSubmit} style={formStyle}>
-        <label style={labelStyle}>
+        <label style={labelStyle1}>
           Request Type:
           <select
             name="requestType"
@@ -114,11 +121,12 @@ function Request() {
             style={inputStyle} // Using inputStyle for consistency
           >
             <option value="">None</option>
-            <option value="Order Update">Order Update</option>
+           
             <option value="Wrong item received">Wrong item received</option>
             <option value="Missing item from order">Missing item from order</option>
             <option value="Returns and Exchanges">Returns and Exchanges</option>
             <option value="Refunds">Refunds</option>
+            <option value="Order Update">General-Other</option>
           </select>
         </label>
 
