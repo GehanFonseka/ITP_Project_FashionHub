@@ -4,25 +4,27 @@ const Shipping = () => {
   const styles = {
     container: {
       display: 'flex',
-      marginBottom: '1px',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh', // Full viewport height for vertical centering
       fontFamily: 'Arial, sans-serif',
       padding: '1px', // Adjust padding to prevent overflow
-      textAlign: 'center', // Center text within the container
     },
     topic: {
       color: 'black',
       fontSize: '24px',
-      margin: '0 0 20px 0',
+      margin: '0 0 50px 0',
+      textAlign: 'center', // Center the heading text within the container
     },
     description: {
       color: '#3B444B', // Light black color
       fontSize: '16px',
       lineHeight: '1.5',
       whiteSpace: 'pre-line', // To handle line breaks in the text
+      textAlign: 'left', // Align the paragraph text to the left
+      width: '60%', // Set a width to control the paragraph width
+      margin: '0 auto', // Center the paragraph horizontally
     },
   };
 

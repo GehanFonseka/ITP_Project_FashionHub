@@ -9,7 +9,7 @@ import Shipping from './Components/Help/Shipping';
 import Refund from './Components/Help/Refund';
 import Footer from './Components/home/Footer';
 import Chat from './Components/Help/Chat';
-import Chat1 from './Components/Help/Chat1';
+import Dashboard from './Components/Help/Dashboard';
 
 
 
@@ -26,7 +26,7 @@ function App() {
         <Route path="/shipping" element={<Shipping />} /> 
         <Route path="/Chat" element={<Chat/>} /> 
         <Route path="/refund" element={<Refund/>} />
-        <Route path="/Chat1" element={<Chat1/>} />
+        <Route path="/accessories" element={<Dashboard/>} />
       </Routes>
       <Footer />
     </Router>
