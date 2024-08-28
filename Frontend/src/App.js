@@ -9,7 +9,7 @@ import Shipping from './Components/Help/Shipping';
 import Refund from './Components/Help/Refund';
 import Footer from './Components/home/Footer';
 import Chat from './Components/Help/Chat';
-import Dashboard from './Components/Help/Dashboard';
+import Dashboard from './Components/Help/dashboard';
 
 
 
