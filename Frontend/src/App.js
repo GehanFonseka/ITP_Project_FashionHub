@@ -10,6 +10,7 @@ import Refund from './Components/Help/Refund';
 import Footer from './Components/home/Footer';
 import Chat from './Components/Help/Chat';
 import Dashboard from './Components/Help/dashboard';
+import TicketForm from './Components/Help/ticket';
 
 
 
@@ -27,6 +28,8 @@ function App() {
         <Route path="/Chat" element={<Chat/>} /> 
         <Route path="/refund" element={<Refund/>} />
         <Route path="/accessories" element={<Dashboard/>} />
+        <Route path="/TicketForm" element={<TicketForm/>} />
+        
       </Routes>
       <Footer />
     </Router>

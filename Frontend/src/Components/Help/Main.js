@@ -78,7 +78,7 @@ function Main() {
             style={styles.card}
             onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-5px)')}
             onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
-            onClick={() => navigate('/request')} 
+            onClick={() => navigate('/TicketForm')} 
           >
             <p style={styles.cardText}>Submit a Request</p>
           </div>
