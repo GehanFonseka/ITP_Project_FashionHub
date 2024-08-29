@@ -1,22 +1,31 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import headerImage from "../../assets/headerImage1.jpg"; // Replace with the actual path to your image
-import hairStylingImage from "../../assets/Hair.jpg"; // Add paths for the service images
+import hairStylingImage from "../../assets/Hair.jpg";
 import nailCareImage from "../../assets/Nails.jpg";
 import massageImage from "../../assets/Massage.jpg";
 import facialImage from "../../assets/Facial.jpg";
 import makeUpImage from "../../assets/MakeUp.jpg";
 import bodyTreatmentImage from "../../assets/BodyThreatment.jpg";
 
-
+// Mock service data with IDs
+const services = [
+  { id: 1, name: "Hair Styling", image: hairStylingImage },
+  { id: 2, name: "Nail Care", image: nailCareImage },
+  { id: 3, name: "Massages", image: massageImage },
+  { id: 4, name: "Facial", image: facialImage },
+  { id: 5, name: "MakeUp", image: makeUpImage },
+  { id: 6, name: "Body Treatment", image: bodyTreatmentImage },
+];
 
 // Main Salon Home Component
 const Salonhome = () => {
+  const [selectedService, setSelectedService] = useState(null);
+
+
+
   return (
     <MainContainer>
-      
       <Content>
         <HeaderText>
           <Heading>The Pinnacle of Beauty and Luxury</Heading>
@@ -29,46 +38,38 @@ const Salonhome = () => {
             Our salon is your sanctuary—a place where you can escape the everyday and indulge in a world of luxury. From our soothing body treatments to our rejuvenating facial services, we offer a full spectrum of beauty care designed to help you look and feel your best. Trust our experienced team to pamper you with personalized attention and top-quality products that deliver stunning results.
           </LeftText>
         </DescriptionContainer>
-        
+
         <OurServicesContainer>
           <OurServicesHeading>Our Services</OurServicesHeading>
           <OurServicesDescription>
             At FashionHub Salon, we provide a variety of top-notch services to cater to all your beauty needs. Whether it's a stylish haircut, a relaxing spa treatment, or a rejuvenating facial, our expert team is dedicated to delivering an exceptional experience. Our services include:
-            
           </OurServicesDescription>
         </OurServicesContainer>
 
         <ServicesContainer>
-          <ServiceItem>
-            <ServiceImage src={hairStylingImage} alt="Hair Styling" />
-            <ServiceLabel>Hair Styling</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem>
-            <ServiceImage src={nailCareImage} alt="Nail Care" />
-            <ServiceLabel>Nail Care</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem>
-            <ServiceImage src={massageImage} alt="Massages" />
-            <ServiceLabel>Massages</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem>
-            <ServiceImage src={facialImage} alt="Facial" />
-            <ServiceLabel>Facial</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem>
-            <ServiceImage src={makeUpImage} alt="MakeUp" />
-            <ServiceLabel>MakeUp</ServiceLabel>
-          </ServiceItem>
-          <ServiceItem>
-            <ServiceImage src={bodyTreatmentImage} alt="Body Treatment" />
-            <ServiceLabel>Body Treatment</ServiceLabel>
-          </ServiceItem>
+          {services.map((service) => (
+            <ServiceItem key={service.id}>
+              <ServiceImage src={service.image} alt={service.name} />
+              <ServiceLabel>{service.name}</ServiceLabel>
+              
+            </ServiceItem>
+          ))}
         </ServicesContainer>
+
+        
 
         <ButtonContainer>
           <ActionButton href="/ServiceList">Service List</ActionButton>
           <ActionButton href="/AppointmentForm">Book Now</ActionButton>
         </ButtonContainer>
+
+        <ReviewSection>
+        <ReviewHeading>Customer Reviews: Where Style Meets Satisfaction</ReviewHeading>
+        <ReviewDescription>
+          Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
+        </ReviewDescription>
+        <ReviewButton href="#">Write a Review</ReviewButton>
+      </ReviewSection>
       </Content>
     </MainContainer>
   );
@@ -176,6 +177,47 @@ const ServiceLabel = styled.h3`
   color: #333;
 `;
 
+
+
+const ReviewFormContainer = styled.div`
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+`;
+
+const SubmitButton = styled.button`
+  padding: 10px 20px;
+  background-color: #ae2012;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #000;
+  }
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -198,5 +240,41 @@ const ActionButton = styled.a`
     background-color: #000;
   }
 `;
+
+const ReviewSection = styled.div`
+  margin-top: 60px;
+  text-align: center;
+  padding: 40px;
+  background-color: #f8f8f8;
+`;
+
+const ReviewHeading = styled.h2`
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+const ReviewDescription = styled.p`
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+`;
+
+const ReviewButton = styled.a`
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ae2012;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #000;
+  }
+`;
+
 
 export default Salonhome;

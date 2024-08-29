@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import authService from '../../Services/authService';
 
@@ -7,7 +7,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('salon manager');
+  const [role, setRole] = useState('Customer');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,6 +19,7 @@ const Register = () => {
       }
     } catch (error) {
       console.error('Failed to register', error);
+      alert('Registration failed. Please try again.');
     }
   };
 
@@ -49,7 +50,6 @@ const Register = () => {
         />
         <Label>Role</Label>
         <Select value={role} onChange={(e) => setRole(e.target.value)} required>
-          
           <option value="Customer">Customer</option>
           <option value="salon manager">Salon Manager</option>
           <option value="review manager">Review Manager</option>
@@ -59,6 +59,10 @@ const Register = () => {
           <option value="finance manager">Finance Manager</option>
         </Select>
         <Button type="submit">Register</Button>
+        <LinkContainer>
+          <LinkText>Already have an account?</LinkText>
+          <StyledLink to="/Login">Login</StyledLink>
+        </LinkContainer>
       </RegisterForm>
     </RegisterContainer>
   );
@@ -66,6 +70,7 @@ const Register = () => {
 
 export default Register;
 
+// Styled Components
 const RegisterContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -123,5 +128,25 @@ const Button = styled.button`
 
   &:hover {
     background-color: #555d7d;
+  }
+`;
+
+const LinkContainer = styled.div`
+  margin-top: 20px;
+  text-align: center;
+`;
+
+const LinkText = styled.span`
+  font-size: 0.9rem;
+  color: #ffffff;
+`;
+
+const StyledLink = styled(Link)`
+  color: #ae2012;
+  text-decoration: none;
+  margin-left: 5px;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
