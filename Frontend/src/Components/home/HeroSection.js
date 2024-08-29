@@ -44,7 +44,7 @@ const HeroContainer = styled.div`
   align-items: center;
   margin-top: 100px;
   padding: 60px;
-  background-color: #e0f7fa; /* Light cyan background color for contrast */
+  background-color: #ffffff; /* Light cyan background color for contrast */
 `;
 
 const HeroItem = styled.div`

@@ -1,162 +1,108 @@
-import React, { useState } from "react";
-import styled, { createGlobalStyle } from 'styled-components';
-import backgroundImage from '../../assets/car-review-reputation-text-online-260nw-2357632809.webp';
-// Import the image
-
-// Global style for the background image
-const GlobalStyle = createGlobalStyle`
-   body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-image:  url(${backgroundImage});  /* Local image URL */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Optional: makes the background image fixed during scroll */
-  }
-`;
+import React, { useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
 
 const ReviewForm = () => {
-  const [review, setReview] = useState("");
-  const [images, setImages] = useState([]); // State to manage multiple images
-  const [rating, setRating] = useState(0); // State to manage star rxfdating
+  const [userId, setUserId] = useState('');
+  const [shopId, setShopId] = useState('');
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleReviewChange = (e) => {
-    setReview(e.target.value);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImages([...images, URL.createObjectURL(file)]);
+    try {
+      const reviewData = {
+        shopId,
+        rating,
+        comment,
+      };
+
+      // Adjusted the API endpoint URL to include userId
+      const response = await axios.post(`http://localhost:8070/api/reviews/create_Review/${userId}`, reviewData);
+
+      setMessage('Review submitted successfully');
+      // Clear the form
+      setUserId('');
+      setShopId('');
+      setRating(0); 
+      setComment('');
+    } catch (error) {
+      console.error('There was an error submitting the review:', error);
+      setMessage('Failed to submit review. Please try again later.');
     }
   };
 
-  const handleRemoveImage = (index) => {
-    const newImages = [...images];
-    newImages.splice(index, 1);
-    setImages(newImages);
-  };
-
-  const handleRatingChange = (newRating) => {
-    setRating(newRating);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Review submitted:", review);
-    console.log("Rating:", rating);
-    console.log("Images uploaded:", images);
-  };
-
   return (
-    <>
-      <GlobalStyle />
-      <Container>
-        <ProductInfo>
-          
-          
-          <ProductDetails>
-            <ProductTitle>Your feedback helps us improve and continue delivering excellence.</ProductTitle>
-          
-          </ProductDetails>
-        </ProductInfo>
+    <Container>
+      <h2>Submit Your Review</h2>
+      {message && <Message>{message}</Message>}
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label htmlFor="userId">User ID:</Label>
+          <Input
+            type="text"
+            id="userId"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            required
+          />
+        </FormGroup>
 
-        <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label htmlFor="shopId">Shop ID:</Label>
+          <Input
+            type="text"
+            id="shopId"
+            value={shopId}
+            onChange={(e) => setShopId(e.target.value)}
+            required
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Label>Rating:</Label>
           <RatingContainer>
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
-                onClick={() => handleRatingChange(star)}
                 isActive={star <= rating}
+                onClick={() => setRating(star)}
               >
                 ★
               </Star>
             ))}
           </RatingContainer>
+        </FormGroup>
 
-          <UploadContainer>
-            {images.map((image, index) => (
-              <ImageWrapper key={index}>
-                <UploadedImage src={image} alt={`Uploaded ${index + 1}`} />
-                <RemoveButton onClick={() => handleRemoveImage(index)}>−</RemoveButton>
-              </ImageWrapper>
-            ))}
-            <AddButtonContainer>
-              <UploadLabel htmlFor="upload-input">
-                <PlusSign>+</PlusSign>
-                <UploadInput
-                  id="upload-input"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
-                <PlaceholderText>Upload Image</PlaceholderText>
-              </UploadLabel>
-            </AddButtonContainer>
-          </UploadContainer>
+        <FormGroup>
+          <Label htmlFor="comment">Comment:</Label>
+          <Textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Leave your comments here"
+            maxLength={500}
+          />
+        </FormGroup>
 
-          <ReviewContainer>
-            <Textarea
-              value={review}
-              onChange={handleReviewChange}
-              placeholder="Would you like to write anything about this product?"
-              maxLength={400}
-            />
-            <CharCount>{400 - review.length} characters remaining</CharCount>
-          </ReviewContainer>
-
-          <SubmitButton type="submit">
-            Submit Review
-          </SubmitButton>
-        </Form>
-      </Container>
-    </>
+        <SubmitButton type="submit">Submit Review</SubmitButton>
+      </Form>
+    </Container>
   );
 };
 
 export default ReviewForm;
 
+// Styled components
 const Container = styled.div`
-max-width: 600px;
-height: 600px;
-margin: 100px auto;
-padding: 20px;
-font-family: Arial, sans-serif;
-background-color: rgba(0, 0, 0, 0.6); /* Black background with 60% opacity */
-color: white;
-border: 2px solid #AE2012;
-border-radius: 10px;
-`;
-
-
-const ProductInfo = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-`;
-
-const ProductImage = styled.img`
-  width: 60px;
-  height: 60px;
-  margin-right: 10px;
-`;
-
-const ProductDetails = styled.div`
-  flex-grow: 1;
-`;
-
-const ProductTitle = styled.h3`
-  color: #FFFF00 /* Soft gold color */
-  margin: 0;
-  text-align: center;
-  font-size: 20px;
-`;
-
-
-const ProductDescription = styled.p`
-  margin: 5px 0 0 0;
-  font-size: 14px;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Form = styled.form`
@@ -164,10 +110,35 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
+const FormGroup = styled.div`
+  margin-bottom: 15px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
 const RatingContainer = styled.div`
-  margin-bottom: 20px;
   font-size: 24px;
-  text-align: center;
+  margin-bottom: 10px;
 `;
 
 const Star = styled.span`
@@ -176,106 +147,23 @@ const Star = styled.span`
   transition: color 0.2s;
 `;
 
-const UploadContainer = styled.div`
-  margin-bottom: 60px;
-`;
-
-const ImageWrapper = styled.div`
-  position: relative;
-  margin-bottom: 10px;
-`;
-
-const UploadedImage = styled.img`
-  width: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 60px;
-`;
-
-const RemoveButton = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: #AE2012;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 18px;
-  text-align: center;
-`;
-
-const AddButtonContainer = styled.div`
-  text-align: center;
-  margin-top: 10px;
-`;
-
-const UploadLabel = styled.label`
-  display: block;
-  position: relative;
-  cursor: pointer;
-  background-color: #222;
-  border: 1px solid #AE2012;
-  border-radius: 5px;
-  padding: 10px 20px;
-  text-align: center;
-  color: #AE2012;
-  font-size: 16px;
-`;
-
-const PlusSign = styled.span`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 24px;
-`;
-
-const PlaceholderText = styled.span`
-  display: inline-block;
-  margin-left: 30px;
-  font-size: 16px;
-`;
-
-const UploadInput = styled.input`
-  display: none;
-`;
-
-const ReviewContainer = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Textarea = styled.textarea`
-  width: 100%;
-  height: 160px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #AE2012;
-  font-size: 14px;
-  background-color: #222;
-  color: white;
-`;
-
-const CharCount = styled.p`
-  text-align: right;
-  color: #888;
-  font-size: 12px;
-  margin-top: 5px;
-`;
-
 const SubmitButton = styled.button`
   padding: 10px 20px;
-  background-color: #AE2012;
-  color: #fff;
+  font-size: 18px;
+  background-color: #28a745;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #8b0000;
+    background-color: #218838;
   }
+`;
+
+const Message = styled.p`
+  text-align: center;
+  font-size: 16px;
+  color: ${props => (props.isError ? 'red' : 'green')};
+  margin-bottom: 20px;
 `;
