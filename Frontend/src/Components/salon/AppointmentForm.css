@@ -122,3 +122,19 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #d62839; /* Slightly darker red for hover effect */
 }
+/* AppointmentForm.css */
+
+/* Error message styles */
+.error {
+  color: red; /* Change this to your desired color */
+  font-size: 0.875rem; /* Adjust font size as needed */
+  margin-top: 0.25rem;
+}
+
+/* Additional styling for error messages */
+.error {
+  border: 1px solid red;
+  background-color: #fdd;
+  padding: 0.5rem;
+  border-radius: 3px;
+}
