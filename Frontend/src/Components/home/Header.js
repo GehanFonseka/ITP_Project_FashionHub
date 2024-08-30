@@ -14,7 +14,7 @@ const Header = () => {
         <MenuItem href="/clothing1">Clothing</MenuItem>
         <MenuItem href="/salon">Saloon</MenuItem>
         <MenuItem href="/footwear">Footwear</MenuItem>
-        <MenuItem href="/accessories">Accessories</MenuItem>
+        <MenuItem href="/ReviewDisplay">Accessories</MenuItem>
         <MenuItem href="/help">Help</MenuItem>
       </Menu>
       <SearchContainer>

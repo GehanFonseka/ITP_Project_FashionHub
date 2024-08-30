@@ -11,17 +11,19 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const reviewData = {
         shopId,
         rating,
         comment,
       };
-
-      // Adjusted the API endpoint URL to include userId
+  
+      // Send a POST request to create a new review
       const response = await axios.post(`http://localhost:8070/api/reviews/create_Review/${userId}`, reviewData);
-
+      
+      console.log('Review submitted:', response.data); // Log the response
+      
       setMessage('Review submitted successfully');
       // Clear the form
       setUserId('');
@@ -33,6 +35,7 @@ const ReviewForm = () => {
       setMessage('Failed to submit review. Please try again later.');
     }
   };
+  
 
   return (
     <Container>

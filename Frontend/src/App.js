@@ -5,6 +5,7 @@ import HeroSection from './Components/home/HeroSection';
 
 import Footer from './Components/home/Footer';
 import ReviewForm from './Components/Review/ReviewForm';
+import ReviewDisplay from './Components/Review/ReviewDisplay';
 
 
 function App() {
@@ -17,10 +18,11 @@ function App() {
       
       <Route path="/" element={<HeroSection/>} />
       <Route path="/help" element={<ReviewForm/>} />
+      <Route path="/ReviewDisplay" element={<ReviewDisplay/>} />
     
       
       </Routes>
-   <Footer />
+      <Footer />
     </Router>
    
   );
