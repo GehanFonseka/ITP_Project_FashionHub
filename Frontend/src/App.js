@@ -4,8 +4,7 @@ import Header from './Components/home/Header';
 import HeroSection from './Components/home/HeroSection';
 import Sidebar from './Components/salon/Sidebar';
 import Footer from './Components/home/Footer';
-import Login from './Components/home/Login';
-import Register from './Components/home/Register';
+
 
 //salon
 
@@ -26,8 +25,7 @@ function App() {
       <Routes>
 
         <Route path="/" element={<HeroSection />} />
-        <Route path="/Login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        
         <Route path="/salon" element={<><Sidebar /><Salonhome /></>} />
         <Route path="/ServiceList" element={<><Sidebar /><ServiceList /></>} />
         <Route path="/AppointmentForm" element={<><Sidebar /><AppointmentForm /></>} />
