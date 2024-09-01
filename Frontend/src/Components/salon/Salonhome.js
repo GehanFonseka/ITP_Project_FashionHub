@@ -68,7 +68,7 @@ const Salonhome = () => {
         <ReviewDescription>
           Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
         </ReviewDescription>
-        <ReviewButton href="#">Write a Review</ReviewButton>
+        <ReviewButton href="/ReviewForm">Write a Review</ReviewButton>
       </ReviewSection>
       </Content>
     </MainContainer>

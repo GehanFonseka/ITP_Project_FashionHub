@@ -20,7 +20,7 @@ const Sidebar = () => {
         <SidebarItem href="/ServiceList">Services</SidebarItem>
         <SidebarItem href="/AppointmentForm">Book Now</SidebarItem>
         <SidebarItem href="/MyAppointmentForm">My Appointments</SidebarItem>
-        <SidebarItem href="/help">Help</SidebarItem>
+        
       </SidebarContainer>
     </>
   );
