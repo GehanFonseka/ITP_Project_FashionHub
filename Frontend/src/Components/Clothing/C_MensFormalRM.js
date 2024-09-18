@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import C12 from '../../assets/C12.webp'; // Updated image path
 import C13 from '../../assets/C13.webp'; // Updated image path
@@ -70,15 +71,21 @@ const C_MensFormalRM = () => {
     <Container>
       <Quote>Experience Personalized Perfection – Tailor-Made to Fit Your Unique Style</Quote>
       <Row>
-        <ImageBox style={{ backgroundImage: `url(${C12})` }}>
-          <BlackLabel>Blazers</BlackLabel>
-        </ImageBox>
-        <ImageBox style={{ backgroundImage: `url(${C13})` }}>
-          <BlackLabel>Trousers</BlackLabel>
-        </ImageBox>
-        <ImageBox style={{ backgroundImage: `url(${C14})` }}>
-          <BlackLabel>Shirts</BlackLabel>
-        </ImageBox>
+        <Link to="/C_RMMensBlazer" style={{ textDecoration: 'none' }}>
+          <ImageBox style={{ backgroundImage: `url(${C12})` }}>
+            <BlackLabel>Blazers</BlackLabel>
+          </ImageBox>
+        </Link>
+        <Link to="/trousers" style={{ textDecoration: 'none' }}>
+          <ImageBox style={{ backgroundImage: `url(${C13})` }}>
+            <BlackLabel>Trousers</BlackLabel>
+          </ImageBox>
+        </Link>
+        <Link to="/shirts" style={{ textDecoration: 'none' }}>
+          <ImageBox style={{ backgroundImage: `url(${C14})` }}>
+            <BlackLabel>Shirts</BlackLabel>
+          </ImageBox>
+        </Link>
       </Row>
       {/* Add more rows as needed */}
     </Container>

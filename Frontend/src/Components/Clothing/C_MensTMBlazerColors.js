@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-// Container for the entire page
+// Define styled components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,7 +15,6 @@ const Container = styled.div`
   position: relative;
 `;
 
-// Quote or heading section
 const Heading = styled.h2`
   margin-bottom: 30px;
   color: #333;
@@ -23,14 +22,12 @@ const Heading = styled.h2`
   text-align: center;
 `;
 
-// Main content area for color selection and description
 const MainContent = styled.div`
   display: flex;
   width: 80%;
   margin-bottom: 30px;
 `;
 
-// Color options container for vertical alignment
 const ColorOptions = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,14 +36,12 @@ const ColorOptions = styled.div`
   margin-right: 20px;
 `;
 
-// Container for each color and its description
 const ColorContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 `;
 
-// Each color box
 const ColorBox = styled.div`
   width: 100px;
   height: 100px;
@@ -62,7 +57,6 @@ const ColorBox = styled.div`
   }
 `;
 
-// Description box next to each color
 const ColorDescription = styled.div`
   flex: 1;
   display: flex;
@@ -72,7 +66,6 @@ const ColorDescription = styled.div`
   margin-left: 20px;
 `;
 
-// Individual color description text
 const ColorText = styled.div`
   color: #333;
   font-size: 1.2rem;
@@ -86,7 +79,6 @@ const ColorText = styled.div`
   transition: border-color 0.3s;
 `;
 
-// Styled Next button
 const NextButton = styled.button`
   position: absolute;
   bottom: 20px;
@@ -107,10 +99,10 @@ const NextButton = styled.button`
 `;
 
 const C_MensTMBlazerColors = () => {
-  const [selectedColor, setSelectedColor] = useState(null); // Now stores the entire object
+  const [selectedColor, setSelectedColor] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation(); // Get location to access state
-  const { blazerType } = location.state || {}; // Destructure blazerType from state
+  const location = useLocation();
+  const { blazer } = location.state || {}; // Destructure blazer from state
 
   const blazerColors = [
     { color: '#000000', name: 'Black', description: 'Classic and timeless, perfect for any formal occasion.' },
@@ -123,14 +115,13 @@ const C_MensTMBlazerColors = () => {
     { color: '#FFD700', name: 'Gold', description: 'Luxurious and eye-catching, ideal for special occasions.' }
   ];
 
-  const handleColorClick = (blazer) => {
-    setSelectedColor(blazer); // Store the entire blazer object
+  const handleColorClick = (color) => {
+    setSelectedColor(color);
   };
 
   const handleNextClick = () => {
     if (selectedColor) {
-      // Pass both blazer type and selected color to the next page
-      navigate('/C_MensTMBlazerMeasurements', { state: { blazerType, selectedColor: selectedColor.name } });
+      navigate('/C_MensTMBlazerMeasurements', { state: { blazer, selectedColor: selectedColor.name } });
     } else {
       alert('Please select a color before proceeding.');
     }
@@ -162,7 +153,6 @@ const C_MensTMBlazerColors = () => {
         </ColorOptions>
       </MainContent>
 
-      {/* Next button */}
       <NextButton onClick={handleNextClick}>Next</NextButton>
     </Container>
   );

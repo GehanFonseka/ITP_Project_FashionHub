@@ -1,5 +1,15 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.5.4",
+    "multer": "^1.4.5-lts.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

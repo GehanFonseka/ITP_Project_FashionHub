@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import C15 from '../../assets/C15.webp'; 
-import C16 from '../../assets/C16.jpg';
-import C17 from '../../assets/C17.jpg';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../utilities/axios'; // Import your axios instance
 
 // Container for the entire page
 const Container = styled.div`
@@ -35,6 +33,7 @@ const BlazerRow = styled.div`
   width: 80%;
   margin-bottom: 30px;
   cursor: pointer;
+  border: ${(props) => (props.isSelected ? '3px solid #333' : 'none')}; // Highlight selected blazer
 `;
 
 // Image container for each blazer
@@ -44,7 +43,6 @@ const ImageBox = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  border: ${(props) => (props.isSelected ? '3px solid #333' : 'none')};
 `;
 
 // Information box next to each blazer
@@ -79,16 +77,30 @@ const NextButton = styled.button`
 `;
 
 const C_TMMensBlazer = () => {
+  const [blazers, setBlazers] = useState([]);
   const [selectedBlazer, setSelectedBlazer] = useState(null);
   const navigate = useNavigate();
 
-  const handleBlazerClick = (blazerType) => {
-    setSelectedBlazer(blazerType);
+  useEffect(() => {
+    const fetchBlazers = async () => {
+      try {
+        const response = await axios.get('/api/tm-mensblazers'); // Update the API endpoint as needed
+        setBlazers(response.data);
+      } catch (error) {
+        console.error("Error fetching blazers:", error);
+      }
+    };
+
+    fetchBlazers();
+  }, []);
+
+  const handleBlazerClick = (blazer) => {
+    setSelectedBlazer(blazer);
   };
 
   const handleNextClick = () => {
     if (selectedBlazer) {
-      navigate('/C_MensTMBlazerColors', { state: { blazerType: selectedBlazer } });
+      navigate('/C_MensTMBlazerColors', { state: { blazer: selectedBlazer } });
     } else {
       alert('Please select a blazer type before proceeding.');
     }
@@ -97,28 +109,22 @@ const C_TMMensBlazer = () => {
   return (
     <Container>
       <Quote>Select the Blazer Type</Quote>
-      <BlazerRow onClick={() => handleBlazerClick('Double Breasted')}>
-        <ImageBox style={{ backgroundImage: `url(${C15})` }} isSelected={selectedBlazer === 'Double Breasted'} />
-        <InfoBox>
-          <h3>Double Breasted</h3>
-          <p>A timeless design crafted from high-quality materials. Perfect for formal occasions and professional settings.</p>
-        </InfoBox>
-      </BlazerRow>
-      <BlazerRow onClick={() => handleBlazerClick('Single Breasted')}>
-        <ImageBox style={{ backgroundImage: `url(${C16})` }} isSelected={selectedBlazer === 'Single Breasted'} />
-        <InfoBox>
-          <h3>Single Breasted</h3>
-          <p>Featuring a contemporary cut and style, this blazer is designed for the fashion-forward individual.</p>
-        </InfoBox>
-      </BlazerRow>
-      <BlazerRow onClick={() => handleBlazerClick('Slim Fit')}>
-        <ImageBox style={{ backgroundImage: `url(${C17})` }} isSelected={selectedBlazer === 'Slim Fit'} />
-        <InfoBox>
-          <h3>Slim Fit</h3>
-          <p>Combining comfort and style, this blazer is ideal for a relaxed yet sophisticated look.</p>
-        </InfoBox>
-      </BlazerRow>
-
+      {blazers.map((blazer) => (
+        <BlazerRow
+          key={blazer._id}
+          isSelected={selectedBlazer?._id === blazer._id}
+          onClick={() => handleBlazerClick(blazer)}
+        >
+          <ImageBox
+            style={{ backgroundImage: `url(http://localhost:5000/uploads/${blazer.image})` }}
+          />
+          <InfoBox>
+            <h3>{blazer.name}</h3> {/* Displaying the blazer's name */}
+            <p>Price: ${blazer.price}</p>
+            <p>{blazer.description}</p>
+          </InfoBox>
+        </BlazerRow>
+      ))}
       <NextButton onClick={handleNextClick}>Next</NextButton>
     </Container>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-// Container for the entire page
+// Define all styled components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,7 +15,6 @@ const Container = styled.div`
   padding-bottom: 50px;
 `;
 
-// Heading section
 const Heading = styled.h2`
   margin-bottom: 20px;
   color: #333;
@@ -23,7 +22,6 @@ const Heading = styled.h2`
   text-align: center;
 `;
 
-// Review section display
 const ReviewDisplay = styled.div`
   margin-bottom: 30px;
   font-size: 1.2rem;
@@ -36,13 +34,11 @@ const ReviewDisplay = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-// Measurement list item
 const MeasurementItem = styled.div`
   margin-bottom: 10px;
   color: #333;
 `;
 
-// Add to Cart button
 const AddToCartButton = styled.button`
   padding: 10px 20px;
   background-color: #333;
@@ -64,7 +60,7 @@ const C_MensTMBlazerAddCart = () => {
   const navigate = useNavigate();
 
   // Extracting data from state
-  const { blazerType, selectedColor, measurements } = location.state || {};
+  const { blazer, selectedColor, measurements } = location.state || {};
 
   const handleAddToCart = () => {
     // Logic to add item to cart (e.g., update state, context, or send to server)
@@ -76,13 +72,14 @@ const C_MensTMBlazerAddCart = () => {
     <Container>
       <Heading>Review Your Selection</Heading>
       <ReviewDisplay>
-        <h3>Blazer Type: {blazerType}</h3>
-        <h3>Selected Color: {selectedColor}</h3>
+        <h3>Blazer Type: {blazer?.name || 'Not available'}</h3>
+        <h3>Selected Color: {selectedColor || 'Not available'}</h3>
+        <h3>Price: {blazer?.price || 'Not available'}</h3>
         <h4>Measurements:</h4>
         {measurements ? (
           Object.entries(measurements).map(([key, value]) => (
             <MeasurementItem key={key}>
-              <strong>{key}:</strong> {value} inches
+              <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value} inches
             </MeasurementItem>
           ))
         ) : (

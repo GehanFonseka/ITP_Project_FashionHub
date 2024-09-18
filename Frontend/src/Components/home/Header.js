@@ -15,7 +15,7 @@ const Header = () => {
         <MenuItem href="/salon">Saloon</MenuItem>
         <MenuItem href="/footwear">Footwear</MenuItem>
         <MenuItem href="/accessories">Accessories</MenuItem>
-        <MenuItem href="/help">Help</MenuItem>
+        <MenuItem href="/Help">Help</MenuItem>
       </Menu>
       <SearchContainer>
         <SearchInput type="text" placeholder="Search..." />
@@ -24,7 +24,7 @@ const Header = () => {
         <IconLink href="#">
           <FontAwesomeIcon icon={faShoppingCart} />
         </IconLink>
-        <IconLink href="#">
+        <IconLink href="C_AdminDB01">
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
       </IconContainer>
