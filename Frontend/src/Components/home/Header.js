@@ -15,17 +15,17 @@ const Header = () => {
         <MenuItem href="/salon">Saloon</MenuItem>
         <MenuItem href="/F_Home">Footwear</MenuItem>
         <MenuItem href="/A_Home">Accessories</MenuItem>
-        <MenuItem href="/help">Help</MenuItem>
-        <MenuItem href="/register">Register</MenuItem>
+        <MenuItem href="">Help</MenuItem>
+        <MenuItem href="Register">Register</MenuItem>
       </Menu>
       <SearchContainer>
         <SearchInput type="text" placeholder="Search..." />
       </SearchContainer>
       <IconContainer>
-        <IconLink href="#">
+        <IconLink href="/Cart">
           <FontAwesomeIcon icon={faShoppingCart} />
         </IconLink>
-        <IconLink href="#">
+        <IconLink href="/Dashboard">
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
       </IconContainer>

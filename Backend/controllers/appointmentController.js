@@ -56,10 +56,25 @@ const deleteAppointment = async (req, res) => {
 };
 
 
+// Get total number of appointments
+const getTotalAppointment = async (req, res) => {
+  try {
+    const appointmentCount = await Appointment.countDocuments(); // Count total documents in the collection
+
+    // Return the count of appointments in the response
+    res.status(200).json({ totalAppointment: appointmentCount });
+  } catch (error) {
+    res.status(500).json({ message: 'Error calculating total appointments', error: error.message });
+  }
+};
+
+
+
 
 module.exports = {
   createAppointment,
   getAppointments,
   updateAppointment,
   deleteAppointment,
+  getTotalAppointment,
 };

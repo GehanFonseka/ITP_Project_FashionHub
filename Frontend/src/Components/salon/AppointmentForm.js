@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './AppointmentForm.css'; // Import the CSS file
 import axios from 'axios'; // Import axios for HTTP requests
 import { useNavigate, useLocation } from 'react-router-dom';
+
+
 
 const AppointmentForm = () => {
   const navigate = useNavigate();
@@ -19,62 +21,70 @@ const AppointmentForm = () => {
     requests: editData.requests || "",
   });
   const [errors, setErrors] = useState({});
+  const [serviceOptions, setServiceOptions] = useState({});
+  const [servicePrices, setServicePrices] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  // Service options with categories and prices
-  const serviceOptions = {
-    Hair: ["Haircut", "Hair Coloring", "Hair Treatment", "Hair Extensions", "Blowout"],
-    Facial: ["Basic Facial", "Anti-Aging Facial", "Acne Treatment Facial", "Brightening Facial"],
-    "Body Treatment": ["Body Scrub", "Body Wrap", "Cellulite Treatment", "Tanning"],
-    Nail: ["Manicure", "Pedicure", "Gel Manicure", "Nail Art"],
-    Makeup: ["Basic Makeup Application", "Bridal Makeup", "Makeup Lesson"],
-    Massage: ["Swedish Massage", "Deep Tissue Massage", "Hot Stone Massage", "Aromatherapy Massage"],
-  };
+  
 
-  // Prices for each service
-  const servicePrices = {
-    "Haircut": 9600,
-    "Hair Coloring": 25600,
-    "Hair Treatment": 16000,
-    "Hair Extensions": 38400,
-    "Blowout": 12800,
-    "Basic Facial": 22400,
-    "Anti-Aging Facial": 32000,
-    "Acne Treatment Facial": 27200,
-    "Brightening Facial": 28800,
-    "Body Scrub": 19200,
-    "Body Wrap": 25600,
-    "Cellulite Treatment": 32000,
-    "Tanning": 16000,
-    "Manicure": 8000,
-    "Pedicure": 11200,
-    "Gel Manicure": 12800,
-    "Nail Art": 4800,
-    "Basic Makeup Application": 16000,
-    "Bridal Makeup": 48000,
-    "Makeup Lesson": 22400,
-    "Swedish Massage": 28800,
-    "Deep Tissue Massage": 38400,
-    "Hot Stone Massage": 35200,
-    "Aromatherapy Massage": 32000,
-  };
+  useEffect(() => {
+    // Fetch services data when the component mounts
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('/api/services');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const options = {};
+        const prices = {};
+        data.forEach(service => {
+          if (!options[service.category]) {
+            options[service.category] = [];
+          }
+          options[service.category].push(service.name);
+          prices[service.name] = service.price;
+        });
+        setServiceOptions(options);
+        setServicePrices(prices);
+      } catch (err) {
+        console.error('Error fetching services:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Function to handle form data changes
+    fetchServices();
+  }, []);
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({ ...prevData, [name]: value }));
-
-    // Trigger validation for the specific field
-    validateField(name, value);
+    const { name, value, type, checked } = e.target;
+  
+    if (type === "checkbox") {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        services: checked
+          ? [...prevFormData.services, value]
+          : prevFormData.services.filter(service => service !== value),
+      }));
+    } else {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+  
+      // Trigger validation for the specific field if it's a text input
+      validateField(name, value);
+    }
   };
-
-  // Function to handle service selection
+  
   const handleServiceChange = (service) => {
-    setFormData(prevData => {
-      const services = prevData.services.includes(service)
-        ? prevData.services.filter(s => s !== service)
-        : [...prevData.services, service];
-      return { ...prevData, services };
-    });
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      services: prevFormData.services.includes(service)
+        ? prevFormData.services.filter(s => s !== service)
+        : [...prevFormData.services, service],
+    }));
   };
 
   // Validate specific field
@@ -165,14 +175,21 @@ const AppointmentForm = () => {
     e.preventDefault();
 
     if (validateForm()) {
+      
       try {
+        const totalCostLKR = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
+  
+        const appointmentData = {
+          ...formData,
+          totalCost: totalCostLKR, // Ensure totalCost is included
+        };
         if (editData._id) {
           // Editing existing appointment
-          await axios.put(`/api/appointment/${editData._id}`, formData);
+          await axios.put(`/api/appointment/${editData._id}`, appointmentData);
           alert("Your appointment has been updated.");
         } else {
           // Creating new appointment
-          await axios.post('/api/appointment', formData);
+          await axios.post('/api/appointment', appointmentData);
           alert("Thank you! Your appointment has been booked.");
         }
 
@@ -193,10 +210,10 @@ const AppointmentForm = () => {
         alert("There was an error submitting your appointment. Please try again later.");
       }
     }
-  };
+    };
 
-  // Calculate the total cost of selected services
-  const totalCost = formData.services.reduce((acc, service) => acc + servicePrices[service], 0);
+  // Calculate the total cost of selected services in LKR
+  const totalCostLKR = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
 
   return (
     <div className="appointment-form-background">
@@ -243,7 +260,7 @@ const AppointmentForm = () => {
 
           {/* Date and Time Selection */}
           <div>
-            <label>Select Date:</label>
+            <label>Date:</label>
             <input
               type="date"
               name="date"
@@ -255,7 +272,7 @@ const AppointmentForm = () => {
             {errors.date && <p className="error">{errors.date}</p>}
           </div>
           <div>
-            <label>Select Time:</label>
+            <label>Time:</label>
             <select
               name="time"
               value={formData.time}
@@ -264,68 +281,61 @@ const AppointmentForm = () => {
               required
             >
               <option value="">Select Time</option>
-              <option value="9:00 AM">9:00 AM</option>
+              <option value="09:00 AM">09:00 AM</option>
               <option value="10:00 AM">10:00 AM</option>
               <option value="11:00 AM">11:00 AM</option>
-              <option value="12:00 PM">12:00 PM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="2:00 PM">2:00 PM</option>
-              <option value="3:00 PM">3:00 PM</option>
-              <option value="4:00 PM">4:00 PM</option>
-              <option value="5:00 PM">5:00 PM</option>
-              <option value="6:00 PM">6:00 PM</option>
+              <option value="01:00 PM">01:00 PM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="03:00 PM">03:00 PM</option>
             </select>
             {errors.time && <p className="error">{errors.time}</p>}
           </div>
 
-          {/* Service Selection */}
-          <div>
-            <label>Select Services:</label>
-            <div className="service-categories">
-              {Object.entries(serviceOptions).map(([category, services]) => (
-                <div key={category}>
-                  <h4>{category}</h4>
-                  {services.map((service) => (
-                    <div key={service}>
-                      <label>
-                        <input
-                          type="checkbox"
-                          id={service}
-                          name="services"
-                          value={service}
-                          checked={formData.services.includes(service)}
-                          onChange={() => handleServiceChange(service)}
-                        />
-                        {service} - {servicePrices[service]} LKR
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              ))}
-              {errors.services && <p className="error">{errors.services}</p>}
+          {/* Service Selection */}      
+<div>
+  <label htmlFor="services">Select Services:</label>
+  <div id="services" className="services">
+    {loading ? (
+      <p>Loading...</p>
+    ) : (
+      Object.keys(serviceOptions).map(category => (
+        <div key={category}>
+          <h3>{category}</h3>
+          {serviceOptions[category].map(service => (
+            <div key={service} className="service-item">
+              <input
+                type="checkbox"
+                id={service}
+                value={service}
+                checked={formData.services.includes(service)}
+                onChange={() => handleServiceChange(service)}
+              />
+              <label htmlFor={service}>{service} - {servicePrices[service]?.toFixed(0)}  LKR</label>
             </div>
-          </div>
+          ))}
+        </div>
+      ))
+    )}
+  </div>
+  {errors.services && <p className="error">{errors.services}</p>}
+</div>
 
-          {/* Special Requests */}
-          <div>
-            <label>Any Special Requests?</label>
-            <textarea
-              name="requests"
-              value={formData.requests}
-              onChange={handleChange}
-              placeholder="Let us know if you have any special requests..."
-            />
-          </div>
+{/* Special Requests */}
+<div className="special-requests">
+  <label>Special Requests:</label>
+  <textarea
+    name="requests"
+    value={formData.requests}
+    onChange={handleChange}
+  />
+</div>
 
-          {/* Total Cost */}
-          <div>
-            <h3>Total Cost: {totalCost.toLocaleString()} LKR</h3>
-          </div>
 
           {/* Submit Button */}
-          <button type="submit">
-            {editData._id ? "Update Appointment" : "Book Appointment"}
-          </button>
+          <div>
+            <h3>Total Cost: LKR {totalCostLKR.toFixed(2)}</h3>
+            <button type="submit">Submit</button>
+          </div>
         </form>
       </div>
     </div>
