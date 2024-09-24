@@ -1,144 +1,186 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import logo from '../../assets/Logo6.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 
-const styles = {
-    dashboard: {
-        display: 'flex',
-        height: '100vh',
-        backgroundColor: '#1f2937',
-        color: '#ecf0f1',
-        marginTop: '80px',
-    },
-   
-    sidebarTitle: {
-        marginTop: '30px',
-        margin: 0,
-        fontSize: '24px',
-        marginBottom: '20px',
-    },
-    sidebarList: {
-        listStyleType: 'none',
-        padding: 0,
-    },
-    sidebarItem: {
-        marginBottom: '10px',
-    },
-    sidebarLink: {
-        color: '#ecf0f1',
-        textDecoration: 'none',
-        fontSize: '18px',
-        display: 'block',
-        padding: '20px',
-        borderRadius: '4px',
-        transition: 'background-color 0.3s',
-    },
-    sidebarLinkHover: {
-        backgroundColor: '#34495e',
-    },
-    mainContent: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '20px',
-        overflowY: 'auto',
-    },
-    topBar: {
-        backgroundColor: '#34495e',
-        padding: '15px',
-        borderRadius: '8px',
-        marginBottom: '20px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    topBarTitle: {
-        margin: 0,
-        fontSize: '24px',
-    },
-    overview: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginBottom: '20px',
-    },
-    overviewCard: {
-        flex: 1,
-        backgroundColor: '#2d3748',
-        padding: '20px',
-        borderRadius: '8px',
-        margin: '0 10px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    overviewCardHeader: {
-        fontSize: '20px',
-        marginBottom: '10px',
-    },
-    overviewCardNumber: {
-        fontSize: '36px',
-        fontWeight: 'bold',
-    },
-    contentRow: {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-    contentSection: {
-        flex: 1,
-        backgroundColor: '#2d3748',
-        padding: '20px',
-        borderRadius: '8px',
-        margin: '0 10px',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    sectionTitle: {
-        fontSize: '18px',
-        marginBottom: '10px',
-    },
-    schedule: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr)',
-        gap: '10px',
-    },
-    scheduleItem: {
-        backgroundColor: '#3b4252',
-        padding: '10px',
-        borderRadius: '8px',
-        color: '#ffffff',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-    },
-    statsGraph: {
-        height: '150px',
-        backgroundColor: '#2c5282',
-        borderRadius: '8px',
-        padding: '10px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    revenueGraph: {
-        height: '150px',
-        backgroundColor: '#2c5282',
-        borderRadius: '8px',
-        padding: '10px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-};
 
+
+const DashboardContainer = styled.div`
+    display: flex;
+    height: 100vh;
+    background-color: #f7f7f7;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+`;
+
+// Sidebar Styling
+const Sidebar = styled.div`
+    background-color: #111; /* Pure black for a sleek sidebar */
+    width: 260px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const SidebarProfile = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+`;
+
+const ProfileImage = styled.div`
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f44336; /* Red accent for profile image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    color: #fff;
+`;
+
+const ProfileName = styled.h3`
+    margin-top: 15px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+`;
+
+// Sidebar List
+const SidebarList = styled.ul`
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+`;
+
+const SidebarItem = styled.li`
+    margin: 15px 0;
+    width: 100%;
+`;
+
+const SidebarLink = styled.a`
+    color: #d3d3d3;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 20px;
+    border-radius: 10px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+        background-color: #f44336; /* Red hover effect for contrast */
+        color: #fff;
+    }
+`;
+
+// Main Content Styling
+const MainContent = styled.div`
+    flex: 1;
+    padding: 30px;
+    background-color: #fff;
+    overflow-y: auto;
+    border-top-left-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+`;
+
+const Overview = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+`;
+
+const OverviewCard = styled.div`
+    flex: 1;
+    background-color: ${(props) => props.color || "#f44336"};
+    padding: 25px;
+    border-radius: 15px;
+    margin: 0 15px;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const OverviewCardHeader = styled.h3`
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+`;
+
+const OverviewCardNumber = styled.p`
+    font-size: 34px;
+    font-weight: 700;
+    text-align: center;
+`;
+
+// Appointments Schedule Styling
+const ContentSection = styled.div`
+    flex: 1;
+    background-color: #f0f3f5;
+    padding: 30px;
+    border-radius: 20px;
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+`;
+
+const SectionTitle = styled.h2`
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+`;
+
+const Schedule = styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+`;
+
+const ScheduleItem = styled.div`
+    background-color: #e1e5ee;
+    padding: 20px;
+    border-radius: 12px;
+    color: #333;
+    text-align: center;
+    border: 1px solid #f44336; /* Red border accent */
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+        margin: 5px 0;
+        font-size: 16px;
+        font-weight: 400;
+    }
+`;
+
+const ContentRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+    justify-content: space-between;
+`;
+
+
+
+// Dashboard component
 const Dashboard = () => {
     const [totalAppointments, setTotalAppointments] = useState(0);
     const [totalServices, setTotalServices] = useState(0);
+    const [todaysAppointments, setTodaysAppointments] = useState([]);
 
-    // Fetch total appointments and services from the backend
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -146,8 +188,12 @@ const Dashboard = () => {
                 setTotalAppointments(response.data.totalAppointment);
                 const servicesResponse = await axios.get('/api/services/total');
                 setTotalServices(servicesResponse.data.totalServices);
+
+                // Fetch daily appointments
+                const todayResponse = await axios.get('/api/appointment/today');
+                setTodaysAppointments(todayResponse.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error.response ? error.response.data : error);
                 alert('Error fetching data. Please try again.');
             }
         };
@@ -156,148 +202,55 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div>
-            <Nav>
-                <Logo src={logo} alt="Logo" />
-                <Menu>
-                    <MenuItem href="/">Home</MenuItem>
-                    
-                    <MenuItem href="/salon">Saloon</MenuItem>
-
-                    <MenuItem href="/AllAppointments">Appointments</MenuItem>
-
-                    <MenuItem href="/ServiceListAD">Services</MenuItem>
-
-                    <MenuItem href="/ServicePopularityReport">Reports</MenuItem>
-                
-                </Menu>
-               
-                <IconContainer>
-                   
-                    <IconLink href="/Dashboard">
+        <DashboardContainer>
+            <Sidebar>
+                <SidebarProfile>
+                    <ProfileImage>
                         <FontAwesomeIcon icon={faUser} />
-                    </IconLink>
-                </IconContainer>
-            </Nav>
-
-            <div style={styles.dashboard}>
-              
-
-                <div style={styles.mainContent}>
-                   
-                    <div style={styles.overview}>
-                        <div style={styles.overviewCard}>
-                            <div style={styles.overviewCardHeader}>Total Appointments</div>
-                            <div style={styles.overviewCardNumber}>{totalAppointments}</div>
-                        </div>
-                        <div style={styles.overviewCard}>
-                            <div style={styles.overviewCardHeader}>Total Services</div>
-                            <div style={styles.overviewCardNumber}>{totalServices}</div>
-                        </div>
-                    </div>
-                    <div style={styles.contentRow}>
-                        <div style={styles.contentSection}>
-                            <h2 style={styles.sectionTitle}>Day Schedule</h2>
-                            <div style={styles.schedule}>
-                                <div style={styles.scheduleItem}>Hair Cut & Botox</div>
-                                <div style={styles.scheduleItem}>Hair Cut</div>
-                                <div style={styles.scheduleItem}>Hair Style & Beard</div>
-                                <div style={styles.scheduleItem}>Waxing</div>
-                                <div style={styles.scheduleItem}>Pedicure & Manicure</div>
-                            </div>
-                        </div>
-                        <div style={styles.contentSection}>
-                            <h2 style={styles.sectionTitle}>Statistics</h2>
-                            <div style={styles.statsGraph}>
-                                <p>Graph Placeholder</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={styles.contentRow}>
-                        <div style={styles.contentSection}>
-                            <h2 style={styles.sectionTitle}>Revenue Overview</h2>
-                            <div style={styles.revenueGraph}>
-                                <p>Revenue Graph Placeholder</p>
-                            </div>
-                        </div>
-                        <div style={styles.contentSection}>
-                            <h2 style={styles.sectionTitle}>Recent Reports</h2>
-                            <p>No new reports</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </ProfileImage>
+                    <ProfileName>Salon Manager</ProfileName>
+                </SidebarProfile>
+                <SidebarList>
+                    <SidebarItem><SidebarLink href="/">Home</SidebarLink></SidebarItem>
+                    <SidebarItem><SidebarLink href="/salon">Saloon</SidebarLink></SidebarItem>
+                    <SidebarItem><SidebarLink href="/ALLAppointments">Appointments</SidebarLink></SidebarItem>
+                    <SidebarItem><SidebarLink href="/ServiceListAD">Services</SidebarLink></SidebarItem>
+                    <SidebarItem><SidebarLink href="/reports">Reports</SidebarLink></SidebarItem>
+                </SidebarList>
+            </Sidebar>
+            <MainContent>
+                <Overview>
+                    <OverviewCard color="#2c3e50">
+                        <OverviewCardHeader>Total Appointments</OverviewCardHeader>
+                        <OverviewCardNumber>{totalAppointments}</OverviewCardNumber>
+                    </OverviewCard>
+                    <OverviewCard color="#34495e">
+                        <OverviewCardHeader>Total Services</OverviewCardHeader>
+                        <OverviewCardNumber>{totalServices}</OverviewCardNumber>
+                    </OverviewCard>
+                </Overview>
+                <ContentRow>
+                    <ContentSection>
+                        <SectionTitle><b>Today's Appointments</b></SectionTitle>
+                        <Schedule>
+                            {todaysAppointments.length === 0 ? (
+                                <ScheduleItem>No appointments for today.</ScheduleItem>
+                            ) : (
+                                todaysAppointments.map((appt) => (
+                                    <ScheduleItem key={appt._id}>
+                                        <p>{appt.name}</p>
+                                        <p>{new Date(appt.date).toLocaleDateString()}</p>
+                                        <p>{appt.time}</p>
+                                        <p>{appt.services.join(', ')}</p>
+                                    </ScheduleItem>
+                                ))
+                            )}
+                        </Schedule>
+                    </ContentSection>
+                </ContentRow>
+            </MainContent>
+        </DashboardContainer>
     );
 };
 
-// Styled Components for the Header section
-const Nav = styled.nav`
- display: flex;
-  padding: 15px 25px; /* Increased padding by 5px */
-  background-color: #000;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000; /* Ensure the nav stays on top */
-`;
-
-const Logo = styled.img`
-padding-top:9px;
-  height: 49px; /* Slightly increased logo height */
-`;
-
-const Menu = styled.div`
-  margin-left: 50px;
-  display: flex;
-  gap: 25px;
-  padding-top: 23px; /* Adjusted padding to align menu items */
-`;
-
-const MenuItem = styled.a`
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-  margin-left: 15px;
-
-  &:hover {
-    color: #AE2012; /* Optional: Add hover effect */
-  }
-`;
-
-const SearchContainer = styled.div`
-  margin-left: 260px; /* Adjust this to position the search bar */
-  margin-top: 15px; /* Adjusted margin to align search bar */
-`;
-
-const SearchInput = styled.input`
-  padding: 12px 14px; /* Slightly increased padding for input */
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  width: 150px; /* Adjusted width slightly */
-  outline: none;
-
-  &:focus {
-    border-color: #AE2012; /* Change the border color when focused */
-  }
-`;
-
-const IconContainer = styled.div`
-  display: flex;
-  padding-top: 23px; /* Adjusted padding to align icons */
-  gap: 35px; /* Adjusted gap between icons */
-  margin-left: 55px; /* Adjust this value as needed */
-`;
-
-const IconLink = styled.a`
-  color: #fff;
-  font-size: 20px;
-  text-decoration: none;
-
-  &:hover {
-    color: #8b0000; /* Optional: Add hover effect */
-  }
-`;
 export default Dashboard;

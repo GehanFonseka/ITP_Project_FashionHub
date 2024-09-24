@@ -3,7 +3,21 @@ import './AppointmentForm.css'; // Import the CSS file
 import axios from 'axios'; // Import axios for HTTP requests
 import { useNavigate, useLocation } from 'react-router-dom';
 
+const appointments = [];
 
+// Check availability and book an appointment
+const bookAppointment = (serviceCategory, date, time) => {
+  const existingAppointment = appointments.find(appointment => 
+    appointment.serviceCategory === serviceCategory &&
+    appointment.date === date &&
+    appointment.time === time
+  );
+
+  return existingAppointment ? { 
+    success: false, 
+    message: `Cannot book appointment. ${serviceCategory} is already booked at ${time} on ${date}.` 
+  } : { success: true };
+};
 
 const AppointmentForm = () => {
   const navigate = useNavigate();
@@ -19,13 +33,16 @@ const AppointmentForm = () => {
     time: editData.time || "",
     services: editData.services || [],
     requests: editData.requests || "",
+   
   });
   const [errors, setErrors] = useState({});
   const [serviceOptions, setServiceOptions] = useState({});
   const [servicePrices, setServicePrices] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const [totalCost, setTotalCost] = useState(0);
   
+  
+
 
   useEffect(() => {
     // Fetch services data when the component mounts
@@ -47,6 +64,9 @@ const AppointmentForm = () => {
         });
         setServiceOptions(options);
         setServicePrices(prices);
+        
+        const initialTotalCost = editData.services.reduce((sum, service) => sum + (prices[service] || 0), 0);
+        setTotalCost(initialTotalCost);
       } catch (err) {
         console.error('Error fetching services:', err);
       } finally {
@@ -56,6 +76,11 @@ const AppointmentForm = () => {
 
     fetchServices();
   }, []);
+
+  useEffect(() => {
+    const newTotalCost = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
+    setTotalCost(newTotalCost);
+  }, [formData.services, servicePrices]); // Recalculate total cost when services or prices change
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -77,15 +102,36 @@ const AppointmentForm = () => {
       validateField(name, value);
     }
   };
-  
   const handleServiceChange = (service) => {
+    const serviceCategory = Object.keys(serviceOptions).find(category =>
+      serviceOptions[category].includes(service)
+    );
+  
+    // Check if there's already a service from a different category selected
+    const selectedCategories = new Set(formData.services.map(s => {
+      return Object.keys(serviceOptions).find(category => serviceOptions[category].includes(s));
+    }));
+  
+    // If selecting a service from a different category, alert the user
+    if (selectedCategories.size > 0 && !selectedCategories.has(serviceCategory)) {
+      alert("You can only select multiple services from the same category.");
+      return;
+    }
+  
+    const updatedServices = formData.services.includes(service)
+      ? formData.services.filter(s => s !== service)
+      : [...formData.services, service];
+  
     setFormData(prevFormData => ({
       ...prevFormData,
-      services: prevFormData.services.includes(service)
-        ? prevFormData.services.filter(s => s !== service)
-        : [...prevFormData.services, service],
+      services: updatedServices,
     }));
+  
+    // Calculate the new total cost after the service change
+    const newTotalCost = updatedServices.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
+    setTotalCost(newTotalCost);
   };
+  
 
   // Validate specific field
   const validateField = (name, value) => {
@@ -173,27 +219,31 @@ const AppointmentForm = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (validateForm()) {
-      
-      try {
-        const totalCostLKR = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
   
+    if (validateForm()) {
+      try {const appointmentConflict = bookAppointment(formData.services.join(', '), formData.date, formData.time);
+        if (!appointmentConflict.success) {
+          alert(appointmentConflict.message);
+          return; // Stop form submission if there's a conflict
+        }
+
+        // If no conflicts, proceed with form submission
         const appointmentData = {
           ...formData,
-          totalCost: totalCostLKR, // Ensure totalCost is included
+          totalCost: totalCost, // Ensure totalCost is included
         };
+  
         if (editData._id) {
-          // Editing existing appointment
-          await axios.put(`/api/appointment/${editData._id}`, appointmentData);
+          // Editing an existing appointment
+          await axios.put(`/api/appointment/${editData._id}`, formData);
           alert("Your appointment has been updated.");
         } else {
-          // Creating new appointment
+          // Creating a new appointment
           await axios.post('/api/appointment', appointmentData);
           alert("Thank you! Your appointment has been booked.");
         }
-
-        // Reset form data and errors
+  
+        // Reset form data after submission
         setFormData({
           name: "",
           contactNumber: "",
@@ -204,13 +254,15 @@ const AppointmentForm = () => {
           requests: "",
         });
         setErrors({});
+        setTotalCost(0);
         navigate('/MyAppointmentForm');
       } catch (error) {
         console.error("Error submitting the form:", error);
         alert("There was an error submitting your appointment. Please try again later.");
       }
     }
-    };
+  };
+  
 
   // Calculate the total cost of selected services in LKR
   const totalCostLKR = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
@@ -293,7 +345,7 @@ const AppointmentForm = () => {
 
           {/* Service Selection */}      
 <div>
-  <label htmlFor="services">Select Services:</label>
+  <label htmlFor="services">Select Services(You can only select multiple services from the same category) :</label>
   <div id="services" className="services">
     {loading ? (
       <p>Loading...</p>
@@ -342,4 +394,4 @@ const AppointmentForm = () => {
   );
 };
 
-export default AppointmentForm;
+export default AppointmentForm

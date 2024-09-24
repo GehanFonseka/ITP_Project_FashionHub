@@ -4,6 +4,7 @@ import logo from '../../assets/Logo.png';
 
 const Footer = () => {
   return (
+    
     <FooterContainer>
       <FooterContent>
         <FooterColumn>

@@ -75,7 +75,6 @@ const MyAppointmentForm = () => {
                 <TableData>{appt.time}</TableData>
                 <TableData>{appt.services.join(', ')}</TableData>
                 <TableData>{appt.totalCost ? appt.totalCost.toFixed(2) : 'N/A'}</TableData> {/* Handle undefined totalCost */}
-
                 <TableData>
                   <ActionButtonContainer>
                     <ActionButton onClick={() => handleEdit(appt)}>Edit</ActionButton>
