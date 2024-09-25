@@ -27,10 +27,11 @@ import ServicePopularityReport from './Components/SalonAD/ServicePopularityRepor
 
 
 
+
 // Custom component to conditionally render Header and Footer
 const Layout = ({ children }) => {
   const location = useLocation();
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login']; // Add paths where you don't want Header and Footer
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart']; // Add paths where you don't want Header and Footer
 ;
 
 
@@ -59,6 +60,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Cart" element={<Cart />} />
+        
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
          
 

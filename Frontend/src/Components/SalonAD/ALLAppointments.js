@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { Bar } from 'react-chartjs-2'; // Import the Bar chart from Chart.js
+import { Bar } from 'react-chartjs-2';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -25,7 +27,7 @@ const AllAppointments = () => {
 
     const fetchServices = async () => {
       try {
-        const response = await axios.get('/api/services'); // Adjust the endpoint as needed
+        const response = await axios.get('/api/services');
         setServiceCategories(response.data);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -34,7 +36,9 @@ const AllAppointments = () => {
 
     const fetchServiceStats = async () => {
       try {
-        const response = await axios.get('/api/service-stats');
+        const response = await axios.get('/api/service-stats', {
+          params: { startDate, endDate },
+        });
         setServiceStats(response.data);
       } catch (error) {
         console.error('Error fetching service stats:', error);
@@ -44,27 +48,23 @@ const AllAppointments = () => {
     fetchAppointments();
     fetchServices();
     fetchServiceStats();
-  }, []);
+  }, [startDate, endDate]); // Added dependencies
 
-  // Filter appointments
-const filterAppointments = () => {
-  return appointments.filter((appt) => {
-    const apptDate = new Date(appt.date);
-    const start = startDate ? new Date(startDate) : null;
-    const end = endDate ? new Date(endDate) : null;
-    const matchesDateRange = (!start || apptDate >= start) && (!end || apptDate <= end);
+  const filterAppointments = () => {
+    return appointments.filter((appt) => {
+      const apptDate = new Date(appt.date);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+      const matchesDateRange = (!start || apptDate >= start) && (!end || apptDate <= end);
 
-    // Update category matching logic
-    const matchesCategory = selectedCategory
-      ? appt.services.some(service => getServiceCategory(service) === selectedCategory)
-      : true;
+      const matchesCategory = selectedCategory
+        ? appt.services.some(service => getServiceCategory(service) === selectedCategory)
+        : true;
 
-    return matchesDateRange && matchesCategory;
-  });
-};
+      return matchesDateRange && matchesCategory;
+    });
+  };
 
-
-  // Function to get the service category
   const getServiceCategory = (service) => {
     const serviceCategories = {
       "shave": "Hair",
@@ -73,12 +73,10 @@ const filterAppointments = () => {
       "Nail": "Nail",
       "Makeup": "Makeup",
       "Massage": "Massage",
-      // Add more services and their corresponding categories as needed
     };
-    return serviceCategories[service] || null; // Return null if not found
+    return serviceCategories[service] || null;
   };
 
-  // Prepare data for the chart
   const chartData = {
     labels: Object.keys(serviceStats),
     datasets: [
@@ -92,13 +90,41 @@ const filterAppointments = () => {
     ],
   };
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text("Appointments Report", 14, 16);
+    doc.autoTable({
+      startY: 30,
+      head: [['Name', 'Contact Number', 'Email', 'Date', 'Time', 'Services', 'Special Requests', 'Total Amount (LKR)']],
+      body: filterAppointments().map(appt => [
+        appt.name,
+        appt.contactNumber,
+        appt.email,
+        new Date(appt.date).toLocaleDateString(),
+        appt.time,
+        appt.services.join(', '),
+        appt.requests,
+        appt.totalCost ? appt.totalCost.toFixed(0) : 'N/A',
+      ]),
+      styles: {
+        fontSize: 8, // Change the font size for the table
+      },
+      headStyles: {
+        fontSize: 10, // Change the font size for the table header if needed
+        fillColor: [76, 175, 80], // Header background color (RGBA)
+        textColor: [255, 255, 255], // Header text color (white)
+      },
+    });
+    doc.save('appointments_report.pdf');
+  };
+  
   return (
     <Container>
       <TitleContainer>
         <Title>Appointments</Title>
+        <DownloadButton onClick={generatePDF}>Download PDF</DownloadButton>
       </TitleContainer>
 
-      {/* Date Filter Section */}
       <FilterContainer>
         <DateLabel>Start Date:</DateLabel>
         <DateInput
@@ -113,8 +139,7 @@ const filterAppointments = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
         
-         {/* Service Category Filter */}
-         <DateLabel>Service Category:</DateLabel>
+        <DateLabel>Service Category:</DateLabel>
         <SelectInput
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)} 
@@ -161,22 +186,12 @@ const filterAppointments = () => {
         </Table>
       )}
 
-      {/* Chart Section */}
-      <GraphContainer>
-        <h2>Service Booking Statistics</h2>
-        <Bar data={chartData} />
-      </GraphContainer>
+   
     </Container>
   );
 };
 
-// Styled Components (add GraphContainer)
-const GraphContainer = styled.div`
-  margin-top: 40px;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-`;
+
 
 const Container = styled.div`
   margin: 80px;
@@ -199,6 +214,23 @@ const Title = styled.h1`
   color: #333;
 `;
 
+const DownloadButton = styled.button`
+
+  padding: 12px 16px; /* Smaller button size */
+  background-color: #ae2012;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #920d0d;
+  }
+
+  margin-right: 10px; /* Add spacing between buttons */
+`;
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -246,25 +278,25 @@ const SelectInput = styled.select`
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 20px;
 `;
 
 const TableHeader = styled.th`
-  padding: 12px;
-  background-color: #4caf50;
+  background-color: #333;
   color: white;
-  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
 `;
 
 const TableRow = styled.tr`
-  &:hover {
-    background-color: #f1f1f1;
+  &:nth-child(even) {
+    background-color: #f2f2f2;
   }
 `;
 
 const TableData = styled.td`
   padding: 12px;
   border: 1px solid #ddd;
-  text-align: left;
 `;
 
 export default AllAppointments;
