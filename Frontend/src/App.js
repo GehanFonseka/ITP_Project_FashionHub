@@ -35,8 +35,6 @@ import MyAppointmentForm from './Components/salon/MyAppointmentForm';
 
 
 
-//review
-import ReviewForm from './Components/Review/ReviewForm';
 
 
 
@@ -74,8 +72,6 @@ function App() {
 
 
 
-
-      <Route path="/ReviewForm" element={<ReviewForm />} />
 
       
 
