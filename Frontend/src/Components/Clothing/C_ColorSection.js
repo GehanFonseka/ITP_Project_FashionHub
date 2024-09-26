@@ -155,7 +155,7 @@ const ColorSelection = () => {
       <Heading>Select Color</Heading>
       <ProductInfo>
         <ProductName>{item?.name}</ProductName>
-        <ProductPrice>Price: ${item?.price}</ProductPrice>
+        <ProductPrice>Price: LKR{item?.price}</ProductPrice>
       </ProductInfo>
       <MainContent>
         <ColorOptions>

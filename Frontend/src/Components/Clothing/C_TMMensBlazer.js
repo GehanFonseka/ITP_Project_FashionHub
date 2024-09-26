@@ -120,7 +120,7 @@ const C_TMMensBlazer = () => {
           />
           <InfoBox>
             <h3>{blazer.name}</h3> 
-            <p>Price: ${blazer.price}</p>
+            <p>Price: LKR{blazer.price}</p>
             <p>{blazer.description}</p>
           </InfoBox>
         </BlazerRow>

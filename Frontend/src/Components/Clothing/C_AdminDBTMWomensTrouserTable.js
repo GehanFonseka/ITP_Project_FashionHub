@@ -125,7 +125,7 @@ const C_AdminDBTMWomensTrouserTable = () => {
               <td style={styles.td}>{trouser.sellerNo}</td>
               <td style={styles.td}>{trouser.itemNo}</td>
               <td style={styles.td}>{trouser.name}</td>
-              <td style={styles.td}>${trouser.price}</td>
+              <td style={styles.td}>LKR{trouser.price}</td>
               <td style={styles.td}>{trouser.description}</td>
               <td style={styles.td}>
                 {trouser.image && (

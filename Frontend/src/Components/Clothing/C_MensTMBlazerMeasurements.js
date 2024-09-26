@@ -141,7 +141,7 @@ const C_MensTMBlazerMeasurements = () => {
       <SelectionDisplay>
         <p><strong>Item Type:</strong> {item?.name}</p>
         <p><strong>Selected Color:</strong> {selectedColor}</p>
-        <p><strong>Price:</strong> ${item?.price}</p>
+        <p><strong>Price:</strong> LKR{item?.price}</p>
       </SelectionDisplay>
       <Form onSubmit={handleSubmit}>
         <Section>

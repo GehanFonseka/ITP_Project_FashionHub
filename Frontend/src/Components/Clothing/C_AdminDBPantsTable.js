@@ -115,7 +115,7 @@ const C_AdminDBPantsTable = () => {
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Price</th>
             <th style={styles.th}>Description</th>
-            <th style={styles.th}>Quantity</th> {/* New Quantity column */}
+            <th style={styles.th}>Quantity</th>
             <th style={styles.th}>Image</th>
             <th style={styles.th}>Actions</th>
           </tr>
@@ -126,9 +126,9 @@ const C_AdminDBPantsTable = () => {
               <td style={styles.td}>{pants.sellerNo}</td>
               <td style={styles.td}>{pants.itemNo}</td>
               <td style={styles.td}>{pants.name}</td>
-              <td style={styles.td}>${pants.price}</td>
+              <td style={styles.td}>LKR{pants.price}</td>
               <td style={styles.td}>{pants.description}</td>
-              <td style={styles.td}>{pants.quantity}</td> {/* Display quantity */}
+              <td style={styles.td}>{pants.quantity}</td>
               <td style={styles.td}>
                 {pants.image && (
                   <img

@@ -125,7 +125,7 @@ const C_AdminDBTMMensBlazerTable = () => {
               <td style={styles.td}>{blazer.sellerNo}</td>
               <td style={styles.td}>{blazer.itemNo}</td>
               <td style={styles.td}>{blazer.name}</td>
-              <td style={styles.td}>${blazer.price}</td>
+              <td style={styles.td}>LKR{blazer.price}</td>
               <td style={styles.td}>{blazer.description}</td>
               <td style={styles.td}>
                 {blazer.image && (

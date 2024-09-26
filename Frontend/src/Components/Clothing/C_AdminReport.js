@@ -102,7 +102,7 @@ const C_AdminReport = () => {
       // Prepare the table data
       const tableData = categoryData.items.map((item) => [
         item.name,
-        `$${item.price.toFixed(2)}`,
+        `LKR${item.price.toFixed(2)}`,
         item.sellerNo,
         item.itemNo,
         item.quantity,
@@ -150,7 +150,7 @@ const C_AdminReport = () => {
                   {categoryData.items.map((item, i) => (
                     <tr key={i}>
                       <td>{item.name}</td>
-                      <td>${item.price.toFixed(2)}</td>
+                      <td>LKR{item.price.toFixed(2)}</td>
                       <td>{item.sellerNo}</td>
                       <td>{item.itemNo}</td>
                       <td>{item.quantity}</td>

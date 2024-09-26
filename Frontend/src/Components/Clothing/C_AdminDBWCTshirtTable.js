@@ -125,7 +125,7 @@ const C_AdminDBWCTshirtTable = () => {
               <td style={styles.td}>{tshirt.sellerNo}</td>
               <td style={styles.td}>{tshirt.itemNo}</td>
               <td style={styles.td}>{tshirt.name}</td>
-              <td style={styles.td}>${tshirt.price}</td>
+              <td style={styles.td}>LKR{tshirt.price}</td>
               <td style={styles.td}>{tshirt.description}</td>
               <td style={styles.td}>{tshirt.quantity}</td> {/* Display Quantity */}
               <td style={styles.td}>

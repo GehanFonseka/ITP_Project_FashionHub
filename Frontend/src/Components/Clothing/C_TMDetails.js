@@ -98,7 +98,7 @@ const C_TMDetails = () => {
       <DetailsCard>
         <DetailsDisplay>
           <p><strong>Name:</strong> {item.name}</p>
-          <p><strong>Price:</strong> ${item.price}</p>
+          <p><strong>Price:</strong> LKR{item.price}</p>
           <p><strong>Selected Color:</strong> {selectedColor}</p>
           <h3>Measurements:</h3>
           <MeasurementList>

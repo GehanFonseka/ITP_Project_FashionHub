@@ -120,7 +120,7 @@ const C_TMWomensTrouser = () => {
           />
           <InfoBox>
             <h3>{trouser.name}</h3>
-            <p>Price: ${trouser.price}</p>
+            <p>Price: LKR{trouser.price}</p>
             <p>{trouser.description}</p>
           </InfoBox>
         </TrouserRow>
