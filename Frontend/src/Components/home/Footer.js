@@ -18,7 +18,7 @@ const Footer = () => {
 
         <FooterColumn>
           <FooterTitle>SUPPORT</FooterTitle>
-          <FooterLink href="#">CAREERS</FooterLink>
+          <FooterLink href="C_AdminDB01">CAREERS</FooterLink>
           <FooterLink href="#">FAQ</FooterLink>
           <FooterLink href="#">SUBMIT A REQUEST</FooterLink>
           <FooterLink href="#">RETURNS & EXCHANGES</FooterLink>

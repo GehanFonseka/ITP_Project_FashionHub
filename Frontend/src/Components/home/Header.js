@@ -11,12 +11,13 @@ const Header = () => {
       <Logo src={logo} alt="Logo" />
       <Menu>
         <MenuItem href="/">Home</MenuItem>
-        <MenuItem href="/clothing1">Clothing</MenuItem>
+        <MenuItem href="/C_Home">Clothing</MenuItem>
         <MenuItem href="/salon">Saloon</MenuItem>
-        <MenuItem href="/F_Home">Footwear</MenuItem>
-        <MenuItem href="/A_Home">Accessories</MenuItem>
-        <MenuItem href="">Help</MenuItem>
+        <MenuItem href="/footwear">Footwear</MenuItem>
+        <MenuItem href="/accessories">Accessories</MenuItem>
+        <MenuItem href="/help">Help</MenuItem>
         <MenuItem href="Register">Register</MenuItem>
+
       </Menu>
       <SearchContainer>
         <SearchInput type="text" placeholder="Search..." />
@@ -46,15 +47,16 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.img`
-padding-top:9px;
-  height: 49px; /* Slightly increased logo height */
+
+height: 50px;
+
 `;
 
 const Menu = styled.div`
   margin-left: 50px;
   display: flex;
   gap: 25px;
-  padding-top: 23px; /* Adjusted padding to align menu items */
+  padding-top:23px;
 `;
 
 const MenuItem = styled.a`
@@ -71,7 +73,7 @@ const MenuItem = styled.a`
 
 const SearchContainer = styled.div`
   margin-left: 260px; /* Adjust this to position the search bar */
-  margin-top: 15px; /* Adjusted margin to align search bar */
+  margin-top:15px ;
 `;
 
 const SearchInput = styled.input`
@@ -89,8 +91,8 @@ const SearchInput = styled.input`
 
 const IconContainer = styled.div`
   display: flex;
-  padding-top: 23px; /* Adjusted padding to align icons */
-  gap: 35px; /* Adjusted gap between icons */
+  padding-top:23px;
+  gap:535x;
   margin-left: 55px; /* Adjust this value as needed */
 `;
 
