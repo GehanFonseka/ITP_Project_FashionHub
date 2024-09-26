@@ -22,6 +22,7 @@ import MyAppointmentForm from './Components/salon/MyAppointmentForm';
 import Dashboard from './Components/salon/Dashboard';
 import ServiceList from './Components/SalonAD/ServiceList';
 import ServiceListAD from './Components/SalonAD/ServiceListAD';
+
 import AllAppointments from './Components/SalonAD/ALLAppointments';
 import ServicePopularityReport from './Components/SalonAD/ServicePopularityReport';
 
