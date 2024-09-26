@@ -38,6 +38,7 @@ const Layout = ({ children }) => {
 
   const showHeaderFooter = !noHeaderFooterPaths.includes(location.pathname);
 
+<<<<<<< Updated upstream
   return (
     <div>
       {showHeaderFooter && <Header />}
@@ -46,6 +47,16 @@ const Layout = ({ children }) => {
     </div>
   );
 };
+=======
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
 
 function App() {
   return (
@@ -66,6 +77,7 @@ function App() {
          
 
 
+<<<<<<< Updated upstream
           <Route path="/ServiceList" element={<ServiceList />} />
           <Route path="/ServiceListAD" element={<ServiceListAD />} />
           <Route path="/AllAppointments" element={<AllAppointments />} />
@@ -75,6 +87,29 @@ function App() {
           <Route path="/A_Home" element={<A_Home />} />
         </Routes>
       </Layout>
+=======
+      <Route path="/" element={<HeroSection/>} />
+      <Route path="/F_Home" element={<F_Home/>} />
+      <Route path="/F_MensCasualAndFormal" element={<F_MensCasualAndFormal/>} />
+      <Route path="F_WomensCasualAndFormal" element={<F_WomensCasualAndFormal/>} />
+      <Route path="/A_Home" element={<A_Home/>} />
+
+
+
+
+      
+
+
+
+
+
+      
+
+      
+
+      </Routes>
+      <Footer />
+>>>>>>> Stashed changes
     </Router>
   );
 }
