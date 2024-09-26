@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from '../../utilities/axios';
 import { useNavigate } from 'react-router-dom';
 
-const C_AdminDBPants = () => {
+const C_AdminDBTMWomensTrouser = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -11,7 +11,6 @@ const C_AdminDBPants = () => {
     name: "",
     price: "",
     description: "",
-    quantity: "", 
     image: null
   });
   const [imageFile, setImageFile] = useState(null);
@@ -25,6 +24,7 @@ const C_AdminDBPants = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    setImageFile(file);
     setFormData(prevData => ({ ...prevData, image: file }));
   };
 
@@ -34,9 +34,8 @@ const C_AdminDBPants = () => {
     switch (name) {
       case "sellerNo":
       case "itemNo":
-      case "quantity":
-        newErrors[name] = !value || isNaN(value) || value <= 0
-          ? `${name.replace(/([A-Z])/g, ' $1').trim()} must be a positive number and no letters.`
+        newErrors[name] = !value || isNaN(value) || value.length < 1
+          ? `${name.replace(/([A-Z])/g, ' $1').trim()} must be a number and not empty.`
           : "";
         break;
       case "name":
@@ -70,10 +69,10 @@ const C_AdminDBPants = () => {
     const newErrors = {};
 
     if (!formData.sellerNo || isNaN(formData.sellerNo)) {
-      newErrors.sellerNo = "Seller No must be a positive number.";
+      newErrors.sellerNo = "Seller No must be a number and not empty.";
     }
     if (!formData.itemNo || isNaN(formData.itemNo)) {
-      newErrors.itemNo = "Item No must be a positive number.";
+      newErrors.itemNo = "Item No must be a number and not empty.";
     }
     if (!formData.name || formData.name.length < 3) {
       newErrors.name = "Name must be at least 3 characters long.";
@@ -83,9 +82,6 @@ const C_AdminDBPants = () => {
     }
     if (!formData.description || formData.description.length < 5) {
       newErrors.description = "Description must be at least 5 characters long.";
-    }
-    if (!formData.quantity || isNaN(formData.quantity) || formData.quantity <= 0) {
-      newErrors.quantity = "Quantity must be a positive number.";
     }
     if (!formData.image) {
       newErrors.image = "Image is required.";
@@ -99,32 +95,35 @@ const C_AdminDBPants = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const formDataWithImage = new FormData();
-      formDataWithImage.append("image", imageFile);
-      try {
-        const response = await axios.post('/api/pants', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        alert("Pants item has been added successfully.");
-        setFormData({
-          sellerNo: "",
-          itemNo: "",
-          name: "",
-          price: "",
-          description: "",
-          quantity: "", // Reset quantity as well
-          image: null
-        });
-        setImageFile(null);
-        setErrors({});
-        navigate('/C_AdminDBSB');
-      } catch (error) {
-        console.error("Error submitting the form:", error.response?.data || error.message);
-        alert(`There was an error adding the pants item: ${error.response?.data.error || error.message}`);
+        const formDataWithImage = new FormData();
+       
+        formDataWithImage.append("image", imageFile);
+        console.log("formDataWithImage",formDataWithImage)
+        console.log("imageFile",imageFile)
+        console.log("formData",formData)
+        try {
+          const response = await axios.post('/api/tm-womenstrousers', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          console.log("Response:", response); // Debugging: Log server response
+          alert("Trouser item has been added successfully.");
+          setFormData({
+            sellerNo: "",
+            itemNo: "",
+            name: "",
+            price: "",
+            description: "",
+          });
+          setImageFile(null);
+          setErrors({});
+          navigate('/C_AdminSBTMWomensTrouser'); // Redirect to a success page or list page
+        } catch (error) {
+          console.error("Error submitting the form:", error.response?.data || error.message);
+          alert(`There was an error adding the pants item: ${error.response?.data.error || error.message}`);
+        }
       }
-    }
   };
 
   const styles = {
@@ -196,7 +195,7 @@ const C_AdminDBPants = () => {
   return (
     <div style={styles.formBackground}>
       <div style={styles.container}>
-        <h2 style={styles.heading}>Add New Pants Item</h2>
+        <h2 style={styles.heading}>Add New Tailor Made Women's Trouser Item</h2>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div style={styles.formGroup}>
             <label style={styles.label}>Seller No:</label>
@@ -252,44 +251,29 @@ const C_AdminDBPants = () => {
               {errors.price && <p style={styles.error}>{errors.price}</p>}
             </div>
           </div>
-          <div style={{ ...styles.formGroup, ...styles.inlineGroup }}>
-            <div style={styles.inlineInput}>
-              <label style={styles.label}>Description:</label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                onBlur={() => validateField('description', formData.description)}
-                style={styles.input}
-                rows="4"
-                required
-              ></textarea>
-              {errors.description && <p style={styles.error}>{errors.description}</p>}
-            </div>
-            <div style={styles.inlineInput}>
-              <label style={styles.label}>Quantity:</label>
-              <input
-                type="text"
-                name="quantity"
-                value={formData.quantity}
-                onChange={handleChange}
-                onBlur={() => validateField('quantity', formData.quantity)}
-                style={styles.input}
-                required
-              />
-              {errors.quantity && <p style={styles.error}>{errors.quantity}</p>}
-            </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Description:</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              onBlur={() => validateField('description', formData.description)}
+              style={styles.input}
+              rows="4"
+              required
+            ></textarea>
+            {errors.description && <p style={styles.error}>{errors.description}</p>}
           </div>
           <div style={styles.formGroup}>
-            <label style={styles.label}>Image:</label>
+            <label style={styles.label}>Upload Image:</label>
             <input
               type="file"
-              name="image"
+              accept="image/*"
               onChange={handleImageChange}
               style={styles.input}
               required
             />
-            {errors.image && <p style={styles.error}>{errors.image}</p>}
+           {errors.image && <p style={styles.error}>{errors.image}</p>}
           </div>
           <button type="submit" style={styles.button}>Add Item</button>
         </form>
@@ -298,4 +282,4 @@ const C_AdminDBPants = () => {
   );
 };
 
-export default C_AdminDBPants;
+export default C_AdminDBTMWomensTrouser;

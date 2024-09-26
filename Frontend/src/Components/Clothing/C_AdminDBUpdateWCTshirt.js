@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../utilities/axios';
 
-const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
+const C_AdminDBUpdateWCTshirt = ({ tshirt, onClose, onUpdate }) => {
   const [formData, setFormData] = useState({
     sellerNo: '',
     itemNo: '',
@@ -9,23 +9,23 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
     price: '',
     description: '',
     image: '',
-    quantity: '', // Added quantity
+    quantity: '', // Added quantity field to formData
   });
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (blazer) {
+    if (tshirt) {
       setFormData({
-        sellerNo: blazer.sellerNo || '',
-        itemNo: blazer.itemNo || '',
-        name: blazer.name || '',
-        price: blazer.price || '',
-        description: blazer.description || '',
-        image: blazer.image || '',
-        quantity: blazer.quantity || '', // Initialize quantity
+        sellerNo: tshirt.sellerNo || '',
+        itemNo: tshirt.itemNo || '',
+        name: tshirt.name || '',
+        price: tshirt.price || '',
+        description: tshirt.description || '',
+        image: tshirt.image || '',
+        quantity: tshirt.quantity || '', // Pre-fill quantity from the tshirt data
       });
     }
-  }, [blazer]);
+  }, [tshirt]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,12 +38,12 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/rm-mensblazers/${blazer._id}`, formData);
+      await axios.put(`/api/wc-tshirts/${tshirt._id}`, formData);
       onUpdate(); // Notify parent component of the update
       onClose(); // Close the modal
     } catch (error) {
-      console.error("Error updating blazer item:", error);
-      setError("Failed to update blazer item. Please try again.");
+      console.error("Error updating t-shirt item:", error);
+      setError("Failed to update t-shirt item. Please try again.");
     }
   };
 
@@ -51,7 +51,7 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
     <div style={styles.modal}>
       <div style={styles.modalContent}>
         <span style={styles.close} onClick={onClose}>&times;</span>
-        <h2>Update Ready-Made Men's Blazer</h2>
+        <h2>Update Women's Casual T-Shirt</h2>
         {error && <p style={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <label>
@@ -108,23 +108,23 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
             />
           </label>
           <label>
-            Image URL:
-            <input
-              type="text"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-          <label>
-            Quantity: {/* Added quantity input */}
+            Quantity: {/* Added Quantity input field */}
             <input
               type="number"
               name="quantity"
               value={formData.quantity}
               onChange={handleChange}
               required
+              style={styles.input}
+            />
+          </label>
+          <label>
+            Image URL:
+            <input
+              type="text"
+              name="image"
+              value={formData.image}
+              onChange={handleChange}
               style={styles.input}
             />
           </label>
@@ -156,7 +156,6 @@ const styles = {
     maxWidth: '95vw', // Ensure it does not exceed the viewport width
     boxSizing: 'border-box',
     minWidth: '600px', // Ensure a minimum width for better appearance
-    position: 'relative', // Ensure the close button is positioned correctly
   },
   close: {
     position: 'absolute',
@@ -188,4 +187,4 @@ const styles = {
   },
 };
 
-export default C_AdminDBUpdateRMMensBlazer;
+export default C_AdminDBUpdateWCTshirt;

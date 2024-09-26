@@ -72,7 +72,17 @@ const C_WomensFormalTM = () => {
 
   // Function to handle navigation to the Blazers page
   const handleBlazersClick = () => {
-    navigate('/C_WomensFormalBlazers'); // Navigate to the appropriate Blazers page
+    navigate('/C_WomensFormalBlazers'); // Navigate to the Blazers page
+  };
+
+  // Function to handle navigation to the Trousers page
+  const handleTrousersClick = () => {
+    navigate('/C_TMWomensTrouser'); // Navigate to the Trousers page
+  };
+
+  // Function to handle navigation to the Shirts page
+  const handleShirtsClick = () => {
+    navigate('/C_TMWomensShirts'); // Navigate to the Shirts page
   };
 
   return (
@@ -80,15 +90,21 @@ const C_WomensFormalTM = () => {
       <Quote>Experience Unmatched Elegance – Tailor-Made for Your Perfect Fit</Quote>
       <Row>
         <ImageBox 
-          style={{ backgroundImage: `url(${C23})` }} 
+          style={{ backgroundImage: `url(${C24})` }} 
           onClick={handleBlazersClick} // Add onClick to navigate
         >
           <BlackLabel>Blazers</BlackLabel>
         </ImageBox>
-        <ImageBox style={{ backgroundImage: `url(${C24})` }}>
+        <ImageBox 
+          style={{ backgroundImage: `url(${C23})` }} 
+          onClick={handleTrousersClick} // Add onClick to navigate
+        >
           <BlackLabel>Trousers</BlackLabel>
         </ImageBox>
-        <ImageBox style={{ backgroundImage: `url(${C25})` }}>
+        <ImageBox 
+          style={{ backgroundImage: `url(${C25})` }} 
+          onClick={handleShirtsClick} // Add onClick to navigate
+        >
           <BlackLabel>Shirts</BlackLabel>
         </ImageBox>
       </Row>

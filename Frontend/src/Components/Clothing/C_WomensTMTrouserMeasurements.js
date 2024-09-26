@@ -90,7 +90,6 @@ const SubmitButton = styled.button`
   max-width: 200px; /* Set maximum width */
   width: 100%; /* Ensure button takes up full width within the max-width constraint */
   text-align: center; /* Center text inside the button */
-  
 
   &:hover {
     background-color: #555;
@@ -98,16 +97,16 @@ const SubmitButton = styled.button`
 `;
 
 // Component definition
-const C_MensTMBlazerMeasurements = () => {
+const C_WomensTMTrouserMeasurements = () => {
   const location = useLocation();
   const { item, selectedColor } = location.state || {}; // Destructure item and selectedColor from state
   const navigate = useNavigate();
 
   const [measurements, setMeasurements] = useState({
-    chest: '',
     waist: '',
-    sleeve: '',
-    length: ''
+    hip: '',
+    length: '',
+    inseam: ''
   });
 
   const handleChange = (e) => {
@@ -122,7 +121,7 @@ const C_MensTMBlazerMeasurements = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (measurements.chest && measurements.waist && measurements.sleeve && measurements.length) {
+    if (measurements.waist && measurements.hip && measurements.length && measurements.inseam) {
       navigate('/C_TMDetails', {
         state: {
           item,
@@ -146,21 +145,6 @@ const C_MensTMBlazerMeasurements = () => {
       <Form onSubmit={handleSubmit}>
         <Section>
           <MeasurementField>
-            <Label htmlFor="chest">Chest:</Label>
-            <Input
-              type="number"
-              id="chest"
-              name="chest"
-              value={measurements.chest}
-              onChange={handleChange}
-              placeholder="Enter chest measurement"
-              min="0" // Prevent negative values
-            />
-            <Description>Measure around the fullest part of your chest, keeping the tape parallel to the floor.</Description>
-          </MeasurementField>
-        </Section>
-        <Section>
-          <MeasurementField>
             <Label htmlFor="waist">Waist:</Label>
             <Input
               type="number"
@@ -173,20 +157,18 @@ const C_MensTMBlazerMeasurements = () => {
             />
             <Description>Measure around your natural waistline, typically just above the belly button.</Description>
           </MeasurementField>
-        </Section>
-        <Section>
           <MeasurementField>
-            <Label htmlFor="sleeve">Sleeve:</Label>
+            <Label htmlFor="hip">Hip:</Label>
             <Input
               type="number"
-              id="sleeve"
-              name="sleeve"
-              value={measurements.sleeve}
+              id="hip"
+              name="hip"
+              value={measurements.hip}
               onChange={handleChange}
-              placeholder="Enter sleeve measurement"
+              placeholder="Enter hip measurement"
               min="0" // Prevent negative values
             />
-            <Description>Measure from the center back of your neck to your wrist, with your arm slightly bent.</Description>
+            <Description>Measure around the fullest part of your hips, keeping the tape parallel to the floor.</Description>
           </MeasurementField>
         </Section>
         <Section>
@@ -201,7 +183,20 @@ const C_MensTMBlazerMeasurements = () => {
               placeholder="Enter length measurement"
               min="0" // Prevent negative values
             />
-            <Description>Measure from the base of your neck down to where you want the blazer to end.</Description>
+            <Description>Measure from the base of your waist to where you want the trouser to end.</Description>
+          </MeasurementField>
+          <MeasurementField>
+            <Label htmlFor="inseam">Inseam:</Label>
+            <Input
+              type="number"
+              id="inseam"
+              name="inseam"
+              value={measurements.inseam}
+              onChange={handleChange}
+              placeholder="Enter inseam measurement"
+              min="0" // Prevent negative values
+            />
+            <Description>Measure from the crotch to the bottom of the leg.</Description>
           </MeasurementField>
         </Section>
         <SubmitButton type="submit">Submit</SubmitButton>
@@ -210,4 +205,4 @@ const C_MensTMBlazerMeasurements = () => {
   );
 };
 
-export default C_MensTMBlazerMeasurements;
+export default C_WomensTMTrouserMeasurements;

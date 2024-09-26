@@ -1,47 +1,47 @@
 import React, { useEffect, useState } from "react";
 import axios from '../../utilities/axios';
-import C_AdminDBUpdatePants from './C_AdminDBUpdatePants'; // Import the update component
+import C_AdminDBUpdateTMWomensTrouser from './C_AdminDBUpdateTMWomensTrouser'; 
 
-const C_AdminDBPantsTable = () => {
-  const [pantsData, setPantsData] = useState([]);
-  const [selectedPants, setSelectedPants] = useState(null);
+const C_AdminDBTMWomensTrouserTable = () => {
+  const [trouserData, setTrouserData] = useState([]);
+  const [selectedTrouser, setSelectedTrouser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchPantsData();
+    fetchTrouserData();
   }, []);
 
-  const fetchPantsData = async () => {
+  const fetchTrouserData = async () => {
     try {
-      const response = await axios.get('/api/pants');
+      const response = await axios.get('/api/tm-womenstrousers');
       console.log("response.data", response.data);
-      setPantsData(response.data);
+      setTrouserData(response.data);
     } catch (error) {
-      console.error("Error fetching pants data:", error);
+      console.error("Error fetching trouser data:", error);
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/pants/${id}`);
-      setPantsData(pantsData.filter(pants => pants._id !== id));
+      await axios.delete(`/api/tm-womenstrousers/${id}`);
+      setTrouserData(trouserData.filter(trouser => trouser._id !== id));
     } catch (error) {
-      console.error("Error deleting pants item:", error);
+      console.error("Error deleting trouser item:", error);
     }
   };
 
-  const handleUpdate = (pants) => {
-    setSelectedPants(pants);
+  const handleUpdate = (trouser) => {
+    setSelectedTrouser(trouser);
     setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setSelectedPants(null);
+    setSelectedTrouser(null);
   };
 
   const handleUpdateSuccess = () => {
-    fetchPantsData(); // Refresh the pants data after a successful update
+    fetchTrouserData(); // Refresh the trouser data after a successful update
     handleModalClose(); // Close modal after successful update
   };
 
@@ -106,7 +106,7 @@ const C_AdminDBPantsTable = () => {
 
   return (
     <div>
-      <h2>Pants Inventory</h2>
+      <h2>Tailor Made Women's Trouser Inventory</h2>
       <table style={styles.table}>
         <thead>
           <tr>
@@ -115,25 +115,23 @@ const C_AdminDBPantsTable = () => {
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Price</th>
             <th style={styles.th}>Description</th>
-            <th style={styles.th}>Quantity</th> {/* New Quantity column */}
             <th style={styles.th}>Image</th>
             <th style={styles.th}>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {pantsData.map((pants) => (
-            <tr key={pants._id}>
-              <td style={styles.td}>{pants.sellerNo}</td>
-              <td style={styles.td}>{pants.itemNo}</td>
-              <td style={styles.td}>{pants.name}</td>
-              <td style={styles.td}>${pants.price}</td>
-              <td style={styles.td}>{pants.description}</td>
-              <td style={styles.td}>{pants.quantity}</td> {/* Display quantity */}
+          {trouserData.map((trouser) => (
+            <tr key={trouser._id}>
+              <td style={styles.td}>{trouser.sellerNo}</td>
+              <td style={styles.td}>{trouser.itemNo}</td>
+              <td style={styles.td}>{trouser.name}</td>
+              <td style={styles.td}>${trouser.price}</td>
+              <td style={styles.td}>{trouser.description}</td>
               <td style={styles.td}>
-                {pants.image && (
+                {trouser.image && (
                   <img
-                    src={`http://localhost:5000/uploads/${pants.image}`} // Adjust the URL as needed
-                    alt={pants.name}
+                    src={`http://localhost:5000/uploads/${trouser.image}`} // Adjust the URL as needed
+                    alt={trouser.name}
                     style={styles.img}
                     onError={(e) => e.target.src = 'path-to-placeholder-image.jpg'} // Fallback image
                   />
@@ -142,13 +140,13 @@ const C_AdminDBPantsTable = () => {
               <td style={styles.td}>
                 <button
                   style={{ ...styles.button, ...styles.updateButton }}
-                  onClick={() => handleUpdate(pants)}
+                  onClick={() => handleUpdate(trouser)}
                 >
                   Update
                 </button>
                 <button
                   style={{ ...styles.button, ...styles.deleteButton }}
-                  onClick={() => handleDelete(pants._id)}
+                  onClick={() => handleDelete(trouser._id)}
                 >
                   Delete
                 </button>
@@ -161,8 +159,8 @@ const C_AdminDBPantsTable = () => {
         <>
           <div style={styles.overlay} onClick={handleModalClose}></div>
           <div style={styles.modal}>
-            <C_AdminDBUpdatePants
-              pants={selectedPants}
+            <C_AdminDBUpdateTMWomensTrouser
+              trouser={selectedTrouser}
               onClose={handleModalClose}
               onUpdate={handleUpdateSuccess}
             />
@@ -173,4 +171,4 @@ const C_AdminDBPantsTable = () => {
   );
 };
 
-export default C_AdminDBPantsTable;
+export default C_AdminDBTMWomensTrouserTable;

@@ -9,6 +9,7 @@ const C_AdminDBUpdatePants = ({ pants, onClose, onUpdate }) => {
     price: '',
     description: '',
     image: '',
+    quantity: '', // Added quantity field
   });
   const [error, setError] = useState(null);
 
@@ -21,6 +22,7 @@ const C_AdminDBUpdatePants = ({ pants, onClose, onUpdate }) => {
         price: pants.price || '',
         description: pants.description || '',
         image: pants.image || '',
+        quantity: pants.quantity || '', // Initialize quantity from pants data
       });
     }
   }, [pants]);
@@ -91,6 +93,17 @@ const C_AdminDBUpdatePants = ({ pants, onClose, onUpdate }) => {
               type="number"
               name="price"
               value={formData.price}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+          </label>
+          <label>
+            Quantity: {/* New Quantity field */}
+            <input
+              type="number"
+              name="quantity"
+              value={formData.quantity}
               onChange={handleChange}
               required
               style={styles.input}

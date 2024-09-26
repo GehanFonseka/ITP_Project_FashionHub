@@ -1,51 +1,50 @@
 import React, { useEffect, useState } from "react";
 import axios from '../../utilities/axios';
-import C_AdminDBUpdatePants from './C_AdminDBUpdatePants'; // Import the update component
+import C_AdminDBUpdateWCTshirt from './C_AdminDBUpdateWCTshirt.js'; // Import the update component
 
-const C_AdminDBPantsTable = () => {
-  const [pantsData, setPantsData] = useState([]);
-  const [selectedPants, setSelectedPants] = useState(null);
+const C_AdminDBWCTshirtTable = () => {
+  const [wctShirtData, setWctShirtData] = useState([]);
+  const [selectedWCTshirt, setSelectedWCTshirt] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchPantsData();
+    fetchWCTshirtData();
   }, []);
 
-  const fetchPantsData = async () => {
+  const fetchWCTshirtData = async () => {
     try {
-      const response = await axios.get('/api/pants');
+      const response = await axios.get('/api/wc-tshirts');
       console.log("response.data", response.data);
-      setPantsData(response.data);
+      setWctShirtData(response.data);
     } catch (error) {
-      console.error("Error fetching pants data:", error);
+      console.error("Error fetching t-shirt data:", error);
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/pants/${id}`);
-      setPantsData(pantsData.filter(pants => pants._id !== id));
+      await axios.delete(`/api/wc-tshirts/${id}`);
+      setWctShirtData(wctShirtData.filter(tshirt => tshirt._id !== id));
     } catch (error) {
-      console.error("Error deleting pants item:", error);
+      console.error("Error deleting t-shirt item:", error);
     }
   };
 
-  const handleUpdate = (pants) => {
-    setSelectedPants(pants);
+  const handleUpdate = (tshirt) => {
+    setSelectedWCTshirt(tshirt);
     setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setSelectedPants(null);
+    setSelectedWCTshirt(null);
   };
 
   const handleUpdateSuccess = () => {
-    fetchPantsData(); // Refresh the pants data after a successful update
+    fetchWCTshirtData(); // Refresh the t-shirt data after a successful update
     handleModalClose(); // Close modal after successful update
   };
 
-  // Inline styles for table layout
   const styles = {
     table: {
       width: '100%',
@@ -106,7 +105,7 @@ const C_AdminDBPantsTable = () => {
 
   return (
     <div>
-      <h2>Pants Inventory</h2>
+      <h2>Women's Casual T-Shirt Inventory</h2>
       <table style={styles.table}>
         <thead>
           <tr>
@@ -115,25 +114,25 @@ const C_AdminDBPantsTable = () => {
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Price</th>
             <th style={styles.th}>Description</th>
-            <th style={styles.th}>Quantity</th> {/* New Quantity column */}
+            <th style={styles.th}>Quantity</th> {/* Added Quantity header */}
             <th style={styles.th}>Image</th>
             <th style={styles.th}>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {pantsData.map((pants) => (
-            <tr key={pants._id}>
-              <td style={styles.td}>{pants.sellerNo}</td>
-              <td style={styles.td}>{pants.itemNo}</td>
-              <td style={styles.td}>{pants.name}</td>
-              <td style={styles.td}>${pants.price}</td>
-              <td style={styles.td}>{pants.description}</td>
-              <td style={styles.td}>{pants.quantity}</td> {/* Display quantity */}
+          {wctShirtData.map((tshirt) => (
+            <tr key={tshirt._id}>
+              <td style={styles.td}>{tshirt.sellerNo}</td>
+              <td style={styles.td}>{tshirt.itemNo}</td>
+              <td style={styles.td}>{tshirt.name}</td>
+              <td style={styles.td}>${tshirt.price}</td>
+              <td style={styles.td}>{tshirt.description}</td>
+              <td style={styles.td}>{tshirt.quantity}</td> {/* Display Quantity */}
               <td style={styles.td}>
-                {pants.image && (
+                {tshirt.image && (
                   <img
-                    src={`http://localhost:5000/uploads/${pants.image}`} // Adjust the URL as needed
-                    alt={pants.name}
+                    src={`http://localhost:5000/uploads/${tshirt.image}`} // Adjust the URL as needed
+                    alt={tshirt.name}
                     style={styles.img}
                     onError={(e) => e.target.src = 'path-to-placeholder-image.jpg'} // Fallback image
                   />
@@ -142,13 +141,13 @@ const C_AdminDBPantsTable = () => {
               <td style={styles.td}>
                 <button
                   style={{ ...styles.button, ...styles.updateButton }}
-                  onClick={() => handleUpdate(pants)}
+                  onClick={() => handleUpdate(tshirt)}
                 >
                   Update
                 </button>
                 <button
                   style={{ ...styles.button, ...styles.deleteButton }}
-                  onClick={() => handleDelete(pants._id)}
+                  onClick={() => handleDelete(tshirt._id)}
                 >
                   Delete
                 </button>
@@ -161,8 +160,8 @@ const C_AdminDBPantsTable = () => {
         <>
           <div style={styles.overlay} onClick={handleModalClose}></div>
           <div style={styles.modal}>
-            <C_AdminDBUpdatePants
-              pants={selectedPants}
+            <C_AdminDBUpdateWCTshirt
+              tshirt={selectedWCTshirt}
               onClose={handleModalClose}
               onUpdate={handleUpdateSuccess}
             />
@@ -173,4 +172,4 @@ const C_AdminDBPantsTable = () => {
   );
 };
 
-export default C_AdminDBPantsTable;
+export default C_AdminDBWCTshirtTable;

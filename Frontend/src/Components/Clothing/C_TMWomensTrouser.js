@@ -26,17 +26,17 @@ const Quote = styled.h2`
   padding: 0 20px;
 `;
 
-// Row container for blazer and its info
-const BlazerRow = styled.div`
+// Row container for trouser and its info
+const TrouserRow = styled.div`
   display: flex;
   align-items: center;
   width: 80%;
   margin-bottom: 30px;
   cursor: pointer;
-  border: ${(props) => (props.isSelected ? '3px solid #333' : 'none')}; // Highlight selected blazer
+  border: ${(props) => (props.isSelected ? '3px solid #333' : 'none')}; // Highlight selected trouser
 `;
 
-// Image container for each blazer
+// Image container for each trouser
 const ImageBox = styled.div`
   flex: 1;
   height: 300px;
@@ -45,7 +45,7 @@ const ImageBox = styled.div`
   position: relative;
 `;
 
-// Information box next to each blazer
+// Information box next to each trouser
 const InfoBox = styled.div`
   flex: 1;
   padding: 20px;
@@ -76,58 +76,58 @@ const NextButton = styled.button`
   }
 `;
 
-const C_TMMensBlazer = () => {
-  const [blazers, setBlazers] = useState([]);
-  const [selectedBlazer, setSelectedBlazer] = useState(null);
+const C_TMWomensTrouser = () => {
+  const [trousers, setTrousers] = useState([]);
+  const [selectedTrouser, setSelectedTrouser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBlazers = async () => {
+    const fetchTrousers = async () => {
       try {
-        const response = await axios.get('/api/tm-mensblazers'); // Update the API endpoint as needed
-        setBlazers(response.data);
+        const response = await axios.get('/api/tm-womenstrousers'); // Update the API endpoint as needed
+        setTrousers(response.data);
       } catch (error) {
-        console.error("Error fetching blazers:", error);
+        console.error("Error fetching trousers:", error);
       }
     };
 
-    fetchBlazers();
+    fetchTrousers();
   }, []);
 
-  const handleBlazerClick = (blazer) => {
-    setSelectedBlazer(blazer);
+  const handleTrouserClick = (trouser) => {
+    setSelectedTrouser(trouser);
   };
 
   const handleNextClick = () => {
-    if (selectedBlazer) {
-      navigate('/C_ColorSelection', { state: { itemType: 'Blazer', item: selectedBlazer } });
+    if (selectedTrouser) {
+      navigate('/C_ColorSelection', { state: { itemType: 'Trouser', item: selectedTrouser } });
     } else {
-      alert('Please select a blazer type before proceeding.');
+      alert('Please select a trouser type before proceeding.');
     }
   };
 
   return (
     <Container>
-      <Quote>Select the Blazer Type</Quote>
-      {blazers.map((blazer) => (
-        <BlazerRow
-          key={blazer._id}
-          isSelected={selectedBlazer?._id === blazer._id}
-          onClick={() => handleBlazerClick(blazer)}
+      <Quote>Select the Trouser Type</Quote>
+      {trousers.map((trouser) => (
+        <TrouserRow
+          key={trouser._id}
+          isSelected={selectedTrouser?._id === trouser._id}
+          onClick={() => handleTrouserClick(trouser)}
         >
           <ImageBox
-            style={{ backgroundImage: `url(http://localhost:5000/uploads/${blazer.image})` }}
+            style={{ backgroundImage: `url(http://localhost:5000/uploads/${trouser.image})` }}
           />
           <InfoBox>
-            <h3>{blazer.name}</h3> 
-            <p>Price: ${blazer.price}</p>
-            <p>{blazer.description}</p>
+            <h3>{trouser.name}</h3>
+            <p>Price: ${trouser.price}</p>
+            <p>{trouser.description}</p>
           </InfoBox>
-        </BlazerRow>
+        </TrouserRow>
       ))}
       <NextButton onClick={handleNextClick}>Next</NextButton>
     </Container>
   );
 };
 
-export default C_TMMensBlazer;
+export default C_TMWomensTrouser;

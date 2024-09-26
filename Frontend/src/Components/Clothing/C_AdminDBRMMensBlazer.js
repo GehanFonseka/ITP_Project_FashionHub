@@ -11,6 +11,7 @@ const C_AdminDBRMMensBlazer = () => {
     name: "",
     price: "",
     description: "",
+    quantity: "", // Added quantity
     image: null
   });
   const [imageFile, setImageFile] = useState(null);
@@ -34,6 +35,7 @@ const C_AdminDBRMMensBlazer = () => {
     switch (name) {
       case "sellerNo":
       case "itemNo":
+      case "quantity": // Added quantity validation
         newErrors[name] = !value || isNaN(value) || value.length < 1
           ? `${name.replace(/([A-Z])/g, ' $1').trim()} must be a number and not empty.`
           : "";
@@ -74,6 +76,9 @@ const C_AdminDBRMMensBlazer = () => {
     if (!formData.itemNo || isNaN(formData.itemNo)) {
       newErrors.itemNo = "Item No must be a number and not empty.";
     }
+    if (!formData.quantity || isNaN(formData.quantity)) { // Added quantity validation
+      newErrors.quantity = "Quantity must be a number and not empty.";
+    }
     if (!formData.name || formData.name.length < 3) {
       newErrors.name = "Name must be at least 3 characters long.";
     }
@@ -98,16 +103,16 @@ const C_AdminDBRMMensBlazer = () => {
       const formDataWithImage = new FormData();
      
       formDataWithImage.append("image", imageFile);
-      console.log("formDataWithImage",formDataWithImage)
-      console.log("imageFile",imageFile)
-      console.log("formData",formData)
+      console.log("formDataWithImage", formDataWithImage);
+      console.log("imageFile", imageFile);
+      console.log("formData", formData);
       try {
         const response = await axios.post('/api/rm-mensblazers', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        console.log("Response:", response); // Debugging: Log server response
+        console.log("Response:", response);
         alert("Blazer item has been added successfully.");
         setFormData({
           sellerNo: "",
@@ -115,13 +120,14 @@ const C_AdminDBRMMensBlazer = () => {
           name: "",
           price: "",
           description: "",
+          quantity: "", // Reset quantity
         });
         setImageFile(null);
         setErrors({});
-        navigate('/C_AdminSBRMMensBlazer'); // Redirect to a success page or list page
+        navigate('/C_AdminSBRMMensBlazer');
       } catch (error) {
         console.error("Error submitting the form:", error.response?.data || error.message);
-        alert(`There was an error adding the pants item: ${error.response?.data.error || error.message}`);
+        alert(`There was an error adding the blazer item: ${error.response?.data.error || error.message}`);
       }
     }
   };
@@ -223,6 +229,19 @@ const C_AdminDBRMMensBlazer = () => {
             />
             {errors.itemNo && <p style={styles.error}>{errors.itemNo}</p>}
           </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Quantity:</label>
+            <input
+              type="text"
+              name="quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              onBlur={() => validateField('quantity', formData.quantity)}
+              style={styles.input}
+              required
+            />
+            {errors.quantity && <p style={styles.error}>{errors.quantity}</p>}
+          </div>
           <div style={{ ...styles.formGroup, ...styles.inlineGroup }}>
             <div style={styles.inlineInput}>
               <label style={styles.label}>Name:</label>
@@ -272,8 +291,8 @@ const C_AdminDBRMMensBlazer = () => {
               onChange={handleImageChange}
               style={styles.input}
               required
-            /> 
-           {errors.image && <p style={styles.error}>{errors.image}</p>}
+            />
+            {errors.image && <p style={styles.error}>{errors.image}</p>}
           </div>
           <button type="submit" style={styles.button}>Add Item</button>
         </form>

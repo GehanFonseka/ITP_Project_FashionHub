@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../utilities/axios';
 
-const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
+const C_AdminDBUpdateTMWomensTrouser = ({ trouser, onClose, onUpdate }) => {
   const [formData, setFormData] = useState({
     sellerNo: '',
     itemNo: '',
@@ -9,23 +9,21 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
     price: '',
     description: '',
     image: '',
-    quantity: '', // Added quantity
   });
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (blazer) {
+    if (trouser) {
       setFormData({
-        sellerNo: blazer.sellerNo || '',
-        itemNo: blazer.itemNo || '',
-        name: blazer.name || '',
-        price: blazer.price || '',
-        description: blazer.description || '',
-        image: blazer.image || '',
-        quantity: blazer.quantity || '', // Initialize quantity
+        sellerNo: trouser.sellerNo || '',
+        itemNo: trouser.itemNo || '',
+        name: trouser.name || '',
+        price: trouser.price || '',
+        description: trouser.description || '',
+        image: trouser.image || '',
       });
     }
-  }, [blazer]);
+  }, [trouser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,12 +36,12 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/rm-mensblazers/${blazer._id}`, formData);
+      await axios.put(`/api/tm-womenstrousers/${trouser._id}`, formData);
       onUpdate(); // Notify parent component of the update
       onClose(); // Close the modal
     } catch (error) {
-      console.error("Error updating blazer item:", error);
-      setError("Failed to update blazer item. Please try again.");
+      console.error("Error updating trouser item:", error);
+      setError("Failed to update trouser item. Please try again.");
     }
   };
 
@@ -51,7 +49,7 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
     <div style={styles.modal}>
       <div style={styles.modalContent}>
         <span style={styles.close} onClick={onClose}>&times;</span>
-        <h2>Update Ready-Made Men's Blazer</h2>
+        <h2>Update Tailor Made Women's Trouser</h2>
         {error && <p style={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <label>
@@ -117,17 +115,6 @@ const C_AdminDBUpdateRMMensBlazer = ({ blazer, onClose, onUpdate }) => {
               style={styles.input}
             />
           </label>
-          <label>
-            Quantity: {/* Added quantity input */}
-            <input
-              type="number"
-              name="quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              required
-              style={styles.input}
-            />
-          </label>
           <button type="submit" style={styles.submitButton}>Update</button>
         </form>
       </div>
@@ -156,7 +143,6 @@ const styles = {
     maxWidth: '95vw', // Ensure it does not exceed the viewport width
     boxSizing: 'border-box',
     minWidth: '600px', // Ensure a minimum width for better appearance
-    position: 'relative', // Ensure the close button is positioned correctly
   },
   close: {
     position: 'absolute',
@@ -188,4 +174,4 @@ const styles = {
   },
 };
 
-export default C_AdminDBUpdateRMMensBlazer;
+export default C_AdminDBUpdateTMWomensTrouser;

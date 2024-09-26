@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from '../../utilities/axios';
 import { useNavigate } from 'react-router-dom';
 
-const C_AdminDBPants = () => {
+const C_AdminDBWCTshirt = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -11,9 +11,10 @@ const C_AdminDBPants = () => {
     name: "",
     price: "",
     description: "",
-    quantity: "", 
+    quantity: "",  // New quantity field
     image: null
   });
+
   const [imageFile, setImageFile] = useState(null);
   const [errors, setErrors] = useState({});
 
@@ -34,9 +35,8 @@ const C_AdminDBPants = () => {
     switch (name) {
       case "sellerNo":
       case "itemNo":
-      case "quantity":
-        newErrors[name] = !value || isNaN(value) || value <= 0
-          ? `${name.replace(/([A-Z])/g, ' $1').trim()} must be a positive number and no letters.`
+        newErrors[name] = !value || isNaN(value) || value.length < 1
+          ? `${name.replace(/([A-Z])/g, ' $1').trim()} must be a number and not empty.`
           : "";
         break;
       case "name":
@@ -52,6 +52,11 @@ const C_AdminDBPants = () => {
       case "description":
         newErrors.description = !value || value.length < 5
           ? "Description must be at least 5 characters long."
+          : "";
+        break;
+      case "quantity":  // New validation for quantity
+        newErrors.quantity = !value || isNaN(value) || value <= 0
+          ? "Quantity must be a positive number."
           : "";
         break;
       case "image":
@@ -70,10 +75,10 @@ const C_AdminDBPants = () => {
     const newErrors = {};
 
     if (!formData.sellerNo || isNaN(formData.sellerNo)) {
-      newErrors.sellerNo = "Seller No must be a positive number.";
+      newErrors.sellerNo = "Seller No must be a number and not empty.";
     }
     if (!formData.itemNo || isNaN(formData.itemNo)) {
-      newErrors.itemNo = "Item No must be a positive number.";
+      newErrors.itemNo = "Item No must be a number and not empty.";
     }
     if (!formData.name || formData.name.length < 3) {
       newErrors.name = "Name must be at least 3 characters long.";
@@ -85,7 +90,7 @@ const C_AdminDBPants = () => {
       newErrors.description = "Description must be at least 5 characters long.";
     }
     if (!formData.quantity || isNaN(formData.quantity) || formData.quantity <= 0) {
-      newErrors.quantity = "Quantity must be a positive number.";
+      newErrors.quantity = "Quantity must be a positive number.";  // Validation for quantity
     }
     if (!formData.image) {
       newErrors.image = "Image is required.";
@@ -100,29 +105,38 @@ const C_AdminDBPants = () => {
 
     if (validateForm()) {
       const formDataWithImage = new FormData();
-      formDataWithImage.append("image", imageFile);
+
+      formDataWithImage.append("image", formData.image);
+      formDataWithImage.append("sellerNo", formData.sellerNo);
+      formDataWithImage.append("itemNo", formData.itemNo);
+      formDataWithImage.append("name", formData.name);
+      formDataWithImage.append("price", formData.price);
+      formDataWithImage.append("description", formData.description);
+      formDataWithImage.append("quantity", formData.quantity);  // Append quantity
+
       try {
-        const response = await axios.post('/api/pants', formData, {
+        const response = await axios.post('/api/wc-tshirts', formDataWithImage, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        alert("Pants item has been added successfully.");
+        console.log("Response:", response);
+        alert("Women's casual t-shirt item has been added successfully.");
         setFormData({
           sellerNo: "",
           itemNo: "",
           name: "",
           price: "",
           description: "",
-          quantity: "", // Reset quantity as well
+          quantity: "",  // Reset quantity
           image: null
         });
         setImageFile(null);
         setErrors({});
-        navigate('/C_AdminDBSB');
+        navigate('/C_AdminSBWCTshirt'); // Redirect to a success page or list page
       } catch (error) {
         console.error("Error submitting the form:", error.response?.data || error.message);
-        alert(`There was an error adding the pants item: ${error.response?.data.error || error.message}`);
+        alert(`There was an error adding the t-shirt item: ${error.response?.data.error || error.message}`);
       }
     }
   };
@@ -196,8 +210,8 @@ const C_AdminDBPants = () => {
   return (
     <div style={styles.formBackground}>
       <div style={styles.container}>
-        <h2 style={styles.heading}>Add New Pants Item</h2>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <h2 style={styles.heading}>Add New Women's Casual T-Shirt Item</h2>
+        <form onSubmit={handleSubmit} enctype="multipart/form-data">
           <div style={styles.formGroup}>
             <label style={styles.label}>Seller No:</label>
             <input
@@ -252,33 +266,31 @@ const C_AdminDBPants = () => {
               {errors.price && <p style={styles.error}>{errors.price}</p>}
             </div>
           </div>
-          <div style={{ ...styles.formGroup, ...styles.inlineGroup }}>
-            <div style={styles.inlineInput}>
-              <label style={styles.label}>Description:</label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                onBlur={() => validateField('description', formData.description)}
-                style={styles.input}
-                rows="4"
-                required
-              ></textarea>
-              {errors.description && <p style={styles.error}>{errors.description}</p>}
-            </div>
-            <div style={styles.inlineInput}>
-              <label style={styles.label}>Quantity:</label>
-              <input
-                type="text"
-                name="quantity"
-                value={formData.quantity}
-                onChange={handleChange}
-                onBlur={() => validateField('quantity', formData.quantity)}
-                style={styles.input}
-                required
-              />
-              {errors.quantity && <p style={styles.error}>{errors.quantity}</p>}
-            </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Description:</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              onBlur={() => validateField('description', formData.description)}
+              style={styles.input}
+              rows="4"
+              required
+            ></textarea>
+            {errors.description && <p style={styles.error}>{errors.description}</p>}
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Quantity:</label>
+            <input
+              type="number"
+              name="quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              onBlur={() => validateField('quantity', formData.quantity)}
+              style={styles.input}
+              required
+            />
+            {errors.quantity && <p style={styles.error}>{errors.quantity}</p>}
           </div>
           <div style={styles.formGroup}>
             <label style={styles.label}>Image:</label>
@@ -286,16 +298,19 @@ const C_AdminDBPants = () => {
               type="file"
               name="image"
               onChange={handleImageChange}
+              accept="image/*"
               style={styles.input}
               required
             />
             {errors.image && <p style={styles.error}>{errors.image}</p>}
           </div>
-          <button type="submit" style={styles.button}>Add Item</button>
+          <button type="submit" style={styles.button}>
+            Add Item
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default C_AdminDBPants;
+export default C_AdminDBWCTshirt;

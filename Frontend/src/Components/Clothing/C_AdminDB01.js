@@ -123,7 +123,7 @@ const C_AdminDB01 = () => {
           <CategoryContainer>
             <CategoryTitle>Casual</CategoryTitle>
             <SubCategoryButton to="/C_WomensCasualPants">Pants</SubCategoryButton>
-            <SubCategoryButton to="/C_WomensCasualTShirts">T-Shirts</SubCategoryButton>
+            <SubCategoryButton to="/C_AdminSBWCTshirt">T-Shirts</SubCategoryButton>
             <SubCategoryButton to="/C_WomensCasualShirts">Shirts</SubCategoryButton>
           </CategoryContainer>
           
@@ -134,7 +134,7 @@ const C_AdminDB01 = () => {
             <SubCategoryButton to="/C_WomensFormalRMTrousers">Readymade - Trousers</SubCategoryButton>
             <SubCategoryButton to="/C_WomensFormalTMBlazers">Tailormade - Blazers</SubCategoryButton>
             <SubCategoryButton to="/C_WomensFormalTMShirts">Tailormade - Shirts</SubCategoryButton>
-            <SubCategoryButton to="/C_WomensFormalTMTrouser">Tailormade - Trousers</SubCategoryButton>
+            <SubCategoryButton to="/C_AdminSBTMWomensTrouser">Tailormade - Trousers</SubCategoryButton>
           </CategoryContainer>
         </Section>
       </SectionContainer>

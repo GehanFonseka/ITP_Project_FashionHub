@@ -12,7 +12,7 @@ import C_MensFormalTM from './Components/Clothing/C_MensFormalTM';
 import C_TMMensBlazer from './Components/Clothing/C_TMMensBlazer';
 import C_MensTMBlazerColors from './Components/Clothing/C_MensTMBlazerColors';
 import C_MensTMBlazerMeasurements from './Components/Clothing/C_MensTMBlazerMeasurements';
-import C_MensTMBlazerAddCart from './Components/Clothing/C_MensTMBlazerAddCart';
+import C_TMDetails from './Components/Clothing/C_TMDetails';
 import C_WomensCasual from './Components/Clothing/C_WomensCasual';
 import C_WomensFormal from './Components/Clothing/C_WomensFormal';
 import C_WomensCasualAndFormal from './Components/Clothing/C_WomensCasualAndFormal';
@@ -32,7 +32,19 @@ import C_AdminDBRMMensBlazer from './Components/Clothing/C_AdminDBRMMensBlazer';
 import C_AdminSBRMMensBlazer from './Components/Clothing/C_AdminSBRMMensBlazer'
 import C_AdminDBRMMensBlazerTable from './Components/Clothing/C_AdminDBRMMensBlazerTable';
 import C_RMMensBlazer from './Components/Clothing/C_RMMensBlazer';
-import ClothingItemsChart from './Components/Clothing/ClothingItemsChart';
+import C_AdminDBWCTshirt from './Components/Clothing/C_AdminDBWCTshirt';
+import C_AdminDBWCTshirtTable from './Components/Clothing/C_AdminDBWCTshirtTable';
+import C_AdminDBUpdateWCTshirt from './Components/Clothing/C_AdminDBUpdateWCTshirt';
+import C_AdminSBWCTshirt from './Components/Clothing/C_AdminSBWCTshirt'
+import C_WomensCasualTshirt from './Components/Clothing/C_WomensCasualTshirt'
+import C_AdminDBTMWomensTrouser from './Components/Clothing/C_AdminDBTMWomensTrouser';
+import C_AdminDBTMWomensTrouserTable from './Components/Clothing/C_AdminDBTMWomensTrouserTable';
+import C_AdminDBUpdateTMWomensTrouser from './Components/Clothing/C_AdminDBUpdateTMWomensTrouser';
+import C_AdminSBTMWomensTrouser from './Components/Clothing/C_AdminSBTMWomensTrouser';
+import C_TMWomensTrouser from './Components/Clothing/C_TMWomensTrouser';
+import C_WomensTMTrouserMeasurements from './Components/Clothing/C_WomensTMTrouserMeasurements';
+import C_ColorSelection from './Components/Clothing/C_ColorSection';
+
 import C_AdminReport from './Components/Clothing/C_AdminReport';
 
 import Footer from './Components/home/Footer';
@@ -53,7 +65,7 @@ function App() {
         <Route path="/C_TMMensBlazer" element={<C_TMMensBlazer />} />
         <Route path="/C_MensTMBlazerColors" element={<C_MensTMBlazerColors />} />
         <Route path="/C_MensTMBlazerMeasurements" element={<C_MensTMBlazerMeasurements />} />
-        <Route path="/C_MensTMBlazerAddCart" element={<C_MensTMBlazerAddCart />} />
+        <Route path="/C_TMDetails" element={<C_TMDetails />} />
         <Route path="/C_WomensCasual" element={<C_WomensCasual />} />
         <Route path="/C_WomensCasualAndFormal" element={<C_WomensCasualAndFormal />} />
         <Route path="/C_WomensFormal" element={<C_WomensFormal />} />
@@ -66,16 +78,26 @@ function App() {
         <Route path="/C_AdminDBUpdatePants" element={<C_AdminDBUpdatePants/>}/>
         <Route path="/C_AdminDBTMMensBlazer" element={<C_AdminDBTMMensBlazer/>}/>
         <Route path="/C_AdminSBTMMensBlazer" element={<C_AdminSBTMMensBlazer/>}/>
-        <Route path="C_AdminDBTMMensBlazerTable" element={<C_AdminDBTMMensBlazerTable/>}/>
-        <Route path="C_AdminDBUpdateTMMensBlazer" element={<C_AdminDBUpdateTMMensBlazer/>}/>
-        <Route path="C_AdminDBRMMensBlazer" element={<C_AdminDBRMMensBlazer/>}/>
+        <Route path="/C_AdminDBTMMensBlazerTable" element={<C_AdminDBTMMensBlazerTable/>}/>
+        <Route path="/C_AdminDBUpdateTMMensBlazer" element={<C_AdminDBUpdateTMMensBlazer/>}/>
+        <Route path="/C_AdminDBRMMensBlazer" element={<C_AdminDBRMMensBlazer/>}/>
         <Route path="/C_AdminSBRMMensBlazer" element={<C_AdminSBRMMensBlazer/>}/>
-        <Route path="C_AdminDBRMMensBlazerTable" element={<C_AdminDBRMMensBlazerTable/>}/>
+        <Route path="/C_AdminDBRMMensBlazerTable" element={<C_AdminDBRMMensBlazerTable/>}/>
         <Route path="/C_RMMensBlazer" element={<C_RMMensBlazer />} />
+        <Route path="/C_AdminDBWCTshirt" element={<C_AdminDBWCTshirt/>}/>
+        <Route path="/C_AdminDBWCTshirtTable" element={<C_AdminDBWCTshirtTable/>}/>
+        <Route path="/C_AdminDBUpdateWCTshirt" element={<C_AdminDBUpdateWCTshirt/>}/>
+        <Route path="/C_AdminSBWCTshirt" element={<C_AdminSBWCTshirt/>}/>
+        <Route path="C_WomensCasualTshirt" element={<C_WomensCasualTshirt/>}/>
+        <Route path="C_AdminDBTMWomensTrouser" element={<C_AdminDBTMWomensTrouser/>}/>
+        <Route path="C_AdminDBTMWomensTrouserTable" element={<C_AdminDBTMWomensTrouserTable/>}/>
+        <Route path="C_AdminDBUpdateTMWomensTrouser" element={<C_AdminDBUpdateTMWomensTrouser/>}/>
+        <Route path="C_AdminSBTMWomensTrouser" element={<C_AdminSBTMWomensTrouser/>}/>
+        <Route path="C_TMWomensTrouser" element={<C_TMWomensTrouser/>}/>
+        <Route path="C_WomensTMTrouserMeasurements" element={<C_WomensTMTrouserMeasurements/>}/>
+        <Route path="C_ColorSelection" element={<C_ColorSelection/>}/>
 
         <Route path="/C_AdminReport" element={<C_AdminReport/>} />
-        <Route path="/ClothingItemsChart" element={<ClothingItemsChart/>} />
-
         <Route path="/product-details" element={<C_ProductDetails />} />
 
       </Routes>

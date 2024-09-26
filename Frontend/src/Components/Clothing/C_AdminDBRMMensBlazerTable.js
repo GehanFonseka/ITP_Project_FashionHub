@@ -115,6 +115,7 @@ const C_AdminDBRMMensBlazerTable = () => {
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Price</th>
             <th style={styles.th}>Description</th>
+            <th style={styles.th}>Quantity</th> {/* Added Quantity column */}
             <th style={styles.th}>Image</th>
             <th style={styles.th}>Actions</th>
           </tr>
@@ -127,6 +128,7 @@ const C_AdminDBRMMensBlazerTable = () => {
               <td style={styles.td}>{blazer.name}</td>
               <td style={styles.td}>${blazer.price}</td>
               <td style={styles.td}>{blazer.description}</td>
+              <td style={styles.td}>{blazer.quantity}</td> {/* Display Quantity */}
               <td style={styles.td}>
                 {blazer.image && (
                   <img

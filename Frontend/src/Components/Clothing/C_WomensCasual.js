@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import C18 from '../../assets/C18.jpg'; 
 import C19 from '../../assets/C19.webp'; 
 import C20 from '../../assets/C20.jpg'; 
@@ -46,6 +47,7 @@ const ImageBox = styled.div`
   text-transform: uppercase;
   font-weight: bold;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+  cursor: pointer; /* Make it clickable */
 `;
 
 const BlackLabel = styled.div`
@@ -62,17 +64,24 @@ const BlackLabel = styled.div`
 `;
 
 const C_WomensCasual = () => {
+  const navigate = useNavigate(); // Use navigate hook for redirection
+
+  // Function to handle navigation
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
     <Container>
       <Quote>Elevate Your Everyday Style – Discover the Perfect Blend of Comfort and Class</Quote>
       <Row>
-        <ImageBox style={{ backgroundImage: `url(${C18})` }}>
+        <ImageBox style={{ backgroundImage: `url(${C18})` }} onClick={() => handleNavigation('/C_WomensCasualshirt')}>
           <BlackLabel>Pants</BlackLabel>
         </ImageBox>
-        <ImageBox style={{ backgroundImage: `url(${C19})` }}>
+        <ImageBox style={{ backgroundImage: `url(${C19})` }} onClick={() => handleNavigation('/C_WomensCasualTshirt')}>
           <BlackLabel>T-Shirts</BlackLabel>
         </ImageBox>
-        <ImageBox style={{ backgroundImage: `url(${C20})` }}>
+        <ImageBox style={{ backgroundImage: `url(${C20})` }} onClick={() => handleNavigation('/shirts')}>
           <BlackLabel>Shirts</BlackLabel>
         </ImageBox>
       </Row>
