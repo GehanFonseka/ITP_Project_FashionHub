@@ -24,7 +24,7 @@ const Header = () => {
         <IconLink href="#">
           <FontAwesomeIcon icon={faShoppingCart} />
         </IconLink>
-        <IconLink href="C_AdminDB01">
+        <IconLink href="">
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
       </IconContainer>
