@@ -20,7 +20,7 @@ const ReviewForm = () => {
       };
   
       // Send a POST request to create a new review
-      const response = await axios.post(`http://localhost:8070/api/reviews/create_Review/${userId}`, reviewData);
+      const response = await axios.post(`http://localhost:5000/api/reviews/create_Review/${userId}`, reviewData);
       
       console.log('Review submitted:', response.data); // Log the response
       

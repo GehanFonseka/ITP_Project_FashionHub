@@ -15,7 +15,7 @@ const MyReviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/api/reviews/reviews');
+        const response = await axios.get('http://localhost:5000/api/reviews/reviews');
         setReviews(response.data);
         setLoading(false);
       } catch (error) {
@@ -36,7 +36,7 @@ const MyReviews = () => {
 
   const handleDelete = async (reviewId) => {
     try {
-      await axios.delete(`http://localhost:8070/api/reviews/delete_Review/${reviewId}`);
+      await axios.delete(`http://localhost:5000/api/reviews/delete_Review/${reviewId}`);
       setReviews(reviews.filter((review) => review._id !== reviewId));
     } catch (error) {
       console.error('Error deleting review:', error);
@@ -48,7 +48,7 @@ const MyReviews = () => {
     console.log(editingReview._id)
     console.log(formData)
     try {
-      const response = await axios.put("http://localhost:8070/api/reviews/update_Review/"+editingReview._id, {formData});
+      const response = await axios.put("http://localhost:5000/api/reviews/update_Review/"+editingReview._id, {formData});
       console.log(response);
       setReviews(reviews.map((review) => (review._id === editingReview._id ? response.data : review)));
       setModalOpen(false);

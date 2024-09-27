@@ -60,11 +60,7 @@ import Login from './Components/Login1/Login';
 
 
 
-// Import all components
-import F_Home from './Components/Footwear & Accessories/F_Home';
-import F_MensCasualAndFormal from './Components/Footwear & Accessories/F_Men\'sCasualAndFormal';
-import F_WomensCasualAndFormal from './Components/Footwear & Accessories/F_Women\'sCasualAndFormal';
-import A_Home from './Components/Footwear & Accessories/A_Home';
+
 
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
@@ -112,7 +108,7 @@ function App() {
       <Layout>
         <Routes>
       
-          <Route path="/" element={<HeroSection />} />
+        <Route path="/" element={<HeroSection />} />
           
           <Route path="/salon" element={<><Sidebar /><Salonhome /></>} />
           <Route path="/AppointmentForm" element={<><Sidebar /><AppointmentForm /></>} />
@@ -123,20 +119,12 @@ function App() {
           
         
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
+         
+
 
           <Route path="/ServiceList" element={<ServiceList />} />
           <Route path="/ServiceListAD" element={<ServiceListAD />} />
           <Route path="/AllAppointments" element={<AllAppointments />} />
-          <Route path="/F_Home" element={<F_Home />} />
-          <Route path="/F_MensCasualAndFormal" element={<F_MensCasualAndFormal />} />
-          <Route path="/F_WomensCasualAndFormal" element={<F_WomensCasualAndFormal />} />
-          <Route path="/A_Home" element={<A_Home />} />
-      
-     
-      <Route path="/F_Home" element={<F_Home/>} />
-      <Route path="/F_MensCasualAndFormal" element={<F_MensCasualAndFormal/>} />
-      <Route path="F_WomensCasualAndFormal" element={<F_WomensCasualAndFormal/>} />
-      <Route path="/A_Home" element={<A_Home/>} />
 
        
       <Route path="/ReviewForm" element={<ReviewForm/>} />

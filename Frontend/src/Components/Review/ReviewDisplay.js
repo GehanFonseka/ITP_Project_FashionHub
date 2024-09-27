@@ -10,7 +10,7 @@ const ReviewDisplay = () => {
   useEffect(() => {
     const fetchReviews = async () => { 
       try {
-        const response = await axios.get('http://localhost:8070/api/reviews/reviews');
+        const response = await axios.get('http://localhost:5000/api/reviews/reviews');
         setReviews(response.data);
         setLoading(false);
       } catch (error) {

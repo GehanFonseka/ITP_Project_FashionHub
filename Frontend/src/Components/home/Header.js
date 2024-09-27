@@ -73,10 +73,9 @@ const MenuItem = styled.a`
     color: #AE2012; /* Optional: Add hover effect */
   }
 `;
-
 const SearchContainer = styled.div`
   margin-left: 260px; /* Adjust this to position the search bar */
-  margin-top:15px ;
+  margin-top: 15px; /* Adjusted margin to align search bar */
 `;
 
 const SearchInput = styled.input`
@@ -94,8 +93,8 @@ const SearchInput = styled.input`
 
 const IconContainer = styled.div`
   display: flex;
-  padding-top:23px;
-  gap:535x;
+  padding-top: 23px; /* Adjusted padding to align icons */
+  gap: 35px; /* Adjusted gap between icons */
   margin-left: 55px; /* Adjust this value as needed */
 `;
 

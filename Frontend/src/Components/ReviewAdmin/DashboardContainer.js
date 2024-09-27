@@ -80,7 +80,7 @@ const DashboardContainer = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('http://localhost:8070/api/reviews/reviews', {
+        const response = await axios.get('http://localhost:5000/api/reviews/reviews', {
           params: { ...filter, search: searchTerm },
         });
         setReviews(response.data);
