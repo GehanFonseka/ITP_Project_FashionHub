@@ -56,8 +56,8 @@ import C_AdminReport from './Components/Clothing/C_AdminReport';
 import Footer from './Components/home/Footer';
 import Register from './Components/Login1/Register';
 import Login from './Components/Login1/Login';
-import Cart from './Components/salon/Cart';
-import { CartProvider } from './Components/salon/CartContext'; 
+
+
 
 
 // Import all components
@@ -78,7 +78,10 @@ import AllAppointments from './Components/SalonAD/ALLAppointments';
 import ServicePopularityReport from './Components/SalonAD/ServicePopularityReport';
 
 
-
+import ReviewForm from './Components/Review/ReviewForm';
+import MyReviews from './Components/Review/MyReviews';
+import ReviewDisplay from './Components/Review/ReviewDisplay';
+import DashboardContainer from './Components/ReviewAdmin/DashboardContainer';
 
 // Custom component to conditionally render Header and Footer
 const Layout = ({ children }) => {
@@ -98,6 +101,8 @@ const Layout = ({ children }) => {
     </div>
   );
 };
+
+
 
 
 
@@ -128,14 +133,16 @@ function App() {
           <Route path="/A_Home" element={<A_Home />} />
       
      
-
-      <Route path="/" element={<HeroSection/>} />
       <Route path="/F_Home" element={<F_Home/>} />
       <Route path="/F_MensCasualAndFormal" element={<F_MensCasualAndFormal/>} />
       <Route path="F_WomensCasualAndFormal" element={<F_WomensCasualAndFormal/>} />
       <Route path="/A_Home" element={<A_Home/>} />
 
-
+       
+      <Route path="/ReviewForm" element={<ReviewForm/>} />
+      <Route path="/ReviewDisplay" element={<ReviewDisplay/>} />
+      <Route path="/MyReviews" element={<MyReviews/>} />
+      <Route path="/DashboardContainer" element={<DashboardContainer/>} />
   
         <Route path="/C_Home" element={<C_Home />} />
         <Route path="/C_MensCasual" element={<C_MensCasual />} />
@@ -187,5 +194,7 @@ function App() {
       </Router>
 
 );}
+
+
 
 export default App;

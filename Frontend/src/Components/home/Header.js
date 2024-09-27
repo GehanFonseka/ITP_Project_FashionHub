@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 import logo from '../../assets/Logo6.png'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,7 @@ const Header = () => {
       <Logo src={logo} alt="Logo" />
       <Menu>
         <MenuItem href="/">Home</MenuItem>
+
         <MenuItem href="/C_Home">Clothing</MenuItem>
         <MenuItem href="/salon">Saloon</MenuItem>
         <MenuItem href="/footwear">Footwear</MenuItem>
@@ -26,7 +27,9 @@ const Header = () => {
         <IconLink href="/Cart">
           <FontAwesomeIcon icon={faShoppingCart} />
         </IconLink>
+
         <IconLink href="/Dashboard">
+
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
       </IconContainer>
