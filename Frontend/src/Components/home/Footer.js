@@ -19,9 +19,9 @@ const Footer = () => {
           <FooterTitle>SUPPORT</FooterTitle>
           <FooterLink href="">CAREERS</FooterLink>
           <FooterLink href="#">FAQ</FooterLink>
-          <FooterLink href="#">SUBMIT A REQUEST</FooterLink>
-          <FooterLink href="#">RETURNS & EXCHANGES</FooterLink>
-          <FooterLink href="#">SHIPPING POLICY</FooterLink>
+          <FooterLink href="/ReviewDisplay">SUBMIT A REQUEST</FooterLink>
+          <FooterLink href="/MyReviews">RETURNS & EXCHANGES</FooterLink>
+          <FooterLink href="/DashboardContainer">SHIPPING POLICY</FooterLink>
           <FooterLink href="#">CONTACT US</FooterLink>
         </FooterColumn>
 

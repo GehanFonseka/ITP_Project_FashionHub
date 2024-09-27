@@ -8,7 +8,7 @@ const ReviewDisplay = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchReviews = async () => { 
       try {
         const response = await axios.get('http://localhost:8070/api/reviews/reviews');
         setReviews(response.data);
@@ -48,7 +48,7 @@ const ReviewDisplay = () => {
   const { totalReviews, averageRating, starCounts } = calculateReviewStats(reviews);
 
   return (
-    <div>
+    <Container>
       <ReviewSummary>
         <AverageRating>
           <span>{averageRating.toFixed(1)}</span>
@@ -79,11 +79,11 @@ const ReviewDisplay = () => {
         {reviews.map((review) => (
           <ReviewCard key={review._id}>
             <ReviewHeader>
-              <UserName>{review.userName}</UserName>
+              <UserName>{review.userId}</UserName>
             </ReviewHeader>
             <Rating>
               {Array.from({ length: review.rating }).map((_, index) => (
-                <Star key={index}>★</Star>
+                <Star key={index} filled>★</Star>
               ))}
             </Rating>
             <ReviewInfo>
@@ -91,26 +91,27 @@ const ReviewDisplay = () => {
               <ReviewDate>{new Date(review.createdAt).toLocaleDateString()}</ReviewDate>
             </ReviewInfo>
             <ReviewText>{review.comment}</ReviewText>
-            <ButtonContainer>
-              <ActionButton>Edit</ActionButton>
-              <ActionButton delete>Delete</ActionButton>
-            </ButtonContainer>
           </ReviewCard>
         ))}
       </ReviewContainer>
-    </div>
+    </Container>
   );
 };
 
-export default ReviewDisplay;
-
 // Styled components
+const Container = styled.div`
+  padding: 20px;
+  background: #f9f9f9;
+  min-height: 100vh;
+`;
+
 const ReviewSummary = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: #f5f7fa;
-  padding: 20px;
-  border-radius: 10px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
 `;
 
@@ -118,23 +119,22 @@ const AverageRating = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
+  background: #ffffff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 250px;
   text-align: center;
 
   span {
-    font-size: 48px;
+    font-size: 60px;
     font-weight: bold;
-    color: #333333;
+    color: #333;
   }
 `;
 
 const Stars = styled.div`
-  font-size: 20px;
+  font-size: 24px;
   color: #ffcc00;
   display: flex;
   justify-content: center;
@@ -147,9 +147,9 @@ const Star = styled.span`
 `;
 
 const VerifiedText = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   color: #28a745;
-  margin-top: 5px;
+  margin-top: 8px;
 `;
 
 const RatingBreakdown = styled.div`
@@ -161,84 +161,76 @@ const RatingBreakdown = styled.div`
 const RatingRow = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 `;
 
 const RatingBar = styled.div`
-  background-color: #e0e0e0;
-  width: 150px;
-  height: 8px;
-  border-radius: 4px;
-  margin: 0 10px;
+  background: #e0e0e0;
+  width: 180px;
+  height: 10px;
+  border-radius: 5px;
+  margin: 0 15px;
 `;
 
 const FilledBar = styled.div`
-  background-color: #ffc107;
+  background: #ffc107;
   height: 100%;
-  border-radius: 4px;
+  border-radius: 5px;
   width: ${(props) => props.width}%;
 `;
 
 const RatingCount = styled.div`
-  font-size: 14px;
-  color: #333333;
+  font-size: 16px;
+  color: #333;
 `;
 
 const ReviewContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 20px;
-  background-color: #f5f7fa;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 `;
 
 const ReviewCard = styled.div`
-  background-color: #ffffff;
-  padding: 20px;
+  background: linear-gradient(145deg, #ffffff, #f4f6f8);
+  padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 320px;
-  min-height: 250px;
-  flex: 1 1 calc(50% - 40px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 340px;
+  min-height: 280px;
+  flex: 1 1 calc(33% - 40px);
+  transition: transform 0.3s, box-shadow 0.3s;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   }
 `;
 
 const ReviewHeader = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 
 const UserName = styled.h3`
-  font-size: 20px;
-  color: #333333;
+  font-size: 22px;
+  color: #333;
   margin: 0;
   font-weight: 600;
 `;
 
 const Rating = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   color: #ffcc00;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 
 const ReviewInfo = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  margin-bottom: 15px;
-  color: #666666;
+  margin-bottom: 20px;
+  color: #666;
 `;
 
 const ColorInfo = styled.div`
@@ -251,29 +243,8 @@ const ReviewDate = styled.div`
 
 const ReviewText = styled.p`
   font-size: 16px;
-  color: #555555;
+  color: #555;
   line-height: 1.6;
-  margin-bottom: 15px;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-`;
-
-const ActionButton = styled.button`
-  background-color: ${(props) => (props.delete ? '#dc3545' : '#007bff')};
-  color: #ffffff;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${(props) => (props.delete ? '#c82333' : '#0056b3')};
-  }
-`;
+export default ReviewDisplay;

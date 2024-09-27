@@ -12,10 +12,10 @@ const Header = () => {
       <Menu>
         <MenuItem href="/">Home</MenuItem>
         <MenuItem href="/clothing1">Clothing</MenuItem>
-        <MenuItem href="/salon">Saloon</MenuItem>
+        <MenuItem href="/salonhome">Saloon</MenuItem>
         <MenuItem href="/footwear">Footwear</MenuItem>
-        <MenuItem href="/ReviewDisplay">Accessories</MenuItem>
-        <MenuItem href="/help">Help</MenuItem>
+        <MenuItem href="">Accessories</MenuItem>
+        <MenuItem href="">Help</MenuItem>
       </Menu>
       <SearchContainer>
         <SearchInput type="text" placeholder="Search..." />
@@ -24,7 +24,7 @@ const Header = () => {
         <IconLink href="#">
           <FontAwesomeIcon icon={faShoppingCart} />
         </IconLink>
-        <IconLink href="#">
+        <IconLink href="">
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
       </IconContainer>

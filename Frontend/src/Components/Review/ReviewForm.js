@@ -43,7 +43,7 @@ const ReviewForm = () => {
       {message && <Message>{message}</Message>}
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label htmlFor="userId">User ID:</Label>
+          <Label htmlFor="userId">User Name:</Label>
           <Input
             type="text"
             id="userId"
@@ -54,7 +54,7 @@ const ReviewForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="shopId">Shop ID:</Label>
+          <Label htmlFor="shopId">Email:</Label>
           <Input
             type="text"
             id="shopId"
