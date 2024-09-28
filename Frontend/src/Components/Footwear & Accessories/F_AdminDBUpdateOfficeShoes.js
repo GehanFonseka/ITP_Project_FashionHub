@@ -9,9 +9,7 @@ const F_AdminDBUpdateOfficeShoes = ({ officeShoes, onClose, onUpdate }) => {
     price: '',
     description: '',
     image: '',
-
     quantity: '', // Added quantity field here
-
   });
   const [error, setError] = useState(null);
 
@@ -25,7 +23,6 @@ const F_AdminDBUpdateOfficeShoes = ({ officeShoes, onClose, onUpdate }) => {
         description: officeShoes.description || '',
         image: officeShoes.image || '',
         quantity: officeShoes.quantity || '', // Set initial quantity from officeShoes data
-
       });
     }
   }, [officeShoes]);
@@ -40,9 +37,6 @@ const F_AdminDBUpdateOfficeShoes = ({ officeShoes, onClose, onUpdate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      await axios.put(`/api/office-shoes/${officeShoes._id}`, formData); // Adjusted to update office shoes
     setError(null); // Reset error state
     if (!officeShoes || !officeShoes._id) {
       setError("Missing office shoe item ID.");
@@ -51,20 +45,18 @@ const F_AdminDBUpdateOfficeShoes = ({ officeShoes, onClose, onUpdate }) => {
 
     try {
       await axios.put(`/api/office-shoes/${officeShoes._id}`, formData);
-
       onUpdate(); // Notify parent component of the update
       onClose(); // Close the modal
     } catch (error) {
       console.error("Error updating office shoes item:", error);
-      setError("Failed to update office shoes item. Please try again.");
-
       if (error.response && error.response.data && error.response.data.message) {
         setError(`Failed to update item: ${error.response.data.message}`);
       } else {
         setError("Failed to update office shoes item. Please try again.");
       }
     }
-  
+  };
+
   return (
     <div style={styles.modal}>
       <div style={styles.modalContent}>
@@ -135,7 +127,6 @@ const F_AdminDBUpdateOfficeShoes = ({ officeShoes, onClose, onUpdate }) => {
               style={styles.input}
             />
           </label>
-
           <label>
             Quantity: {/* Add quantity input here */}
             <input

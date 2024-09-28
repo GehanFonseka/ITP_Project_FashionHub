@@ -13,7 +13,6 @@ const F_AdminDBSneakersTable = () => {
 
   const fetchSneakersData = async () => {
     try {
-
       const response = await axios.get('/api/sneakers'); // Adjust endpoint for sneakers
       setSneakersData(response.data);
     } catch (error) {
@@ -43,6 +42,7 @@ const F_AdminDBSneakersTable = () => {
   const handleUpdateSuccess = () => {
     fetchSneakersData(); // Refresh the sneakers data after a successful update
     handleModalClose(); // Close modal after successful update
+  };
 
   // Inline styles for layout adjustment
   const styles = {
@@ -107,10 +107,8 @@ const F_AdminDBSneakersTable = () => {
   };
 
   return (
-
     <div style={styles.container}> {/* Apply the container style */}
       <h2>Sneakers Inventory</h2> {/* Update the title */}
-
       <table style={styles.table}>
         <thead>
           <tr>
