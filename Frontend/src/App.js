@@ -4,7 +4,13 @@ import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
 import HeroSection from './Components/home/HeroSection';
 
-
+//Customer Support
+import TicketRaisingForm from './Components/CustomerSupport/ticketRaise';
+import ViewTickets from './Components/CustomerSupport/ViewTickets';
+import TicketResponse from './Components/CustomerSupport/TicketResponse';
+import Contact from './Components/CustomerSupport/Contact';
+import ChatBotButton from './Components/CustomerSupport/ChatBotButton';
+import ChatBot from './Components/CustomerSupport/ChatBot';
 
 //minidu
 import C_Home from './Components/Clothing/C_Home';
@@ -49,7 +55,6 @@ import C_AdminSBTMWomensTrouser from './Components/Clothing/C_AdminSBTMWomensTro
 import C_TMWomensTrouser from './Components/Clothing/C_TMWomensTrouser';
 import C_WomensTMTrouserMeasurements from './Components/Clothing/C_WomensTMTrouserMeasurements';
 import C_ColorSelection from './Components/Clothing/C_ColorSection';
-
 import C_AdminReport from './Components/Clothing/C_AdminReport';
 
 
@@ -57,11 +62,7 @@ import Footer from './Components/home/Footer';
 import Register from './Components/Login1/Register';
 import Login from './Components/Login1/Login';
 
-
-
-
-
-
+//salon
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
 import Salonhome from './Components/salon/Salonhome';
@@ -69,15 +70,15 @@ import MyAppointmentForm from './Components/salon/MyAppointmentForm';
 import Dashboard from './Components/salon/Dashboard';
 import ServiceList from './Components/SalonAD/ServiceList';
 import ServiceListAD from './Components/SalonAD/ServiceListAD';
-
 import AllAppointments from './Components/SalonAD/ALLAppointments';
 import ServicePopularityReport from './Components/SalonAD/ServicePopularityReport';
 
-
+//Review
 import ReviewForm from './Components/Review/ReviewForm';
 import MyReviews from './Components/Review/MyReviews';
 import ReviewDisplay from './Components/Review/ReviewDisplay';
 import DashboardContainer from './Components/ReviewAdmin/DashboardContainer';
+
 
 // Custom component to conditionally render Header and Footer
 const Layout = ({ children }) => {
@@ -110,7 +111,7 @@ function App() {
       
         <Route path="/" element={<HeroSection />} />
           
-          <Route path="/salon" element={<><Sidebar /><Salonhome /></>} />
+          <Route path="/Salonhome" element={<><Sidebar /><Salonhome /></>} />
           <Route path="/AppointmentForm" element={<><Sidebar /><AppointmentForm /></>} />
           <Route path="/MyAppointmentForm" element={<><Sidebar /><MyAppointmentForm /></>} />
           <Route path="/Dashboard" element={<Dashboard />} />
@@ -122,15 +123,15 @@ function App() {
          
 
 
-          <Route path="/ServiceList" element={<ServiceList />} />
-          <Route path="/ServiceListAD" element={<ServiceListAD />} />
-          <Route path="/AllAppointments" element={<AllAppointments />} />
+        <Route path="/ServiceList" element={<ServiceList />} />
+        <Route path="/ServiceListAD" element={<ServiceListAD />} />
+        <Route path="/AllAppointments" element={<AllAppointments />} />
 
        
-      <Route path="/ReviewForm" element={<ReviewForm/>} />
-      <Route path="/ReviewDisplay" element={<ReviewDisplay/>} />
-      <Route path="/MyReviews" element={<MyReviews/>} />
-      <Route path="/DashboardContainer" element={<DashboardContainer/>} />
+        <Route path="/ReviewForm" element={<ReviewForm/>} />
+        <Route path="/ReviewDisplay" element={<ReviewDisplay/>} />
+        <Route path="/MyReviews" element={<MyReviews/>} />
+        <Route path="/DashboardContainer" element={<DashboardContainer/>} />
   
         <Route path="/C_Home" element={<C_Home />} />
         <Route path="/C_MensCasual" element={<C_MensCasual />} />
@@ -177,7 +178,18 @@ function App() {
         <Route path="/C_AdminReport" element={<C_AdminReport/>} />
         <Route path="/product-details" element={<C_ProductDetails />} />
 
+        <Route path="/ticket" element={<TicketRaisingForm />} />
+        <Route path="/view" element={<ViewTickets />} />
+        <Route path="/response" element={<TicketResponse />} />
+        <Route path="/Contact" element={<Contact />} />
+
+
+
+
+
+
         </Routes>
+        <ChatBotButton />
 </Layout>
       </Router>
 
