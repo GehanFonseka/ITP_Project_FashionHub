@@ -125,7 +125,10 @@ const F_AdminDBBootsTable = () => {
               <td style={styles.td}>{boots.sellerNo}</td>
               <td style={styles.td}>{boots.itemNo}</td>
               <td style={styles.td}>{boots.name}</td>
-              <td style={styles.td}>${boots.price}</td>
+
+              
+              <td style={styles.td}>lkr{boots.price}</td>
+
               <td style={styles.td}>{boots.description}</td>
               <td style={styles.td}>
                 {boots.image && (
