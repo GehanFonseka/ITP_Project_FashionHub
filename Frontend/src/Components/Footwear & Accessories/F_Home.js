@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import f1 from '../../assets/f1.webp'; 
-import f2 from '../../assets/f2.jpg';
+import s2 from '../../assets/s2.webp'; 
+import s4 from '../../assets/s4.webp';
 
 // Container for the entire page
 const Container = styled.div`
@@ -27,11 +27,11 @@ const Side = styled.div`
   
   // Use background-image property to set different images for each side
   &:first-child {
-    background-image: url(${f2});
+    background-image: url(${s4});
   }
   
   &:last-child {
-    background-image: url(${f1});
+    background-image: url(${s2});
   }
   
   /* Add a separator line between sections */
