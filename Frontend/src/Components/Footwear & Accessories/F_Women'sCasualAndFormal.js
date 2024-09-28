@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import F5 from '../../assets/F5.jpg'; 
 import F6 from '../../assets/F6.jpg';
+import s3 from '../../assets/s3.webp'; 
+
+
 
 // Container for the entire page
 const Container = styled.div`
@@ -27,11 +29,11 @@ const Section = styled.div`
   
   // Use background-image property to set different images for each section
   &:first-child {
-    background-image: url(${F5});
+    background-image: url(${F6});
   }
   
   &:last-child {
-    background-image: url(${F6});
+    background-image: url(${s3});
   }
 
   // Add a separator line between sections
@@ -84,7 +86,7 @@ const F_WomensCasualAndFormal = () => {
       </Section>
       <Section onClick={() => navigate('/F_WomensFormal')}>
         <Overlay />
-        <BlackLabel>Men's Formal</BlackLabel>
+        <BlackLabel>Women's Formal</BlackLabel>
       </Section>
     </Container>
   );
