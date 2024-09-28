@@ -13,11 +13,11 @@ const Header = () => {
         <MenuItem href="/">Home</MenuItem>
 
         <MenuItem href="/C_Home">Clothing</MenuItem>
-        <MenuItem href="/salon">Saloon</MenuItem>
+        <MenuItem href="/Salonhome">Saloon</MenuItem>
         <MenuItem href="/footwear">Footwear</MenuItem>
         <MenuItem href="/accessories">Accessories</MenuItem>
-        <MenuItem href="/help">Help</MenuItem>
-        <MenuItem href="Register">Register</MenuItem>
+        <MenuItem href="/Contact">Help</MenuItem>
+        <MenuItem href="/Register">Register</MenuItem>
 
       </Menu>
       <SearchContainer>

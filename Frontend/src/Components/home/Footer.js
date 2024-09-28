@@ -25,7 +25,7 @@ const Footer = () => {
           <FooterLink href="/ReviewDisplay">SUBMIT A REQUEST</FooterLink>
           <FooterLink href="/MyReviews">RETURNS & EXCHANGES</FooterLink>
           <FooterLink href="/DashboardContainer">SHIPPING POLICY</FooterLink>
-          <FooterLink href="#">CONTACT US</FooterLink>
+          <FooterLink href="/Response/">CONTACT US</FooterLink>
         </FooterColumn>
 
         <FooterColumn>
