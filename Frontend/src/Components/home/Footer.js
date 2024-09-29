@@ -21,7 +21,7 @@ const Footer = () => {
 
           <FooterLink href="C_AdminDB01">CAREERS</FooterLink>
 
-          <FooterLink href="#">FAQ</FooterLink>
+          <FooterLink href="F_AdminDB01">FAQ</FooterLink>
           <FooterLink href="/ReviewDisplay">SUBMIT A REQUEST</FooterLink>
           <FooterLink href="/MyReviews">RETURNS & EXCHANGES</FooterLink>
           <FooterLink href="/DashboardContainer">SHIPPING POLICY</FooterLink>

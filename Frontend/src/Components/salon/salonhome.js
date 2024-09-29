@@ -1,12 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import headerImage from "../../assets/headerImage1.jpg"; // Replace with the actual path to your image
-import ReviewDisplay from '../Review/ReviewDisplay';
+import hairStylingImage from "../../assets/Hair.jpg";
+import nailCareImage from "../../assets/Nails.jpg";
+import massageImage from "../../assets/Massage.jpg";
+import facialImage from "../../assets/Facial.jpg";
+import makeUpImage from "../../assets/MakeUp.jpg";
+import bodyTreatmentImage from "../../assets/BodyThreatment.jpg";
 
+// Mock service data with IDs
+const services = [
+  { id: 1, name: "Hair Styling", image: hairStylingImage },
+  { id: 2, name: "Nail Care", image: nailCareImage },
+  { id: 3, name: "Massages", image: massageImage },
+  { id: 4, name: "Facial", image: facialImage },
+  { id: 5, name: "MakeUp", image: makeUpImage },
+  { id: 6, name: "Body Treatment", image: bodyTreatmentImage },
+];
 
 // Main Salon Home Component
 const Salonhome = () => {
   const [selectedService, setSelectedService] = useState(null);
+
+
 
   return (
     <MainContainer>
@@ -31,8 +47,16 @@ const Salonhome = () => {
         </OurServicesContainer>
 
         <ServicesContainer>
-          {/* Add your service items here */}
+          {services.map((service) => (
+            <ServiceItem key={service.id}>
+              <ServiceImage src={service.image} alt={service.name} />
+              <ServiceLabel>{service.name}</ServiceLabel>
+              
+            </ServiceItem>
+          ))}
         </ServicesContainer>
+
+        
 
         <ButtonContainer>
           <ActionButton href="/ServiceList">Service List</ActionButton>
@@ -40,16 +64,12 @@ const Salonhome = () => {
         </ButtonContainer>
 
         <ReviewSection>
-          <ReviewHeading>Customer Reviews: Where Style Meets Satisfaction</ReviewHeading>
-          <ReviewDescription>
-            Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
-          </ReviewDescription>
-          <ReviewButton href="/ReviewForm">Write a Review</ReviewButton>
-        </ReviewSection>
-
-        {/* Display the ReviewDisplay component below the existing content */}
-        <ReviewDisplay />
-        
+        <ReviewHeading>Customer Reviews: Where Style Meets Satisfaction</ReviewHeading>
+        <ReviewDescription>
+          Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
+        </ReviewDescription>
+        <ReviewButton href="/ReviewForm">Write a Review</ReviewButton>
+      </ReviewSection>
       </Content>
     </MainContainer>
   );
@@ -157,6 +177,8 @@ const ServiceLabel = styled.h3`
   color: #333;
 `;
 
+
+
 const ReviewFormContainer = styled.div`
   margin-top: 30px;
   padding: 20px;
@@ -253,5 +275,6 @@ const ReviewButton = styled.a`
     background-color: #000;
   }
 `;
+
 
 export default Salonhome;
