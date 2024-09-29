@@ -35,7 +35,7 @@ import A_AdminDBCandBTable from './Components/Accessories/A_AdminDBCandBTable';
 import A_AdminDBUpdateCandB from './Components/Accessories/A_AdminDBUpdateCandB';
 import A_AdminSBMenCandB from './Components/Accessories/A_AdminSBMenCandB';
 import A_MensCandB from './Components/Accessories/A_MensCandB';
-import FootwearReport from './Components/Footwear & Accessories/FootwearReport';
+
 
 import F_adminDashboard from './Components/Footwear & Accessories/F_adminDashboard';
 
@@ -88,7 +88,7 @@ function App() {
       <Route path="/A_AdminDBUpdateCandB" element={<A_AdminDBUpdateCandB/>} />
       <Route path="/A_AdminSBMenCandB" element={<A_AdminSBMenCandB/>} />
       <Route path="/A_MensCandB" element={<A_MensCandB/>} />
-      <Route path="/FootwearReport" element={<FootwearReport/>} />
+      
 
 
       <Route path="/F_adminDashboard" element={<F_adminDashboard/>} />
