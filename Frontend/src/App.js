@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
@@ -104,8 +104,7 @@ import F_AdminReport from './Components/Footwear & Accessories/F_AdminReport';
 
 
 import Footer from './Components/home/Footer';
-import Register from './Components/Login1/Register';
-import Login from './Components/Login1/Login';
+
 
 //salon
 import Sidebar from './Components/salon/Sidebar';
@@ -124,11 +123,22 @@ import MyReviews from './Components/Review/MyReviews';
 import ReviewDisplay from './Components/Review/ReviewDisplay';
 import DashboardContainer from './Components/ReviewAdmin/DashboardContainer';
 
+//finance
+import BalanceSheet from "./Components/Finance/BalanceSheet";
+import DisplayReport from "./Components/Finance/DisplayReport";
+import EditReport from "./Components/Finance/EditReport";
+import AddReport from "./Components/Finance/AddReport";
+
+import Overview from "./Components/Finance/Overview";
+import LoginRegister from "./Components/Finance/LoginRegister";
+
+
+
 
 // Custom component to conditionally render Header and Footer
 const Layout = ({ children }) => {
   const location = useLocation();
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart']; // Add paths where you don't want Header and Footer
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/BalanceSheet','/DisplayReport','/EditReport','/AddReport','/Overview']; // Add paths where you don't want Header and Footer
 ;
 
 
@@ -163,13 +173,15 @@ function App() {
           <Route path="/AppointmentForm" element={<><Sidebar /><AppointmentForm /></>} />
           <Route path="/MyAppointmentForm" element={<><Sidebar /><MyAppointmentForm /></>} />
           <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Login" element={<Login />} />
-          
-        
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
          
-
+            {/* Finance Routes */}
+          <Route path="/BalanceSheet" element={<BalanceSheet />} />
+          <Route path="/DisplayReport" element={<DisplayReport />} />
+          <Route path="/EditReport" element={<EditReport />} />
+          <Route path="/AddReport" element={<AddReport /> } />
+          <Route path="/Overview" element={<Overview />} />
+          <Route path="/LoginRegister" element={<LoginRegister />} />
 
         <Route path="/ServiceList" element={<ServiceList />} />
         <Route path="/ServiceListAD" element={<ServiceListAD />} />

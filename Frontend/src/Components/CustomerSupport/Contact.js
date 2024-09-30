@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   FaFacebookF,
   FaTwitter,
@@ -49,7 +50,7 @@ const Contact = () => {
   
     {/* Section 2: Contact Information */}
     <div className="bg-white p-5 rounded-lg shadow-lg border-2 border-gray-300 transition-transform duration-300 hover:shadow-xl mb-6">
-      <h2 className="text-3xl font-bold text-primary mb-4">Contact Us</h2>
+      <h2 className="text-3xl  font-bold text-primary mb-4">Contact Us</h2>
       <p className="text-gray-600 mb-3">
         Have any questions or need assistance? Reach out to us below or use the
         contact form.
@@ -128,7 +129,7 @@ const Contact = () => {
         </div>
         <button
           type="submit"
-          className="bg-primary text-white py-2 px-4 rounded shadow-md transform transition-transform hover:scale-105"
+          className="bg-black text-white py-2 px-4 rounded shadow-md transform transition-transform hover:scale-105"
         >
           Send Message
         </button>

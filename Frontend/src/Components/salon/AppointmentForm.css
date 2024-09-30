@@ -4,13 +4,17 @@
 
 /* Background styling */
 .appointment-form-background {
+
   background-size: cover; /* Make sure the background image covers the entire container */
-  padding: 50px 0;
+  padding: 150px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   position: relative;
+  width: 100%;
+  max-width: 950px;
+  margin-left: 400px;
   font-family: 'Roboto', sans-serif; /* Apply the chosen font */
   background-color: rgba(255, 255, 255, 0.9); /* Light background color */
 }
@@ -20,9 +24,10 @@
   background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Lighter shadow for a softer look */
-  width: 90%;
-  max-width: 800px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adjusted shadow for better visibility */
+  width: 100%;
+  max-width: 500px;
 }
 
 /* Headings */
@@ -72,12 +77,14 @@ textarea {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
+
   border: 1px solid #ccc; /* Light border for contrast */
   border-radius: 5px;
   margin-bottom: 15px;
   box-sizing: border-box;
   background-color: #fff; /* White background for inputs */
   color: #333; /* Dark text color for readability */
+
   font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
 
@@ -130,7 +137,9 @@ li {
 
 /* Button styling */
 button[type="submit"] {
+
   background-color: #4caf50; /* Green background for better contrast */
+
   color: #fff;
   padding: 10px 20px;
   font-size: 1rem;
@@ -138,7 +147,7 @@ button[type="submit"] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  width: 20%;
   transition: background-color 0.3s;
   font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }

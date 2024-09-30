@@ -28,7 +28,7 @@ const HeroSection = () => {
         <HeroTextBox wide>
           <HeroHeading>Unisex Salon</HeroHeading>
           <p>Your Style, Our Passion</p>
-          <ShopButton href="#">Book Now</ShopButton>
+          <ShopButton href="SalonHome">Book Now</ShopButton>
         </HeroTextBox>
       </HeroItem>
     </HeroContainer>
