@@ -121,7 +121,7 @@ const DashboardWrapper = styled.div`
   background-color: #e6e6e6; /* Slightly darker gray background */
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
-  margin-top: 50px; /* Adjusted margin top */
+  margin-top: 80px; /* Adjusted margin top */
 `;
 
 const Header = styled.div`
