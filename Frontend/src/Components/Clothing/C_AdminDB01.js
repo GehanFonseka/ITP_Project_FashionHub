@@ -11,6 +11,8 @@ const DashboardContainer = styled.div`
   height: 100vh;
   padding: 20px;
   padding-top: 80px; /* Add top padding to account for the header height */
+  background-color: #f9f9f9; /* Light background for better contrast */
+  font-family: 'Arial', sans-serif; /* More modern font */
 `;
 
 // Section for Men's and Women's Clothing
@@ -19,6 +21,7 @@ const SectionContainer = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   width: 100%;
+  margin-bottom: 20px; /* Space between sections */
 `;
 
 // Section for clothing
@@ -27,14 +30,22 @@ const Section = styled.div`
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  background-color: #ffffff; /* White background for sections */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  transition: transform 0.2s; /* Transition for hover effect */
+
+  &:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+  }
 `;
 
 // Title for each section
 const SectionTitle = styled.h2`
   text-align: center;
   margin-bottom: 20px;
-  font-size: 1.8rem;
-  color: #333;
+  font-size: 2rem; /* Larger title size */
+  color: #555; /* Using your primary color */
+  text-transform: uppercase; /* Uppercase for emphasis */
 `;
 
 // Container for categories within each section
@@ -47,6 +58,7 @@ const CategoryTitle = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: #555;
+  text-decoration: underline; /* Underlined category title */
 `;
 
 // Button for each sub-category
@@ -57,14 +69,16 @@ const SubCategoryButton = styled(Link)`
   margin-bottom: 5px;
   font-size: 1.2rem;
   color: #fff;
-  background-color: #007bff;
+  background-color: #007bff; /* Primary button color */
   text-align: center;
   text-decoration: none;
   border-radius: 4px;
   cursor: pointer;
-  
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+
   &:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
   }
 `;
 
@@ -73,14 +87,16 @@ const GenerateReportButton = styled.button`
   padding: 15px 30px;
   font-size: 1.2rem;
   color: #fff;
-  background-color: #28a745;
+  background-color: #28a745; /* Green button color */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
   
   &:hover {
-    background-color: #218838;
+    background-color: #218838; /* Darker shade on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
   }
 `;
 

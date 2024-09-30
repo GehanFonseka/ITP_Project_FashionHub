@@ -42,6 +42,7 @@ const C_AdminSBTMMensBlazer = () => {
       display: 'flex',
       flexDirection: 'column',
       padding: '10px 0',
+      marginTop: '20px',
     },
     button: {
       background: 'none',

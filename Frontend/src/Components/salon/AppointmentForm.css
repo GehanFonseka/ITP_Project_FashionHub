@@ -16,13 +16,15 @@
   max-width: 950px;
   margin-left: 400px;
   font-family: 'Roboto', sans-serif; /* Apply the chosen font */
+  background-color: rgba(255, 255, 255, 0.9); /* Light background color */
 }
 
 /* Container styling */
 .container {
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
   padding: 30px;
   border-radius: 10px;
+
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adjusted shadow for better visibility */
   width: 100%;
   max-width: 500px;
@@ -31,7 +33,7 @@
 /* Headings */
 h2 {
   font-size: 2rem;
-  color: #000; /* Light text color */
+  color: #333; /* Dark text color for better readability */
   text-align: center;
   margin-bottom: 20px;
   font-weight: 700; /* Bold weight */
@@ -39,7 +41,7 @@ h2 {
 
 h3 {
   font-size: 1.5rem;
-  color: #e0e0e0; /* Light text color */
+  color: #555; /* Medium dark text color */
   margin-top: 20px;
   margin-bottom: 10px;
   font-weight: 700; /* Bold weight */
@@ -47,7 +49,7 @@ h3 {
 
 h4 {
   font-size: 2.35rem;
-  color: #d0d0d0; /* Light text color */
+  color: #666; /* Slightly lighter text color */
   margin: 10px 0;
   font-weight: 700; /* Bold weight */
 }
@@ -56,16 +58,16 @@ h4 {
 label {
   display: block;
   font-size: 1.12rem;
-  color: #000; /* Light text color */
+  color: #333; /* Dark text color */
   margin-bottom: 5px;
   font-weight: 700; /* Bold weight */
 }
+
 /* Service selection label styling */
 label[for="services"] {
   margin-top: 20px;
   font-size: 1.52rem; /* Adjust the value as needed */
 }
-
 
 input[type="text"],
 input[type="email"],
@@ -75,12 +77,14 @@ textarea {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #fff; /* Dark border for contrast */
+
+  border: 1px solid #ccc; /* Light border for contrast */
   border-radius: 5px;
   margin-bottom: 15px;
   box-sizing: border-box;
-  background-color: #fff; /* Dark background for inputs */
-  color: #f5f5f5; /* Light text color for readability */
+  background-color: #fff; /* White background for inputs */
+  color: #333; /* Dark text color for readability */
+
   font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
 
@@ -119,7 +123,7 @@ ul {
 
 li {
   font-size: 1rem;
-  color: #ccc; /* Light text color */
+  color: #555; /* Medium dark text color */
   margin-bottom: 5px;
   font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
@@ -127,13 +131,15 @@ li {
 .total-cost {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #fff; /* Light text color */
+  color: #333; /* Dark text color */
   margin-top: 10px;
 }
 
 /* Button styling */
 button[type="submit"] {
-  background-color: #e76f51; /* Adjusted for better contrast */
+
+  background-color: #4caf50; /* Green background for better contrast */
+
   color: #fff;
   padding: 10px 20px;
   font-size: 1rem;
@@ -147,7 +153,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #d62839; /* Slightly darker red for hover effect */
+  background-color: #45a049; /* Slightly darker green for hover effect */
 }
 
 /* Error message styles */

@@ -28,7 +28,7 @@ const Header = () => {
           <FontAwesomeIcon icon={faShoppingCart} />
         </IconLink>
 
-        <IconLink href="/Dashboard">
+        <IconLink href="/userDashboard">
 
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
@@ -44,7 +44,7 @@ const Nav = styled.nav`
   padding: 15px 25px; /* Increased padding by 5px */
   background-color: #000;
   position: fixed;
-  top: 0;
+  top: 0; 
   width: 100%;
   z-index: 1000; /* Ensure the nav stays on top */
 `;
