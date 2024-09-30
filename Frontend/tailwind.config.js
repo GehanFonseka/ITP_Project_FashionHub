@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import daisyui from 'daisyui';
+
 export default {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
@@ -15,11 +17,8 @@ export default {
       },
     },
   },
- 
-      // ... other configurations
-      plugins: [
-        require('daisyui'),
-        // ... other plugins
-      ],
-
+  plugins: [
+    daisyui,
+    // ... other plugins
+  ],
 };
