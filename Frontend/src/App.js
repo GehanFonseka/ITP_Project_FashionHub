@@ -169,7 +169,7 @@ function App() {
         <Route path="/AllAppointments" element={<AllAppointments />} />
 
        
-        <Route path="/ReviewForm" element={<ReviewForm/>} />
+        <Route path="/ReviewForm/:storeId" element={<ReviewForm/>} />
         <Route path="/ReviewDisplay" element={<ReviewDisplay/>} />
         <Route path="/MyReviews" element={<MyReviews/>} />
         <Route path="/DashboardContainer" element={<DashboardContainer/>} />

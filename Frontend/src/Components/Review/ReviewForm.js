@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 const ReviewForm = () => {
+
+  const {storeId} = useParams();
+  console.log("ReviewFOrm",storeId)
   const [userId, setUserId] = useState('');
-  const [shopId, setShopId] = useState('');
+  const [shopId, setShopId] = useState(storeId);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState('');
@@ -54,13 +58,14 @@ const ReviewForm = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="shopId">Email:</Label>
+          <Label htmlFor="shopId">Shop ID:</Label>
           <Input
             type="text"
             id="shopId"
             value={shopId}
             onChange={(e) => setShopId(e.target.value)}
             required
+            readOnly
           />
         </FormGroup>
 

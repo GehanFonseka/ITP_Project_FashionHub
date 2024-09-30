@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import s2 from '../../assets/s2.webp'; 
 import s4 from '../../assets/s4.webp';
+import ReviewDisplay from '../Review/ReviewDisplay';
 
 // Container for the entire page
 const Container = styled.div`
   display: flex;
-  height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0; /* Ensure there's no margin affecting the layout */
   position: relative; /* Needed for the separator */
   padding-top:75px;
@@ -63,7 +65,62 @@ const Label = styled.div`
   z-index: 2; /* Ensure label is above the separator */
 `;
 
+// Wrapper for the image section
+const ImageSection = styled.div`
+  display: flex;
+  flex: 1;
+  min-height: 150vh; /* Ensures the image section takes half of the viewport height */
+  position: relative;
+`;
+
+const ReviewSection = styled.div`
+  text-align: center;
+  padding: 40px;
+  background-color: #f8f8f8;
+`;
+
+const ReviewHeading = styled.h2`
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+const ReviewDescription = styled.p`
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+`;
+
+const ReviewButton = styled.a`
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ae2012;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #000;
+  }
+`;
+
+const Footer = styled.footer`
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+`;
+
+
+
+
+
 const F_Home = () => {
+
+  let storeId = 'S003';
+
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -72,12 +129,30 @@ const F_Home = () => {
 
   return (
     <Container>
+      <ImageSection>
       <Side onClick={() => handleNavigation('/F_WomensCasualAndFormal')}>
         <Label>Women's Footwear</Label>
       </Side>
       <Side onClick={() => handleNavigation('/F_MensCasualAndFormal')}>
         <Label>Men's Footwear</Label>
       </Side>
+      </ImageSection>
+
+      <ReviewSection>
+        <ReviewHeading>Customer Reviews: Where Style Meets Satisfaction</ReviewHeading>
+        <ReviewDescription>
+          Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
+        </ReviewDescription>
+        <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
+      </ReviewSection>
+
+       {/* Display the ReviewDisplay component */}
+       <ReviewDisplay storeID={storeId} />
+       
+
+
+
+
     </Container>
   );
 };
