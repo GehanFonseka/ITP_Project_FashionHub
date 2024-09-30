@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
 import HeroSection from './Components/home/HeroSection';
 
+import UserDashboard from './Components/Login1/userDashboard';
+
+import LoginRegister from './Components/Login1/loginregisterA';
+
 //Customer Support
 import TicketRaisingForm from './Components/CustomerSupport/ticketRaise';
 import ViewTickets from './Components/CustomerSupport/ViewTickets';
@@ -151,7 +155,10 @@ function App() {
         <Routes>
       
         <Route path="/" element={<HeroSection />} />
-          
+        
+          <Route path="/loginregister" element={<LoginRegister/>} />
+          <Route path="/UserDashboard" element={<UserDashboard />} />
+
           <Route path="/Salonhome" element={<><Sidebar /><Salonhome /></>} />
           <Route path="/AppointmentForm" element={<><Sidebar /><AppointmentForm /></>} />
           <Route path="/MyAppointmentForm" element={<><Sidebar /><MyAppointmentForm /></>} />
