@@ -13,7 +13,7 @@ const Footer = () => {
           <FooterLink href="#">CLOTHING</FooterLink>
           <FooterLink href="#">SALOON</FooterLink>
           <FooterLink href="#">ACCESSORIES</FooterLink>
-          <FooterLink href="#">HELP</FooterLink>
+          <FooterLink href="/Overview">HELP</FooterLink>
         </FooterColumn>
 
         <FooterColumn>

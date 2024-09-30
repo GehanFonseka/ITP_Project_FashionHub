@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "daisyui": "^4.12.10",
     "express": "^4.19.2",
+    "framer-motion": "^7.6.0",
     "https-browserify": "^1.0.0",
     "install": "^0.13.0",
     "js-file-download": "^0.4.12",

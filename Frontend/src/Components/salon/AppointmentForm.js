@@ -3,6 +3,9 @@ import './AppointmentForm.css'; // Import the CSS file
 import axios from 'axios'; // Import axios for HTTP requests
 import { useNavigate, useLocation } from 'react-router-dom';
 
+
+
+
 const appointments = [];
 
 // Check availability and book an appointment
