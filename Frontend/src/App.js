@@ -5,7 +5,8 @@ import Header from './Components/home/Header';
 import HeroSection from './Components/home/HeroSection';
 
 import UserDashboard from './Components/Login1/userDashboard';
-
+import Register from "./Components/Login1/Register";
+import Login from "./Components/Login1/Login";
 import LoginRegister from './Components/Login1/loginregisterA';
 
 //Customer Support
@@ -128,9 +129,8 @@ import BalanceSheet from "./Components/Finance/BalanceSheet";
 import DisplayReport from "./Components/Finance/DisplayReport";
 import EditReport from "./Components/Finance/EditReport";
 import AddReport from "./Components/Finance/AddReport";
-
 import Overview from "./Components/Finance/Overview";
-import LoginRegister from "./Components/Finance/LoginRegister";
+
 
 
 
@@ -168,12 +168,13 @@ function App() {
         
           <Route path="/loginregister" element={<LoginRegister/>} />
           <Route path="/UserDashboard" element={<UserDashboard />} />
-
           <Route path="/Salonhome" element={<><Sidebar /><Salonhome /></>} />
           <Route path="/AppointmentForm" element={<><Sidebar /><AppointmentForm /></>} />
           <Route path="/MyAppointmentForm" element={<><Sidebar /><MyAppointmentForm /></>} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
+          <Route path="/Register" element={<Register />} />
+          
          
             {/* Finance Routes */}
           <Route path="/BalanceSheet" element={<BalanceSheet />} />
