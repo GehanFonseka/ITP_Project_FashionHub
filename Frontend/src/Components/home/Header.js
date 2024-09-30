@@ -14,8 +14,8 @@ const Header = () => {
 
         <MenuItem href="/C_Home">Clothing</MenuItem>
         <MenuItem href="/Salonhome">Saloon</MenuItem>
-        <MenuItem href="/footwear">Footwear</MenuItem>
-        <MenuItem href="/accessories">Accessories</MenuItem>
+        <MenuItem href="/F_Home">Footwear</MenuItem>
+        <MenuItem href="/A_Home">Accessories</MenuItem>
         <MenuItem href="/Contact">Help</MenuItem>
         <MenuItem href="/Register">Register</MenuItem>
 

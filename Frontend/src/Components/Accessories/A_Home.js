@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import C1 from '../../assets/C1.jpg'; 
-import C2 from '../../assets/C2.webp';
+import A1 from '../../assets/A1.webp'; 
+import A2 from '../../assets/A2.jpg';
 import ReviewDisplay from '../Review/ReviewDisplay';
 
 // Container for the entire page
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure the container takes full viewport height */
-  margin: 0;
-  padding-top: 75px;
-`;
-
-// Wrapper for the image section
-const ImageSection = styled.div`
-  display: flex;
-  flex: 1;
-  min-height: 80vh; /* Ensures the image section takes half of the viewport height */
-  position: relative;
+  min-height: 100vh;
+  margin: 0; /* Ensure there's no margin affecting the layout */
+  position: relative; /* Needed for the separator */
+  padding-top:75px;
 `;
 
 // Styles for each side (left and right)
@@ -32,24 +25,27 @@ const Side = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  cursor: pointer;
-
+  cursor: pointer; /* Shows a pointer cursor on hover */
+  
+  // Use background-image property to set different images for each side
   &:first-child {
-    background-image: url(${C2});
+    background-image: url(${A2});
   }
-
+  
   &:last-child {
-    background-image: url(${C1});
+    background-image: url(${A1});
   }
-
+  
+  /* Add a separator line between sections */
   &::after {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
-    width: 4px;
+    width: 4px; /* Width of the separator line */
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.7); /* Color of the separator line */
+    z-index: 1; /* Ensure separator is above the background */
   }
 `;
 
@@ -57,7 +53,7 @@ const Side = styled.div`
 const Label = styled.div`
   position: absolute;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -66,6 +62,15 @@ const Label = styled.div`
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 2; /* Ensure label is above the separator */
+`;
+
+// Wrapper for the image section
+const ImageSection = styled.div`
+  display: flex;
+  flex: 1;
+  min-height: 80vh; /* Ensures the image section takes half of the viewport height */
+  position: relative;
 `;
 
 const ReviewSection = styled.div`
@@ -102,38 +107,29 @@ const ReviewButton = styled.a`
   }
 `;
 
-const Footer = styled.footer`
-  background-color: #f1f1f1;
-  padding: 20px;
-  text-align: center;
-`;
-
-const C_Home = () => {
+const A_Home = () => {
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
     navigate(path);
   };
 
-  let storeId = 'S001';
-
-  
-
-
+  let storeId = 'S004'
 
   return (
     <Container>
-      {/* Image section */}
       <ImageSection>
-        <Side onClick={() => handleNavigation('/C_WomensCasualAndFormal')}>
-          <Label>Women's Clothing</Label>
-        </Side>
-        <Side onClick={() => handleNavigation('/C_MensCasualAndFormal')}>
-          <Label>Men's Clothing</Label>
-        </Side>
+
+      
+      <Side onClick={() => handleNavigation('/A_Mens')}>
+        <Label> Mens accessories</Label>
+      </Side>
+      <Side onClick={() => handleNavigation('/A_Womens')}>
+        <Label>Womes accessories</Label>
+      </Side>
+
       </ImageSection>
 
-      {/* Review section below images */}
       <ReviewSection>
         <ReviewHeading>Customer Reviews: Where Style Meets Satisfaction</ReviewHeading>
         <ReviewDescription>
@@ -142,16 +138,11 @@ const C_Home = () => {
         <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
       </ReviewSection>
 
-      {/* Display the ReviewDisplay component */}
-      <ReviewDisplay storeID={storeId} />
-
-      {/* Footer */}
-      <Footer>
-        <p>© 2024 FashionHub. All rights reserved.</p>
-      </Footer>
+       {/* Display the ReviewDisplay component */}
+       <ReviewDisplay storeID={storeId} />
+       
     </Container>
   );
 };
 
-export default C_Home;
-
+export default A_Home;
