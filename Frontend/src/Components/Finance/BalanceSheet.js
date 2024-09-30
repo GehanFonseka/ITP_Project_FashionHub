@@ -151,13 +151,13 @@ const BalanceSheet = () => {
       setExpenses((prev) => ({
         ...prev,
         [name]: value,
-        [`${name}Error`]: "", // Clear error message if valid
+        [`${name}Error`]: "", 
       }));
     } else {
       setExpenses((prev) => ({
         ...prev,
         [name]: value,
-        [`${name}Error`]: "Amount cannot be negative", // Set error message if invalid
+        [`${name}Error`]: "Amount cannot be negative", 
       }));
     }
   };
@@ -171,13 +171,13 @@ const BalanceSheet = () => {
       setPettyCash((prevState) => ({
         ...prevState,
         [name]: value,
-        [`${name}Error`]: "", // Clear error message if valid
+        [`${name}Error`]: "", 
       }));
     } else {
       setPettyCash((prevState) => ({
         ...prevState,
         [name]: value,
-        [`${name}Error`]: "Amount cannot be negative", // Set error message if invalid
+        [`${name}Error`]: "Amount cannot be negative", 
       }));
     }
   };
@@ -229,7 +229,7 @@ const BalanceSheet = () => {
     try {
       await axios.delete(`http://localhost:5000/api/reports/${reportId}`);
       alert("Report deleted successfully");
-      setReportId(null); // Clear reportId after deletion
+      setReportId(null); 
     } catch (error) {
       console.error("Error handling delete:", error);
       alert("Failed to delete report");
