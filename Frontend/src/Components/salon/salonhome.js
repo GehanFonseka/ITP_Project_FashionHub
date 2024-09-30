@@ -7,6 +7,7 @@ import massageImage from "../../assets/Massage.jpg";
 import facialImage from "../../assets/Facial.jpg";
 import makeUpImage from "../../assets/MakeUp.jpg";
 import bodyTreatmentImage from "../../assets/BodyThreatment.jpg";
+import ReviewDisplay from '../Review/ReviewDisplay';
 
 // Mock service data with IDs
 const services = [
@@ -20,6 +21,8 @@ const services = [
 
 // Main Salon Home Component
 const Salonhome = () => {
+
+  let storeId = 'S002';
   const [selectedService, setSelectedService] = useState(null);
 
 
@@ -68,8 +71,11 @@ const Salonhome = () => {
         <ReviewDescription>
           Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
         </ReviewDescription>
-        <ReviewButton href="/ReviewForm">Write a Review</ReviewButton>
+        <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
       </ReviewSection>
+
+      {/* Display the ReviewDisplay component */}
+      <ReviewDisplay storeID={storeId} />
       </Content>
     </MainContainer>
   );

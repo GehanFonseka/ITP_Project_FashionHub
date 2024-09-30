@@ -100,8 +100,7 @@ import F_AdminReport from './Components/Footwear & Accessories/F_AdminReport';
 
 
 import Footer from './Components/home/Footer';
-import Register from './Components/Login1/Register';
-import Login from './Components/Login1/Login';
+
 
 //salon
 import Sidebar from './Components/salon/Sidebar';
@@ -167,8 +166,6 @@ function App() {
           <Route path="/AppointmentForm" element={<><Sidebar /><AppointmentForm /></>} />
           <Route path="/MyAppointmentForm" element={<><Sidebar /><MyAppointmentForm /></>} />
           <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Login" element={<Login />} />
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
          
             {/* Finance Routes */}
@@ -184,7 +181,7 @@ function App() {
         <Route path="/AllAppointments" element={<AllAppointments />} />
 
        
-        <Route path="/ReviewForm" element={<ReviewForm/>} />
+        <Route path="/ReviewForm/:storeId" element={<ReviewForm/>} />
         <Route path="/ReviewDisplay" element={<ReviewDisplay/>} />
         <Route path="/MyReviews" element={<MyReviews/>} />
         <Route path="/DashboardContainer" element={<DashboardContainer/>} />
