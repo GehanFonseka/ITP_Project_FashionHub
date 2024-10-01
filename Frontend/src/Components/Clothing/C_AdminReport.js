@@ -11,6 +11,7 @@ const Container = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   margin: auto;
+   margin-top:75px;
 `;
 
 const Title = styled.h2`
@@ -24,6 +25,14 @@ const NoData = styled.p`
   text-align: center;
   color: #6c757d;
   font-size: 18px;
+`;
+
+const SearchInput = styled.input`
+  padding: 10px;
+  width: calc(100% - 22px);
+  margin-bottom: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
 `;
 
 const CategorySection = styled.div`
@@ -75,12 +84,15 @@ const DownloadButton = styled.button`
 
 const C_AdminReport = () => {
   const [clothingData, setClothingData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchClothingData = async () => {
       try {
         const response = await axios.get('/api/clothing/clothing-stats');
         setClothingData(response.data);
+        setFilteredData(response.data); // Set initial filtered data
       } catch (error) {
         console.error('Error fetching clothing data:', error);
       }
@@ -89,11 +101,26 @@ const C_AdminReport = () => {
     fetchClothingData();
   }, []);
 
+  const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    // Filter clothing data based on search query
+    const filtered = clothingData.flatMap(categoryData => ({
+      category: categoryData.category,
+      items: categoryData.items.filter(item =>
+        item.name.toLowerCase().includes(query) || item.itemNo.toString().includes(query)
+      )
+    })).filter(category => category.items.length > 0); // Remove empty categories
+
+    setFilteredData(filtered);
+  };
+
   const downloadReportAsPDF = () => {
     const doc = new jsPDF();
     let yPos = 20; // Initial y position for content
 
-    clothingData.forEach((categoryData, index) => {
+    filteredData.forEach((categoryData, index) => {
       // Add the category title with a margin
       doc.setFontSize(14);
       doc.text(`Category: ${categoryData.category}`, 20, yPos);
@@ -129,11 +156,17 @@ const C_AdminReport = () => {
   return (
     <Container>
       <Title>Clothing Items Report</Title>
-      {clothingData.length === 0 ? (
+      <SearchInput
+        type="text"
+        value={searchQuery}
+        onChange={handleSearch}
+        placeholder="Search by Name or Item No"
+      />
+      {filteredData.length === 0 ? (
         <NoData>No clothing items available.</NoData>
       ) : (
         <>
-          {clothingData.map((categoryData, index) => (
+          {filteredData.map((categoryData, index) => (
             <CategorySection key={index}>
               <CategoryTitle>{categoryData.category}</CategoryTitle>
               <ReportTable>

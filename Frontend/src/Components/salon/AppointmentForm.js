@@ -3,6 +3,7 @@ import './AppointmentForm.css'; // Import the CSS file
 import axios from 'axios'; // Import axios for HTTP requests
 import { useNavigate, useLocation } from 'react-router-dom';
 
+
 const appointments = [];
 
 // Check availability and book an appointment
@@ -270,7 +271,15 @@ const AppointmentForm = () => {
   return (
     <div className="appointment-form-background">
       <div className="container">
-        <h2>Book Your Appointment</h2>
+      <h2 style={{ 
+  fontSize: '2.5rem', // Adjust font size as needed
+  color: '#E76F51', 
+  fontFamily: 'Arial, sans-serif', // Change this to your preferred font
+  lineHeight: '1.5' // Adjust line height for spacing
+}}>
+  Book Your Appointment
+</h2>
+
         <form onSubmit={handleSubmit}>
           {/* Personal Information */}
           <div>
@@ -310,49 +319,79 @@ const AppointmentForm = () => {
             {errors.email && <p className="error">{errors.email}</p>}
           </div>
 
-          {/* Date and Time Selection */}
-          <div>
-            <label>Date:</label>
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              onBlur={() => validateField('date', formData.date)}
-              required
-            />
-            {errors.date && <p className="error">{errors.date}</p>}
-          </div>
-          <div>
-            <label>Time:</label>
-            <select
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              onBlur={() => validateField('time', formData.time)}
-              required
-            >
-              <option value="">Select Time</option>
-              <option value="09:00 AM">09:00 AM</option>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="11:00 AM">11:00 AM</option>
-              <option value="01:00 PM">01:00 PM</option>
-              <option value="02:00 PM">02:00 PM</option>
-              <option value="03:00 PM">03:00 PM</option>
-            </select>
-            {errors.time && <p className="error">{errors.time}</p>}
-          </div>
+        
+{/* Date and Time Selection */}
+<div>
+  <label>Date:</label>
+  <input
+    type="date"
+    name="date"
+    value={formData.date}
+    onChange={handleChange}
+    onBlur={() => validateField('date', formData.date)}
+    required
+    style={{
+      width: '100%', // Full width
+      padding: '12px', 
+      fontSize: '1rem', 
+      border: '2px solid #ccc', // Thicker border
+      borderRadius: '8px',
+      marginBottom: '20px',
+      boxSizing: 'border-box', // Include padding and border in width
+      backgroundColor: '#fff',
+      color: '#333',
+      fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
+      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+    }}
+  />
+  {errors.date && <p className="error">{errors.date}</p>}
+</div>
+<div>
+  <label>Time:</label>
+  <select
+    name="time"
+    value={formData.time}
+    onChange={handleChange}
+    onBlur={() => validateField('time', formData.time)}
+    required
+    style={{
+      width: '100%', // Full width
+      padding: '12px', 
+      fontSize: '1rem', 
+      border: '2px solid #ccc', // Thicker border
+      borderRadius: '8px',
+      marginBottom: '20px',
+      boxSizing: 'border-box', // Include padding and border in width
+      backgroundColor: '#fff',
+      color: '#333',
+      fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
+      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+    }}
+  >
+    <option value="">Select Time</option>
+    <option value="09:00 AM">09:00 AM</option>
+    <option value="10:00 AM">10:00 AM</option>
+    <option value="11:00 AM">11:00 AM</option>
+    <option value="01:00 PM">01:00 PM</option>
+    <option value="02:00 PM">02:00 PM</option>
+    <option value="03:00 PM">03:00 PM</option>
+  </select>
+  {errors.time && <p className="error">{errors.time}</p>}
+</div>
 
+
+<br></br>
           {/* Service Selection */}      
 <div>
-  <label htmlFor="services">Select Services(You can only select multiple services from the same category) :</label>
+  <label htmlFor="services"><b>Select Services</b>(You can only select multiple services from the same category) :</label>
+
   <div id="services" className="services">
     {loading ? (
       <p>Loading...</p>
     ) : (
       Object.keys(serviceOptions).map(category => (
         <div key={category}>
-          <h3>{category}</h3>
+          <h3><b>{category}</b></h3>
           {serviceOptions[category].map(service => (
             <div key={service} className="service-item">
               <input
@@ -382,11 +421,26 @@ const AppointmentForm = () => {
   />
 </div>
 
-
+<br></br>
           {/* Submit Button */}
           <div>
-            <h3>Total Cost: LKR {totalCostLKR.toFixed(2)}</h3>
-            <button type="submit">Submit</button>
+          <h3 style={{ 
+  color: '#5C646C', // Font color
+  fontSize: '1.5rem', // Adjust font size as needed
+  fontWeight: 'bold', // Increase font weight
+  fontFamily: 'Georgia, serif', // Change this to your preferred font
+  lineHeight: '1.5' // Adjust line height for better spacing
+}}>
+  Total Cost: <span style={{ 
+    fontFamily: 'Arial, sans-serif', // Change to a different font for numbers
+    fontSize: '1.5rem', // Ensure font size matches or adjusts as needed
+    fontWeight: 'bold' // You can keep the same or adjust it
+  }}>
+    LKR {totalCostLKR.toFixed(2)}
+  </span>
+</h3>
+<br></br>
+            <button type="submit">Book Appointment</button>
           </div>
         </form>
       </div>

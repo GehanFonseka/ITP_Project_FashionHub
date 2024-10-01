@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-const ReviewDisplay = () => {
+const ReviewDisplay = ({storeID}) => {
+  console.log(storeID);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchReviews = async () => { 
+    const fetchReviews = async (storeID) => { 
+      console.log("dsfdhjfhjdhj",storeID);
       try {
-        const response = await axios.get('http://localhost:5000/api/reviews/reviews');
+        const response = await axios.get(`http://localhost:5000/api/reviews/reviews/shop/${storeID}`);
         setReviews(response.data);
         setLoading(false);
       } catch (error) {
@@ -20,9 +22,8 @@ const ReviewDisplay = () => {
       }
     };
 
-    fetchReviews();
+    fetchReviews(storeID);
   }, []);
-
   const calculateReviewStats = (reviews) => {
     const totalReviews = reviews.length;
     const starCounts = [0, 0, 0, 0, 0];

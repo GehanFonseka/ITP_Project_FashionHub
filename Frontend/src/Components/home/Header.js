@@ -14,8 +14,8 @@ const Header = () => {
 
         <MenuItem href="/C_Home">Clothing</MenuItem>
         <MenuItem href="/Salonhome">Saloon</MenuItem>
-        <MenuItem href="/footwear">Footwear</MenuItem>
-        <MenuItem href="/accessories">Accessories</MenuItem>
+        <MenuItem href="/F_Home">Footwear</MenuItem>
+        <MenuItem href="/A_Home">Accessories</MenuItem>
         <MenuItem href="/Contact">Help</MenuItem>
         <MenuItem href="/Register">Register</MenuItem>
 
@@ -28,7 +28,7 @@ const Header = () => {
           <FontAwesomeIcon icon={faShoppingCart} />
         </IconLink>
 
-        <IconLink href="/Dashboard">
+        <IconLink href="/userDashboard">
 
           <FontAwesomeIcon icon={faUser} />
         </IconLink>
@@ -44,7 +44,7 @@ const Nav = styled.nav`
   padding: 15px 25px; /* Increased padding by 5px */
   background-color: #000;
   position: fixed;
-  top: 0;
+  top: 0; 
   width: 100%;
   z-index: 1000; /* Ensure the nav stays on top */
 `;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import C1 from '../../assets/C1.jpg'; 
@@ -18,7 +18,7 @@ const Container = styled.div`
 const ImageSection = styled.div`
   display: flex;
   flex: 1;
-  min-height: 150vh; /* Ensures the image section takes half of the viewport height */
+  min-height: 80vh; 
   position: relative;
 `;
 
@@ -115,6 +115,12 @@ const C_Home = () => {
     navigate(path);
   };
 
+  let storeId = 'S001';
+
+  
+
+
+
   return (
     <Container>
       {/* Image section */}
@@ -133,11 +139,11 @@ const C_Home = () => {
         <ReviewDescription>
           Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
         </ReviewDescription>
-        <ReviewButton href="/ReviewForm">Write a Review</ReviewButton>
+        <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
       </ReviewSection>
 
       {/* Display the ReviewDisplay component */}
-      <ReviewDisplay />
+      <ReviewDisplay storeID={storeId} />
 
       {/* Footer */}
       <Footer>

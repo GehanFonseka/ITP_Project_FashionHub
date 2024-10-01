@@ -97,6 +97,7 @@ const Container = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
 `;
 
 const TitleContainer = styled.div`
@@ -114,7 +115,7 @@ const Title = styled.h1`
 
 const BookNowButton = styled.a`
   padding: 10px 20px;
-  background-color: #ae2012;
+  background-color: #E76F51;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
@@ -122,7 +123,7 @@ const BookNowButton = styled.a`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #920d0d;
+    background-color: #5C646;
   }
 `;
 

@@ -9,8 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   @tailwind base;
-@tailwind components;
-@tailwind utilities;
+  @tailwind components;
+  @tailwind utilities;
 
 }
 
@@ -19,3 +19,4 @@ code {
     monospace,'CarnageFont', sans-serif;
   
 }
+

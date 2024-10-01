@@ -144,7 +144,7 @@ const ServiceListAD = () => {
 
 // Styled Components
 const Container = styled.div`
-  margin-top: 80px;
+  margin-top: 100px;
   padding: 20px;
 `;
 
@@ -161,26 +161,28 @@ const Title = styled.h1`
 const FormContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between form elements */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 10px; 
+  flex-wrap: wrap;
   margin-bottom: 50px;
 `;
 
 const Select = styled.select`
   padding: 10px;
-  flex: 1; /* Flex-grow to take available space */
-  min-width: 150px; /* Minimum width for select */
+  flex: 1;
+  min-width: 150px;
 `;
 
 const Input = styled.input`
   padding: 10px;
-  flex: 1; /* Flex-grow to take available space */
-  min-width: 150px; /* Minimum width for input */
+  flex: 1;
+  min-width: 150px;
+  background-color: #fff; 
+  color: #000;
+  border: 1px solid #000; 
 `;
 
-
 const Button = styled.button`
-  padding: 8px 16px; /* Smaller button size */
+  padding: 8px 16px; 
   background-color: #ae2012;
   color: #fff;
   border: none;
@@ -193,7 +195,7 @@ const Button = styled.button`
     background-color: #920d0d;
   }
 
-  margin-right: 10px; /* Add spacing between buttons */
+  margin-right: 10px;
 `;
 
 const Table = styled.table`
@@ -215,7 +217,7 @@ const TableHeader = styled.th`
 `;
 
 const TableData = styled.td`
-  padding: 12px; /* Increased padding */
+  padding: 12px; 
 `;
 
 export default ServiceListAD;

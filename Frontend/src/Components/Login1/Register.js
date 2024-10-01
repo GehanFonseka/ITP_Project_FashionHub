@@ -51,6 +51,7 @@ const Button = styled.button`
     background-color: #0056b3; /* Darker blue on hover */
   }
 `;
+
 const LinkStyled = styled(Link)`
   color: #007bff; /* Adjusted to match the new theme */
   text-decoration: none;
@@ -58,6 +59,15 @@ const LinkStyled = styled(Link)`
 
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+const AdminButton = styled(Button)`
+  background-color: #AE2012; /* Red for admin login */
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #8b1b0f; /* Darker red on hover */
   }
 `;
 
@@ -70,7 +80,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/register', { name, email, password });
+      const response = await axios.post('http://localhost:5000/api/User/', { name, email, password });
       if (response.status === 201) {
         toast.success('Registration successful! You can now login.');
         navigate('/login');
@@ -80,6 +90,10 @@ const Register = () => {
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
     }
+  };
+
+  const handleAdminLogin = () => {
+    navigate('/loginregister'); // Adjust the path as per your routing setup
   };
   
   return (
@@ -93,8 +107,9 @@ const Register = () => {
           <Button type="submit">Register</Button>
         </form>
         <p style={{ textAlign: 'center', marginTop: '20px' }}>
-          Already have an account? <LinkStyled to="/login">Login</LinkStyled>
+          Already have an account? <LinkStyled to="/Login">Login</LinkStyled>
         </p>
+        <AdminButton onClick={handleAdminLogin}>Login as Admin</AdminButton>
       </RegisterForm>
       <ToastContainer />
     </RegisterMain>

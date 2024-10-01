@@ -12,8 +12,9 @@ const Footer = () => {
           <FooterLink href="#">HOME</FooterLink>
           <FooterLink href="#">CLOTHING</FooterLink>
           <FooterLink href="#">SALOON</FooterLink>
-          <FooterLink href="#">ACCESSORIES</FooterLink>
-          <FooterLink href="#">HELP</FooterLink>
+          <FooterLink href="/DashboardContainer">ACCESSORIES</FooterLink>
+          <FooterLink href="/Overview">HELP</FooterLink>
+
         </FooterColumn>
 
         <FooterColumn>
@@ -21,7 +22,10 @@ const Footer = () => {
 
           <FooterLink href="C_AdminDB01">CAREERS</FooterLink>
 
+
           <FooterLink href="/F_AdminDB01">FAQ</FooterLink>
+
+
           <FooterLink href="/ReviewDisplay">SUBMIT A REQUEST</FooterLink>
           <FooterLink href="/MyReviews">RETURNS & EXCHANGES</FooterLink>
           <FooterLink href="/DashboardContainer">SHIPPING POLICY</FooterLink>
