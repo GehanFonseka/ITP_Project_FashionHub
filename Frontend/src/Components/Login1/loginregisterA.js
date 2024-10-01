@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // For navigation between pages
 
 const predefinedUsers = [
   { username: "finance", password: "finance123", role: "finance" },
-  { username: "supporter", password: "supporter123", role: "supporter" },
+  { username: "sup", password: "sup123", role: "supporter" },
   { username: "saloon", password: "saloon123", role: "saloon" },
   { username: "clothing", password: "clothing123", role: "clothing" },
   { username: "shoes", password: "shoes123", role: "shoes" },
@@ -34,7 +34,7 @@ const LoginRegister = () => {
         if (user.role === "finance") {
           navigate("/overview");
         } else if (user.role === "supporter") {
-          navigate("/TicketResponse");
+          navigate("/contact");
         } else if (user.role === "saloon") {
           navigate("/Dashboard");
         } else if (user.role === "clothing") {

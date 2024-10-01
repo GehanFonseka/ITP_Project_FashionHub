@@ -139,7 +139,7 @@ import Overview from "./Components/Finance/Overview";
 // Custom component to conditionally render Header and Footer
 const Layout = ({ children }) => {
   const location = useLocation();
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport','/addreport','/Overview']; // Add paths where you don't want Header and Footer
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balancesheet','/displayreport','/editreport','/addreport','/overview']; // Add paths where you don't want Header and Footer
 ;
 
 
