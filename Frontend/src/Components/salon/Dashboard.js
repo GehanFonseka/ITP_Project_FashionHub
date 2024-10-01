@@ -17,7 +17,7 @@ const DashboardContainer = styled.div`
 
 // Sidebar Styling
 const Sidebar = styled.div`
-    background-color: #111; /* Pure black for a sleek sidebar */
+    background-color: #111; 
     width: 260px;
     padding: 20px;
     display: flex;
@@ -36,7 +36,7 @@ const ProfileImage = styled.div`
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #f44336; /* Red accent for profile image */
+    background-color: #f44336; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,7 +151,7 @@ const ScheduleItem = styled.div`
     border-radius: 12px;
     color: #333;
     text-align: center;
-    border: 1px solid #f44336; /* Red border accent */
+    border: 1px solid #f44336; 
     transition: transform 0.3s, box-shadow 0.3s;
 
     &:hover {
@@ -175,7 +175,6 @@ const ContentRow = styled.div`
 
 
 
-// Dashboard component
 const Dashboard = () => {
     const [totalAppointments, setTotalAppointments] = useState(0);
     const [totalServices, setTotalServices] = useState(0);
@@ -212,10 +211,11 @@ const Dashboard = () => {
                 </SidebarProfile>
                 <SidebarList>
                     <SidebarItem><SidebarLink href="/">Home</SidebarLink></SidebarItem>
-                    <SidebarItem><SidebarLink href="/salon">Saloon</SidebarLink></SidebarItem>
+                    <SidebarItem><SidebarLink href="/Salonhome">Saloon</SidebarLink></SidebarItem>
                     <SidebarItem><SidebarLink href="/ALLAppointments">Appointments</SidebarLink></SidebarItem>
                     <SidebarItem><SidebarLink href="/ServiceListAD">Services</SidebarLink></SidebarItem>
-                    <SidebarItem><SidebarLink href="/reports">Reports</SidebarLink></SidebarItem>
+                    <SidebarItem><SidebarLink href="/Register">Log Out</SidebarLink></SidebarItem>
+                  
                 </SidebarList>
             </Sidebar>
             <MainContent>
@@ -232,20 +232,33 @@ const Dashboard = () => {
                 <ContentRow>
                     <ContentSection>
                         <SectionTitle><b>Today's Appointments</b></SectionTitle>
-                        <Schedule>
-                            {todaysAppointments.length === 0 ? (
-                                <ScheduleItem>No appointments for today.</ScheduleItem>
-                            ) : (
-                                todaysAppointments.map((appt) => (
-                                    <ScheduleItem key={appt._id}>
-                                        <p>{appt.name}</p>
-                                        <p>{new Date(appt.date).toLocaleDateString()}</p>
-                                        <p>{appt.time}</p>
-                                        <p>{appt.services.join(', ')}</p>
-                                    </ScheduleItem>
-                                ))
-                            )}
-                        </Schedule>
+                        <Schedule style={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+  {todaysAppointments.length === 0 ? (
+    <ScheduleItem style={{ padding: '15px', fontSize: '16px', color: '#777', textAlign: 'center' }}>
+      No appointments for today.
+    </ScheduleItem>
+  ) : (
+    todaysAppointments.map((appt) => (
+      <ScheduleItem
+        key={appt._id}
+        style={{
+          padding: '15px',
+          marginBottom: '10px',
+          backgroundColor: '#fff',
+          borderRadius: '8px',
+          border: '1px solid #e0e0e0',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <p style={{ fontWeight: 'bold', fontSize: '18px', color: '#333' }}>Customer Name: {appt.name}</p>
+        <p style={{ margin: '5px 0', fontSize: '16px', color: '#555' }}>Date: {new Date(appt.date).toLocaleDateString()}</p>
+        <p style={{ margin: '5px 0', fontSize: '16px', color: '#555' }}>Time: {appt.time}</p>
+        <p style={{ margin: '5px 0', fontSize: '16px', color: '#555' }}>Services: {appt.services.join(', ')}</p>
+      </ScheduleItem>
+    ))
+  )}
+</Schedule>
+
                     </ContentSection>
                 </ContentRow>
             </MainContent>

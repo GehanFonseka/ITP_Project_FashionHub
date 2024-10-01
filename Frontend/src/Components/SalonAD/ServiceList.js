@@ -1,36 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+
+const categoryOrder = (category) => {
+  const categories = ['Hair', 'Facial', 'Nail', 'Makeup', 'Massage'];
+  return categories.indexOf(category);
+};
+
+
 const ServiceList = () => {
-  // State to hold the services data
+  
   const [services, setServices] = useState([]);
-  // State to hold any potential error
   const [error, setError] = useState(null);
-  // State to show loading while fetching data
   const [loading, setLoading] = useState(true);
 
-  // useEffect hook to fetch services when the component mounts
+
+ 
   useEffect(() => {
-    // Simulate an API call to fetch services
+   
     const fetchServices = async () => {
+
       try {
         setLoading(true);
-        // Replace the below URL with your actual API endpoint
+     
         const response = await fetch('/api/services');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setServices(data); // Set the fetched services data
+        setServices(data); 
       } catch (err) {
-        setError(err.message); // Set any error occurred during fetch
+        setError(err.message); 
       } finally {
-        setLoading(false); // Turn off loading indicator
+        setLoading(false); 
       }
     };
 
     fetchServices();
-  }, []); // Empty array means it runs once, on component mount
+  }, []); 
 
   // Conditional rendering based on state
   if (loading) {
@@ -40,6 +47,8 @@ const ServiceList = () => {
   if (error) {
     return <p>Error fetching services: {error}</p>;
   }
+
+  const sortedServices = [...services].sort((a, b) => categoryOrder(a.category) - categoryOrder(b.category));
 
   return (
     <Container>
@@ -58,7 +67,7 @@ const ServiceList = () => {
         </thead>
         <tbody>
           {services.length > 0 ? (
-            services.map(service => (
+             sortedServices.map((service) => (
               <TableRow key={service._id}>
                 <TableData>{service.category}</TableData>
                 <TableData>{service.name}</TableData>
@@ -85,6 +94,7 @@ const Container = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top:100px;
 `;
 
 const TitleContainer = styled.div`
@@ -102,7 +112,7 @@ const Title = styled.h1`
 
 const BookNowButton = styled.a`
   padding: 10px 20px;
-  background-color: #ae2012;
+  background-color: #E76F51;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
@@ -110,7 +120,7 @@ const BookNowButton = styled.a`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #920d0d;
+    background-color: #5C646C;
   }
 `;
 
@@ -139,5 +149,5 @@ const TableData = styled.td`
   color: #333;
 `;
 
-// Default export
+
 export default ServiceList;

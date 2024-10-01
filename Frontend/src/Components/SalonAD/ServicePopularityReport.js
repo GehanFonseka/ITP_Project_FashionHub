@@ -3,8 +3,9 @@ import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import fileDownload from 'js-file-download';
+import logo from '../../assets/Logo6.png'; 
 
-// Register required components
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const ServicePopularityReport = () => {
@@ -45,7 +46,10 @@ const ServicePopularityReport = () => {
 
   return (
     <div>
-      <h1>Service Popularity Report</h1>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+        <img src={logo} alt="FASHIONHUB Logo" style={{ height: '60px', marginRight: '20px' }} />
+        <h1>FASHIONHUB - Service Popularity Report</h1>
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (

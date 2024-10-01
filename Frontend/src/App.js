@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
+
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
@@ -111,7 +112,7 @@ import Footer from './Components/home/Footer';
 //salon
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
-import Salonhome from './Components/salon/salonhome';
+import Salonhome from './Components/salon/Salonhome';
 import MyAppointmentForm from './Components/salon/MyAppointmentForm';
 import Dashboard from './Components/salon/Dashboard';
 import ServiceList from './Components/SalonAD/ServiceList';
@@ -156,9 +157,9 @@ const Layout = ({ children }) => {
 
 
 
-
-
 function App() {
+
+
   return (
     <Router>
       <Layout>
@@ -174,6 +175,8 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          
           
          
             {/* Finance Routes */}

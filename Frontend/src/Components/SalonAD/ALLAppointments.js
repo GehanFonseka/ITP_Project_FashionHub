@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import logo from '../../assets/Logo6.png';
 
 const AllAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -13,6 +14,7 @@ const AllAppointments = () => {
   const [endDate, setEndDate] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [serviceCategories, setServiceCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const AllAppointments = () => {
     fetchAppointments();
     fetchServices();
     fetchServiceStats();
-  }, [startDate, endDate]); // Added dependencies
+  }, [startDate, endDate]);
 
   const filterAppointments = () => {
     return appointments.filter((appt) => {
@@ -56,72 +58,116 @@ const AllAppointments = () => {
       const start = startDate ? new Date(startDate) : null;
       const end = endDate ? new Date(endDate) : null;
       const matchesDateRange = (!start || apptDate >= start) && (!end || apptDate <= end);
-
       const matchesCategory = selectedCategory
         ? appt.services.some(service => getServiceCategory(service) === selectedCategory)
         : true;
 
-      return matchesDateRange && matchesCategory;
+      const matchesSearchTerm = searchTerm
+        ? appt.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          appt.email.toLowerCase().includes(searchTerm.toLowerCase())
+        : true;
+
+      return matchesDateRange && matchesCategory && matchesSearchTerm;
     });
   };
 
   const getServiceCategory = (service) => {
     const serviceCategories = {
-      "shave": "Hair",
-      "gfhfhhf": "Hair",
-      "Facial": "Facial",
-      "Nail": "Nail",
-      "Makeup": "Makeup",
-      "Massage": "Massage",
+      "Haircut": "Hair",
+      "Hair Coloring": "Hair",
+      "Hair Treatment": "Hair",
+      "Hair Extension": "Hair",
+      "Hair Blowout": "Hair",
+      "Basic Facial": "Facial",
+      "Anti-Aging Facial": "Facial",
+      "Acne Treatment Facial": "Facial",
+      "Brightening Facial": "Facial",
+      "Body Scrub": "Facial",
+      "Cellulite Treatment": "Facial",
+      "Nail Art": "Nail",
+      "Gel Manicure": "Nail",
+      "Pedicure": "Nail",
+      "Manicure": "Nail",
+      "Tanning": "Makeup",
+      "Basic Makeup Application": "Makeup",
+      "Bridal Makeup": "Makeup",
+      "Makeup Lesson": "Makeup",
+      "Swedish Massage": "Massage",
+      "Deep Tissue Massage": "Massage",
+      "Hot Stone Massage": "Massage",
+      "Aromatherapy Massage": "Massage",
     };
     return serviceCategories[service] || null;
   };
 
-  const chartData = {
-    labels: Object.keys(serviceStats),
-    datasets: [
-      {
-        label: 'Number of Bookings',
-        data: Object.values(serviceStats),
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-      },
-    ],
-  };
-
   const generatePDF = () => {
     const doc = new jsPDF();
-    doc.text("Appointments Report", 14, 16);
-    doc.autoTable({
-      startY: 30,
-      head: [['Name', 'Contact Number', 'Email', 'Date', 'Time', 'Services', 'Special Requests', 'Total Amount (LKR)']],
-      body: filterAppointments().map(appt => [
-        appt.name,
-        appt.contactNumber,
-        appt.email,
-        new Date(appt.date).toLocaleDateString(),
-        appt.time,
-        appt.services.join(', '),
-        appt.requests,
-        appt.totalCost ? appt.totalCost.toFixed(0) : 'N/A',
-      ]),
-      styles: {
-        fontSize: 8, // Change the font size for the table
-      },
-      headStyles: {
-        fontSize: 10, // Change the font size for the table header if needed
-        fillColor: [76, 175, 80], // Header background color (RGBA)
-        textColor: [255, 255, 255], // Header text color (white)
-      },
+    const imgWidth = 30;
+    const imgHeight = 15;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const imgX = pageWidth - imgWidth - 10;
+    const imgY = 10;
+
+    const loadImage = (url) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve(img);
+      });
+    };
+
+    loadImage(logo).then((img) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const imgData = canvas.toDataURL('image/png');
+
+      doc.addImage(imgData, 'PNG', imgX, imgY, imgWidth, imgHeight);
+      doc.setFont('Times', 'bold');
+      doc.setFontSize(18);
+      doc.setTextColor(128, 0, 32);
+      doc.text('FASHIONHUB - Salon Appointments Report', 14, imgY + imgHeight + 10);
+
+      doc.autoTable({
+        startY: imgY + imgHeight + 20,
+        head: [['Name', 'Contact Number', 'Email', 'Date', 'Time', 'Services', 'Special Requests', 'Total Amount (LKR)']],
+        body: filterAppointments().map((appt) => [
+          appt.name,
+          appt.contactNumber,
+          appt.email,
+          new Date(appt.date).toLocaleDateString(),
+          appt.time,
+          appt.services.join(', '),
+          appt.requests,
+          appt.totalCost ? appt.totalCost.toFixed(0) : 'N/A',
+        ]),
+        styles: {
+          font: 'helvetica',
+          textColor: [54, 69, 79],
+          fontSize: 8,
+        },
+        headStyles: {
+          font: 'courier',
+          fontStyle: 'bold',
+          fontSize: 10,
+          fillColor: [201, 162, 92],
+          textColor: [255, 255, 255],
+        },
+        alternateRowStyles: {
+          fillColor: [245, 245, 220],
+        },
+      });
+
+      doc.save('appointments_report.pdf');
     });
-    doc.save('appointments_report.pdf');
   };
-  
+
   return (
     <Container>
       <TitleContainer>
-        <Title>Appointments</Title>
+        <Title><b>Salon Appointments</b></Title>
         <DownloadButton onClick={generatePDF}>Download PDF</DownloadButton>
       </TitleContainer>
 
@@ -138,11 +184,10 @@ const AllAppointments = () => {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        
         <DateLabel>Service Category:</DateLabel>
         <SelectInput
           value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)} 
+          onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">All Categories</option>
           <option value="Hair">Hair</option>
@@ -151,6 +196,12 @@ const AllAppointments = () => {
           <option value="Makeup">Makeup</option>
           <option value="Massage">Massage</option>
         </SelectInput>
+        <SearchInput
+          type="text"
+          placeholder="Search by name or email..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </FilterContainer>
 
       {filterAppointments().length === 0 ? (
@@ -185,13 +236,9 @@ const AllAppointments = () => {
           </tbody>
         </Table>
       )}
-
-   
     </Container>
   );
 };
-
-
 
 const Container = styled.div`
   margin: 80px;
@@ -199,104 +246,83 @@ const Container = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 120px;
 `;
 
 const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+   margin-bottom: 30px;
+`;
+
+const Title = styled.h2`
   margin-bottom: 20px;
+  font-size: 24px;
+  color: #002d62;
 `;
 
-const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-`;
-
-const DownloadButton = styled.button`
-
-  padding: 12px 16px; /* Smaller button size */
-  background-color: #ae2012;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #920d0d;
-  }
-
-  margin-right: 10px; /* Add spacing between buttons */
-`;
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  gap: 10px;
+  margin-bottom: 30px;
 `;
 
 const DateLabel = styled.label`
   margin-right: 10px;
-  font-weight: bold;
-  color: black;
 `;
 
 const DateInput = styled.input`
-  width: 50%;
-  padding: 8px;
-  font-size: 14px;
-  border: 2px solid #333;
-  border-radius: 4px;
-  background-color: #222;
-  color: #fff;
-
-  &:focus {
-    outline: none;
-    border-color: #4caf50;
-  }
+  margin-right: 20px;
 `;
 
 const SelectInput = styled.select`
-  width: 50%;
-  padding: 8px;
-  font-size: 14px;
-  border: 2px solid #333;
-  border-radius: 4px;
-  background-color: #222;
-  color: #fff;
+  margin-right: 20px;
+  height:46px;
+  margin-bottom:18px;
+`;
 
-  &:focus {
-    outline: none;
-    border-color: #4caf50;
+const SearchInput = styled.input`
+  padding: 5px;
+  width: 200px;
+  margin-top:3px;
+`;
+
+const DownloadButton = styled.button`
+  background-color: #E76F51;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
   }
 `;
 
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
 `;
 
 const TableHeader = styled.th`
-  background-color: #333;
-  color: white;
-  padding: 12px;
-  text-align: left;
+  background-color: #001f3f;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
 `;
 
 const TableRow = styled.tr`
   &:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f9f9f9;
   }
 `;
 
 const TableData = styled.td`
-  padding: 12px;
-  border: 1px solid #ddd;
+  padding: 10px;
+  border: 1px solid #ccc;
 `;
 
 export default AllAppointments;
