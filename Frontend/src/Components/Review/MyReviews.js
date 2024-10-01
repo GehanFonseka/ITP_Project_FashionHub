@@ -78,7 +78,7 @@ const MyReviews = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHeaderCell>UserID</TableHeaderCell>
+              <TableHeaderCell>UserName</TableHeaderCell>
               <TableHeaderCell>Comment</TableHeaderCell>
               <TableHeaderCell>Stars</TableHeaderCell>
               <TableHeaderCell>Action</TableHeaderCell>
@@ -148,7 +148,7 @@ const MyReviews = () => {
 // Styled components
 const Container = styled.div`
   padding: 20px;
-  margin-top: 80px;
+  margin-top: 100px;
 `;
 
 const TableContainer = styled.div`

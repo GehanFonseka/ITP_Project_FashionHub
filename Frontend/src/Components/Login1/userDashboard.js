@@ -112,7 +112,7 @@ const UserDashboard = () => {
       </Header>
       <Section>
         <SectionTitle>My Reviews</SectionTitle>
-        <Button to="/cart">View Reviews</Button>
+        <Button to="/MyReviews">View Reviews</Button>
       </Section>
       <Section>
         <SectionTitle>Delivery Confirmation</SectionTitle>

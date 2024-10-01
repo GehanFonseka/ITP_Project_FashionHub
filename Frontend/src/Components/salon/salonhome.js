@@ -31,7 +31,7 @@ const Salonhome = () => {
     <MainContainer>
       <Content>
         <HeaderText>
-          <Heading>The Pinnacle of Beauty and Luxury</Heading>
+          <Heading>The Pinnacle of Beauty and Luxury for Women</Heading>
         </HeaderText>
         <ImageContainer>
           <StyledImage src={headerImage} alt="Liyo Salon" />

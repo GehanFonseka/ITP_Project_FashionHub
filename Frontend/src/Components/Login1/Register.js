@@ -107,7 +107,7 @@ const Register = () => {
           <Button type="submit">Register</Button>
         </form>
         <p style={{ textAlign: 'center', marginTop: '20px' }}>
-          Already have an account? <LinkStyled to="/login">Login</LinkStyled>
+          Already have an account? <LinkStyled to="/Login">Login</LinkStyled>
         </p>
         <AdminButton onClick={handleAdminLogin}>Login as Admin</AdminButton>
       </RegisterForm>
