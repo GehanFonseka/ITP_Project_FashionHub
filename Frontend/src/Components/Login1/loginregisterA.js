@@ -32,7 +32,7 @@ const LoginRegister = () => {
       );
       if (user) {
         if (user.role === "finance") {
-          navigate("/");
+          navigate("/overview");
         } else if (user.role === "supporter") {
           navigate("/TicketResponse");
         } else if (user.role === "saloon") {
