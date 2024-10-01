@@ -112,7 +112,7 @@ import Footer from './Components/home/Footer';
 //salon
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
-import Salonhome from './Components/salon/salonhome';
+import Salonhome from './Components/salon/Salonhome';
 import MyAppointmentForm from './Components/salon/MyAppointmentForm';
 import Dashboard from './Components/salon/Dashboard';
 import ServiceList from './Components/SalonAD/ServiceList';
