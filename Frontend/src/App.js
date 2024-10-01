@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
 import HeroSection from './Components/home/HeroSection';
+import LayoutWithSidebar from "./Components/Finance/LayoutWithSidebar";
 
 import UserDashboard from './Components/Login1/userDashboard';
 import Register from "./Components/Login1/Register";
@@ -111,7 +112,7 @@ import Footer from './Components/home/Footer';
 //salon
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
-import Salonhome from './Components/salon/Salonhome';
+import Salonhome from './Components/salon/salonhome';
 import MyAppointmentForm from './Components/salon/MyAppointmentForm';
 import Dashboard from './Components/salon/Dashboard';
 import ServiceList from './Components/SalonAD/ServiceList';
@@ -135,11 +136,10 @@ import Overview from "./Components/Finance/Overview";
 
 
 
-
 // Custom component to conditionally render Header and Footer
 const Layout = ({ children }) => {
   const location = useLocation();
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/BalanceSheet','/DisplayReport','/EditReport','/AddReport','/Overview']; // Add paths where you don't want Header and Footer
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport','/addreport','/Overview']; // Add paths where you don't want Header and Footer
 ;
 
 
@@ -180,11 +180,11 @@ function App() {
           
          
             {/* Finance Routes */}
-          <Route path="/BalanceSheet" element={<BalanceSheet />} />
-          <Route path="/DisplayReport" element={<DisplayReport />} />
-          <Route path="/EditReport" element={<EditReport />} />
-          <Route path="/AddReport" element={<AddReport /> } />
-          <Route path="/Overview" element={<Overview />} />
+          <Route path="/BalanceSheet" element={<LayoutWithSidebar><BalanceSheet /></LayoutWithSidebar>} />
+          <Route path="/DisplayReport" element={<LayoutWithSidebar><DisplayReport /></LayoutWithSidebar>} />
+          <Route path="/EditReport" element={<LayoutWithSidebar><EditReport /></LayoutWithSidebar>} />
+          <Route path="/AddReport" element={<LayoutWithSidebar><AddReport /></LayoutWithSidebar> } />
+          <Route path="/Overview" element={<LayoutWithSidebar> <Overview /> </LayoutWithSidebar>} />
           <Route path="/LoginRegister" element={<LoginRegister />} />
 
         <Route path="/ServiceList" element={<ServiceList />} />
