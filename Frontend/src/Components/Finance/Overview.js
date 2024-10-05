@@ -3,6 +3,7 @@ import axios from "axios";
 import "daisyui";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
