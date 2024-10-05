@@ -8,9 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+
 
 }
 
@@ -19,4 +17,8 @@ code {
     monospace,'CarnageFont', sans-serif;
   
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
