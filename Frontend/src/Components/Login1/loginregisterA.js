@@ -6,9 +6,10 @@ const predefinedUsers = [
   { username: "sup", password: "sup123", role: "supporter" },
   { username: "saloon", password: "saloon123", role: "saloon" },
   { username: "clothing", password: "clothing123", role: "clothing" },
-  { username: "shoes", password: "shoes123", role: "shoes" },
+  { username: "reviews", password: "reviews123", role: "reviews" },
   { username: "accessories", password: "accessories123", role: "accessories" },
   { username: "delivery", password: "delivery123", role: "delivery" },
+  { username: "review", password: "rewiew123", role: "delivery" },
 ];
 
 const LoginRegister = () => {
