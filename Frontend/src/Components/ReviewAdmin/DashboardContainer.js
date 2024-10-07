@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import styled from 'styled-components';
 
 // OverviewCard Component
@@ -16,27 +18,27 @@ const OverviewCard = ({ title, value }) => {
 const ReviewTable = ({ reviews }) => {
   return (
     <Table>
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Shop</th>
-        <th>Rating</th>
-        <th>Date</th>
-        <th>Comment</th>
-      </tr>
-    </thead>
-    <tbody>
-      {reviews.map((review) => (
-        <tr key={review._id}>
-          <td>{review.userId}</td>
-          <td>{review.shopId}</td>
-          <td>{review.rating}</td>
-          <td>{new Date(review.createdAt).toLocaleDateString()}</td>
-          <td>{review.comment}</td> {/* Added comment column */}
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Shop</th>
+          <th>Rating</th>
+          <th>Date</th>
+          <th>Comment</th>
         </tr>
-      ))}
-    </tbody>
-  </Table>
+      </thead>
+      <tbody>
+        {reviews.map((review) => (
+          <tr key={review._id}>
+            <td>{review.userId}</td>
+            <td>{review.shopId}</td>
+            <td>{review.rating}</td>
+            <td>{new Date(review.createdAt).toLocaleDateString()}</td>
+            <td>{review.comment}</td> {/* Added comment column */}
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 };
 
@@ -45,12 +47,15 @@ const DashboardContainer = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // Added searchTerm state
+  const [filteredReviews, setFilteredReviews] = useState([]); // Added filtered reviews
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/reviews/reviews');
         setReviews(response.data);
+        setFilteredReviews(response.data); // Initially, set all reviews to filteredReviews
         setLoading(false);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -61,33 +66,53 @@ const DashboardContainer = () => {
 
     fetchReviews();
   }, []);
-  const exportData = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/reviews/reviews/export/pdf', {
-        responseType: 'blob', // Handle binary data (PDF file)
-      });
-  
-      // Create a URL for the Blob object
-      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-  
-      // Create a link element
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'reviews.pdf'); // Set download filename
-  
-      // Append link to body and click it
-      document.body.appendChild(link);
-      link.click();
-  
-      // Cleanup
-      link.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Error exporting reviews:', error);
-    }
+
+  // Function to handle search input changes
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+
+    const filtered = reviews.filter((review) =>
+      review.comment.toLowerCase().includes(e.target.value.toLowerCase()) ||
+      review.userId.toLowerCase().includes(e.target.value.toLowerCase()) ||
+      review.shopId.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
+    setFilteredReviews(filtered);
   };
-  
-  
+
+  // Function to handle data export to PDF
+  const exportData = () => {
+    const doc = new jsPDF();
+
+    // Add title
+    doc.text('Review Report', 14, 20);
+
+    // Define the table content
+    const tableColumn = ['User', 'Shop', 'Rating', 'Date', 'Comment'];
+    const tableRows = [];
+
+    filteredReviews.forEach((review) => {
+      const reviewData = [
+        review.userId,
+        review.shopId,
+        review.rating,
+        new Date(review.createdAt).toLocaleDateString(),
+        review.comment,
+      ];
+      tableRows.push(reviewData);
+    });
+
+    // Generate the table
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 30, // Space between the title and the table
+    });
+
+    // Save the generated PDF
+    doc.save('reviews.pdf');
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -104,11 +129,14 @@ const DashboardContainer = () => {
         <OverviewCard title="Total Reviews" value={totalReviews} />
       </OverviewSection>
       <SearchAndFilter>
-        <SearchBar placeholder="Search reviews" />
-        
+        <SearchBar
+          placeholder="Search reviews"
+          value={searchTerm}
+          onChange={handleSearch} // Added onChange handler
+        />
         <ExportButton onClick={exportData}>Export</ExportButton> {/* Updated onClick */}
       </SearchAndFilter>
-      <ReviewTable reviews={reviews} />
+      <ReviewTable reviews={filteredReviews} /> {/* Display filtered reviews */}
     </DashboardWrapper>
   );
 };
@@ -197,13 +225,6 @@ const SearchBar = styled.input`
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 300px;
-`;
-
-const Dropdown = styled.select`
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
 `;
 
 const ExportButton = styled.button`
