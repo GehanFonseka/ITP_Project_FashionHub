@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-
 const BalanceSheet = () => {
   const location = useLocation();
   const {
@@ -17,7 +16,7 @@ const BalanceSheet = () => {
    initialShopID === "SHID02" ? "Shoes" :
    initialShopID === "SHID03" ? "Accessories" :
    initialShopID === "SHID04" ? "Saloon" :
-   "Unknown Shop"; // Default case if shopID doesn't match
+   "Unknown Shop"; 
 
   // Array of month names
   const monthNames = [
@@ -69,7 +68,7 @@ const BalanceSheet = () => {
   // Function to format month and year into a date string
   const formatDate = (month, year) => {
     const date = new Date(`${year}-${month}-01`);
-    return date.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+    return date.toISOString().slice(0, 10); 
   };
 
   // Function to calculate totals
@@ -85,7 +84,7 @@ const BalanceSheet = () => {
 
     
 
-    setTotalIncome(parseFloat(income || 0)); // Ensure totalIncome is set
+    setTotalIncome(parseFloat(income || 0)); 
     setTotalExpenses(totalExpensesAmount);
     setTotalPettyCash(totalPettyCashAmount);
 
@@ -119,11 +118,11 @@ const BalanceSheet = () => {
   // Function to fetch the total income
   const fetchTotalIncome = async () => {
     try {
-      const formattedDate = formatDate(month, year); // Format the date string
+      const formattedDate = formatDate(month, year); 
       const response = await axios.get(
         "http://localhost:5000/api/income/income",
         {
-          params: { shopId: shopID, year, month }, // Pass shopID, year, month as query params
+          params: { shopId: shopID, year, month }, 
         }
       );
       setIncome(response.data.totalIncome || "");
@@ -136,8 +135,8 @@ const BalanceSheet = () => {
   useEffect(() => {
     if (shopID && month && year) {
       const fetchAndCalculateIncome = async () => {
-        await calculateIncome(); // Trigger calculation
-        await fetchTotalIncome(); // Fetch calculated income
+        await calculateIncome(); 
+        await fetchTotalIncome(); 
       };
 
       fetchAndCalculateIncome();
@@ -145,30 +144,35 @@ const BalanceSheet = () => {
   }, [shopID, month, year]);
 
   const handleIncomeChange = (e) => setIncome(e.target.value);
+
   const handleExpenseChange = (e) => {
     const { name, value } = e.target;
-    // Update state with value and validation message
-    if (value === "" || parseFloat(value) >= 0) {
-      setExpenses((prev) => ({
-        ...prev,
+    const parsedValue = parseFloat(value);
+  
+    // Validate and ensure only values 1 and above are allowed
+    if (value === "" || (parsedValue >= 1 && Number.isFinite(parsedValue))) {
+      setExpenses((prevState) => ({
+        ...prevState,
         [name]: value,
         [`${name}Error`]: "", 
       }));
     } else {
-      setExpenses((prev) => ({
-        ...prev,
+      setExpenses((prevState) => ({
+        ...prevState,
         [name]: value,
-        [`${name}Error`]: "Amount cannot be negative", 
+        [`${name}Error`]: "", 
       }));
     }
   };
+  
+  
 
   const handlePettyCashChange = (e) => {
     const { name, value } = e.target;
     const parsedValue = parseFloat(value);
-
-    // Check for valid value and update state accordingly
-    if (value === "" || parsedValue >= 0) {
+  
+    // Validate and ensure only values 1 and above are allowed
+    if (value === "" || (parsedValue >= 1 && Number.isFinite(parsedValue))) {
       setPettyCash((prevState) => ({
         ...prevState,
         [name]: value,
@@ -178,10 +182,11 @@ const BalanceSheet = () => {
       setPettyCash((prevState) => ({
         ...prevState,
         [name]: value,
-        [`${name}Error`]: "Amount cannot be negative", 
+        [`${name}Error`]: "", 
       }));
     }
   };
+  
 
   const handleShopIDChange = (e) => setShopID(e.target.value);
   const handleMonthChange = (e) => setMonth(e.target.value);
@@ -315,41 +320,45 @@ const BalanceSheet = () => {
                 Balance Sheet
               </h3>
               <div className="grid grid-cols-2 gap-6">
+                
                 {/* Assets */}
                 <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
                   <h5 className="text-md font-semibold mb-2 text-[#5C646C] font-russo">
                     Assets
                   </h5>
-                  {["purchasingCost", "storeMaintenance"].map(
-                    (expense, index) => (
-                      <div key={index} className="flex flex-col mb-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-[#5C646C]">
-                            {expense
-                              .replace(/([A-Z])/g, " $1")
-                              .replace(/^./, (str) => str.toUpperCase())}
-                          </span>
-                          <input
-                            type="number"
-                            name={expense}
-                            value={expenses[expense] || ""}
-                            onChange={handleExpenseChange}
-                            className={`border p-1 rounded w-24 text-dark ${
-                              expenses[`${expense}Error`]
-                                ? "border-red-500"
-                                : "border-[#E76F51]"
-                            } bg-[#F4F4F4]`}
-                            placeholder="Amount"
-                          />
-                        </div>
-                        {expenses[`${expense}Error`] && (
-                          <p className="text-red-500 text-sm mt-1">
-                            {expenses[`${expense}Error`]}
-                          </p>
-                        )}
+                  {["purchasingCost", "storeMaintenance"].map((expense, index) => (
+                    <div key={index} className="flex flex-col mb-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[#5C646C]">
+                          {expense
+                            .replace(/([A-Z])/g, " $1")
+                            .replace(/^./, (str) => str.toUpperCase())}
+                        </span>
+                        <input
+                          type="number"
+                          name={expense}
+                          value={expenses[expense] || ""}
+                          onChange={handleExpenseChange}
+                          onKeyDown={(e) => {
+                            // Prevent user from typing the minus sign, "e", or any invalid characters
+                            if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                              e.preventDefault();
+                            }
+                          }}
+                          className={`border p-1 rounded w-24 text-dark ${
+                            expenses[`${expense}Error`] ? "border-red-500" : "border-[#E76F51]"
+                          } bg-[#F4F4F4]`}
+                          placeholder="Amount"
+                          min="1" // Set minimum value to 1
+                        />
                       </div>
-                    )
-                  )}
+                      {expenses[`${expense}Error`] && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {expenses[`${expense}Error`]}
+                        </p>
+                      )}
+                    </div>
+                  ))}
                 </div>
 
                 {/* Liabilities */}
@@ -376,12 +385,19 @@ const BalanceSheet = () => {
                           name={expense}
                           value={expenses[expense] || ""}
                           onChange={handleExpenseChange}
+                          onKeyDown={(e) => {
+                            // Prevent user from typing the minus sign, "e", or any invalid characters
+                            if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                              e.preventDefault();
+                            }
+                          }}
                           className={`border p-1 rounded w-24 text-dark ${
                             expenses[`${expense}Error`]
                               ? "border-red-500"
                               : "border-[#E76F51]"
                           } bg-[#F4F4F4]`}
                           placeholder="Amount"
+                          min="1"
                         />
                       </div>
                       {expenses[`${expense}Error`] && (
@@ -419,12 +435,19 @@ const BalanceSheet = () => {
                       name={cash}
                       value={pettyCash[cash]}
                       onChange={(e) => handlePettyCashChange(e)}
+                      onKeyDown={(e) => {
+                        // Prevent user from typing the minus sign, "e", or any invalid characters
+                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                          e.preventDefault();
+                        }
+                      }}
                       className={`border p-1 rounded w-24 text-dark ${
                         pettyCash[`${cash}Error`]
                           ? "border-red-500"
                           : "border-[#E76F51]"
                       } bg-[#F4F4F4]`}
                       placeholder="Amount"
+                      min="1"
                     />
                   </div>
                   {pettyCash[`${cash}Error`] && (
