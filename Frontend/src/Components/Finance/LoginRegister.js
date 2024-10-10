@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For navigation between pages
 
+
 const predefinedUsers = [
   { username: "finance", password: "finance123", role: "finance" },
   { username: "supporter", password: "supporter123", role: "supporter" },

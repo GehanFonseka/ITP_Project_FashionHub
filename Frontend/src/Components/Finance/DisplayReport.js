@@ -5,6 +5,7 @@ import { FaDownload, FaSearch } from "react-icons/fa";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
+
 const DisplayReport = () => {
   const [reports, setReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null);
