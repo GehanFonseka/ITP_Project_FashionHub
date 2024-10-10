@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import './AppointmentForm.css'; // Import the CSS file
-import axios from 'axios'; // Import axios for HTTP requests
+import './AppointmentForm.css'; 
+import axios from 'axios'; 
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const appointments = [];
 
-// Check availability and book an appointment
+
 const bookAppointment = (serviceCategory, date, time) => {
   const existingAppointment = appointments.find(appointment => 
     appointment.serviceCategory === serviceCategory &&
@@ -23,9 +23,9 @@ const bookAppointment = (serviceCategory, date, time) => {
 const AppointmentForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const editData = location.state?.editData || {}; // Get the data passed for editing, if any
+  const editData = location.state?.editData || {};
 
-  // State variables to manage form data and validation errors
+ 
   const [formData, setFormData] = useState({
     name: editData.name || "",
     contactNumber: editData.contactNumber || "",
