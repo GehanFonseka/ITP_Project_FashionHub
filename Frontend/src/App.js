@@ -140,7 +140,7 @@ import Overview from "./Components/Finance/Overview";
 const Layout = ({ children }) => {
   const location = useLocation();
 
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport','/EditReport','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
 
 ;
 
@@ -184,7 +184,7 @@ function App() {
             {/* Finance Routes */}
           <Route path="/BalanceSheet" element={<LayoutWithSidebar><BalanceSheet /></LayoutWithSidebar>} />
           <Route path="/DisplayReport" element={<LayoutWithSidebar><DisplayReport /></LayoutWithSidebar>} />
-          <Route path="/EditReport" element={<LayoutWithSidebar><EditReport /></LayoutWithSidebar>} />
+          <Route path="/EditReport/:id" element={<LayoutWithSidebar><EditReport /></LayoutWithSidebar>} />
           <Route path="/AddReport" element={<LayoutWithSidebar><AddReport /></LayoutWithSidebar> } />
           <Route path="/Overview" element={<LayoutWithSidebar> <Overview /> </LayoutWithSidebar>} />
           <Route path="/LoginRegister" element={<LoginRegister />} />
