@@ -263,37 +263,38 @@ const BalanceSheet = () => {
               Report Details
             </h3>
             <div className="mb-4">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[#5C646C]">Shop ID</span>
-                <input
-                  type="text"
-                  value={shopId}
-                  readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
-                  placeholder="Shop ID"
-                />
-              </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[#5C646C]">Month</span>
-                <input
-                  type="text"
-                  value={getMonthName(month)}
-                  readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
-                  placeholder="Month"
-                />
-              </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[#5C646C]">Year</span>
-                <input
-                  type="text"
-                  value={year}
-                  readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
-                  placeholder="Year"
-                />
-              </div>
-            </div>
+  <div className="flex justify-between items-center mb-2">
+    <span className="text-[#5C646C]">Shop ID</span>
+    <input
+      type="text"
+      value={shopId}
+      readOnly
+      className="border border-[#E76F51] p-1 rounded w-16 text-dark bg-[#F4F4F4]" // Reduced width
+      placeholder="Shop ID"
+    />
+  </div>
+  <div className="flex justify-between items-center mb-2">
+    <span className="text-[#5C646C]">Month</span>
+    <input
+      type="text"
+      value={getMonthName(month)}
+      readOnly
+      className="border border-[#E76F51] p-1 rounded w-16 text-dark bg-[#F4F4F4]" // Reduced width
+      placeholder="Month"
+    />
+  </div>
+  <div className="flex justify-between items-center mb-2">
+    <span className="text-[#5C646C]">Year</span>
+    <input
+      type="text"
+      value={year}
+      readOnly
+      className="border border-[#E76F51] p-1 rounded w-16 text-dark bg-[#F4F4F4]" // Reduced width
+      placeholder="Year"
+    />
+  </div>
+</div>
+
           </div>
 
           {/* Income and Expenses Section */}

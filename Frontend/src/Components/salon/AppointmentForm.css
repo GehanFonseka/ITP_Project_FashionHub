@@ -1,100 +1,114 @@
-/* Importing Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lora:wght@400;700&display=swap');
+/* Import fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* You can replace 'Roboto' with 'Open Sans' or 'Lato' if preferred */
 
 /* Background styling */
 .appointment-form-background {
-  background-size: cover;
-  padding: 100px 0; 
+
+  background-size: cover; /* Make sure the background image covers the entire container */
+  padding: 150px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   position: relative;
   width: 100%;
-  max-width: 750px;
-  margin: 0 auto;
-  font-family: 'Roboto', sans-serif;
-  
+  max-width: 950px;
+  margin-left: 400px;
+  font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
 
 /* Container styling */
 .container {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adjusted shadow for better visibility */
   width: 100%;
   max-width: 500px;
 }
 
 /* Headings */
 h2 {
-  font-family: 'Lora', serif; /* Elegant serif font for headings */
-  font-size: 3rem; /* Slightly smaller for better visual balance */
-  color: #333;
+  font-size: 2rem;
+  color: #000; /* Light text color */
   text-align: center;
-  margin-bottom: 25px;
-  font-weight: 700;
+  margin-bottom: 20px;
+  font-weight: 700; /* Bold weight */
 }
 
 h3 {
-  font-family: 'Roboto', sans-serif; /* Clean sans-serif font for subheadings */
-  font-size: 2.5rem; /* Keep it the same for hierarchy */
-  color: #444;
+  font-size: 1.5rem;
+  color: #e0e0e0; /* Light text color */
   margin-top: 20px;
   margin-bottom: 10px;
-  font-weight: 800;
+  font-weight: 700; /* Bold weight */
+}
+
+h4 {
+  font-size: 2.35rem;
+  color: #d0d0d0; /* Light text color */
+  margin: 10px 0;
+  font-weight: 700; /* Bold weight */
 }
 
 /* Input fields and labels */
 label {
   display: block;
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.12rem;
+  color: #000; /* Light text color */
   margin-bottom: 5px;
-  font-weight: 500; /* Slightly lighter weight */
+  font-weight: 700; /* Bold weight */
 }
+/* Service selection label styling */
+label[for="services"] {
+  margin-top: 20px;
+  font-size: 1.52rem; /* Adjust the value as needed */
+}
+
 
 input[type="text"],
 input[type="email"],
 input[type="date"],
 select,
 textarea {
-  width: 100%; /* Full width */
-  padding: 12px; 
-  font-size: 1rem; 
-  border: 2px solid #ccc; /* Thicker border */
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-sizing: border-box; /* Include padding and border in width */
-  background-color: #fff;
-  color: #333;
-  font-family: 'Roboto', sans-serif; /* Consistent font for input fields */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #4c5baf; /* Change border color on focus */
-  outline: none; /* Remove outline */
-  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4); /* Add shadow */
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #fff; /* Dark border for contrast */
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  background-color: #fff; /* Dark background for inputs */
+  color: #f5f5f5; /* Light text color for readability */
+  font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
 
 /* Checkbox styling */
 input[type="checkbox"] {
-  transform: scale(1.2);
-  margin-right: 8px;
+  transform: scale(1.2); /* Increase the size of the checkbox */
+  margin-right: 10px;
 }
 
 .checkbox-group {
   margin-top: 20px;
 }
 
+/* Service category styling */
+.service-category {
+  margin-bottom: 20px;
+}
+
 /* Special requests textarea */
 textarea {
-  height: 120px;
-  resize: none; /* Prevent resizing */
+  height: 100px;
+  resize: none;
+  font-family: 'Roboto', sans-serif; /* Apply the chosen font */
+}
+
+/* Additional styling for the Special Requests section */
+.special-requests {
+  margin-top: 20px; /* Adjust the value to move it further down */
 }
 
 /* Summary section */
@@ -104,149 +118,73 @@ ul {
 }
 
 li {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #ccc; /* Light text color */
+  margin-bottom: 5px;
+  font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
 
 .total-cost {
-  font-size: 2.15rem;
+  font-size: 1.25rem;
   font-weight: bold;
-  color: #333;
-  margin-top: 15px;
+  color: #fff; /* Light text color */
+  margin-top: 10px;
 }
 
 /* Button styling */
 button[type="submit"] {
-  background-color: #E76F51;
+  background-color: #e76f51; /* Adjusted for better contrast */
   color: #fff;
-  padding: 12px 25px;
+  padding: 10px 20px;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  width: 100%; /* Full width */
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 20%;
+  transition: background-color 0.3s;
+  font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
 
 button[type="submit"]:hover {
-  background-color: #E76F51; /* Darken button on hover */
-  transform: translateY(-2px); /* Lift effect */
+  background-color: #d62839; /* Slightly darker red for hover effect */
 }
 
 /* Error message styles */
 .error {
-  color: #e74c3c;
-  background-color: #fdecea;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #e74c3c;
-  font-size: 0.875rem;
-  margin-bottom: 15px;
+  color: red; /* Change this to your desired color */
+  font-size: 0.875rem; /* Adjust font size as needed */
+  margin-top: 0.25rem;
+  font-family: 'Roboto', sans-serif; /* Apply the chosen font */
 }
 
-/* Service Selection Section */
-.services {
-  margin: 20px 0;
-  padding: 30px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-size: 1.50rem;
-  
-}
-
-/* Label styling */
-label {
-  font-size: 1.2rem; /* Increased font size for better readability */
-  color: #333;
-  margin-bottom: 10px;
-  display: block;
-}
-
-/* Heading styling */
-h3 {
-  font-size: 1.5rem; /* Slightly larger headings */
-  color: #E76F51; /* Green color for headings */
-  margin: 15px 0 10px 0;
-  font-weight: 600; /* Bolder weight for better emphasis */
-}
-
-/* Service item styling */
-.service-item {
-  display: flex;
-  align-items: center; /* Center the checkbox and label vertically */
-  justify-content: flex-start; /* Align items to the left */
-  margin-bottom: 12px; /* Space between each service item */
-  padding: 10px; /* Padding for each service item */
-  border: 1px solid #eee; /* Light border for each item */
-  border-radius: 8px; /* Rounded corners */
-  transition: background-color 0.3s ease; /* Smooth background transition */
-}
-
-/* Hover effect for service items */
-.service-item:hover {
-  background-color: rgba(76, 175, 80, 0.1); /* Light green background on hover */
-}
-
-/* Checkbox styling */
-input[type="checkbox"] {
-  transform: scale(1.4); /* Slightly larger checkbox for visibility */
-  margin-bottom: 8px; /* Space between checkbox and label */
-  align-self: center; /* Center checkbox vertically in the flex container */
-}
-
-/* Error message styling */
+/* Additional styling for error messages */
 .error {
-  color: #e74c3c; /* Red color for errors */
-  background-color: #fdecea; /* Light red background */
-  padding: 12px; /* Padding around the error message */
-  border-radius: 8px; /* Rounded corners */
-  border: 1px solid #e74c3c; /* Border color matches error color */
-  margin-top: 10px; /* Space above the error message */
-  font-size: 0.9rem; /* Slightly smaller font size for error messages */
+  border: 1px solid red;
+  background-color: #fdd;
+  padding: 0.5rem;
+  border-radius: 3px;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-  .services {
-    padding: 15px; /* Reduced padding for smaller screens */
-  }
-
-  h3 {
-    font-size: 1.9rem; /* Slightly smaller headings on small screens */
-  }
-
-  label {
-    font-size: 1rem; /* Smaller label size for small screens */
-  }
+/* Service selection styling */
+.services {
+  display: flex;
+  flex-direction: column; /* Ensures each item is stacked vertically */
 }
 
-/* Additional styling */
-.form-divider {
-  margin: 25px 0;
-  height: 1px;
-  background-color: #ddd;
+/* Styling for each service item */
+.service-item {
+  display: flex; /* Aligns checkbox and label horizontally */
+  align-items: center; /* Centers items vertically */
+  margin-bottom: 5px; /* Adds space between items */
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-  .container {
-    padding: 25px;
-    max-width: 90%; /* Full width on small screens */
-  }
+.service-item label {
+  font-size: 1.125rem; /* Increase font size for better visibility */
+  margin-bottom: 5px;
+}
 
-  h2 {
-    font-size: 2rem; /* Adjusted for smaller screens */
-  }
-
-  button[type="submit"] {
-    font-size: 0.9rem;
-  }
-
-  .appointment-form-background {
-    padding: 50px 0; /* Adjust padding */
-  }
+.service-item input[type="checkbox"] {
+  transform: scale(1.2); /* Increase the size of the checkbox */
+  margin-right: 10px; /* Adds space between checkbox and label */
 }
