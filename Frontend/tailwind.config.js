@@ -19,6 +19,8 @@ export default {
         // ... other configurations
         plugins: [
           require('daisyui'),
+          require('tailwind-scrollbar'),
+          require('flowbite/plugin'), 
           // ... other plugins
         ],
   

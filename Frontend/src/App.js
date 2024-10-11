@@ -109,6 +109,13 @@ import F_AdminReport from './Components/Footwear & Accessories/F_AdminReport';
 import Footer from './Components/home/Footer';
 
 
+//order
+import Bill from "./Components/Order/Bill";
+import Cart from "./Components/Order/Cart";
+import Order from "./Components/Order/order";
+import Track from "./Components/Order/track";
+import OrderManage from "./Components/Order/OrderManage";
+
 //salon
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
@@ -295,7 +302,11 @@ function App() {
       <Route path="/F_AdminReport" element={<F_AdminReport/>} />
 
 
-
+      <Route path="/bill" element={<Bill />} /> 
+          <Route path="/Cart" element={<Cart />} /> 
+          <Route path="/order" element={<Order />} />
+          <Route path="/track" element={<Track />} />
+          <Route path="/OrderManage" element={<OrderManage />} />
 
         </Routes>
         <ChatBotButton />
