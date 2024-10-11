@@ -269,17 +269,17 @@ const AppointmentForm = () => {
   const totalCostLKR = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
 
   return (
-    <div className="appointment-form-background">
-      <div className="container">
-      <h2 style={{ 
-  fontSize: '2.5rem', // Adjust font size as needed
-  color: '#E76F51', 
-  fontFamily: 'Arial, sans-serif', // Change this to your preferred font
-  lineHeight: '1.5' // Adjust line height for spacing
-}}>
-  Book Your Appointment
-</h2>
-
+    <div className="appointment-form-container">
+      <div className="form-column">
+        <h2 style={{ 
+          fontSize: '2.5rem',
+          color: '#E76F51', 
+          fontFamily: 'Arial, sans-serif',
+          lineHeight: '1.5',
+        }}>
+          Book Your Appointment
+        </h2>
+  
         <form onSubmit={handleSubmit}>
           {/* Personal Information */}
           <div>
@@ -294,6 +294,7 @@ const AppointmentForm = () => {
             />
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
+  
           <div>
             <label>Contact Number:</label>
             <input
@@ -306,6 +307,7 @@ const AppointmentForm = () => {
             />
             {errors.contactNumber && <p className="error">{errors.contactNumber}</p>}
           </div>
+  
           <div>
             <label>Email Address:</label>
             <input
@@ -318,8 +320,7 @@ const AppointmentForm = () => {
             />
             {errors.email && <p className="error">{errors.email}</p>}
           </div>
-
-        
+  
 {/* Date and Time Selection */}
 <div>
   <label>Date:</label>
@@ -379,73 +380,87 @@ const AppointmentForm = () => {
   {errors.time && <p className="error">{errors.time}</p>}
 </div>
 
-
-<br></br>
-          {/* Service Selection */}      
-<div>
-  <label htmlFor="services"><b>Select Services</b>(You can only select multiple services from the same category) :</label>
-
-  <div id="services" className="services">
-    {loading ? (
-      <p>Loading...</p>
-    ) : (
-      Object.keys(serviceOptions).map(category => (
-        <div key={category}>
-          <h3><b>{category}</b></h3>
-          {serviceOptions[category].map(service => (
-            <div key={service} className="service-item">
-              <input
-                type="checkbox"
-                id={service}
-                value={service}
-                checked={formData.services.includes(service)}
-                onChange={() => handleServiceChange(service)}
-              />
-              <label htmlFor={service}>{service} - {servicePrices[service]?.toFixed(0)}  LKR</label>
-            </div>
-          ))}
-        </div>
-      ))
-    )}
-  </div>
-  {errors.services && <p className="error">{errors.services}</p>}
-</div>
-
-{/* Special Requests */}
-<div className="special-requests">
-  <label>Special Requests:</label>
-  <textarea
-    name="requests"
-    value={formData.requests}
-    onChange={handleChange}
-  />
-</div>
-
-<br></br>
+          {/* Special Requests */}
+          
+            
+          <div style={{ marginBottom: '20px' }}>
+            <label>Special Requests:</label>
+            <textarea
+              name="requests"
+              value={formData.requests}
+              onChange={handleChange}
+            />
+          </div>
+  
           {/* Submit Button */}
           <div>
-          <h3 style={{ 
-  color: '#5C646C', // Font color
-  fontSize: '1.5rem', // Adjust font size as needed
-  fontWeight: 'bold', // Increase font weight
-  fontFamily: 'Georgia, serif', // Change this to your preferred font
-  lineHeight: '1.5' // Adjust line height for better spacing
-}}>
-  Total Cost: <span style={{ 
-    fontFamily: 'Arial, sans-serif', // Change to a different font for numbers
-    fontSize: '1.5rem', // Ensure font size matches or adjusts as needed
-    fontWeight: 'bold' // You can keep the same or adjust it
-  }}>
-    LKR {totalCostLKR.toFixed(2)}
-  </span>
-</h3>
-<br></br>
+            <h3 style={{
+              color: '#5C646C',
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              fontFamily: 'Georgia, serif',
+              lineHeight: '1.5',
+              marginTop: '30px',
+              marginBottom: '20px',
+            }}>
+              Total Cost: <span style={{
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+              }}>
+                LKR {totalCostLKR.toFixed(2)}
+              </span>
+            </h3>
             <button type="submit">Book Appointment</button>
           </div>
         </form>
       </div>
+  
+      <div className="services-column">
+        <h2 style={{ 
+          fontSize: '2rem',
+          color: '#5C646C', 
+          fontFamily: 'Arial, sans-serif',
+          marginBottom: '20px',
+        }}>
+          Choose Your Services.
+        </h2>
+  
+        <div id="services" className="services">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            Object.keys(serviceOptions).map(category => (
+              <div key={category} className="service-category">
+                <h3 style={{ 
+                  fontWeight: '600', 
+                  fontSize: '1.2rem', 
+                  marginBottom: '10px',
+                }}>{category}</h3>
+                {serviceOptions[category].map(service => (
+                  <div key={service} className="service-item">
+                    <input
+                      type="checkbox"
+                      id={service}
+                      value={service}
+                      checked={formData.services.includes(service)}
+                      onChange={() => handleServiceChange(service)}
+                    />
+                    <label htmlFor={service} style={{  marginLeft: '8px',
+    color: '#000000', fontSize: '1.2rem',}}>
+                      {service} - LKR {servicePrices[service]?.toFixed(0)}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            ))
+          )}
+        </div>
+        {errors.services && <p className="error">{errors.services}</p>}
+      </div>
     </div>
   );
+  
 };
 
 export default AppointmentForm
