@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'
+      
+    ],
     theme: {
       extend: {
         fontFamily: {
@@ -19,7 +21,9 @@ export default {
         // ... other configurations
         plugins: [
           require('daisyui'),
+         
         
+          
           // ... other plugins
         ],
   

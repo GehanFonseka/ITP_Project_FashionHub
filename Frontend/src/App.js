@@ -147,7 +147,7 @@ import Overview from "./Components/Finance/Overview";
 const Layout = ({ children }) => {
   const location = useLocation();
 
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport','/EditReport','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport/:id','/EditReport/:id','/editReport/:id','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
 
 ;
 
