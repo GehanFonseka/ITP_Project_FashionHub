@@ -51,7 +51,6 @@ const DisplayReport = () => {
     }
   };
 
-  // Function to generate PDF using html2canvas and jsPDF
   const handlePrint = async () => {
     if (selectedReport) {
       console.log("Generating PDF for:", selectedReport);
@@ -61,47 +60,56 @@ const DisplayReport = () => {
           `http://localhost:5000/api/reports/${selectedReport._id}`
         );
         const report = response.data;
-
+  
         const shopId = report.shopID === "SHID01" ? "Clothing" : 
         report.shopID === "SHID02" ? "Shoes" :
         report.shopID === "SHID03" ? "Accessories" :
         report.shopID === "SHID04" ? "Saloon" :
-        "Unknown Shop"; // Default case if shopID doesn't match
-
+        "Unknown Shop"; 
+  
         // Log the fetched report data
         console.log("Fetched Report Data:", report);
-
+  
         const doc = new jsPDF({
           orientation: "portrait",
           unit: "pt",
           format: "a4",
         });
-
-        // Set custom font styles
+  
+        // Get today's date and format it
+        const today = new Date();
+        const formattedDate = `Released Date: ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+  
+        // Add today's date in the left corner
+        doc.setFontSize(12);
+        doc.setTextColor(92, 100, 108);
+        doc.text(formattedDate, 20, 20); // Position at (20, 20)
+  
+        // Set custom font styles for title
         doc.setFont("Russo One", "normal");
         doc.setFontSize(24);
         doc.setTextColor(231, 111, 81);
-
+  
         // Store name at the top
         doc.text("FashionHub", 300, 50, { align: "center" });
-
+  
         // Header for the report
         doc.setFontSize(18);
         doc.setTextColor(255, 255, 255);
-        doc.setFillColor(231, 111, 81); // Background color for header
+        doc.setFillColor(231, 111, 81); 
         doc.text(
           `Balance Sheet for the Month of ${report.month} ${report.year}`,
           300,
           90,
           { align: "center" }
         );
-        doc.rect(20, 70, 560, 40, "F"); // Header background rectangle
-
+        doc.rect(20, 70, 560, 40, "F"); 
+  
         // Switch to regular font for content
         doc.setFont("Saira", "normal");
         doc.setFontSize(14);
         doc.setTextColor(92, 100, 108);
-
+  
         // Report Details Section
         autoTable(doc, {
           startY: 120,
@@ -116,18 +124,18 @@ const DisplayReport = () => {
           margin: { bottom: 10 },
           styles: { cellPadding: 6, fontSize: 12 },
         });
-
+  
         // Income Section
         autoTable(doc, {
           startY: doc.autoTable.previous.finalY + 20,
           head: [["Income"]],
-          body: [[`Total Income:Rs ${report.totalIncome.toFixed(2)}`]],
+          body: [[`Total Income: Rs ${report.totalIncome.toFixed(2)}`]],
           theme: "striped",
           headStyles: { fillColor: [231, 111, 81] },
           margin: { bottom: 10 },
           styles: { cellPadding: 6, fontSize: 12 },
         });
-
+  
         // Balance Sheet Section
         autoTable(doc, {
           startY: doc.autoTable.previous.finalY + 20,
@@ -140,7 +148,7 @@ const DisplayReport = () => {
           margin: { bottom: 10 },
           styles: { cellPadding: 6, fontSize: 12 },
         });
-
+  
         // Petty Cash Section
         autoTable(doc, {
           startY: doc.autoTable.previous.finalY + 20,
@@ -153,7 +161,7 @@ const DisplayReport = () => {
           margin: { bottom: 10 },
           styles: { cellPadding: 6, fontSize: 12 },
         });
-
+  
         // Net Profit Section
         autoTable(doc, {
           startY: doc.autoTable.previous.finalY + 20,
@@ -164,7 +172,7 @@ const DisplayReport = () => {
           margin: { bottom: 10 },
           styles: { cellPadding: 6, fontSize: 12 },
         });
-
+  
         // Save the PDF with custom name
         doc.save(`Report_${report.month}_${report.year}.pdf`);
         setSelectedReport(null);
@@ -175,6 +183,7 @@ const DisplayReport = () => {
       console.log("No report selected");
     }
   };
+  
 
   const ReportCard = ({ report }) => {
     // Array of month names
@@ -204,8 +213,6 @@ const DisplayReport = () => {
         "Unknown Shop"; // Default case if shopID doesn't match
 
     return (
-
-      
       <div
         className="bg-[#D9D9D9] p-4 mt-12 rounded-md shadow-md border-2 border-[#C0C0C0] cursor-pointer relative max-w-sm mx-auto" 
       >
@@ -227,7 +234,7 @@ const DisplayReport = () => {
         <div className="flex justify-end mt-4">
           <button
             onClick={(e) => {
-              e.stopPropagation(); // Prevent card click
+              e.stopPropagation(); 
               handleCardClick(report);
             }}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
@@ -236,7 +243,7 @@ const DisplayReport = () => {
           </button>
           <button
             onClick={(e) => {
-              e.stopPropagation(); // Prevent card click
+              e.stopPropagation();
               handleEditClick(report._id);
             }}
             className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 mr-2"
@@ -245,7 +252,7 @@ const DisplayReport = () => {
           </button>
           <button
             onClick={(e) => {
-              e.stopPropagation(); // Prevent card click
+              e.stopPropagation(); 
               handleDelete(report._id);
             }}
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
@@ -283,10 +290,10 @@ const DisplayReport = () => {
         report.shopID === "SHID02" ? "Shoes" :
         report.shopID === "SHID03" ? "Accessories" :
         report.shopID === "SHID04" ? "Saloon" :
-        "Unknown Shop"; // Default case if shopID doesn't match
+        "Unknown Shop"; 
 
 
-    /*-------------------view report section-----------------------*/
+    /*----view report section-----*/
     return (
       <div className="fixed inset-0 bg-[#00000080] flex items-center justify-center p-4">
 
@@ -484,7 +491,7 @@ const DisplayReport = () => {
 
           {/* Floating Download PDF Button */}
           <button
-            onClick={onDownload} // Trigger the PDF download function
+            onClick={onDownload} 
             className="fixed bottom-6 right-6 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-blue-700"
           >
             <FaDownload size={20} />
@@ -508,9 +515,9 @@ const getShopIDFromName = (shopName) => {
   // Get today's date
   const today = new Date();
   const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1; // Months are zero-based, so add 1
+  const currentMonth = today.getMonth() + 1; 
 
-  /*----------------without display card(other things)-------------------*/
+  /*-----without display card(other things)----------*/
   return (
     <div className="p-4">
       {/* Search and Filters Row */}
@@ -556,7 +563,7 @@ const getShopIDFromName = (shopName) => {
             id="monthFilter"
             value={filters.month}
             onChange={(e) => {
-              const monthIndex = Number(e.target.value); // Convert selected value to number
+              const monthIndex = Number(e.target.value); 
               setFilters({
                 ...filters,
                 month: monthIndex.toString(),
@@ -581,7 +588,7 @@ const getShopIDFromName = (shopName) => {
             ].map((month, index) => {
               const monthNumber = index + 1;
               const isDisabled = 
-                filters.year === currentYear.toString() && monthNumber > currentMonth; // Disable future months if current year is selected
+                filters.year === currentYear.toString() && monthNumber > currentMonth; 
               
               return (
                 <option key={month} value={monthNumber} disabled={isDisabled}>
@@ -618,7 +625,7 @@ const getShopIDFromName = (shopName) => {
         <FullReport
           report={selectedReport}
           onClose={handleClosePopUp}
-          onDownload={handlePrint} // Pass the handlePrint function
+          onDownload={handlePrint} 
         />
       )}
     </div>

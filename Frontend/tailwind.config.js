@@ -19,6 +19,7 @@ export default {
         // ... other configurations
         plugins: [
           require('daisyui'),
+        
           // ... other plugins
         ],
   
