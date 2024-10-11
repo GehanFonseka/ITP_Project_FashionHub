@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from 'styled-components';
 import menImage from '../../assets/menImage.jpg'; // Use your own image paths
 import womenImage from '../../assets/womenImage.jpg';
@@ -31,6 +31,9 @@ const HeroSection = () => {
           <ShopButton href="/SalonHome">Book Now</ShopButton>
         </HeroTextBox>
       </HeroItem>
+
+      {/* Add Find My Outfit button here */}
+      <FindOutfitButton href="/ItemList">Find My Outfit</FindOutfitButton>
     </HeroContainer>
   );
 };
@@ -45,6 +48,7 @@ const HeroContainer = styled.div`
   margin-top: 100px;
   padding: 60px;
   background-color: #ffffff; /* Light cyan background color for contrast */
+  position: relative; /* To allow positioning of Find My Outfit button */
 `;
 
 const HeroItem = styled.div`
@@ -84,10 +88,28 @@ const ShopButton = styled.a`
   margin-top: 10px;
    text-align: center;
   padding: 10px 20px;
-  background-color: #8b0000; /* Bright green button for strong contrast and visibility */
+  background-color: #8b0000; /* Dark red button for contrast and visibility */
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow for depth */
+`;
+
+const FindOutfitButton = styled.a`
+  position: absolute;
+  bottom: -40px; /* Positioning it slightly below the container */
+  right: 0;
+  padding: 10px 20px;
+  background-color: #008080; /* Teal color for visibility */
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #006666; /* Darker teal on hover */
+  }
 `;
