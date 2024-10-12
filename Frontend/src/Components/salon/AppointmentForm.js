@@ -227,7 +227,7 @@ const AppointmentForm = () => {
           alert(appointmentConflict.message);
           return; // Stop form submission if there's a conflict
         }
-
+       
         // If no conflicts, proceed with form submission
         const appointmentData = {
           ...formData,
@@ -423,7 +423,7 @@ const AppointmentForm = () => {
           fontFamily: 'Arial, sans-serif',
           marginBottom: '20px',
         }}>
-          Choose Your Services.
+          Choose Your Services:
         </h2>
   
         <div id="services" className="services">
@@ -447,7 +447,7 @@ const AppointmentForm = () => {
                       onChange={() => handleServiceChange(service)}
                     />
                     <label htmlFor={service} style={{  marginLeft: '8px',
-    color: '#000000', fontSize: '1.2rem',}}>
+    color: '#ffffff', fontSize: '1.2rem',}}>
                       {service} - LKR {servicePrices[service]?.toFixed(0)}
                     </label>
                   </div>

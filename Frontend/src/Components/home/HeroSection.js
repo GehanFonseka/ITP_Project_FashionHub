@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import menImage from '../../assets/menImage.jpg'; // Use your own image paths
 import womenImage from '../../assets/womenImage.jpg';
-import salon from '../../assets/salon.jpg';
+import salon111 from '../../assets/salon111.png';
 
 const HeroSection = () => {
   return (
@@ -24,10 +24,10 @@ const HeroSection = () => {
         </HeroTextBox>
       </HeroItem>
       <HeroItem wide>
-        <HeroImage src={salon} alt="Unisex Salon" />
+        <HeroImage src={salon111} alt="Unisex Salon" />
         <HeroTextBox wide>
           <HeroHeading>Ladies Salon</HeroHeading>
-          <p>Your Style, Our Passion</p>
+          <p>Discover luxury beauty services in a serene setting. From expert hair care and nail treatments to facials, makeup, and massages—experience personalized care and relaxation at</p>
           <ShopButton href="/SalonHome">Book Now</ShopButton>
         </HeroTextBox>
       </HeroItem>

@@ -16,16 +16,13 @@ const services = [
   { id: 3, name: "Massages", image: massageImage },
   { id: 4, name: "Facial", image: facialImage },
   { id: 5, name: "MakeUp", image: makeUpImage },
-  { id: 6, name: "Body Treatment", image: bodyTreatmentImage },
+  
 ];
 
 // Main Salon Home Component
 const Salonhome = () => {
-
   let storeId = 'S002';
   const [selectedService, setSelectedService] = useState(null);
-
-
 
   return (
     <MainContainer>
@@ -54,12 +51,9 @@ const Salonhome = () => {
             <ServiceItem key={service.id}>
               <ServiceImage src={service.image} alt={service.name} />
               <ServiceLabel>{service.name}</ServiceLabel>
-              
             </ServiceItem>
           ))}
         </ServicesContainer>
-
-        
 
         <ButtonContainer>
           <ActionButton href="/ServiceList">Service List</ActionButton>
@@ -67,15 +61,15 @@ const Salonhome = () => {
         </ButtonContainer>
 
         <ReviewSection>
-        <ReviewHeading>Customer Reviews: Where Style Meets Satisfaction</ReviewHeading>
-        <ReviewDescription>
-          Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
-        </ReviewDescription>
-        <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
-      </ReviewSection>
+          <ReviewHeading>Customer Reviews: Where Style Meets Satisfaction</ReviewHeading>
+          <ReviewDescription>
+            Our passion is fashion, but our pride is in your satisfaction. Your review is a reflection of our commitment to excellence.
+          </ReviewDescription>
+          <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
+        </ReviewSection>
 
-      {/* Display the ReviewDisplay component */}
-      <ReviewDisplay storeID={storeId} />
+        {/* Display the ReviewDisplay component */}
+        <ReviewDisplay storeID={storeId} />
       </Content>
     </MainContainer>
   );
@@ -85,7 +79,7 @@ const Salonhome = () => {
 const MainContainer = styled.div`
   margin-top: 100px;
   width: 100%;
-  background-color: #fff;
+  background-color: #f9f9f9; /* Light background for better contrast */
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -94,47 +88,50 @@ const MainContainer = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 40px; /* Increased padding for spacious feel */
 `;
 
 const HeaderText = styled.div`
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 const Heading = styled.h1`
   font-size: 3rem;
   font-weight: bold;
+  color: #ae2012; /* Accent color for the heading */
 `;
 
 const ImageContainer = styled.div`
-  width: 102%;
+  width: 100%;
   margin-bottom: 20px;
   display: flex;
-  justify-content: flex-start;
-  overflow: hidden;
+  justify-content: center;
 `;
 
 const StyledImage = styled.img`
-  width: 100%;
-  height: 500px;
-  position: relative;
-  left: -5%;
+  width: 90%; /* Set the desired width percentage */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensures the image behaves like a block element */
+  margin: 0 auto; /* Center the image */
+  max-height: 500px; /* Optional: limit the height to maintain design */
+  border-radius: 15px; /* Rounded corners for a softer look */
 `;
 
 const DescriptionContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-bottom: 20px;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 40px;
+  background-color: #fff; /* White background for text area */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 `;
 
 const LeftText = styled.p`
   font-size: 1.2rem;
-  flex: 1;
-  margin-right: 10px;
   line-height: 1.6;
-  text-align: center;
+  text-align: justify; /* Justified text for a neat look */
 `;
 
 const OurServicesContainer = styled.div`
@@ -160,14 +157,21 @@ const ServicesContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 30px;
-  padding-left: 10px;
 `;
 
 const ServiceItem = styled.div`
   flex: 1;
-  min-width: 150px;
+  min-width: 220px; /* Increased minimum width for better layout */
   text-align: center;
-  margin: 10px;
+  margin: 20px; /* Adjusted margin for spacing */
+  background-color: #fff; /* Background for service item */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  transition: transform 0.2s ease; /* Smooth hover effect */
+  
+  &:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+  }
 `;
 
 const ServiceImage = styled.img`
@@ -183,47 +187,6 @@ const ServiceLabel = styled.h3`
   color: #333;
 `;
 
-
-
-const ReviewFormContainer = styled.div`
-  margin-top: 30px;
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-
-  h3 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-  }
-
-  textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-  }
-`;
-
-const SubmitButton = styled.button`
-  padding: 10px 20px;
-  background-color: #ae2012;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #000;
-  }
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -233,8 +196,8 @@ const ButtonContainer = styled.div`
 const ActionButton = styled.a`
   background-color: #ae2012;
   color: #fff;
-  padding: 10px 20px;
-  margin: 0 10px;
+  padding: 15px 25px; /* Increased padding for a button */
+  margin: 0 15px; /* Adjusted margin for buttons */
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
@@ -252,6 +215,7 @@ const ReviewSection = styled.div`
   text-align: center;
   padding: 40px;
   background-color: #f8f8f8;
+  border-radius: 10px; /* Rounded corners */
 `;
 
 const ReviewHeading = styled.h2`
@@ -268,8 +232,8 @@ const ReviewDescription = styled.p`
 
 const ReviewButton = styled.a`
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #ae2012;
+  padding: 15px 30px; /* Increased padding for the button */
+  background-color: #E76F51;
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;
@@ -281,6 +245,5 @@ const ReviewButton = styled.a`
     background-color: #000;
   }
 `;
-
 
 export default Salonhome;
