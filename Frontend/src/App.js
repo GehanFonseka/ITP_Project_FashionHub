@@ -156,18 +156,20 @@ const Layout = ({ children }) => {
   const location = useLocation();
 
   const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport/:id','/EditReport/:id','/editReport/:id','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
-
+  const onlyHeaderPaths = ['/ItemList']
 ;
 
 
   const showHeaderFooter = !noHeaderFooterPaths.includes(location.pathname);
+  const showHeader = onlyHeaderPaths.includes(location.pathname);
 
 
   return (
     <div>
-      {showHeaderFooter && <Header />}
-      {children}
-      {showHeaderFooter && <Footer />}
+      {showHeader &&  <Header />} 
+      {children}  
+      {showHeaderFooter && !showHeader && <Footer />}
+      {showHeaderFooter && <Header/>}
     </div>
   );
 };

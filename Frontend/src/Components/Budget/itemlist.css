@@ -91,6 +91,7 @@
 
 /* Overlay for selected items in the upper-right corner */
 .selected-items-overlay {
+  margin-top: 120px;
   position: fixed;
   top: 10px; /* Adjust to ensure it's visible */
   right: 10px; /* Adjust to ensure it's visible */
@@ -132,10 +133,11 @@
   display: flex;
   justify-content: center;
   padding: 20px;
-  background-color: #fff;
+  background-color: white;
 }
 
 .search-bar {
+  margin-top: 60px;
   width: 60%; /* Adjust width for larger screens */
   padding: 10px;
   font-size: 1rem;
@@ -214,6 +216,7 @@
 }
 
 .navigate-link-container {
+  background-color: white;
   margin-top: 20px;
   text-align: center;
 }
@@ -221,7 +224,7 @@
 .navigate-link {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #8b0000;
   color: white;
   text-decoration: none; /* Remove underline */
   border-radius: 5px;
