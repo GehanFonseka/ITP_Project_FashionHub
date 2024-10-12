@@ -7,7 +7,8 @@ const ItemCard = ({ item, onSelect, isSelected }) => {
       className={`item-card ${isSelected ? "selected" : ""}`}
       onClick={onSelect}
     >
-      <img src={item.image[0]} alt={item.name} />
+      
+      <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.name} />
       <h3>{item.name}</h3>
       <p className="price">Rs. {item.price}</p>
       {/* Optional button for additional actions */}
