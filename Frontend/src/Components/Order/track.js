@@ -45,7 +45,7 @@ export default function Track() {
                 ) : (
                   <div>
                     <img 
-                      src="https://img.freepik.com/free-vector/person-doing-delivery-activities-pack_23-2148502069.jpg?t=st=1727432442~exp=1727436042~hmac=275521409da8024d9a48e19aba6149e5e8fe5a7cace3777a1d0fb9440df6dae5&w=996" 
+                      src="https://therichpost.com/wp-content/uploads/2021/04/How-to-create-shop-order-tracking-page-in-Reactjs-Application.png" 
                       alt="Order in transit" 
                       className='w-[600px] h-[200px] object-cover ml-52' 
                     />

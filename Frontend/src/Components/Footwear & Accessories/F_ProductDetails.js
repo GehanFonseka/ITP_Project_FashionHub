@@ -140,15 +140,34 @@ const F_ProductDetails = () => {
     setLoading(false);
   }, [navigate]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async (product, quantity, size) => {
     const cartItem = {
-      product,
-      quantity,
-      size,
+      ItemsN: product.name,
+      price: product.price,
+      quantity: quantity,
+      image: [product.image],  // Assuming product.image is a string, but the schema expects an array
+      sellerNo: product.sellerNo || 0,  // If sellerNo is not available in product, default to 0
     };
-    console.log("Adding to cart:", cartItem);
-    alert(`Item added to cart! Quantity: ${quantity}, Size: ${size}`);
-    
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/items/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cartItem),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Item added to cart:', result);
+      } else {
+        console.error('Failed to add item to cart:', result);
+      }
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+
     navigate('/cart', { state: cartItem });
   };
 
@@ -193,8 +212,8 @@ const F_ProductDetails = () => {
         </Select>
 
         <AddToCartButton
-          onClick={handleAddToCart}
-          disabled={quantity > availableQuantity} 
+          onClick={() => handleAddToCart(product, quantity, size)}
+          disabled={quantity > availableQuantity}
         >
           Add to Cart
         </AddToCartButton>

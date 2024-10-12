@@ -101,6 +101,8 @@ const SizeChart = styled.table`
 const A_ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState('M');
   const [selectedSize, setSelectedSize] = useState(""); // State for selected ring size
   const navigate = useNavigate();
 
@@ -116,15 +118,35 @@ const A_ProductDetails = () => {
     setLoading(false);
   }, [navigate]);
 
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert("Please select a ring size!");
-      return;
+  const handleAddToCart = async (product, quantity, size) => {
+    const cartItem = {
+      ItemsN: product.name,
+      price: product.price,
+      quantity: quantity,
+      image: [product.image],  // Assuming product.image is a string, but the schema expects an array
+      sellerNo: product.sellerNo || 0,  // If sellerNo is not available in product, default to 0
+    };
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/items/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cartItem),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Item added to cart:', result);
+      } else {
+        console.error('Failed to add item to cart:', result);
+      }
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
     }
-    
-    // Logic to add the item to the cart
-    console.log("Adding to cart:", product, "Size:", selectedSize);
-    alert("Item added to cart!");
+
+    navigate('/cart', { state: cartItem });
   };
 
   if (loading) {
@@ -156,7 +178,12 @@ const A_ProductDetails = () => {
           <option value="9">Size 9</option>
         </SizeSelect>
 
-        <AddToCartButton onClick={handleAddToCart}>Add to Cart</AddToCartButton>
+        <AddToCartButton
+          onClick={() => handleAddToCart(product, quantity, size)}
+          
+        >
+          Add to Cart
+        </AddToCartButton>
 
         {/* Ring Size Chart */}
         <SizeChartContainer>
