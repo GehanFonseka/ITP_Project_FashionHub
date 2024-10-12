@@ -74,6 +74,19 @@ export default function Cart() {
       // Store current cart items in local storage
       localStorage.setItem("currentOrder", JSON.stringify(formDataWithItems.items));
 
+      // Post the order data to the backend
+      const response = await fetch("http://localhost:5000/api/items/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataWithItems),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to post order data");
+      }
+
       // Navigate to the Bill page
       navigate("/bill"); 
     } catch (error) {

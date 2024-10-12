@@ -25,25 +25,25 @@ export default function Bill() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/items/checkout`
+          `http://localhost:5000/api/items/checkout/last` // Assume this endpoint returns the last added order
         );
         const data = await response.json();
         console.log(data);
-
-        if (data.items && data.items.length > 0) {
-          setOrderDetailsList(data.items); // Store the orders in state
+  
+        // Assuming that data will contain only the latest order item
+        if (data && data.items && data.items.length > 0) {
+          setOrderDetailsList(data.items); // Store the last order in state
         } else {
           setOrderDetailsList([]); // Set to empty array if no items
         }
-
-        
       } catch (error) {
         console.error("Error fetching order data:", error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
  
   
