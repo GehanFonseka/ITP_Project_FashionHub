@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 export default function OrderManage() {
   const [orderDetailsList, setOrderDetailsList] = useState([]);
@@ -51,8 +53,44 @@ export default function OrderManage() {
     }
   };
 
+  // Generate a PDF for each order
+  const generatePDF = (order) => {
+    const doc = new jsPDF();
+    doc.text(`Order Report for Order ID: ${order._id}`, 10, 10);
+
+    doc.text(`Address:`, 10, 20);
+    doc.text(`${order.Address}, ${order.Apartment}`, 10, 30);
+    doc.text(`${order.City}, ${order.Postal}`, 10, 40);
+
+    const columns = [
+      { title: "Item Name", dataKey: "name" },
+      { title: "Quantity", dataKey: "quantity" },
+      { title: "Price", dataKey: "price" }
+    ];
+
+    const items = order.items.map((item) => ({
+      name: item.ItemsN,
+      quantity: item.quantity,
+      price: `RS. ${item.price * item.quantity}`
+    }));
+
+    doc.autoTable({
+      startY: 50,
+      columns: columns,
+      body: items
+    });
+
+    const totalPrice = order.items.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+    doc.text(`Total Price: RS. ${totalPrice}`, 10, doc.lastAutoTable.finalY + 10);
+
+    doc.save(`Order_${order._id}.pdf`);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-200 p-6 mt-12" style={{marginTop: '98px'}}> {/* Added mt-10 for page margin */}
+    <div className="min-h-screen bg-gray-200 p-6 mt-12" style={{marginTop: '98px'}}>
       <div className="flex justify-between items-center mb-6">
         <Link to={`/bill`}>
           <div className="text-black uppercase font-serif hover:text-red-600 cursor-pointer hover:underline">
@@ -62,8 +100,7 @@ export default function OrderManage() {
         <h1 className="text-xl font-semibold text-gray-700">Order Management Dashboard</h1>
       </div>
 
-      {/* Adjusted spacing for the search bar */}
-      <div className="flex justify-center mb-6 mt-10"> {/* Added margin-top to separate from header */}
+      <div className="flex justify-center mb-6 mt-10">
         <input
           type="text"
           placeholder="Search by Order ID, Address, or City"
@@ -73,7 +110,7 @@ export default function OrderManage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 mt-8 md:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Adjusted margin-top */}
+      <div className="grid grid-cols-1 mt-8 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredOrders.map((order) => (
           <div
             key={order._id}
@@ -89,7 +126,6 @@ export default function OrderManage() {
               </button>
             </div>
 
-            {/* Display Address Information */}
             <div className="mt-2">
               <strong className="uppercase">Address:</strong>
               <p>{order.Address}</p>
@@ -98,7 +134,6 @@ export default function OrderManage() {
               <p>{order.Postal}</p>
             </div>
 
-            {/* Display Items */}
             <div className="mt-2">
               <h4 className="font-semibold uppercase">Items:</h4>
               {order.items.map((item) => (
@@ -114,7 +149,12 @@ export default function OrderManage() {
             </div>
             <hr className="h-2 text-black" />
 
-            {/* Display Shipping and Total Price */}
+            <button
+              onClick={() => generatePDF(order)}
+              className="bg-blue-500 text-white rounded px-3 py-1 mt-4 hover:bg-blue-600"
+            >
+              Download PDF
+            </button>
           </div>
         ))}
       </div>
