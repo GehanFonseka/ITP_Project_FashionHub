@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ChatBot from "./ChatBot"; // Adjust the path as necessary
 import { AiOutlineMessage } from "react-icons/ai";
 
+
 const ChatBotButton = () => {
   const [isChatBotVisible, setIsChatBotVisible] = useState(false);
 

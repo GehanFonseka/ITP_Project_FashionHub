@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
+
 const AddReport = () => {
   const [shopID, setShopID] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const navigate = useNavigate();
 
-  const currentMonth = new Date().getMonth(); // Get current month (0-11)
-  const currentYear = new Date().getFullYear(); // Get current year
+  const currentMonth = new Date().getMonth(); 
+  const currentYear = new Date().getFullYear();
 
   const handleGenerate = () => {
     if (shopID && month && year) {

@@ -81,7 +81,7 @@ const EditReport = () => {
   const handleSave = async () => {
     try {
       await axios.put(`http://localhost:5000/api/reports/${id}`, report);
-      navigate("/reportView"); // Redirect back to the DisplayReport page
+      navigate("/reportView"); 
     } catch (error) {
       console.error("Error saving report:", error);
     }
@@ -94,7 +94,7 @@ const EditReport = () => {
         report.shopID === "SHID02" ? "Shoes" :
         report.shopID === "SHID03" ? "Accessories" :
         report.shopID === "SHID04" ? "Saloon" :
-        "Unknown Shop"; // Default case if shopID doesn't match
+        "Unknown Shop"; 
 
   return (
     <div className="flex flex-col items-center p-8 bg-[#F4F4F4] min-h-screen font-saira">
@@ -153,61 +153,128 @@ const EditReport = () => {
             </div>
           </div>
 
-          {/* Editable Fields */}
-          <div className="bg-[#D9D9D9] p-4 rounded-md shadow-inner border-2 border-[#C0C0C0]">
+          {/* Expenses Section */}
+          <div className="mb-o bg-[#D9D9D9] p-4  rounded-md shadow-inner border-2 border-[#C0C0C0]">
             <h3 className="text-lg font-semibold mb-2 text-[#5C646C] border-b-2 border-[#C0C0C0] font-russo text-left">
-              Expenses
+              Balance Sheet
             </h3>
-            {/* Editable Expenses Section */}
             <div className="grid grid-cols-2 gap-6">
-              {Object.keys(report.expenses || {}).map((expense, index) => (
-                <div
-                  className="flex justify-between items-center mb-2"
-                  key={index}
-                >
-                  <span className="text-[#5C646C]">
-                    {expense.replace(/([A-Z])/g, " $1")}
-                  </span>
-                  <input
-                    type="number"
-                    name={`expenses.${expense}`}
-                    value={report.expenses[expense]}
-                    onChange={handleChange}
-                    className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
-                  />
-                </div>
-              ))}
+              
+              {/* Expenses (Assets) */}
+              <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
+                <h5 className="text-md font-semibold mb-2 text-[#5C646C] font-russo">
+                  Assets
+                </h5>
+                {Object.keys(report.expenses || {}).slice(0, Math.ceil(Object.keys(report.expenses || {}).length / 2)).map((expense, index) => (
+                  <div className="flex justify-between items-center mb-2" key={index}>
+                    <span className="text-[#5C646C]">
+                      {expense.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                    </span>
+                    <input
+                      type="number"
+                      name={`expenses.${expense}`}
+                      value={report.expenses[expense]}
+                      onChange={handleChange}
+                      onKeyDown={(e) => {
+                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                          e.preventDefault();
+                        }
+                      }}
+                      className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                      min="1"
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              {/* Expenses (Liabilities) */}
+              <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
+                <h5 className="text-md font-semibold mb-2 text-[#5C646C] font-russo">
+                  Liabilities
+                </h5>
+                {Object.keys(report.expenses || {}).slice(Math.ceil(Object.keys(report.expenses || {}).length / 2)).map((expense, index) => (
+                  <div className="flex justify-between items-center mb-2" key={index}>
+                    <span className="text-[#5C646C]">
+                      {expense.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                    </span>
+                    <input
+                      type="number"
+                      name={`expenses.${expense}`}
+                      value={report.expenses[expense]}
+                      onChange={handleChange}
+                      onKeyDown={(e) => {
+                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                          e.preventDefault();
+                        }
+                      }}
+                      className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                      min="1"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="bg-[#D9D9D9] p-4 rounded-md shadow-inner border-2 border-[#C0C0C0] mt-4">
+          {/* Petty Cash Section */}
+          <div className="mt-0 mb-0 bg-[#D9D9D9] p-4 rounded-md shadow-inner border-2 border-[#C0C0C0] mt-4">
             <h3 className="text-lg font-semibold mb-2 text-[#5C646C] border-b-2 border-[#C0C0C0] font-russo text-left">
               Petty Cash
             </h3>
-            {/* Editable Petty Cash Section */}
             <div className="grid grid-cols-2 gap-6">
-              {Object.keys(report.pettyCash || {}).map((cash, index) => (
-                <div
-                  className="flex justify-between items-center mb-2"
-                  key={index}
-                >
-                  <span className="text-[#5C646C]">
-                    {cash.replace(/([A-Z])/g, " $1")}
-                  </span>
-                  <input
-                    type="number"
-                    name={`pettyCash.${cash}`}
-                    value={report.pettyCash[cash]}
-                    onChange={handleChange}
-                    className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
-                  />
-                </div>
-              ))}
+              
+              {/* Petty Cash (First Column) */}
+              <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
+                {Object.keys(report.pettyCash || {}).slice(0, Math.ceil(Object.keys(report.pettyCash || {}).length / 2)).map((cash, index) => (
+                  <div className="flex justify-between items-center mb-2" key={index}>
+                    <span className="text-[#5C646C]">
+                      {cash.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                    </span>
+                    <input
+                      type="number"
+                      name={`pettyCash.${cash}`}
+                      value={report.pettyCash[cash]}
+                      onChange={handleChange}
+                      onKeyDown={(e) => {
+                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                          e.preventDefault();
+                        }
+                      }}
+                      className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                      min="1"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Petty Cash (Second Column) */}
+              <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
+                {Object.keys(report.pettyCash || {}).slice(Math.ceil(Object.keys(report.pettyCash || {}).length / 2)).map((cash, index) => (
+                  <div className="flex justify-between items-center mb-2" key={index}>
+                    <span className="text-[#5C646C]">
+                      {cash.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                    </span>
+                    <input
+                      type="number"
+                      name={`pettyCash.${cash}`}
+                      value={report.pettyCash[cash]}
+                      onChange={handleChange}
+                      onKeyDown={(e) => {
+                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                          e.preventDefault();
+                        }
+                      }}
+                      className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                      min="1"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* Net Profit Display */}
-          <div className="bg-[#D9D9D9] p-4 rounded-md shadow-inner border-2 border-[#C0C0C0] mt-4">
+          <div className="mt-0 mb-0 bg-[#D9D9D9] p-4 rounded-md shadow-inner border-2 border-[#C0C0C0] mt-4">
             <h3 className="text-lg font-semibold mb-2 text-[#5C646C] border-b-2 border-[#C0C0C0] font-russo text-left">
               Net Profit
             </h3>

@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom"; // For navigation between pages
 
 const predefinedUsers = [
   { username: "finance", password: "finance123", role: "finance" },
-  { username: "supporter", password: "supporter123", role: "supporter" },
+  { username: "sup", password: "sup123", role: "supporter" },
   { username: "saloon", password: "saloon123", role: "saloon" },
   { username: "clothing", password: "clothing123", role: "clothing" },
-  { username: "shoes", password: "shoes123", role: "shoes" },
+
+  { username: "reviews", password: "reviews123", role: "reviews" },
+ 
   { username: "accessories", password: "accessories123", role: "accessories" },
   { username: "delivery", password: "delivery123", role: "delivery" },
+  { username: "review", password: "rewiew123", role: "delivery" },
 ];
 
 const LoginRegister = () => {
@@ -34,13 +37,13 @@ const LoginRegister = () => {
         if (user.role === "finance") {
           navigate("/overview");
         } else if (user.role === "supporter") {
-          navigate("/TicketResponse");
+          navigate("/contact");
         } else if (user.role === "saloon") {
           navigate("/Dashboard");
         } else if (user.role === "clothing") {
           navigate("/C_AdminDB01");
-        } else if (user.role === "shoesandaccessories") {
-          navigate("/F_adminDashboard");
+        } else if (user.role === "review") {
+          navigate("/DashboardContainer");
         } else if (user.role === "accessories") {
           navigate("/F_adminDashboard");
         } else if (user.role === "delivery") {

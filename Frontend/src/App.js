@@ -1,8 +1,11 @@
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
+
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
 import HeroSection from './Components/home/HeroSection';
+import LayoutWithSidebar from "./Components/Finance/LayoutWithSidebar";
+import BLayout from './Components/Budget/BLayout';
 
 import UserDashboard from './Components/Login1/userDashboard';
 import Register from "./Components/Login1/Register";
@@ -107,6 +110,20 @@ import F_AdminReport from './Components/Footwear & Accessories/F_AdminReport';
 import Footer from './Components/home/Footer';
 
 
+//order
+import Bill from "./Components/Order/Bill";
+import Cart from "./Components/Order/Cart";
+import Order from "./Components/Order/order";
+import Track from "./Components/Order/track";
+import OrderManage from "./Components/Order/OrderManage";
+
+//budget
+import ItemList from "./Components/Budget/ItemList";
+import NavBar from "./Components/Budget/NavBar";
+import FavoritePackagesPage from "./Components/Budget/FavoritePackagesPage"
+import EditPackagePage from "./Components/Budget/EditPackagePage";
+
+
 //salon
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
@@ -134,11 +151,12 @@ import Overview from "./Components/Finance/Overview";
 
 
 
-
 // Custom component to conditionally render Header and Footer
 const Layout = ({ children }) => {
   const location = useLocation();
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/BalanceSheet','/DisplayReport','/EditReport','/AddReport','/Overview']; // Add paths where you don't want Header and Footer
+
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport/:id','/EditReport/:id','/editReport/:id','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
+
 ;
 
 
@@ -156,10 +174,12 @@ const Layout = ({ children }) => {
 
 
 
-
-
 function App() {
+
+
   return (
+
+    
     <Router>
       <Layout>
         <Routes>
@@ -174,14 +194,16 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          
           
          
             {/* Finance Routes */}
-          <Route path="/BalanceSheet" element={<BalanceSheet />} />
-          <Route path="/DisplayReport" element={<DisplayReport />} />
-          <Route path="/EditReport" element={<EditReport />} />
-          <Route path="/AddReport" element={<AddReport /> } />
-          <Route path="/Overview" element={<Overview />} />
+          <Route path="/BalanceSheet" element={<LayoutWithSidebar><BalanceSheet /></LayoutWithSidebar>} />
+          <Route path="/DisplayReport" element={<LayoutWithSidebar><DisplayReport /></LayoutWithSidebar>} />
+          <Route path="/EditReport/:id" element={<LayoutWithSidebar><EditReport /></LayoutWithSidebar>} />
+          <Route path="/AddReport" element={<LayoutWithSidebar><AddReport /></LayoutWithSidebar> } />
+          <Route path="/Overview" element={<LayoutWithSidebar> <Overview /> </LayoutWithSidebar>} />
           <Route path="/LoginRegister" element={<LoginRegister />} />
 
         <Route path="/ServiceList" element={<ServiceList />} />
@@ -289,13 +311,31 @@ function App() {
 
       <Route path="/F_AdminReport" element={<F_AdminReport/>} />
 
+      
+      <Route path="/ItemList" element={<ItemList/>} />
+      <Route path="/FavoritePackages" element={<FavoritePackagesPage/>} />
+      <Route path="/edit-package/:id" element={<EditPackagePage />} />
 
 
+      <Route path="/BalanceSheet" element={<LayoutWithSidebar><BalanceSheet /></LayoutWithSidebar>} />
+      
+      
+      
+      
+
+
+      <Route path="/bill" element={<Bill />} /> 
+          <Route path="/Cart" element={<Cart />} /> 
+          <Route path="/order" element={<Order />} />
+          <Route path="/track" element={<Track />} />
+          <Route path="/OrderManage" element={<OrderManage />} />
 
         </Routes>
         <ChatBotButton />
 </Layout>
       </Router>
+
+      
 
 );}
 

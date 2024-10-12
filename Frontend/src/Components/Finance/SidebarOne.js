@@ -2,11 +2,20 @@ import React, { useState } from "react";
 import { HiOutlineHome, HiOutlineTag, HiOutlineLogout } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const SidebarOne = () => {
   const [selected, setSelected] = useState("Overview");
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Perform any logout logic here, like clearing authentication tokens
+    // Redirect to the home page
+    navigate("/");
+  };
 
   const handleItemClick = (label) => {
     if (selected === label) {
@@ -36,11 +45,14 @@ const SidebarOne = () => {
           handleItemClick={handleItemClick}
           dropdownItems={[
             { label: "Add A Report", link: "/addreport" },
-            { label: "Reports", link: "/reportView" },
+            { label: "Reports", link: "/displayreport" },
           ]}
         />
       </nav>
-      <button className="mt-auto bg-primary text-light rounded-full py-2 px-4 hover:bg-opacity-80 font-russo">
+      <button
+        onClick={handleLogout} // Call handleLogout when clicked
+        className="mt-auto bg-primary text-light rounded-full py-2 px-4 hover:bg-opacity-80 font-russo"
+      >
         Log Out
       </button>
     </div>

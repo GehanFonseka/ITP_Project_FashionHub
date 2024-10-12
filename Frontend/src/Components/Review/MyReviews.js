@@ -11,6 +11,8 @@ const MyReviews = () => {
   const [formData, setFormData] = useState({ rating: '', comment: '' });
   const [currentPage, setCurrentPage] = useState(1);
   const reviewsPerPage = 10;
+  const [errrating,seterrrating] = useState(false);
+  const [errcomment,seterrcomment] = useState(false);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -47,20 +49,41 @@ const MyReviews = () => {
     console.log("dfdsfdfs");
     console.log(editingReview._id)
     console.log(formData)
-    try {
-      const response = await axios.put("http://localhost:5000/api/reviews/update_Review/"+editingReview._id, {formData});
-      console.log(response);
-      setReviews(reviews.map((review) => (review._id === editingReview._id ? response.data : review)));
-      setModalOpen(false);
-      setEditingReview(null);
-    } catch (error) {
-      console.error('Error updating review:', error);
+    if(formData.comment == ""){
+      seterrcomment(true)
+    }else if(formData.rating <=0 || formData.rating>5){
+      seterrrating(true)
+    }else{
+      try {
+        const response = await axios.put("http://localhost:5000/api/reviews/update_Review/"+editingReview._id, {formData});
+        console.log(response);
+        setReviews(reviews.map((review) => (review._id === editingReview._id ? response.data : review)));
+        setModalOpen(false);
+        setEditingReview(null);
+      } catch (error) {
+        console.error('Error updating review:', error);
+      }
     }
+    
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    seterrcomment(false)
+    seterrrating(false)
+
+    console.log(name,":::",value);
+    
+  
+    
+
+   
+      setFormData((prevState) => ({ ...prevState, [name]: value }));
+    
+
+   
+    
+    
   };
 
   const handlePageChange = (pageNumber) => {
@@ -78,7 +101,7 @@ const MyReviews = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHeaderCell>UserID</TableHeaderCell>
+              <TableHeaderCell>UserName</TableHeaderCell>
               <TableHeaderCell>Comment</TableHeaderCell>
               <TableHeaderCell>Stars</TableHeaderCell>
               <TableHeaderCell>Action</TableHeaderCell>
@@ -128,10 +151,16 @@ const MyReviews = () => {
               <Label>
                 Rating:
                 <Input type="number" name="rating" value={formData.rating} onChange={handleInputChange} min="1" max="5" />
+                {errrating && (
+                  <text>enter a number between 1 to 5</text>
+                )}
               </Label>
               <Label>
                 Comment:
                 <Textarea name="comment" value={formData.comment} onChange={handleInputChange} />
+                {errcomment&&(
+                  <text>enter a comment</text>
+                )}
               </Label>
               <ButtonContainer>
                 <ActionButton onClick={handleUpdate}>Update</ActionButton>
@@ -148,7 +177,7 @@ const MyReviews = () => {
 // Styled components
 const Container = styled.div`
   padding: 20px;
-  margin-top: 80px;
+  margin-top: 100px;
 `;
 
 const TableContainer = styled.div`

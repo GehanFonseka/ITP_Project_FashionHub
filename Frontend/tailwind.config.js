@@ -22,3 +22,5 @@ export default {
     // other plugins can also be imported and added similarly
   ],
 };
+
+
