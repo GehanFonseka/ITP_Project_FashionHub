@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'; // Import autoTable for tables
 
 // Define all styled components at the top of the file
 const Container = styled.div`
@@ -78,6 +80,23 @@ const AddToCartButton = styled.button`
   }
 `;
 
+const DownloadButton = styled.button`
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
 // Component definition
 const C_TMDetails = () => {
   const location = useLocation();
@@ -85,9 +104,32 @@ const C_TMDetails = () => {
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    // Handle adding the item to the cart (you might want to navigate to a cart page or trigger an API call)
     console.log('Adding to cart:', { item, selectedColor, measurements });
     navigate('/cart'); // Example: navigate to a cart page
+  };
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(20);
+    doc.text('Tailor-Made Bill', 14, 22);
+    doc.setFontSize(12);
+    doc.text(`Name: ${item.name}`, 14, 40);
+    doc.text(`Price: LKR${item.price}`, 14, 50);
+    doc.text(`Selected Color: ${selectedColor}`, 14, 60);
+
+    // Create a table for measurements
+    const measurementData = Object.entries(measurements).map(([key, value]) => [
+      key.charAt(0).toUpperCase() + key.slice(1),
+      value
+    ]);
+
+    autoTable(doc, {
+      head: [['Measurement', 'Value']],
+      body: measurementData,
+      startY: 70,
+    });
+
+    doc.save('bill.pdf'); // Name of the PDF file
   };
 
   if (!item) return <p>No item data found.</p>;
@@ -111,6 +153,7 @@ const C_TMDetails = () => {
           </MeasurementList>
         </DetailsDisplay>
         <AddToCartButton onClick={handleAddToCart}>Add to Cart</AddToCartButton>
+        <DownloadButton onClick={handleDownloadPDF}>Download PDF</DownloadButton>
       </DetailsCard>
     </Container>
   );
