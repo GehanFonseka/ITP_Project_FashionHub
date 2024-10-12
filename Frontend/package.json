@@ -15,6 +15,9 @@
     "animate.css": "^4.1.1",
     "assert": "^2.1.0",
     "axios": "^1.7.7",
+
+    "jspdf": "^2.5.2",
+
     "body-parser": "^1.20.2",
     "boostrap": "^2.0.0",
     "browserify-zlib": "^0.2.0",
@@ -36,6 +39,7 @@
     "mongoose": "^8.5.4",
     "npm": "^10.8.3",
     "pdfkit": "^0.15.0",
+
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
