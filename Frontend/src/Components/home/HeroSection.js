@@ -98,18 +98,28 @@ const ShopButton = styled.a`
 
 const FindOutfitButton = styled.a`
   position: absolute;
-  bottom: -40px; /* Positioning it slightly below the container */
+  bottom: -50px; /* Positioned slightly lower */
   right: 0;
-  padding: 10px 20px;
-  background-color: #008080; /* Teal color for visibility */
+  padding: 15px 30px; /* Increased padding for a larger button */
+  background-color: #8b0000; /* Brighter teal for better visibility */
   color: #ffffff;
-  text-decoration: none;
+  font-size: 1.2rem; /* Larger text size */
   font-weight: bold;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s ease;
+  text-decoration: none;
+  border-radius: 8px; /* Slightly rounder corners */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  /* Adding an icon before the text */
+  &::before {
+    content: '🎯'; /* Target icon or change to any relevant emoji/icon */
+    margin-right: 10px;
+    font-size: 1.5rem;
+  }
 
   &:hover {
-    background-color: #006666; /* Darker teal on hover */
+    background-color: #009688; /* Darker teal on hover */
+    transform: scale(1.05); /* Slight zoom-in on hover */
   }
 `;
+

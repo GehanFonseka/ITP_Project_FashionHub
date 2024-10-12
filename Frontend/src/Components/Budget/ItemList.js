@@ -3,6 +3,8 @@ import axios from "axios";
 import ItemCard from "./ItemCard";
 import "./itemlist.css";
 
+
+
 const ItemList = () => {
   const [products, setProducts] = useState({
     category1: [],
@@ -186,6 +188,7 @@ const ItemList = () => {
 
   return (
     <div>
+      
       <br />
       <br />
       <br />
@@ -200,7 +203,7 @@ const ItemList = () => {
         className="search-bar"
       />
 
-<div className="navigate-link-container">
+    <div className="navigate-link-container">
       <a
         href="/FavoritePackages" // Use the appropriate path for the Favorite Packages page
         className="navigate-link"

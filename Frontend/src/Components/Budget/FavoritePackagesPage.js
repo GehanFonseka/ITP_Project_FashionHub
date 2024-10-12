@@ -94,40 +94,57 @@ const FavoritePackagesPage = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-    let yPosition = 10; // Starting Y position for the text
   
+    // Add the centered title "FashionHub" in light orange
+    doc.setFontSize(24);
+    doc.setTextColor(255, 165, 0); // Light orange color
+    doc.text("FashionHub", doc.internal.pageSize.getWidth() / 2, 15, { align: 'center' });
+  
+    // Set the report title below the main title
     doc.setFontSize(16);
-    doc.text("Favorite Packages Report", 10, yPosition);
+    doc.setTextColor(0, 0, 0); // Reset to black for the report title
+    doc.text("Favorite Packages Report", 14, 30);
   
-    yPosition += 10; // Add space after the title
+    // Add some space after the title
+    let yPosition = 40;
   
     favoritePackages.forEach((pkg, index) => {
-      doc.setFontSize(12);
-      doc.text(`Package: ${pkg.name} - Budget: Rs. ${pkg.budget}`, 10, yPosition);
+      // Package name and budget
+      doc.setFontSize(14);
+      doc.text(`Package: ${pkg.name} - Budget: Rs. ${pkg.budget}`, 14, yPosition);
       yPosition += 10; // Add space after each package
   
-      // For each item in the package, print details and increment the Y position
-      Object.keys(pkg.items).forEach((itemKey, itemIndex) => {
-        const item = pkg.items[itemKey];
-        doc.text(`${itemKey}: ${item.name} - Price: Rs. ${item.price}`, 10, yPosition);
-        yPosition += 10; // Add space between each item
+      // Prepare table data for this package
+      const tableColumn = ["Item Type", "Item Name", "Price (Rs)"];
+      const tableRows = [];
   
-        // Check if yPosition goes beyond the page height and add a new page if necessary
-        if (yPosition >= 280) {
-          doc.addPage();
-          yPosition = 10; // Reset Y position for the new page
-        }
+      Object.keys(pkg.items).forEach((itemKey) => {
+        const item = pkg.items[itemKey];
+        const rowData = [itemKey, item.name, item.price];
+        tableRows.push(rowData);
       });
   
-      yPosition += 10; // Add extra space after each package to separate them
+      // Generate table using autoTable with light orange header
+      doc.autoTable({
+        startY: yPosition, // Set the Y position for the table to begin
+        head: [tableColumn],
+        body: tableRows,
+        theme: 'grid', // Customizable theme
+        headStyles: { fillColor: [255, 165, 0] }, // Light orange color for the table headers
+        margin: { top: 10 },
+      });
+  
+      // Move yPosition to after the table to add space before the next package
+      yPosition = doc.autoTable.previous.finalY + 20; // Adjust for spacing after the table
   
       // Check if yPosition goes beyond the page height and add a new page if necessary
       if (yPosition >= 280) {
         doc.addPage();
-        yPosition = 10; // Reset Y position for the new page
+        yPosition = 30; // Reset Y position for the new page
       }
     });
   
+    // Save the generated PDF
     doc.save("favorite-packages.pdf");
   };
   
