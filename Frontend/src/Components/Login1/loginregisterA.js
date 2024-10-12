@@ -30,31 +30,24 @@ const LoginRegister = () => {
         (user) => user.username === username && user.password === password
       );
       if (user) {
-        switch (user.role) {
-          case "finance":
-            navigate("/overview");
-            break;
-          case "supporter":
-            navigate("/contact");
-            break;
-          case "saloon":
-            navigate("/Dashboard");
-            break;
-          case "clothing":
-            navigate("/C_AdminDB01");
-            break;
-          case "review":
-            navigate("/DashboardContainer");
-            break;
-          case "accessories":
-            navigate("/F_adminDashboard");
-            break;
-          case "delivery":
-            navigate("/manager");
-            break;
-          default:
-            navigate("/customer");
-            break;
+
+        if (user.role === "finance") {
+          navigate("/overview");
+        } else if (user.role === "supporter") {
+          navigate("/contact");
+        } else if (user.role === "saloon") {
+          navigate("/Dashboard");
+        } else if (user.role === "clothing") {
+          navigate("/C_AdminDB01");
+        } else if (user.role === "review") {
+          navigate("/DashboardContainer");
+        } else if (user.role === "accessories") {
+          navigate("/F_adminDashboard");
+        } else if (user.role === "delivery") {
+          navigate("/OrderManage");
+        } else {
+          navigate("/customer");
+
         }
       } else {
         setError("Invalid credentials");

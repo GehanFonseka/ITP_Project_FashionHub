@@ -61,10 +61,11 @@ const DisplayReport = () => {
         );
         const report = response.data;
   
-        const shopId = report.shopID === "SHID01" ? "Clothing" : 
-        report.shopID === "SHID02" ? "Shoes" :
-        report.shopID === "SHID03" ? "Accessories" :
-        report.shopID === "SHID04" ? "Saloon" :
+        // Determine the shop name
+        const sellerNo = report.sellerNo === 1101 ? "Clothing" : 
+        report.sellerNo === 1010 ? "Shoes" :
+        report.sellerNo === 1011 ? "Accessories" :
+        report.sellerNo === 1000 ? "Saloon" :
         "Unknown Shop"; 
   
         // Log the fetched report data
@@ -89,8 +90,6 @@ const DisplayReport = () => {
         doc.setFont("Russo One", "normal");
         doc.setFontSize(24);
         doc.setTextColor(231, 111, 81);
-  
-        // Store name at the top
         doc.text("FashionHub", 300, 50, { align: "center" });
   
         // Header for the report
@@ -115,7 +114,7 @@ const DisplayReport = () => {
           startY: 120,
           head: [["Report Details"]],
           body: [
-            [`Shop Name: ${shopId}`],
+            [`Shop Name: ${sellerNo}`],
             [`Month: ${report.month}`],
             [`Year: ${report.year}`],
           ],
@@ -137,12 +136,16 @@ const DisplayReport = () => {
         });
   
         // Balance Sheet Section
+        const expensesBody = Object.entries(report.expenses)
+          .filter(([key, value]) => value != null) // Filter out null or undefined
+          .map(([key, value]) => [
+            `${key}: Rs. ${value ? value.toFixed(2) : "0.00"}`, // Default to 0.00 if value is empty
+          ]);
+  
         autoTable(doc, {
           startY: doc.autoTable.previous.finalY + 20,
           head: [["Balance Sheet"]],
-          body: Object.entries(report.expenses).map(([key, value]) => [
-            `${key}:  Rs. ${value.toFixed(2)}`,
-          ]),
+          body: expensesBody.length ? expensesBody : [["No expenses available"]],
           theme: "striped",
           headStyles: { fillColor: [231, 111, 81] },
           margin: { bottom: 10 },
@@ -150,12 +153,16 @@ const DisplayReport = () => {
         });
   
         // Petty Cash Section
+        const pettyCashBody = Object.entries(report.pettyCash)
+          .filter(([key, value]) => value != null) // Filter out null or undefined
+          .map(([key, value]) => [
+            `${key}: Rs. ${value ? value.toFixed(2) : "0.00"}`, // Default to 0.00 if value is empty
+          ]);
+  
         autoTable(doc, {
           startY: doc.autoTable.previous.finalY + 20,
           head: [["Petty Cash"]],
-          body: Object.entries(report.pettyCash).map(([key, value]) => [
-            `${key}:  Rs. ${value.toFixed(2)}`,
-          ]),
+          body: pettyCashBody.length ? pettyCashBody : [["No petty cash available"]],
           theme: "striped",
           headStyles: { fillColor: [231, 111, 81] },
           margin: { bottom: 10 },
@@ -166,7 +173,7 @@ const DisplayReport = () => {
         autoTable(doc, {
           startY: doc.autoTable.previous.finalY + 20,
           head: [["Net Profit"]],
-          body: [[`Net Profit:  Rs ${report.netProfit}`]],
+          body: [[`Net Profit: Rs ${report.netProfit || 0}`]], // Default to 0 if net profit is undefined
           theme: "striped",
           headStyles: { fillColor: [231, 111, 81] },
           margin: { bottom: 10 },
@@ -183,6 +190,7 @@ const DisplayReport = () => {
       console.log("No report selected");
     }
   };
+  
   
 
   const ReportCard = ({ report }) => {
@@ -206,10 +214,10 @@ const DisplayReport = () => {
     const monthName = months[report.month - 1] || "Unknown Month"; 
 
     // Assuming report is passed as a prop or fetched earlier in the component
-        const shopId = report.shopID === "SHID01" ? "Clothing" : 
-        report.shopID === "SHID02" ? "Shoes" :
-        report.shopID === "SHID03" ? "Accessories" :
-        report.shopID === "SHID04" ? "Saloon" :
+        const sellerNo = report.sellerNo === 1101 ? "Clothing" : 
+        report.sellerNo === 1010 ? "Shoes" :
+        report.sellerNo === 1011 ? "Accessories" :
+        report.sellerNo === 1000 ? "Saloon" :
         "Unknown Shop"; // Default case if shopID doesn't match
 
     return (
@@ -221,7 +229,7 @@ const DisplayReport = () => {
         </h3>
         <div className="flex justify-between mb-2">
           <span className="text-[#5C646C]">Shop Name:</span>
-          <span>{shopId}</span>
+          <span>{sellerNo}</span>
         </div>
         <div className="flex justify-between mb-2">
           <span className="text-[#5C646C]">Total Income:</span>
@@ -286,10 +294,10 @@ const DisplayReport = () => {
     };
 
 
-    const shopId = report.shopID === "SHID01" ? "Clothing" : 
-        report.shopID === "SHID02" ? "Shoes" :
-        report.shopID === "SHID03" ? "Accessories" :
-        report.shopID === "SHID04" ? "Saloon" :
+    const sellerNo = report.sellerNo === 1101 ? "Clothing" : 
+        report.sellerNo === 1010 ? "Shoes" :
+        report.sellerNo === 1011 ? "Accessories" :
+        report.sellerNo === 1000 ? "Saloon" :
         "Unknown Shop"; 
 
 
@@ -326,7 +334,7 @@ const DisplayReport = () => {
                   <span className="text-[#5C646C]">Shop ID</span>
                   <input
                     type="text"
-                    value={shopId}
+                    value={sellerNo}
                     readOnly
                     className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
                     placeholder="Shop ID"
@@ -501,16 +509,15 @@ const DisplayReport = () => {
     );
   };
 
-  // Function to map shop name to shopID
+// Function to map shop name to shopID
 const getShopIDFromName = (shopName) => {
   const lowerCaseShopName = shopName.toLowerCase();
-  if (lowerCaseShopName === "clothing") return "SHID01";
-  if (lowerCaseShopName === "shoes") return "SHID02";
-  if (lowerCaseShopName === "accessories") return "SHID03";
-  if (lowerCaseShopName === "saloon") return "SHID04";
+  if (lowerCaseShopName === "clothing") return 1101;
+  if (lowerCaseShopName === "shoes") return 1010;
+  if (lowerCaseShopName === "accessories") return 5000;
+  if (lowerCaseShopName === "saloon") return 1000;
   return ""; // return empty if no match
 };
-
 
   // Get today's date
   const today = new Date();
@@ -520,19 +527,19 @@ const getShopIDFromName = (shopName) => {
   /*-----without display card(other things)----------*/
   return (
     <div className="p-4">
-      {/* Search and Filters Row */}
-      <div className="flex flex-wrap items-center gap-4 mb-4">
-        {/* Search by Shop ID */}
-        <div className="flex items-center">
-          <input
-            type="text"
-            placeholder="Search by Shop Name"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-          />
-          <FaSearch className="ml-2 text-gray-600" />
-        </div>
+        {/* Search n filters raw */}
+        <div className="flex flex-wrap items-center gap-4 mb-4">
+          {/* Search by Shop Name or ID */}
+          <div className="flex items-center">
+            <input
+              type="text"
+              placeholder="Search by Shop Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="p-2 border border-gray-300 rounded"
+            />
+            <FaSearch className="ml-2 text-gray-600" />
+          </div>
 
         {/* Year Filter Dropdown */}
         <div className="flex items-center">
@@ -602,22 +609,29 @@ const getShopIDFromName = (shopName) => {
 
       {/* Report Cards Grid with search functionality */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {reports
-          .filter((report) => {
-            const normalizedSearchTerm = searchTerm.toLowerCase();
-            
-            // Get shop ID from name, or use the search term directly if it's a shop ID
-            const shopID = getShopIDFromName(normalizedSearchTerm) || searchTerm.toUpperCase();
+      {reports
+        .filter((report) => {
+          // Normalize the search term for consistent comparison
+          const normalizedSearchTerm = searchTerm ? searchTerm.toLowerCase() : "";
 
-            return (
-              (searchTerm ? report.shopID.includes(shopID) : true) &&
-              (filters.year ? report.year === filters.year : true) &&
-              (filters.month ? report.month === filters.month : true)
-            );
-          })
-          .map((report) => (
-            <ReportCard key={report._id} report={report} />
-          ))}
+          // Use the shop ID based on the shop name or return an empty string if no valid shop ID is found
+          const shopID = getShopIDFromName(normalizedSearchTerm);
+
+          // If a valid shop ID is found, use it; otherwise, fall back to the normalized search term
+          const sellerno = shopID !== "" ? shopID : normalizedSearchTerm;
+
+          // Perform filtering and ensure report.sellerno exists before calling toUpperCase
+          return (
+            (searchTerm
+              ? report.sellerNo && report.sellerNo.toString().includes(sellerno.toString())
+              : true) &&
+            (filters.year ? report.year === filters.year : true) &&
+            (filters.month ? report.month === filters.month : true)
+          );
+        })
+        .map((report) => (
+          <ReportCard key={report._id} report={report} />
+        ))}
       </div> 
 
       {/* Full Report Popup */}

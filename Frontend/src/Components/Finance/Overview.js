@@ -3,7 +3,6 @@ import axios from "axios";
 import "daisyui";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -31,20 +30,28 @@ const Overview = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+
+  const handleShopChange = (e) => {
+    const shopNumber = Number(e.target.value); // Convert the input value to a number
+    setSelectedSalesShop(shopNumber);          // Update the state with the number
+  };
+  
+
   const shopOptions = [
-    { id: "SHID01", name: "Clothing" },
-    { id: "SHID02", name: "Shoes" },
-    { id: "SHID03", name: "Accessories" },
-    { id: "SHID04", name: "Saloon" },
+    { id: 1101, name: "Clothing" },
+    { id: 1010, name: "Shoes" },
+    { id: 1011, name: "Accessories" },
+    { id: 1004, name: "Saloon" },
   ];
+  
 
   const shopMap = {
-    SHID01: "Clothing",
-    SHID02: "Shoe",
-    SHID03: "Accessories",
-    SHID04: "Saloon",
+    1101: "Clothing",
+    1010: "Shoes",
+    1011: "Accessories",
+    1004: "Saloon",
   };
-
+  
   // Get the shop name from the shopMap
   const selectedShopName = shopMap[selectedReportsShop] || selectedReportsShop;
 
@@ -78,7 +85,7 @@ const Overview = () => {
   useEffect(() => {
     if (selectedReportsShop) {
       const filtered = reports.filter(
-        (report) => report.shopID === selectedReportsShop
+        (report) => report.sellerNo === selectedReportsShop
       );
       setFilteredReports(filtered);
     } else {
@@ -90,49 +97,83 @@ const Overview = () => {
     setSalesView(salesView === "daily" ? "monthly" : "daily");
   };
 
-  const fetchSalesData = async () => {
-    const numericalMonth = month ? parseInt(month, 10) : null;
-    const calculateRoute =
-      salesView === "daily"
-        ? "calculate-daily-sales"
-        : "calculate-monthly-sales";
+const fetchSalesData = async () => {
+  // Convert the month to a number if it exists
+  const numericalMonth = month ? parseInt(month, 10) : null;
 
-    const fetchRoute = salesView === "daily" ? "daily-sales" : "monthly-sales";
+  // Convert sellerNo, year, and day to numbers
+  const numericalSellerNo = parseInt(selectedSalesShop, 10); // Convert sellerNo
+  const numericalYear = parseInt(year, 10);                  // Convert year
+  const numericalDay = parseInt(day, 10);                    // Convert day
 
-    const payload =
-      salesView === "daily"
-        ? { shopId: selectedSalesShop, year, month: numericalMonth, day }
-        : { shopId: selectedSalesShop, year, month: numericalMonth };
 
-    setLoading(true);
-    setError(null);
+  // Determine the correct API route for calculating sales data
+  const calculateRoute =
+    salesView === "daily"
+      ? "calculate-daily-sales"
+      : "calculate-monthly-sales";
 
-    try {
-      // Step 1: POST request to calculate sales data
-      await axios.post(
-        `http://localhost:5000/api/income/${calculateRoute}`,
-        payload
-      );
+  // Determine the correct API route for fetching sales data
+  const fetchRoute = salesView === "daily" ? "daily-sales" : "monthly-sales";
 
-      // Step 2: GET request to fetch the calculated sales data
-      const response = await axios.get(
-        `http://localhost:5000/api/income/${fetchRoute}`,
-        { params: payload }
-      );
+  // Prepare the payload for the POST request
+  const payload =
+    salesView === "daily"
+      ? { sellerNo: numericalSellerNo, year: numericalYear, month: numericalMonth, day: numericalDay}
+      : { sellerNo: numericalSellerNo, year: numericalYear, month: numericalMonth };
 
-      if (response.data && response.data.salesDetails) {
-        setSalesData(response.data.salesDetails);
-      } else {
-        setSalesData([]);
-      }
-    } catch (error) {
-      console.error("Failed to fetch sales data:", error);
-      setError("Failed to fetch sales data. Please try again later.");
+  // Log payload and selectedSalesShop for debugging
+  console.log("Selected Seller No:", selectedSalesShop);
+  console.log("Payload for POST request:", payload);
+
+  // Set loading to true and reset error state
+  setLoading(true);
+  setError(null);
+
+  try {
+    // Step 1: POST request to calculate sales data
+    console.log(`Sending POST request to http://localhost:5000/api/income/${calculateRoute}`);
+    await axios.post(`http://localhost:5000/api/income/${calculateRoute}`, payload);
+
+    // Step 2: GET request to fetch the calculated sales data
+    console.log(`Sending GET request to http://localhost:5000/api/income/${fetchRoute}`);
+    const response = await axios.get(`http://localhost:5000/api/income/${fetchRoute}`, {
+      params: payload
+    });
+
+    // Log the full response for debugging
+    console.log("API Response:", response);
+
+    // Check if response contains the salesDetails data
+    if (response.data && response.data.salesDetails) {
+      setSalesData(response.data.salesDetails);
+    } else {
+      // If no sales data found, set an empty array
       setSalesData([]);
-    } finally {
-      setLoading(false);
     }
-  };
+  } catch (error) {
+    // Enhanced error logging for better debugging
+    if (error.response) {
+      // Server responded with a status code outside 2xx range
+      console.error("Response data:", error.response.data);
+      console.error("Response status:", error.response.status);
+    } else if (error.request) {
+      // Request made but no response received
+      console.error("No response received:", error.request);
+    } else {
+      // Other errors (e.g., setting up the request)
+      console.error("Error message:", error.message);
+    }
+
+    // Set error state to notify user
+    setError("Failed to fetch sales data. Please try again later.");
+    setSalesData([]);
+  } finally {
+    // Reset loading state
+    setLoading(false);
+  }
+};
+
 
   const groupReportsByYear = (reports) => {
     return reports.reduce((acc, report) => {
@@ -142,18 +183,30 @@ const Overview = () => {
     }, {});
   };
 
-  // PDF generation function
   const downloadPdf = () => {
     const doc = new jsPDF({
       orientation: "landscape",
       unit: "pt",
       format: "a4",
     });
-
-    // Set title for the document
-    doc.text(`Shop ${selectedShopName} Reports`, 40, 40);
-
-    // Loop over each year of reports and generate a separate table
+  
+    // Set the color for the title
+    doc.setTextColor("#E76F51");
+  
+    doc.setFontSize(24);
+  
+    const title = "FashionHub";
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const titleWidth = doc.getTextWidth(title);
+    const titleXPosition = (pageWidth - titleWidth) / 2;
+    doc.text(title, titleXPosition, 40);
+  
+    // Set a normal color for the rest of the text
+    doc.setTextColor("#000000");
+  
+    doc.setFontSize(16);
+    doc.text(`Shop ${selectedShopName} Reports`, 40, 80);
+  
     Object.keys(reportsByYear).forEach((year, index) => {
       const yearReports = reportsByYear[year].map((report) => [
         monthNames[report.month - 1],
@@ -161,17 +214,16 @@ const Overview = () => {
         report.totalExpenses.toFixed(2),
         report.netProfit.toFixed(2),
       ]);
-
-      // Add a new page for each year except the first
+  
       if (index !== 0) {
         doc.addPage();
       }
-
-      const yearLabelYPosition = 80;
-
+  
+      const yearLabelYPosition = 120;
+  
       // Add year label
       doc.text(`Year: ${year}`, 40, yearLabelYPosition);
-
+  
       doc.autoTable({
         startY: yearLabelYPosition + 10,
         head: [
@@ -187,19 +239,25 @@ const Overview = () => {
         styles: {
           halign: "center",
         },
+        headStyles: {
+          fillColor: "#E76F51", 
+          textColor: "#ffffff", 
+        },
       });
     });
-
+  
     // Save the PDF
     doc.save(`Shop-${selectedShopName}-Reports.pdf`);
   };
+  
+  
 
   const reportsByYear = groupReportsByYear(filteredReports);
 
   // Get today's date
   const today = new Date();
   const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1; // Months are zero-based, so add 1
+  const currentMonth = today.getMonth() + 1;
   const currentDay = today.getDate();
 
   // Prepare data for the bar chart
@@ -224,17 +282,17 @@ const Overview = () => {
           {
             label: "Total Income (Rs.)",
             data: incomeData,
-            backgroundColor: "#2b6cb0", // Blue
+            backgroundColor: "#2b6cb0", 
           },
           {
             label: "Total Expenses (Rs.)",
             data: expensesData,
-            backgroundColor: "#e76f51", // Red
+            backgroundColor: "#e76f51",
           },
           {
             label: "Net Profit (Rs.)",
             data: netProfitData,
-            backgroundColor: "#2f855a", // Green
+            backgroundColor: "#4CAF50", 
           },
         ],
       });
@@ -314,13 +372,13 @@ const Overview = () => {
             className="select bg-gray-200 p-2 border border-[#E76F51] rounded text-[#5C646C]"
             value={month}
             onChange={(e) => setMonth(e.target.value)}
-            disabled={!year} // Disable month selection until the year is selected
+            disabled={!year} 
           >
             <option value="">Select Month</option>
             {monthNames.map((m, index) => {
               const monthNumber = index + 1;
               const isDisabled =
-                year === currentYear.toString() && monthNumber > currentMonth; // Disable future months if the current year is selected
+                year === currentYear.toString() && monthNumber > currentMonth; 
               return (
                 <option key={m} value={monthNumber} disabled={isDisabled}>
                   {m}
@@ -335,14 +393,14 @@ const Overview = () => {
               className="select bg-gray-200 p-2 border border-[#E76F51] rounded text-[#5C646C]"
               value={day}
               onChange={(e) => setDay(e.target.value)}
-              disabled={!month} // Disable day selection until the month is selected
+              disabled={!month} 
             >
               <option value="">Select Day</option>
               {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => {
                 const isDisabled =
                   year === currentYear.toString() &&
                   month === currentMonth.toString() &&
-                  d > currentDay; // Disable future days if current year and month are selected
+                  d > currentDay; 
                 return (
                   <option key={d} value={d} disabled={isDisabled}>
                     {d}
@@ -358,7 +416,7 @@ const Overview = () => {
           onClick={() => {
             fetchSalesData();
           }}
-          className="p-2 bg-[#5C646C] text-white rounded mb-4"
+          className="p-2 bg-[#4CAF50] text-white rounded mb-4"
         >
           Show Sales
         </button>
@@ -368,16 +426,16 @@ const Overview = () => {
           <>
             <table className="table w-full mb-4" id="report-table">
               <thead>
-                <tr>
-                  <th>Item ID</th>
+                <tr className="text-lg text-black">
+                  <th>Item Name</th>
                   <th>Quantity Sold</th>
                   <th>Total Sales (Rs.)</th>
                 </tr>
               </thead>
               <tbody>
                 {salesData.map((item) => (
-                  <tr key={item.itemId}>
-                    <td>{item.itemId}</td>
+                  <tr className="text-gray-800" key={item.itemsN}>
+                    <td>{item.itemsN}</td>
                     <td>{item.quantity}</td>
                     <td>{item.totalSales.toFixed(2)}</td>
                   </tr>
@@ -411,7 +469,7 @@ const Overview = () => {
           id="shop-dropdown"
           className="bg-gray-200 p-2 border border-[#E76F51] rounded"
           value={selectedReportsShop}
-          onChange={(e) => setSelectedReportsShop(e.target.value)}
+          onChange={(e) => setSelectedReportsShop(Number(e.target.value))} // Convert value to a number
         >
           <option value="">Choose Shop</option>
           {shopOptions.map((shop) => (
@@ -420,6 +478,7 @@ const Overview = () => {
             </option>
           ))}
         </select>
+
       </div>
 
       {/* Bar Chart */}
@@ -438,9 +497,9 @@ const Overview = () => {
           <h3 className="text-2xl font-semibold text-[#5C646C] mb-4">
             Year: {year}
           </h3>
-          <table className="table w-full mb-4" id="report-table">
+          <table className="table w-full mb-4 " id="report-table">
             <thead>
-              <tr>
+              <tr className="text-lg text-black">
                 <th>Month</th>
                 <th>Total Income (Rs.)</th>
                 <th>Total Expenses (Rs.)</th>
@@ -449,7 +508,7 @@ const Overview = () => {
             </thead>
             <tbody>
               {reportsByYear[year].map((report) => (
-                <tr key={report._id}>
+                <tr className=" text-gray-800" key={report._id}>
                   <td>{monthNames[report.month - 1]}</td>
                   <td>{report.totalIncome.toFixed(2)}</td>
                   <td>
@@ -468,7 +527,7 @@ const Overview = () => {
         <div className="mt-4">
           <button
             onClick={downloadPdf}
-            className="p-2 bg-[#5C646C] text-white rounded"
+            className="p-2 bg-[#4CAF50] text-white rounded"
           >
             Download PDF
           </button>

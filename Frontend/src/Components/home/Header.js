@@ -67,8 +67,7 @@ export default Header;
 
 const Nav = styled.nav`
   display: flex;
-  align-items: center; /* Center the items vertically */
-  padding: 15px 25px;
+  padding: 15px 25px; /* Increased padding by 5px */
   background-color: #000;
   position: fixed;
   top: 0;
@@ -77,14 +76,15 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.img`
-  height: 50px;
-  margin-right: 30px; /* Add some space between logo and menu */
+
+height: 50px;
+
 `;
 
 const Menu = styled.div`
   display: flex;
   gap: 25px;
-  flex-grow: 1; /* Allow the menu to grow and take up available space */
+  padding-top:23px;
 `;
 
 const MenuItem = styled.a`
@@ -99,45 +99,28 @@ const MenuItem = styled.a`
 `;
 
 const SearchContainer = styled.div`
-  display: flex;
-  align-items: center; /* Center the search input vertically */
-  justify-content: center; /* Center the search input horizontally */
-  margin: 0 10px; /* Horizontal margin for spacing */
-  height: 50%; /* Fill the header height */
-  position: relative; /* Ensure it positions relative to the header */
-  top: 8px; /* Move down without changing the header size */
-  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  margin-left: 260px; /* Adjust this to position the search bar */
+  margin-top: 15px; /* Adjusted margin to align search bar */
 `;
 
 const SearchInput = styled.input`
-  padding: 12px 15px; /* Increased padding for a comfortable input size */
-  border: 1px solid #ccc; /* Light gray border */
-  border-radius: 30px; /* More rounded corners for a modern look */
+  padding: 12px 14px; /* Slightly increased padding for input */
+  border-radius: 4px;
+  border: 1px solid #ccc;
   font-size: 16px;
-  width: 200px; /* Adjust width as needed */
-  outline: none; /* Remove outline */
-  transition: width 0.4s ease, border-color 0.3s ease; /* Smooth transitions */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  background-color: #fff; /* White background for the input */
-  
-  /* Placeholder styling */
-  &::placeholder {
-    color: #aaa; /* Placeholder color */
-    opacity: 0.7; /* Slightly transparent for a modern look */
-  }
+  width: 150px; /* Adjusted width slightly */
+  outline: none;
 
-  /* Focus styles */
   &:focus {
-    width: 250px; /* Expand width on focus */
-    border-color: #AE2012; /* Change border color on focus */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Deeper shadow on focus */
+    border-color: #AE2012; /* Change the border color when focused */
   }
 `;
 
 const IconContainer = styled.div`
   display: flex;
-  gap: 35px;
-  margin-left: 50px; /* Adjusted margin for better alignment */
+  padding-top: 23px; /* Adjusted padding to align icons */
+  gap: 35px; /* Adjusted gap between icons */
+  margin-left: 55px; /* Adjust this value as needed */
 `;
 
 const IconLink = styled.a`

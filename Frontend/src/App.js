@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
 import HeroSection from './Components/home/HeroSection';
 import LayoutWithSidebar from "./Components/Finance/LayoutWithSidebar";
+import BLayout from './Components/Budget/BLayout';
 
 import UserDashboard from './Components/Login1/userDashboard';
 import Register from "./Components/Login1/Register";
@@ -116,6 +117,13 @@ import Order from "./Components/Order/order";
 import Track from "./Components/Order/track";
 import OrderManage from "./Components/Order/OrderManage";
 
+//budget
+import ItemList from "./Components/Budget/ItemList";
+import NavBar from "./Components/Budget/NavBar";
+import FavoritePackagesPage from "./Components/Budget/FavoritePackagesPage"
+import EditPackagePage from "./Components/Budget/EditPackagePage";
+
+
 //salon
 import Sidebar from './Components/salon/Sidebar';
 import AppointmentForm from './Components/salon/AppointmentForm';
@@ -147,19 +155,21 @@ import Overview from "./Components/Finance/Overview";
 const Layout = ({ children }) => {
   const location = useLocation();
 
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport','/EditReport','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
-
+  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport/:id','/EditReport/:id','/editReport/:id','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
+  const onlyHeaderPaths = ['/ItemList']
 ;
 
 
   const showHeaderFooter = !noHeaderFooterPaths.includes(location.pathname);
+  const showHeader = onlyHeaderPaths.includes(location.pathname);
 
 
   return (
     <div>
-      {showHeaderFooter && <Header />}
-      {children}
-      {showHeaderFooter && <Footer />}
+      {showHeader &&  <Header />} 
+      {children}  
+      {showHeaderFooter && !showHeader && <Footer />}
+      {showHeaderFooter && <Header/>}
     </div>
   );
 };
@@ -170,6 +180,8 @@ function App() {
 
 
   return (
+
+    
     <Router>
       <Layout>
         <Routes>
@@ -301,6 +313,18 @@ function App() {
 
       <Route path="/F_AdminReport" element={<F_AdminReport/>} />
 
+      
+      <Route path="/ItemList" element={<ItemList/>} />
+      <Route path="/FavoritePackages" element={<FavoritePackagesPage/>} />
+      <Route path="/edit-package/:id" element={<EditPackagePage />} />
+
+
+      <Route path="/BalanceSheet" element={<LayoutWithSidebar><BalanceSheet /></LayoutWithSidebar>} />
+      
+      
+      
+      
+
 
       <Route path="/bill" element={<Bill />} /> 
           <Route path="/Cart" element={<Cart />} /> 
@@ -312,6 +336,8 @@ function App() {
         <ChatBotButton />
 </Layout>
       </Router>
+
+      
 
 );}
 

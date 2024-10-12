@@ -89,12 +89,16 @@ const EditReport = () => {
 
   if (!report) return <div>Loading...</div>;
 
+  const requiredFields = ["electricityBill","internetBill","waterBill","employeeSalaries"];
+  const requiredCashFields = ["transportationCost", "bankFees","courierFees",];
 
-  const shopId = report.shopID === "SHID01" ? "Clothing" : 
-        report.shopID === "SHID02" ? "Shoes" :
-        report.shopID === "SHID03" ? "Accessories" :
-        report.shopID === "SHID04" ? "Saloon" :
-        "Unknown Shop"; 
+
+  // Determine the shop name
+  const sellerNo = report.sellerNo === 1101 ? "Clothing" : 
+  report.sellerNo === 1010 ? "Shoes" :
+  report.sellerNo === 1011 ? "Accessories" :
+  report.sellerNo === 1000 ? "Saloon" :
+  "Unknown Shop"; 
 
   return (
     <div className="flex flex-col items-center p-8 bg-[#F4F4F4] min-h-screen font-saira">
@@ -118,7 +122,7 @@ const EditReport = () => {
                 <span className="text-[#5C646C]">Shop ID</span>
                 <input
                   type="text"
-                  value={shopId}
+                  value={sellerNo}
                   readOnly
                   className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
                 />
@@ -165,7 +169,7 @@ const EditReport = () => {
                 <h5 className="text-md font-semibold mb-2 text-[#5C646C] font-russo">
                   Assets
                 </h5>
-                {Object.keys(report.expenses || {}).slice(0, Math.ceil(Object.keys(report.expenses || {}).length / 2)).map((expense, index) => (
+                {["purchasingCost", "storeMaintenance"].map((expense, index) => (
                   <div className="flex justify-between items-center mb-2" key={index}>
                     <span className="text-[#5C646C]">
                       {expense.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
@@ -176,7 +180,12 @@ const EditReport = () => {
                       value={report.expenses[expense]}
                       onChange={handleChange}
                       onKeyDown={(e) => {
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                        const { value } = e.target;
+                            // Prevent the user from typing "0" as the first character
+                            if (e.key === "0" && value === "") {
+                              e.preventDefault();
+                            }
+                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E" ) {
                           e.preventDefault();
                         }
                       }}
@@ -192,7 +201,7 @@ const EditReport = () => {
                 <h5 className="text-md font-semibold mb-2 text-[#5C646C] font-russo">
                   Liabilities
                 </h5>
-                {Object.keys(report.expenses || {}).slice(Math.ceil(Object.keys(report.expenses || {}).length / 2)).map((expense, index) => (
+                {["electricityBill", "internetBill","waterBill","employeeSalaries","marketingCost"].map((expense, index) => (
                   <div className="flex justify-between items-center mb-2" key={index}>
                     <span className="text-[#5C646C]">
                       {expense.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
@@ -203,6 +212,11 @@ const EditReport = () => {
                       value={report.expenses[expense]}
                       onChange={handleChange}
                       onKeyDown={(e) => {
+                        const { value } = e.target;
+                            // Prevent the user from typing "0" as the first character
+                            if (e.key === "0" && value === "") {
+                              e.preventDefault();
+                            }
                         if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                           e.preventDefault();
                         }
@@ -216,60 +230,46 @@ const EditReport = () => {
             </div>
           </div>
 
-          {/* Petty Cash Section */}
+            {/* Petty Cash Section */}
           <div className="mt-0 mb-0 bg-[#D9D9D9] p-4 rounded-md shadow-inner border-2 border-[#C0C0C0] mt-4">
             <h3 className="text-lg font-semibold mb-2 text-[#5C646C] border-b-2 border-[#C0C0C0] font-russo text-left">
               Petty Cash
             </h3>
-            <div className="grid grid-cols-2 gap-6">
-              
-              {/* Petty Cash (First Column) */}
-              <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
-                {Object.keys(report.pettyCash || {}).slice(0, Math.ceil(Object.keys(report.pettyCash || {}).length / 2)).map((cash, index) => (
-                  <div className="flex justify-between items-center mb-2" key={index}>
+            <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
+              {["minorRepairs", "transportationCost", "bankFees", "courierFees", "officeSupplies"].map((cash, index) => (
+                <div className="flex flex-col mb-4" key={index}>
+                  <div className="flex justify-between items-center mb-2">
                     <span className="text-[#5C646C]">
                       {cash.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
                     </span>
                     <input
                       type="number"
                       name={`pettyCash.${cash}`}
-                      value={report.pettyCash[cash]}
-                      onChange={handleChange}
+                      value={report.pettyCash[cash] || ""}
+                      onChange={(e) => handleChange(e)}
                       onKeyDown={(e) => {
+                        const { value } = e.target;
+                            // Prevent the user from typing "0" as the first character
+                            if (e.key === "0" && value === "") {
+                              e.preventDefault();
+                            }
                         if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                           e.preventDefault();
                         }
                       }}
-                      className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                      className={`border p-1 rounded w-24 text-dark bg-[#F4F4F4] ${
+                        report.pettyCash[`${cash}Error`] ? "border-red-500" : "border-[#E76F51]"
+                      }`}
                       min="1"
                     />
                   </div>
-                ))}
-              </div>
-
-              {/* Petty Cash (Second Column) */}
-              <div className="bg-[#D9D9D9] p-4 rounded-md border-2 border-[#C0C0C0]">
-                {Object.keys(report.pettyCash || {}).slice(Math.ceil(Object.keys(report.pettyCash || {}).length / 2)).map((cash, index) => (
-                  <div className="flex justify-between items-center mb-2" key={index}>
-                    <span className="text-[#5C646C]">
-                      {cash.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                  {report.pettyCash[`${cash}Error`] && (
+                    <span className="text-red-500 text-sm">
+                      {report.pettyCash[`${cash}Error`]}
                     </span>
-                    <input
-                      type="number"
-                      name={`pettyCash.${cash}`}
-                      value={report.pettyCash[cash]}
-                      onChange={handleChange}
-                      onKeyDown={(e) => {
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
-                          e.preventDefault();
-                        }
-                      }}
-                      className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
-                      min="1"
-                    />
-                  </div>
-                ))}
-              </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 

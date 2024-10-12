@@ -90,7 +90,6 @@ const SubmitButton = styled.button`
   max-width: 200px; /* Set maximum width */
   width: 100%; /* Ensure button takes up full width within the max-width constraint */
   text-align: center; /* Center text inside the button */
-  
 
   &:hover {
     background-color: #555;
@@ -112,7 +111,8 @@ const C_MensTMBlazerMeasurements = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (value >= 0 || value === '') { // Prevent negative values
+    // Allow only numbers and a single decimal point
+    if (/^\d*\.?\d*$/.test(value) || value === '') {
       setMeasurements({
         ...measurements,
         [name]: value
@@ -148,13 +148,12 @@ const C_MensTMBlazerMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="chest">Chest:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="chest"
               name="chest"
               value={measurements.chest}
               onChange={handleChange}
               placeholder="Enter chest measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure around the fullest part of your chest, keeping the tape parallel to the floor.</Description>
           </MeasurementField>
@@ -163,13 +162,12 @@ const C_MensTMBlazerMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="waist">Waist:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="waist"
               name="waist"
               value={measurements.waist}
               onChange={handleChange}
               placeholder="Enter waist measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure around your natural waistline, typically just above the belly button.</Description>
           </MeasurementField>
@@ -178,13 +176,12 @@ const C_MensTMBlazerMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="sleeve">Sleeve:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="sleeve"
               name="sleeve"
               value={measurements.sleeve}
               onChange={handleChange}
               placeholder="Enter sleeve measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure from the center back of your neck to your wrist, with your arm slightly bent.</Description>
           </MeasurementField>
@@ -193,13 +190,12 @@ const C_MensTMBlazerMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="length">Length:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="length"
               name="length"
               value={measurements.length}
               onChange={handleChange}
               placeholder="Enter length measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure from the base of your neck down to where you want the blazer to end.</Description>
           </MeasurementField>

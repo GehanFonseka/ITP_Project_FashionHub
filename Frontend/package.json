@@ -14,7 +14,6 @@
     "@testing-library/user-event": "^13.5.0",
     "animate.css": "^4.1.1",
     "assert": "^2.1.0",
-    "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "body-parser": "^1.20.2",
     "boostrap": "^2.0.0",
@@ -25,6 +24,7 @@
     "cors": "^2.8.5",
     "daisyui": "^4.12.10",
     "express": "^4.19.2",
+    "flowbite": "^2.5.2",
     "framer-motion": "^7.6.0",
     "https-browserify": "^1.0.0",
     "install": "^0.13.0",
@@ -36,7 +36,6 @@
     "mongoose": "^8.5.4",
     "npm": "^10.8.3",
     "pdfkit": "^0.15.0",
-    "postcss": "^8.4.47",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
@@ -52,7 +51,6 @@
     "stream-http": "^3.2.0",
     "styled-components": "^6.1.12",
     "tailwind": "^4.0.0",
-    "tailwindcss": "^3.4.13",
     "url": "^0.11.4",
     "util": "^0.12.5",
     "web-vitals": "^2.1.4"
@@ -82,11 +80,15 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "autoprefixer": "^10.4.20",
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
     "nodemon": "^3.1.4",
+    "postcss": "^8.4.47",
     "react-app-rewired": "^2.2.1",
     "style-loader": "^4.0.0",
+    "tailwindcss": "^3.4.13",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4"
   }
