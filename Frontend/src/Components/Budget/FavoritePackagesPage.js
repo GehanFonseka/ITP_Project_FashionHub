@@ -57,7 +57,7 @@ const FavoritePackagesPage = () => {
           image: shirtItem.images || [],
           sellerNo: shirtItem.sellerNo || pkg.sellerNo,
         };
-        addItemPromises.push(axios.post("http://localhost:5000/api/cart/add", shirtCartItem));
+        addItemPromises.push(axios.post("http://localhost:5000/api/items/cart", shirtCartItem));
       }
 
       if (pkg.items.trouser) {
@@ -69,7 +69,7 @@ const FavoritePackagesPage = () => {
           image: trouserItem.images || [],
           sellerNo: trouserItem.sellerNo || pkg.sellerNo,
         };
-        addItemPromises.push(axios.post("http://localhost:5000/api/cart/add", trouserCartItem));
+        addItemPromises.push(axios.post("http://localhost:5000/api/items/cart", trouserCartItem));
       }
 
       if (pkg.items.shoe) {
@@ -81,7 +81,7 @@ const FavoritePackagesPage = () => {
           image: shoeItem.images || [],
           sellerNo: shoeItem.sellerNo || pkg.sellerNo,
         };
-        addItemPromises.push(axios.post("http://localhost:5000/api/cart/add", shoeCartItem));
+        addItemPromises.push(axios.post("http://localhost:5000/api/items/cart", shoeCartItem));
       }
 
       await Promise.all(addItemPromises);
@@ -226,27 +226,30 @@ const FavoritePackagesPage = () => {
               </div>
 
               <div className="package-items">
-                {Object.keys(pkg.items).map((itemKey) => {
-                  const item = pkg.items[itemKey];
-                  if (!item) return null;
+                {pkg.items && // Ensure pkg.items exists
+                  Object.keys(pkg.items).map((itemKey) => {
+                    const item = pkg.items[itemKey];
+                    if (!item) return null;
 
-                  return (
-                    <div key={item._id} className="item-card">
-                      <h3>{item.name}</h3>
-                      <p>Price: Rs. {item.price}</p>
-                      <div className="item-images">
-                        {item.images.map((img, index) => (
-                          <img
-                            key={index}
-                            src={`/images/${img}`}
-                            alt={`${item.name}-${index}`}
-                          />
-                        ))}
+                    return (
+                      <div key={item._id} className="item-card">
+                        <h3>{item.name}</h3>
+                        <p>Price: Rs. {item.price}</p>
+                        <div className="item-images">
+                          {Array.isArray(item.images) && // Ensure item.images is an array
+                            item.images.map((img, index) => (
+                              <img
+                                key={index}
+                                src={`/images/${img}`}
+                                alt={`${item.name}-${index}`}
+                              />
+                            ))}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </div>
+
 
               <div className="package-actions-bottom">
                 <input

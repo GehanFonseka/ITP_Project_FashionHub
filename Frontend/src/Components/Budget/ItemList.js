@@ -29,7 +29,7 @@ const ItemList = () => {
   useEffect(() => {
     const fetchCategory1Products = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/shirts");
+        const response = await axios.get("http://localhost:5000/api/wc-tshirts");
         return response.data;
       } catch (error) {
         console.error("Error fetching category 1 products:", error);

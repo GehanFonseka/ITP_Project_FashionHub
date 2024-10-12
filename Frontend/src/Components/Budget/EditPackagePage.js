@@ -57,7 +57,7 @@ const EditPackagePage = () => {
         const [pantsResponse, sneakersResponse, blazersResponse] = await Promise.all([
           axios.get("http://localhost:5000/api/pants"),
           axios.get("http://localhost:5000/api/sneakers"),
-          axios.get("http://localhost:5000/api/shirts"),
+          axios.get("http://localhost:5000/api/wc-tshirts"),
         ]);
     
         const categorizedProducts = {
@@ -126,7 +126,7 @@ const EditPackagePage = () => {
           },
         }
       );
-      navigate("/cart");
+      navigate("/FavoritePackages");
     } catch (err) {
       setError("Error updating package.", err);
     }
