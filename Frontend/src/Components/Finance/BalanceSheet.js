@@ -12,14 +12,14 @@ const BalanceSheet = () => {
     reportId: initialReportId,
   } = location.state || {};
 
-   // Assign shopId based on initialShopID
+   
    const sellerNo = initialShopID === 1101 ? "Clothing" : 
    initialShopID === 1010 ? "Shoes" :
    initialShopID === 1011 ? "Accessories" :
    initialShopID === 5000 ? "Saloon" :
    "Unknown Shop"; 
 
-  // Array of month names
+  
   const monthNames = [
     "January",
     "February",
@@ -35,7 +35,7 @@ const BalanceSheet = () => {
     "December",
   ];
 
-  // Convert month number to month name
+  
   const getMonthName = (monthNumber) => {
     return monthNames[parseInt(monthNumber, 10) - 1] || "";
   };
@@ -66,7 +66,6 @@ const BalanceSheet = () => {
   const [netProfit, setNetProfit] = useState("");
   const [reportId, setReportId] = useState(initialReportId || null);
 
-  // Function to format month and year into a date string
   const formatDate = (month, year) => {
     const date = new Date(`${year}-${month}-01`);
     return date.toISOString().slice(0, 10); 
@@ -94,12 +93,12 @@ const BalanceSheet = () => {
     setNetProfit(netProfitAmount);
   };
 
-  // Effect to recalculate totals when inputs change
+ 
   useEffect(() => {
     calculateTotals();
   }, [income, expenses, pettyCash]);
 
-  // Function to trigger income calculation
+  // trigger income calculation
   const calculateIncome = async () => {
     try {
       const response = await axios.post(
@@ -116,7 +115,7 @@ const BalanceSheet = () => {
     }
   };
 
-  // Function to fetch the total income
+  //fetch the total income
   const fetchTotalIncome = async () => {
     try {
       const formattedDate = formatDate(month, year); 
@@ -132,7 +131,7 @@ const BalanceSheet = () => {
     }
   };
 
-  // useEffect to calculate and fetch total income when shopID, month, or year changes
+  
   useEffect(() => {
     if (sellerno && month && year) {
       const fetchAndCalculateIncome = async () => {
@@ -156,7 +155,7 @@ const BalanceSheet = () => {
       setState((prevState) => ({
         ...prevState,
         [name]: value,
-        [`${name}Error`]: "This field is required", // Required field error
+        [`${name}Error`]: "This field is required", 
       }));
     } else {
       if (parsedValue >= 1 && Number.isFinite(parsedValue)) {
@@ -172,7 +171,7 @@ const BalanceSheet = () => {
   
   
   
-// Usage for Expenses
+
 const handleExpenseChange = (e) => {
   const reqExFields = ["electricityBill",
                        "internetBill",
@@ -180,7 +179,7 @@ const handleExpenseChange = (e) => {
                        "employeeSalaries",
                        ]; 
 
-  const isReqEx = reqExFields.includes(e.target.name); // Check if the field is an asset
+  const isReqEx = reqExFields.includes(e.target.name); 
 
   if (isReqEx) {
    
@@ -196,7 +195,7 @@ const handleExpenseChange = (e) => {
 };
 
 
-// Usage for Petty Cash
+
 const handlePettyCashChange = (e) => {
     const reqPetFields = [
         "transportationCost",
@@ -224,7 +223,7 @@ const handlePettyCashChange = (e) => {
     e.preventDefault();
     try {
       if (reportId) {
-        // Update existing report
+        
         await axios.put(`http://localhost:5000/api/reports/${reportId}`, {
           sellerNo: sellerno,
           month,
@@ -238,7 +237,7 @@ const handlePettyCashChange = (e) => {
         });
         alert("Report updated successfully");
       } else {
-        // Create new report
+        
         await axios.post("http://localhost:5000/api/reports", {
           sellerNo: sellerno,
           month,
@@ -373,12 +372,11 @@ const handlePettyCashChange = (e) => {
                           onChange={handleExpenseChange}
                           onKeyDown={(e) => {
                             const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
+                            
                             if (e.key === "0" && value === "") {
                               e.preventDefault();
                             }
                             
-                            // Prevent user from typing the minus sign, "e", or any invalid characters
                             if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                               e.preventDefault();
                             }
@@ -387,7 +385,7 @@ const handlePettyCashChange = (e) => {
                             expenses[`${expense}Error`] ? "border-red-500" : "border-[#E76F51]"
                           } bg-[#F4F4F4]`}
                           placeholder="Amount"
-                          min="1" // Set minimum value to 1
+                          min="1" 
                         />
                       </div>
                       {expenses[`${expense}Error`] && (
@@ -424,7 +422,7 @@ const handlePettyCashChange = (e) => {
                           value={expenses[expense] || ""}
                           onChange={handleExpenseChange}
                           onFocus={() => {
-                            // Show the required field message for specified fields
+                            
                             if (requiredFields.includes(expense) && !expenses[expense]) {
                               setExpenses((prevState) => ({
                                 ...prevState,
@@ -433,17 +431,16 @@ const handlePettyCashChange = (e) => {
                             }
                           }}
                           onBlur={(e) => {
-                            // Validate the field when the user leaves the input
+                            
                             handleExpenseChange(e);
                           }}
                           onKeyDown={(e) => {
                             
                             const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
+                            
                             if (e.key === "0" && value === "") {
                               e.preventDefault();
                             }
-                            // Prevent user from typing the minus sign, "e", or any invalid characters
                             if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                               e.preventDefault();
                             }
@@ -493,7 +490,6 @@ const handlePettyCashChange = (e) => {
                       value={pettyCash[cash]}
                       onChange={(e) => handlePettyCashChange(e)}
                       onFocus={() => {
-                        // Show the required field message for specified fields
                         if (requiredCashFields.includes(cash) && !pettyCash[cash]) {
                           setPettyCash((prevState) => ({
                             ...prevState,
@@ -502,16 +498,13 @@ const handlePettyCashChange = (e) => {
                         }
                       }}
                       onBlur={(e) => {
-                        // Validate the field when the user leaves the input
                         handlePettyCashChange(e);
                       }}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
                             if (e.key === "0" && value === "") {
                               e.preventDefault();
                             }
-                        // Prevent user from typing the minus sign, "e", or any invalid characters
                         if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                           e.preventDefault();
                         }

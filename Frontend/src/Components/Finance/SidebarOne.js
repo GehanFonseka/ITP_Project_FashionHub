@@ -12,8 +12,7 @@ const SidebarOne = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Perform any logout logic here, like clearing authentication tokens
-    // Redirect to the home page
+
     navigate("/");
   };
 
@@ -22,7 +21,7 @@ const SidebarOne = () => {
       setDropdownOpen(dropdownOpen === label ? null : label);
     } else {
       setSelected(label);
-      setDropdownOpen(null); // Close dropdown when switching to a different main item
+      setDropdownOpen(null); 
     }
   };
 
@@ -50,7 +49,7 @@ const SidebarOne = () => {
         />
       </nav>
       <button
-        onClick={handleLogout} // Call handleLogout when clicked
+        onClick={handleLogout} 
         className="mt-auto bg-primary text-light rounded-full py-2 px-4 hover:bg-opacity-80 font-russo"
       >
         Log Out

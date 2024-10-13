@@ -27,12 +27,9 @@ const AddReport = () => {
         "December",
       ];
   
-      // Convert the selected month name to its numeric value (1-12)
       const numericMonth = monthNames.indexOf(month) + 1;
-  
-      // Convert sellerNo and year into numbers
-      const numericSellerNo = Number(sellerNo); // or use: const numericSellerNo = +sellerNo;
-      const numericYear = Number(year); // or use: const numericYear = +year;
+      const numericSellerNo = Number(sellerNo); 
+      const numericYear = Number(year); 
   
       navigate("/balanceSheet", {
         state: { sellerNo: numericSellerNo, month: numericMonth, year: numericYear },
