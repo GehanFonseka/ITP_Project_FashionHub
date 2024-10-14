@@ -178,13 +178,20 @@ const EditReport = () => {
                       type="number"
                       name={`expenses.${expense}`}
                       value={report.expenses[expense]}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        // Ensure the first number is not 0
+                        const value = e.target.value;
+                        if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E" ) {
+                        // Prevent entering unwanted characters and 0 at the beginning
+                        if (
+                          ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                          (e.key === "0" && value === "")
+                        ) {
                           e.preventDefault();
                         }
                       }}
@@ -209,13 +216,20 @@ const EditReport = () => {
                       type="number"
                       name={`expenses.${expense}`}
                       value={report.expenses[expense]}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        // Ensure the first number is not 0
+                        const value = e.target.value;
+                        if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                        // Prevent entering unwanted characters and 0 at the beginning
+                        if (
+                          ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                          (e.key === "0" && value === "")
+                        ) {
                           e.preventDefault();
                         }
                       }}
@@ -244,13 +258,20 @@ const EditReport = () => {
                       type="number"
                       name={`pettyCash.${cash}`}
                       value={report.pettyCash[cash] || ""}
-                      onChange={(e) => handleChange(e)}
+                      onChange={(e) => {
+                        // Ensure the first number is not 0
+                        const value = e.target.value;
+                        if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                        // Prevent entering unwanted characters and 0 at the beginning
+                        if (
+                          ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                          (e.key === "0" && value === "")
+                        ) {
                           e.preventDefault();
                         }
                       }}

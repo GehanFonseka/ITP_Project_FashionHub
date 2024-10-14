@@ -369,15 +369,19 @@ const handlePettyCashChange = (e) => {
                           type="number"
                           name={expense}
                           value={expenses[expense] || ""}
-                          onChange={handleExpenseChange}
-                          onKeyDown={(e) => {
-                            const { value } = e.target;
-                            
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
+                          onChange={(e) => {
+                            // Ensure the first number is not 0
+                            const value = e.target.value;
+                            if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                              handleExpenseChange(e);
                             }
-                            
-                            if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                          }}
+                          onKeyDown={(e) => {
+                            // Prevent entering unwanted characters and 0 at the beginning
+                            if (
+                              ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                              (e.key === "0" && e.target.value === "")
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -420,7 +424,13 @@ const handlePettyCashChange = (e) => {
                           type="number"
                           name={expense}
                           value={expenses[expense] || ""}
-                          onChange={handleExpenseChange}
+                          onChange={(e) => {
+                            // Ensure the first number is not 0
+                            const value = e.target.value;
+                            if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                              handleExpenseChange(e);
+                            }
+                          }}
                           onFocus={() => {
                             
                             if (requiredFields.includes(expense) && !expenses[expense]) {
@@ -435,13 +445,11 @@ const handlePettyCashChange = (e) => {
                             handleExpenseChange(e);
                           }}
                           onKeyDown={(e) => {
-                            
-                            const { value } = e.target;
-                            
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                            if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                            // Prevent entering unwanted characters and 0 at the beginning
+                            if (
+                              ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                              (e.key === "0" && e.target.value === "")
+                            ) {
                               e.preventDefault();
                             }
                           }}
@@ -488,7 +496,13 @@ const handlePettyCashChange = (e) => {
                       type="number"
                       name={cash}
                       value={pettyCash[cash]}
-                      onChange={(e) => handlePettyCashChange(e)}
+                      onChange={(e) => {
+                        // Ensure the first number is not 0
+                        const value = e.target.value;
+                        if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                          handleExpenseChange(e);
+                        }
+                      }}
                       onFocus={() => {
                         if (requiredCashFields.includes(cash) && !pettyCash[cash]) {
                           setPettyCash((prevState) => ({
@@ -501,11 +515,11 @@ const handlePettyCashChange = (e) => {
                         handlePettyCashChange(e);
                       }}
                       onKeyDown={(e) => {
-                        const { value } = e.target;
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                        // Prevent entering unwanted characters and 0 at the beginning
+                        if (
+                          ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                          (e.key === "0" && e.target.value === "")
+                        ) {
                           e.preventDefault();
                         }
                       }}
