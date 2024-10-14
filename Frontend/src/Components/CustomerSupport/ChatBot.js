@@ -126,7 +126,7 @@ const ChatBot = ({ onClose }) => {
     <div className="fixed bottom-32 right-6 bg-white shadow-xl p-4 rounded-lg w-80 h-[450px] z-50">
       <div className="relative h-full flex flex-col">
         <div className="p-4 bg-gray-800 text-white rounded-t-lg flex justify-between items-center">
-          <h2 className="text-xl font-bold">Chat with us</h2>
+          <h2 className="text-xl font-bold text-white">Chat with us</h2>
           <button onClick={onClose} className="text-white">
             <AiOutlineClose size={20} />
           </button>

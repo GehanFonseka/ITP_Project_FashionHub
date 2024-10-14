@@ -311,21 +311,22 @@ const TicketRaisingForm = () => {
           </div>
 
            
-           <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition-all duration-300"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="bg-secondary text-white py-2 px-6 rounded hover:bg-primary transition-all duration-300"
-            >
-              Clear
-            </button>
-          </div>
+          <div className="flex justify-end space-x-4 mt-4"> {/* Flexbox with space between buttons */}
+  <button
+    type="submit"
+    className="bg-primary text-white py-2 px-6 rounded hover:bg-secondary transition-all duration-300"
+  >
+    Submit
+  </button>
+  <button
+    type="button"
+    onClick={handleCancel}
+    className="bg-secondary text-white py-2 px-6 rounded hover:bg-primary transition-all duration-300"
+  >
+    Clear
+  </button>
+</div>
+
         </div>
 
         {/* Success or Error Message */}
