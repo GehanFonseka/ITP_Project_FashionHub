@@ -111,14 +111,21 @@ const C_MensTMBlazerMeasurements = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
     // Allow only numbers and a single decimal point
-    if (/^\d*\.?\d*$/.test(value) || value === '') {
-      setMeasurements({
-        ...measurements,
-        [name]: value
-      });
+    if (/^\d*\.?\d{0,1}$/.test(value) || value === '') {
+      const numValue = parseFloat(value);
+  
+      // Ensure that the value is either empty or between 5 and 200
+      if (value === '' || (numValue >= 1 && numValue <= 200)) {
+        setMeasurements({
+          ...measurements,
+          [name]: value
+        });
+      }
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -146,7 +153,7 @@ const C_MensTMBlazerMeasurements = () => {
       <Form onSubmit={handleSubmit}>
         <Section>
           <MeasurementField>
-            <Label htmlFor="chest">Chest:</Label>
+            <Label htmlFor="chest">Chest(cm):</Label>
             <Input
               type="text" // Change to text to allow decimals
               id="chest"
@@ -160,7 +167,7 @@ const C_MensTMBlazerMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="waist">Waist:</Label>
+            <Label htmlFor="waist">Waist(cm):</Label>
             <Input
               type="text" // Change to text to allow decimals
               id="waist"
@@ -174,7 +181,7 @@ const C_MensTMBlazerMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="sleeve">Sleeve:</Label>
+            <Label htmlFor="sleeve">Sleeve(cm):</Label>
             <Input
               type="text" // Change to text to allow decimals
               id="sleeve"
@@ -188,7 +195,7 @@ const C_MensTMBlazerMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="length">Length:</Label>
+            <Label htmlFor="length">Length(cm):</Label>
             <Input
               type="text" // Change to text to allow decimals
               id="length"

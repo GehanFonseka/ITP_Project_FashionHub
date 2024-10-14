@@ -111,14 +111,21 @@ const C_WomensTMTrouserMeasurements = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const regex = /^\d*\.?\d*$/; // Allows numbers with optional decimals
-    if (regex.test(value) || value === '') { // Check if the value is a valid number or empty
-      setMeasurements({
-        ...measurements,
-        [name]: value
-      });
+  
+    // Allow only numbers and a single decimal point
+    if (/^\d*\.?\d{0,1}$/.test(value) || value === '') {
+      const numValue = parseFloat(value);
+  
+      // Ensure that the value is either empty or between 5 and 200
+      if (value === '' || (numValue >= 1 && numValue <= 200)) {
+        setMeasurements({
+          ...measurements,
+          [name]: value
+        });
+      }
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -146,7 +153,7 @@ const C_WomensTMTrouserMeasurements = () => {
       <Form onSubmit={handleSubmit}>
         <Section>
           <MeasurementField>
-            <Label htmlFor="waist">Waist:</Label>
+            <Label htmlFor="waist">Waist(cm):</Label>
             <Input
               type="text"
               id="waist"
@@ -160,7 +167,7 @@ const C_WomensTMTrouserMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="hip">Hip:</Label>
+            <Label htmlFor="hip">Hip(cm):</Label>
             <Input
               type="text"
               id="hip"
@@ -174,7 +181,7 @@ const C_WomensTMTrouserMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="length">Length:</Label>
+            <Label htmlFor="length">Length(cm):</Label>
             <Input
               type="text"
               id="length"
@@ -188,7 +195,7 @@ const C_WomensTMTrouserMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="inseam">Inseam:</Label>
+            <Label htmlFor="inseam">Inseam(cm):</Label>
             <Input
               type="text"
               id="inseam"

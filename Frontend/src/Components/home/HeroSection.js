@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import menImage from '../../assets/menImage.jpg'; // Use your own image paths
 import womenImage from '../../assets/womenImage.jpg';
-import salon111 from '../../assets/salon111.png';
+import salon111 from '../../assets/salonhome.webp';
 import salon from '../../assets/salon1.jpg';
 import Heroboots from '../../assets/Heroboots.jpg';  // Images for the new sections
 import Herosneakers from '../../assets/Herosneakers.jpg';

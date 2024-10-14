@@ -22,15 +22,18 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  max-width: 1200px; /* Maximum width for the overall container */
+  max-width: 1200px;
+  /* Maximum width for the overall container */
   margin: 0 auto;
   margin-top: 50px;
-  gap: 30px; /* Gap between form and services */
+  gap: 30px;
+  /* Gap between form and services */
 }
 
 /* Container styling for appointment form */
 .container {
-  background-color: transparent; /* Remove background color */
+  background-color: transparent;
+  /* Remove background color */
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
@@ -43,29 +46,38 @@
 .services {
   padding: 30px;
   border-radius: 12px;
-  background-color: #37474F; /* Dark background for services section */
+  background-color: #37474F;
+  /* Dark background for services section */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px; /* Maximum width for the services section */
+  max-width: 450px;
+  /* Maximum width for the services section */
   font-size: 1.5rem;
-  color: #f5f5f5; /* Light text color for contrast */
-  font-family:Arial, Helvetica, sans-serif;
+  color: #f5f5f5;
+  /* Light text color for contrast */
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Headings */
 h2 {
-  font-family: 'Lora', serif; /* Elegant serif font for headings */
-  font-size: 3rem; /* Slightly smaller for better visual balance */
-  color: #333; /* Dark color for contrast */
+  font-family: 'Lora', serif;
+  /* Elegant serif font for headings */
+  font-size: 3rem;
+  /* Slightly smaller for better visual balance */
+  color: #333;
+  /* Dark color for contrast */
   text-align: center;
   margin-bottom: 25px;
   font-weight: 700;
 }
 
 h3 {
-  font-family: 'Roboto', sans-serif; /* Clean sans-serif font for subheadings */
-  font-size: 2.5rem; /* Keep it the same for hierarchy */
-  color: #E76F51; /* Light color to match the dark background */
+  font-family: 'Roboto', sans-serif;
+  /* Clean sans-serif font for subheadings */
+  font-size: 2.5rem;
+  /* Keep it the same for hierarchy */
+  color: #E76F51;
+  /* Light color to match the dark background */
   margin-top: 20px;
   margin-bottom: 10px;
   font-weight: 900;
@@ -75,9 +87,11 @@ h3 {
 label {
   display: block;
   font-size: 1rem;
-  color: #333; /* Dark color for labels */
+  color: #333;
+  /* Dark color for labels */
   margin-bottom: 5px;
-  font-weight: 500; /* Slightly lighter weight */
+  font-weight: 500;
+  /* Slightly lighter weight */
 }
 
 input[type="text"],
@@ -85,35 +99,46 @@ input[type="email"],
 input[type="date"],
 select,
 textarea {
-  width: 100%; /* Full width */
+  width: 100%;
+  /* Full width */
   padding: 12px;
   font-size: 1rem;
-  border: 2px solid #ccc; /* Thicker border */
+  border: 2px solid #ccc;
+  /* Thicker border */
   border-radius: 8px;
   margin-bottom: 20px;
-  box-sizing: border-box; /* Include padding and border in width */
-  background-color: #fff; /* White background for inputs */
-  color: #333; /* Dark text color for input fields */
-  font-family: 'Roboto', sans-serif; /* Consistent font for input fields */
+  box-sizing: border-box;
+  /* Include padding and border in width */
+  background-color: #fff;
+  /* White background for inputs */
+  color: #333;
+  /* Dark text color for input fields */
+  font-family: 'Roboto', sans-serif;
+  /* Consistent font for input fields */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #4c5baf; /* Change border color on focus */
-  outline: none; /* Remove outline */
-  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4); /* Add shadow */
+  border-color: #4c5baf;
+  /* Change border color on focus */
+  outline: none;
+  /* Remove outline */
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+  /* Add shadow */
 }
 
 /* Modern checkbox styling */
 input[type="checkbox"] {
-  -webkit-appearance: none; /* Remove default checkbox */
+  -webkit-appearance: none;
+  /* Remove default checkbox */
   -moz-appearance: none;
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid #f5f5f5; /* Light border to match the services container */
+  border: 2px solid #f5f5f5;
+  /* Light border to match the services container */
   border-radius: 4px;
   outline: none;
   cursor: pointer;
@@ -123,7 +148,8 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background-color: #E76F51; /* Color when checkbox is checked */
+  background-color: #E76F51;
+  /* Color when checkbox is checked */
   border-color: #E76F51;
 }
 
@@ -141,7 +167,8 @@ input[type="checkbox"]:checked::after {
 /* Special requests textarea */
 textarea {
   height: 120px;
-  resize: none; /* Prevent resizing */
+  resize: none;
+  /* Prevent resizing */
 }
 
 /* Summary section */
@@ -152,14 +179,16 @@ ul {
 
 li {
   font-size: 0.95rem;
-  color: #f5f5f5; /* Adjusted color for dark background */
+  color: #f5f5f5;
+  /* Adjusted color for dark background */
   margin-bottom: 8px;
 }
 
 .total-cost {
   font-size: 2.15rem;
   font-weight: bold;
-  color: #ffffff; /* Light color for contrast */
+  color: #ffffff;
+  /* Light color for contrast */
   margin-top: 10px;
 }
 
@@ -173,13 +202,16 @@ button[type="submit"] {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  width: 100%; /* Full width */
+  width: 100%;
+  /* Full width */
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button[type="submit"]:hover {
-  background-color: #E76F51; /* Darken button on hover */
-  transform: translateY(-2px); /* Lift effect */
+  background-color: #E76F51;
+  /* Darken button on hover */
+  transform: translateY(-2px);
+  /* Lift effect */
 }
 
 /* Error message styles */
@@ -195,15 +227,18 @@ button[type="submit"]:hover {
 
 .appointment-form-container {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Adjust the column sizes as needed */
-  gap: 40px; /* Space between the form and services */
+  grid-template-columns: 2fr 1fr;
+  /* Adjust the column sizes as needed */
+  gap: 40px;
+  /* Space between the form and services */
   padding: 20px;
   margin-top: 100px;
 }
 
 .form-column,
 .services-column {
-  background: #fff; /* Light background for visual separation */
+  background: #fff;
+  /* Light background for visual separation */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -217,7 +252,8 @@ button[type="submit"]:hover {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 15px; /* Reduce gap for more compact look */
+  gap: 15px;
+  /* Reduce gap for more compact look */
 }
 
 /* Checkbox container */

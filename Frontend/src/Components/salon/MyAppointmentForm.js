@@ -11,7 +11,7 @@ const MyAppointmentForm = () => {
     const fetchAppointments = async () => {
       
       try {
-        const response = await axios.get('/api/appointment/user');
+        const response = await axios.get('/api/appointment');
         setAppointments(response.data);
       } catch (error) {
         console.error('Error fetching appointments:', error);
@@ -98,6 +98,7 @@ const Container = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 100px;
+  font-family: 'Roboto', sans-serif; /* Set body font */
 `;
 
 const TitleContainer = styled.div`
@@ -111,6 +112,7 @@ const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   color: #333;
+  font-family: 'Poppins', sans-serif; /* Set font for the title */
 `;
 
 const BookNowButton = styled.a`
@@ -121,6 +123,7 @@ const BookNowButton = styled.a`
   font-weight: bold;
   border-radius: 5px;
   transition: background-color 0.3s;
+  font-family: 'Lato', sans-serif; /* Set font for the button */
 
   &:hover {
     background-color: #5C646;
@@ -150,6 +153,7 @@ const TableData = styled.td`
   padding: 15px;
   border-bottom: 1px solid #ddd;
   color: #333;
+  font-family: 'Roboto', sans-serif; /* Set font for table data */
 `;
 
 const ActionButtonContainer = styled.div`
@@ -167,10 +171,12 @@ const ActionButton = styled.button`
   transition: background-color 0.3s;
   flex: 1;
   text-align: center;
+  font-family: 'Lato', sans-serif; /* Set font for action button */
 
   &:hover {
     background-color: #920d0d;
   }
 `;
+
 
 export default MyAppointmentForm;

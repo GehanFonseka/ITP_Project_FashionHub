@@ -57,12 +57,12 @@ const Footer = () => {
 };
 
 export default Footer;
-
 const FooterContainer = styled.footer`
   background-color: black;
   color: white;
   padding: 40px 20px;
-  fixed;
+  position: relative; /* Changed 'fixed' to 'relative' to prevent layout issues */
+  font-family: 'Roboto', sans-serif; /* Set body font */
 `;
 
 const FooterContent = styled.div`
@@ -79,7 +79,8 @@ const FooterColumn = styled.div`
 
 const FooterTitle = styled.h3`
   margin-bottom: 15px;
-  color:#8b0000;
+  color: #8b0000;
+  font-family: 'Poppins', sans-serif; /* Set font for footer titles */
 `;
 
 const FooterLink = styled.a`
@@ -87,6 +88,7 @@ const FooterLink = styled.a`
   color: white;
   text-decoration: none;
   margin-bottom: 10px;
+  font-family: 'Lato', sans-serif; /* Set font for links */
 
   &:hover {
     color: #8b0000;
@@ -94,10 +96,8 @@ const FooterLink = styled.a`
 `;
 
 const FooterText = styled.p`
-  margin-bottom: 2
-  
-  
-  0px;
+  margin-bottom: 20px; /* Corrected margin syntax */
+  font-family: 'Roboto', sans-serif; /* Set font for footer text */
 `;
 
 const FooterInput = styled.input`
@@ -105,6 +105,7 @@ const FooterInput = styled.input`
   border-radius: 5px;
   border: none;
   width: 100%;
+  font-family: 'Lato', sans-serif; /* Set font for input fields */
 `;
 
 const FooterBottom = styled.div`
@@ -130,6 +131,7 @@ const FooterCopyright = styled.p`
   text-align: center;
   margin-left: 100px; /* Adjust as needed to balance the spacing */
   margin-top: 20px; /* Adjust to position it slightly lower */
+  font-family: 'Roboto', sans-serif; /* Set font for copyright text */
 `;
 
 const PaymentMethods = styled.div`

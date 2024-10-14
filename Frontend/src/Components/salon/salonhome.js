@@ -196,7 +196,7 @@ const ButtonContainer = styled.div`
 const ActionButton = styled.a`
   background-color: #ae2012;
   color: #fff;
-  padding: 15px 25px; /* Increased padding for a button */
+  padding: 10px 15px; /* Increased padding for a button */
   margin: 0 15px; /* Adjusted margin for buttons */
   text-decoration: none;
   font-size: 1.2rem;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import './AppointmentForm.css'; 
-import axios from 'axios'; 
+import './AppointmentForm.css';
+import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
@@ -8,15 +8,15 @@ const appointments = [];
 
 
 const bookAppointment = (serviceCategory, date, time) => {
-  const existingAppointment = appointments.find(appointment => 
+  const existingAppointment = appointments.find(appointment =>
     appointment.serviceCategory === serviceCategory &&
     appointment.date === date &&
     appointment.time === time
   );
 
-  return existingAppointment ? { 
-    success: false, 
-    message: `Cannot book appointment. ${serviceCategory} is already booked at ${time} on ${date}.` 
+  return existingAppointment ? {
+    success: false,
+    message: `Cannot book appointment. ${serviceCategory} is already booked at ${time} on ${date}.`
   } : { success: true };
 };
 
@@ -25,7 +25,7 @@ const AppointmentForm = () => {
   const location = useLocation();
   const editData = location.state?.editData || {};
 
- 
+
   const [formData, setFormData] = useState({
     name: editData.name || "",
     contactNumber: editData.contactNumber || "",
@@ -34,15 +34,15 @@ const AppointmentForm = () => {
     time: editData.time || "",
     services: editData.services || [],
     requests: editData.requests || "",
-   
+
   });
   const [errors, setErrors] = useState({});
   const [serviceOptions, setServiceOptions] = useState({});
   const [servicePrices, setServicePrices] = useState({});
   const [loading, setLoading] = useState(true);
   const [totalCost, setTotalCost] = useState(0);
-  
-  
+
+
 
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const AppointmentForm = () => {
         });
         setServiceOptions(options);
         setServicePrices(prices);
-        
+
         const initialTotalCost = editData.services.reduce((sum, service) => sum + (prices[service] || 0), 0);
         setTotalCost(initialTotalCost);
       } catch (err) {
@@ -85,7 +85,7 @@ const AppointmentForm = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-  
+
     if (type === "checkbox") {
       setFormData(prevFormData => ({
         ...prevFormData,
@@ -98,7 +98,7 @@ const AppointmentForm = () => {
         ...prevFormData,
         [name]: value,
       }));
-  
+
       // Trigger validation for the specific field if it's a text input
       validateField(name, value);
     }
@@ -107,32 +107,32 @@ const AppointmentForm = () => {
     const serviceCategory = Object.keys(serviceOptions).find(category =>
       serviceOptions[category].includes(service)
     );
-  
+
     // Check if there's already a service from a different category selected
     const selectedCategories = new Set(formData.services.map(s => {
       return Object.keys(serviceOptions).find(category => serviceOptions[category].includes(s));
     }));
-  
+
     // If selecting a service from a different category, alert the user
     if (selectedCategories.size > 0 && !selectedCategories.has(serviceCategory)) {
       alert("You can only select multiple services from the same category.");
       return;
     }
-  
+
     const updatedServices = formData.services.includes(service)
       ? formData.services.filter(s => s !== service)
       : [...formData.services, service];
-  
+
     setFormData(prevFormData => ({
       ...prevFormData,
       services: updatedServices,
     }));
-  
+
     // Calculate the new total cost after the service change
     const newTotalCost = updatedServices.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
     setTotalCost(newTotalCost);
   };
-  
+
 
   // Validate specific field
   const validateField = (name, value) => {
@@ -220,20 +220,21 @@ const AppointmentForm = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (validateForm()) {
-      try {const appointmentConflict = bookAppointment(formData.services.join(', '), formData.date, formData.time);
+      try {
+        const appointmentConflict = bookAppointment(formData.services.join(', '), formData.date, formData.time);
         if (!appointmentConflict.success) {
           alert(appointmentConflict.message);
           return; // Stop form submission if there's a conflict
         }
-       
+
         // If no conflicts, proceed with form submission
         const appointmentData = {
           ...formData,
           totalCost: totalCost, // Ensure totalCost is included
         };
-  
+
         if (editData._id) {
           // Editing an existing appointment
           await axios.put(`/api/appointment/${editData._id}`, formData);
@@ -243,7 +244,7 @@ const AppointmentForm = () => {
           await axios.post('/api/appointment', appointmentData);
           alert("Thank you! Your appointment has been booked.");
         }
-  
+
         // Reset form data after submission
         setFormData({
           name: "",
@@ -263,7 +264,7 @@ const AppointmentForm = () => {
       }
     }
   };
-  
+
 
   // Calculate the total cost of selected services in LKR
   const totalCostLKR = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
@@ -271,15 +272,15 @@ const AppointmentForm = () => {
   return (
     <div className="appointment-form-container">
       <div className="form-column">
-        <h2 style={{ 
+        <h2 style={{
           fontSize: '2.5rem',
-          color: '#E76F51', 
+          color: '#E76F51',
           fontFamily: 'Arial, sans-serif',
           lineHeight: '1.5',
         }}>
           Book Your Appointment
         </h2>
-  
+
         <form onSubmit={handleSubmit}>
           {/* Personal Information */}
           <div>
@@ -294,7 +295,7 @@ const AppointmentForm = () => {
             />
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
-  
+
           <div>
             <label>Contact Number:</label>
             <input
@@ -307,7 +308,7 @@ const AppointmentForm = () => {
             />
             {errors.contactNumber && <p className="error">{errors.contactNumber}</p>}
           </div>
-  
+
           <div>
             <label>Email Address:</label>
             <input
@@ -320,69 +321,69 @@ const AppointmentForm = () => {
             />
             {errors.email && <p className="error">{errors.email}</p>}
           </div>
-  
-{/* Date and Time Selection */}
-<div>
-  <label>Date:</label>
-  <input
-    type="date"
-    name="date"
-    value={formData.date}
-    onChange={handleChange}
-    onBlur={() => validateField('date', formData.date)}
-    required
-    style={{
-      width: '100%', // Full width
-      padding: '12px', 
-      fontSize: '1rem', 
-      border: '2px solid #ccc', // Thicker border
-      borderRadius: '8px',
-      marginBottom: '20px',
-      boxSizing: 'border-box', // Include padding and border in width
-      backgroundColor: '#fff',
-      color: '#333',
-      fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
-      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-    }}
-  />
-  {errors.date && <p className="error">{errors.date}</p>}
-</div>
-<div>
-  <label>Time:</label>
-  <select
-    name="time"
-    value={formData.time}
-    onChange={handleChange}
-    onBlur={() => validateField('time', formData.time)}
-    required
-    style={{
-      width: '100%', // Full width
-      padding: '12px', 
-      fontSize: '1rem', 
-      border: '2px solid #ccc', // Thicker border
-      borderRadius: '8px',
-      marginBottom: '20px',
-      boxSizing: 'border-box', // Include padding and border in width
-      backgroundColor: '#fff',
-      color: '#333',
-      fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
-      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-    }}
-  >
-    <option value="">Select Time</option>
-    <option value="09:00 AM">09:00 AM</option>
-    <option value="10:00 AM">10:00 AM</option>
-    <option value="11:00 AM">11:00 AM</option>
-    <option value="01:00 PM">01:00 PM</option>
-    <option value="02:00 PM">02:00 PM</option>
-    <option value="03:00 PM">03:00 PM</option>
-  </select>
-  {errors.time && <p className="error">{errors.time}</p>}
-</div>
+
+          {/* Date and Time Selection */}
+          <div>
+            <label>Date:</label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              onBlur={() => validateField('date', formData.date)}
+              required
+              style={{
+                width: '100%', // Full width
+                padding: '12px',
+                fontSize: '1rem',
+                border: '2px solid #ccc', // Thicker border
+                borderRadius: '8px',
+                marginBottom: '20px',
+                boxSizing: 'border-box', // Include padding and border in width
+                backgroundColor: '#fff',
+                color: '#333',
+                fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
+                transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+              }}
+            />
+            {errors.date && <p className="error">{errors.date}</p>}
+          </div>
+          <div>
+            <label>Time:</label>
+            <select
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
+              onBlur={() => validateField('time', formData.time)}
+              required
+              style={{
+                width: '100%', // Full width
+                padding: '12px',
+                fontSize: '1rem',
+                border: '2px solid #ccc', // Thicker border
+                borderRadius: '8px',
+                marginBottom: '20px',
+                boxSizing: 'border-box', // Include padding and border in width
+                backgroundColor: '#fff',
+                color: '#333',
+                fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
+                transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+              }}
+            >
+              <option value="">Select Time</option>
+              <option value="09:00 AM">09:00 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="01:00 PM">01:00 PM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="03:00 PM">03:00 PM</option>
+            </select>
+            {errors.time && <p className="error">{errors.time}</p>}
+          </div>
 
           {/* Special Requests */}
-          
-            
+
+
           <div style={{ marginBottom: '20px' }}>
             <label>Special Requests:</label>
             <textarea
@@ -391,7 +392,7 @@ const AppointmentForm = () => {
               onChange={handleChange}
             />
           </div>
-  
+
           {/* Submit Button */}
           <div>
             <h3 style={{
@@ -415,26 +416,26 @@ const AppointmentForm = () => {
           </div>
         </form>
       </div>
-  
+
       <div className="services-column">
-        <h2 style={{ 
-          fontSize: '2rem',
-          color: '#5C646C', 
+        <h2 style={{
+          fontSize: '2.1rem',
+          color: '#5C646C',
           fontFamily: 'Arial, sans-serif',
           marginBottom: '20px',
         }}>
           Choose Your Services:
         </h2>
-  
+
         <div id="services" className="services">
           {loading ? (
             <p>Loading...</p>
           ) : (
             Object.keys(serviceOptions).map(category => (
               <div key={category} className="service-category">
-                <h3 style={{ 
-                  fontWeight: '600', 
-                  fontSize: '1.2rem', 
+                <h3 style={{
+                  fontWeight: '600',
+                  fontSize: '1.4rem',
                   marginBottom: '10px',
                 }}>{category}</h3>
                 {serviceOptions[category].map(service => (
@@ -446,8 +447,10 @@ const AppointmentForm = () => {
                       checked={formData.services.includes(service)}
                       onChange={() => handleServiceChange(service)}
                     />
-                    <label htmlFor={service} style={{  marginLeft: '8px',
-    color: '#ffffff', fontSize: '1.2rem',}}>
+                    <label htmlFor={service} style={{
+                      marginLeft: '8px',
+                      color: '#ffffff', fontSize: '1.2rem', fontFamily: "sans-serif",
+                    }}>
                       {service} - LKR {servicePrices[service]?.toFixed(0)}
                     </label>
                   </div>
@@ -460,7 +463,7 @@ const AppointmentForm = () => {
       </div>
     </div>
   );
-  
+
 };
 
 export default AppointmentForm
