@@ -12,7 +12,7 @@ export default function Bill() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/items/orders`);
+        const response = await fetch(`http://localhost:5000/api/items/orders/last`);
         const data = await response.json();
         console.log(data)
           

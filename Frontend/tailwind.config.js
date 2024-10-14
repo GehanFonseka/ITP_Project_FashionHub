@@ -19,7 +19,8 @@ export default {
   },
   plugins: [
     daisyui,
-    // other plugins can also be imported and added similarly
+
+    // ... other plugins
   ],
 };
 

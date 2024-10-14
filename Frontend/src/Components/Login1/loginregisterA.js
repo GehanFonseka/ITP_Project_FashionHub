@@ -47,7 +47,7 @@ const LoginRegister = () => {
         } else if (user.role === "accessories") {
           navigate("/F_adminDashboard");
         } else if (user.role === "delivery") {
-          navigate("/manager");
+          navigate("/OrderManage");
         } else {
           navigate("/customer");
         }

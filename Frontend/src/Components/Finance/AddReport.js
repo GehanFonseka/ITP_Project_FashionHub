@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-
 const AddReport = () => {
-  const [shopID, setShopID] = useState("");
+  const [sellerNo, setSellerNo] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const navigate = useNavigate();
 
   const currentMonth = new Date().getMonth(); 
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear(); 
 
   const handleGenerate = () => {
-    if (shopID && month && year) {
+    if (sellerNo && month && year) {
       const monthNames = [
         "January",
         "February",
@@ -28,17 +26,19 @@ const AddReport = () => {
         "November",
         "December",
       ];
-
-      // Convert the selected month name to its numeric value (1-12)
+  
       const numericMonth = monthNames.indexOf(month) + 1;
-
+      const numericSellerNo = Number(sellerNo); 
+      const numericYear = Number(year); 
+  
       navigate("/balanceSheet", {
-        state: { shopID, month: numericMonth, year },
+        state: { sellerNo: numericSellerNo, month: numericMonth, year: numericYear },
       });
     } else {
       alert("Please select all fields");
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-light font-saira">
@@ -54,20 +54,20 @@ const AddReport = () => {
         <div className="bg-gray-200 p-6 rounded-lg space-y-4">
           <div>
             <label className="block text-dark font-semibold mb-2">
-              Select Shop:
+              Select Seller:
             </label>
             <select
               className="select w-full bg-gray-100 p-2 border  rounded text-[#5C646C]"
-              value={shopID}
-              onChange={(e) => setShopID(e.target.value)}
+              value={sellerNo}
+              onChange={(e) => setSellerNo(e.target.value)}
             >
               <option value="" disabled selected>
                 Choose a shop
               </option>
-              <option value="SHID01">Clothing</option>
-              <option value="SHID02">Shoes</option>
-              <option value="SHID03">Accessories</option>
-              <option value="SHID04">Saloon</option>
+              <option value={1101}>Clothing</option>
+              <option value={1010}>Shoes</option>
+              <option value={1011}>Accessories</option>
+              <option value={1000}>Saloon</option>
             </select>
           </div>
 
@@ -99,7 +99,7 @@ const AddReport = () => {
               className="select w-full bg-gray-100 p-2 border  rounded text-[#5C646C]"
               value={month}
               onChange={(e) => setMonth(e.target.value)}
-              disabled={!year || parseInt(year) > currentYear} // Disable month selection for future years
+              disabled={!year || parseInt(year) > currentYear} 
             >
               <option value="" disabled selected>
                 Choose a month
@@ -131,7 +131,7 @@ const AddReport = () => {
             </button>
             <button
               onClick={handleGenerate}
-              className="btn bg-green-400 text-white hover:bg-green-500"
+              className="btn bg-[#4CAF50] text-white hover:bg-green-500"
             >
               Generate
             </button>

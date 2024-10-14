@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import jsPDF from "jspdf";
 import { format, parseISO } from "date-fns";
-import "animate.css"; // Ensure animate.css is installed for animation
+import "animate.css"; 
 
 const ViewTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -54,23 +54,28 @@ const ViewTickets = () => {
 
   const downloadPDF = (ticket) => {
     const doc = new jsPDF();
-    const lineHeight = 10; // Consistent line spacing
-    let currentY = 25; // Starting Y position after the title
+    const lineHeight = 15; 
+    let currentY = 45;
+     
   
-    // Add store name at the top - Larger size and bold
-    doc.setFontSize(22); // Increased font size for "FashionHub"
-    doc.setFont("Russo One", "bold"); // Use bold for store name
-    doc.setTextColor("#E76F51"); // Primary color
-    doc.text("FashionHub", 105, 15, { align: "center" }); // Centered store name
-  
-    // Add title below the store name
-    doc.setFontSize(16); // Set a smaller size for the title
-    doc.setFont("Russo One"); // Regular font for title
+
+    doc.setFontSize(22);
+    doc.setFont("Russo One", "bold"); 
+    doc.setTextColor("#E76F51"); 
+    doc.text("FashionHub", 105, 20, { align: "center" }); 
+    
+  // Add a horizontal line under the title
+  doc.setDrawColor("#E76F51"); 
+  doc.setLineWidth(0.6);            
+  doc.line(15, 25, 195, 25);      
+    
+    doc.setFontSize(16); 
+    doc.setFont("Russo One"); 
     doc.setTextColor("#E76F51");
     doc.text("Ticket Details", 105, currentY, { align: "center" });
-    currentY += lineHeight; // Move down for next content
+    currentY += lineHeight + 7; 
   
-    // Define bullet point
+    
     const bullet = "\u2022 ";
   
     // Set uniform font size and color for all text
@@ -78,45 +83,44 @@ const ViewTickets = () => {
     doc.setFont("Saira");
     doc.setTextColor("#000000");
   
-    // Add subject
-    doc.text(`${bullet}Subject:`, 10, currentY);
-    doc.text(ticket.subject, 45, currentY);
-    currentY += lineHeight; // Move down for next line
-  
-    // Add description
-    doc.text(`${bullet}Description:`, 10, currentY);
-    doc.text(ticket.issueDescription, 45, currentY, { maxWidth: 140 });
+    
+    doc.text(`${bullet}Subject:`, 45, currentY);
+    doc.text(ticket.subject, 80, currentY);
+    currentY += lineHeight; 
+    
+    doc.text(`${bullet}Description:`, 45, currentY);
+    doc.text(ticket.issueDescription, 80, currentY, { maxWidth: 130 });
     currentY += lineHeight;
   
-    // Add customer name
-    doc.text(`${bullet}Customer Name:`, 10, currentY);
-    doc.text(ticket.customerName, 45, currentY);
+    
+    doc.text(`${bullet}Customer Name:`, 45, currentY);
+    doc.text(ticket.customerName, 80, currentY);
     currentY += lineHeight;
   
-    // Add email
-    doc.text(`${bullet}E-mail:`, 10, currentY);
-    doc.text(ticket.email, 45, currentY);
+    
+    doc.text(`${bullet}E-mail:`, 45, currentY);
+    doc.text(ticket.email, 80, currentY);
     currentY += lineHeight;
 
     
-    // Add phone number
-    doc.text(`${bullet}Phone Number:`, 10, currentY);
-    doc.text(ticket.phoneNumber, 45, currentY);
+    
+    doc.text(`${bullet}Phone Number:`, 45, currentY);
+    doc.text(ticket.phoneNumber, 80, currentY);
     currentY += lineHeight;
   
-    // Add shop ID
-    doc.text(`${bullet}Shop :`, 10, currentY);
-    doc.text(ticket.shopID || "N/A", 45, currentY);
+    
+    doc.text(`${bullet}Shop :`, 45, currentY);
+    doc.text(ticket.shop || "N/A", 80, currentY);
     currentY += lineHeight;
   
-    // Add status
-    doc.text(`${bullet}Status:`, 10, currentY);
-    doc.text(ticket.status, 45, currentY);
+    
+    doc.text(`${bullet}Status:`, 45, currentY);
+    doc.text(ticket.status, 80, currentY);
     currentY += lineHeight;
   
-    // Add response
-    doc.text(`${bullet}Response:`, 10, currentY);
-    doc.text(ticket.response || "No response available.", 45, currentY, { maxWidth: 140 });
+    
+    doc.text(`${bullet}Response:`, 45, currentY);
+    doc.text(ticket.response || "No response available.", 80, currentY, { maxWidth: 130 });
   
     // Save the PDF
     doc.save(`ticket_${ticket.subject}.pdf`);
@@ -125,7 +129,7 @@ const ViewTickets = () => {
   
 
   return (
-    <div className="container mx-auto p-6 mb-56" style={{ marginTop: '90px' }}> {/* Adjusted margin-top here */}
+    <div className="container mx-auto p-6 mb-56" style={{ marginTop: '90px' }}> 
       <h1 className="text-4xl font-russo mb-8 text-primary">View Tickets</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {tickets.map((ticket) => (
@@ -189,6 +193,7 @@ const ViewTickets = () => {
       </div>
 
       {isModalOpen && selectedTicket && (
+        
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
         <div
           className="relative bg-white text-dark p-1 rounded-2xl shadow-2xl  max-w-xl w-full max-h-[80vh] overflow-y-auto animate__animated animate__fadeIn animate__faster"
@@ -228,7 +233,7 @@ const ViewTickets = () => {
               <h3 className="text-lg font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-2">
                 Shop 
               </h3>
-              <p className="text-gray-700">{selectedTicket.shopID || "N/A"}</p>
+              <p className="text-gray-700">{selectedTicket.shop || "N/A"}</p>
             </div>
             <div className="mb-4 ml-3">
               <h3 className="text-lg font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-2">

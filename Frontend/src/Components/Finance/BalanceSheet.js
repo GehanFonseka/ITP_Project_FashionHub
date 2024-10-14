@@ -3,22 +3,23 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const BalanceSheet = () => {
+  
   const location = useLocation();
   const {
-    shopID: initialShopID,
+    sellerNo: initialShopID,
     month: initialMonth,
     year: initialYear,
     reportId: initialReportId,
   } = location.state || {};
 
-   // Assign shopId based on initialShopID
-   const shopId = initialShopID === "SHID01" ? "Clothing" : 
-   initialShopID === "SHID02" ? "Shoes" :
-   initialShopID === "SHID03" ? "Accessories" :
-   initialShopID === "SHID04" ? "Saloon" :
+   
+   const sellerNo = initialShopID === 1101 ? "Clothing" : 
+   initialShopID === 1010 ? "Shoes" :
+   initialShopID === 1011 ? "Accessories" :
+   initialShopID === 5000 ? "Saloon" :
    "Unknown Shop"; 
 
-  // Array of month names
+  
   const monthNames = [
     "January",
     "February",
@@ -34,12 +35,12 @@ const BalanceSheet = () => {
     "December",
   ];
 
-  // Convert month number to month name
+  
   const getMonthName = (monthNumber) => {
     return monthNames[parseInt(monthNumber, 10) - 1] || "";
   };
 
-  const [shopID, setShopID] = useState(initialShopID || "");
+  const [sellerno, setShopID] = useState(initialShopID || "");
   const [month, setMonth] = useState(initialMonth || "");
   const [year, setYear] = useState(initialYear || "");
   const [income, setIncome] = useState("");
@@ -65,7 +66,6 @@ const BalanceSheet = () => {
   const [netProfit, setNetProfit] = useState("");
   const [reportId, setReportId] = useState(initialReportId || null);
 
-  // Function to format month and year into a date string
   const formatDate = (month, year) => {
     const date = new Date(`${year}-${month}-01`);
     return date.toISOString().slice(0, 10); 
@@ -93,18 +93,18 @@ const BalanceSheet = () => {
     setNetProfit(netProfitAmount);
   };
 
-  // Effect to recalculate totals when inputs change
+ 
   useEffect(() => {
     calculateTotals();
   }, [income, expenses, pettyCash]);
 
-  // Function to trigger income calculation
+  // trigger income calculation
   const calculateIncome = async () => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/income/calculate-income",
         {
-          shopId: shopID,
+          sellerNo: sellerno,
           year,
           month,
         }
@@ -115,14 +115,14 @@ const BalanceSheet = () => {
     }
   };
 
-  // Function to fetch the total income
+  //fetch the total income
   const fetchTotalIncome = async () => {
     try {
       const formattedDate = formatDate(month, year); 
       const response = await axios.get(
         "http://localhost:5000/api/income/income",
         {
-          params: { shopId: shopID, year, month }, 
+          params: { sellerNo: sellerno, year, month }, 
         }
       );
       setIncome(response.data.totalIncome || "");
@@ -131,9 +131,9 @@ const BalanceSheet = () => {
     }
   };
 
-  // useEffect to calculate and fetch total income when shopID, month, or year changes
+  
   useEffect(() => {
-    if (shopID && month && year) {
+    if (sellerno && month && year) {
       const fetchAndCalculateIncome = async () => {
         await calculateIncome(); 
         await fetchTotalIncome(); 
@@ -141,64 +141,91 @@ const BalanceSheet = () => {
 
       fetchAndCalculateIncome();
     }
-  }, [shopID, month, year]);
+  }, [sellerno, month, year]);
 
   const handleIncomeChange = (e) => setIncome(e.target.value);
 
-  const handleExpenseChange = (e) => {
+
+  const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
     const parsedValue = parseFloat(value);
   
-    // Validate and ensure only values 1 and above are allowed
-    if (value === "" || (parsedValue >= 1 && Number.isFinite(parsedValue))) {
-      setExpenses((prevState) => ({
+    // Check if the field is empty
+    if (value === "") {
+      setState((prevState) => ({
         ...prevState,
         [name]: value,
-        [`${name}Error`]: "", 
+        [`${name}Error`]: "This field is required", 
       }));
     } else {
-      setExpenses((prevState) => ({
-        ...prevState,
-        [name]: value,
-        [`${name}Error`]: "", 
-      }));
+      if (parsedValue >= 1 && Number.isFinite(parsedValue)) {
+        // Clear error if valid value is entered
+        setState((prevState) => ({
+          ...prevState,
+          [name]: value,
+          [`${name}Error`]: "", 
+        }));
+      }
     }
   };
   
   
+  
 
-  const handlePettyCashChange = (e) => {
+const handleExpenseChange = (e) => {
+  const reqExFields = ["electricityBill",
+                       "internetBill",
+                       "waterBill",
+                       "employeeSalaries",
+                       ]; 
+
+  const isReqEx = reqExFields.includes(e.target.name); 
+
+  if (isReqEx) {
+   
+    handleInputChange(e, setExpenses);
+  } else {
+
     const { name, value } = e.target;
-    const parsedValue = parseFloat(value);
-  
-    // Validate and ensure only values 1 and above are allowed
-    if (value === "" || (parsedValue >= 1 && Number.isFinite(parsedValue))) {
-      setPettyCash((prevState) => ({
-        ...prevState,
-        [name]: value,
-        [`${name}Error`]: "", 
-      }));
-    } else {
-      setPettyCash((prevState) => ({
-        ...prevState,
-        [name]: value,
-        [`${name}Error`]: "", 
-      }));
-    }
-  };
-  
+    setExpenses((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+};
 
-  const handleShopIDChange = (e) => setShopID(e.target.value);
-  const handleMonthChange = (e) => setMonth(e.target.value);
-  const handleYearChange = (e) => setYear(e.target.value);
+
+
+const handlePettyCashChange = (e) => {
+    const reqPetFields = [
+        "transportationCost",
+        "bankFees",
+        "courierFees",]; 
+
+    const isReqPet = reqPetFields.includes(e.target.name); 
+
+    if (isReqPet) {
+    
+    handleInputChange(e, setPettyCash);
+    } else {
+   
+    const { name, value } = e.target;
+    setPettyCash((prevState) => ({
+    ...prevState,
+    [name]: value,
+    }));
+    }
+};
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (reportId) {
-        // Update existing report
+        
         await axios.put(`http://localhost:5000/api/reports/${reportId}`, {
-          shopID,
+          sellerNo: sellerno,
           month,
           year,
           totalIncome,
@@ -210,9 +237,9 @@ const BalanceSheet = () => {
         });
         alert("Report updated successfully");
       } else {
-        // Create new report
+        
         await axios.post("http://localhost:5000/api/reports", {
-          shopID,
+          sellerNo: sellerno,
           month,
           year,
           totalIncome,
@@ -242,6 +269,10 @@ const BalanceSheet = () => {
     }
   };
 
+  const requiredFields = ["electricityBill","internetBill","waterBill","employeeSalaries"];
+  const requiredCashFields = ["transportationCost", "bankFees","courierFees",];
+
+
   return (
     <div className="flex flex-col items-center p-8 bg-[#F4F4F4] min-h-screen font-saira">
       <h1 className="text-4xl font-russo mb-6 text-[#5C646C]">
@@ -263,38 +294,37 @@ const BalanceSheet = () => {
               Report Details
             </h3>
             <div className="mb-4">
-  <div className="flex justify-between items-center mb-2">
-    <span className="text-[#5C646C]">Shop ID</span>
-    <input
-      type="text"
-      value={shopId}
-      readOnly
-      className="border border-[#E76F51] p-1 rounded w-16 text-dark bg-[#F4F4F4]" // Reduced width
-      placeholder="Shop ID"
-    />
-  </div>
-  <div className="flex justify-between items-center mb-2">
-    <span className="text-[#5C646C]">Month</span>
-    <input
-      type="text"
-      value={getMonthName(month)}
-      readOnly
-      className="border border-[#E76F51] p-1 rounded w-16 text-dark bg-[#F4F4F4]" // Reduced width
-      placeholder="Month"
-    />
-  </div>
-  <div className="flex justify-between items-center mb-2">
-    <span className="text-[#5C646C]">Year</span>
-    <input
-      type="text"
-      value={year}
-      readOnly
-      className="border border-[#E76F51] p-1 rounded w-16 text-dark bg-[#F4F4F4]" // Reduced width
-      placeholder="Year"
-    />
-  </div>
-</div>
-
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-[#5C646C]">Shop ID</span>
+                <input
+                  type="text"
+                  value={sellerNo}
+                  readOnly
+                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  placeholder="Shop ID"
+                />
+              </div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-[#5C646C]">Month</span>
+                <input
+                  type="text"
+                  value={getMonthName(month)}
+                  readOnly
+                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  placeholder="Month"
+                />
+              </div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-[#5C646C]">Year</span>
+                <input
+                  type="text"
+                  value={year}
+                  readOnly
+                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  placeholder="Year"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Income and Expenses Section */}
@@ -341,7 +371,12 @@ const BalanceSheet = () => {
                           value={expenses[expense] || ""}
                           onChange={handleExpenseChange}
                           onKeyDown={(e) => {
-                            // Prevent user from typing the minus sign, "e", or any invalid characters
+                            const { value } = e.target;
+                            
+                            if (e.key === "0" && value === "") {
+                              e.preventDefault();
+                            }
+                            
                             if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                               e.preventDefault();
                             }
@@ -350,7 +385,7 @@ const BalanceSheet = () => {
                             expenses[`${expense}Error`] ? "border-red-500" : "border-[#E76F51]"
                           } bg-[#F4F4F4]`}
                           placeholder="Amount"
-                          min="1" // Set minimum value to 1
+                          min="1" 
                         />
                       </div>
                       {expenses[`${expense}Error`] && (
@@ -386,8 +421,26 @@ const BalanceSheet = () => {
                           name={expense}
                           value={expenses[expense] || ""}
                           onChange={handleExpenseChange}
+                          onFocus={() => {
+                            
+                            if (requiredFields.includes(expense) && !expenses[expense]) {
+                              setExpenses((prevState) => ({
+                                ...prevState,
+                                [`${expense}Error`]: "This field is required",
+                              }));
+                            }
+                          }}
+                          onBlur={(e) => {
+                            
+                            handleExpenseChange(e);
+                          }}
                           onKeyDown={(e) => {
-                            // Prevent user from typing the minus sign, "e", or any invalid characters
+                            
+                            const { value } = e.target;
+                            
+                            if (e.key === "0" && value === "") {
+                              e.preventDefault();
+                            }
                             if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                               e.preventDefault();
                             }
@@ -436,8 +489,22 @@ const BalanceSheet = () => {
                       name={cash}
                       value={pettyCash[cash]}
                       onChange={(e) => handlePettyCashChange(e)}
+                      onFocus={() => {
+                        if (requiredCashFields.includes(cash) && !pettyCash[cash]) {
+                          setPettyCash((prevState) => ({
+                            ...prevState,
+                            [`${cash}Error`]: "This field is required",
+                          }));
+                        }
+                      }}
+                      onBlur={(e) => {
+                        handlePettyCashChange(e);
+                      }}
                       onKeyDown={(e) => {
-                        // Prevent user from typing the minus sign, "e", or any invalid characters
+                        const { value } = e.target;
+                            if (e.key === "0" && value === "") {
+                              e.preventDefault();
+                            }
                         if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
                           e.preventDefault();
                         }
