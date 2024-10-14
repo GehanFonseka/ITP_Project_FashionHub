@@ -129,9 +129,10 @@ const UserDashboard = () => {
         <Button to="/MyAppointmentForm">View Appointments</Button>
       </Section>
       <Section>
-        <SectionTitle>Delivery Confirmation</SectionTitle>
-        <Button to="/delivery">Confirm Delivery</Button>
+        <SectionTitle>My Tickets</SectionTitle>
+        <Button to="/View">View Tickets</Button>
       </Section>
+    
     </DashboardContainer>
   );
 };
