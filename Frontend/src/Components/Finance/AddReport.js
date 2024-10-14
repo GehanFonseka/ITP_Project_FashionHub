@@ -45,8 +45,8 @@ const AddReport = () => {
       <h1 className="text-3xl font-russo text-dark mt-8">
         Financial Management
       </h1>
-      <div className="mt-8 bg-primary rounded-t-lg w-full max-w-md">
-        <h2 className="text-white text-center py-2 font-semibold">
+      <div className="mt-8 bg-primary rounded-t-lg w-full max-w-md h-14">
+        <h2 className="text-white text-center py-2 font-semibold text-xl">
           Add A Report
         </h2>
       </div>

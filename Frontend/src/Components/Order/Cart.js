@@ -4,6 +4,7 @@ import "jspdf-autotable";
 import { Link, useNavigate } from "react-router-dom";
 import React from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 export default function Cart() {
   const [Info, setInfo] = useState([]);
@@ -55,6 +56,29 @@ export default function Cart() {
       console.log(error.message);
     }
   };
+
+  const clearCart = async () => {
+    const confirmClear = window.confirm("Are you sure you want to clear the cart?");
+    if (!confirmClear) return;
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/items/cart/clear`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setInfo([]); // Clear the state holding cart items
+        setTotalPrice(0); // Reset total price
+        alert("Cart cleared successfully.");
+      } else {
+        alert(data.message || "Failed to clear the cart.");
+      }
+    } catch (error) {
+      alert("Error clearing the cart. Please try again.");
+    }
+  };
+
+  
 
   // Handle viewing order
   const handleViewOrder = async () => {
@@ -208,6 +232,8 @@ export default function Cart() {
     const handleCheckout = () => {
       navigate("/bill", { state: { newlyAddedItems } }); // Pass new items to the Bill page
     };
+
+    
   
     return (
       <div>
@@ -217,6 +243,7 @@ export default function Cart() {
     );
   }
 
+  
   
   
 
@@ -270,6 +297,7 @@ export default function Cart() {
       <div className="flex justify-center items-center mb-2 mt-6">
         <button onClick={handleViewOrder} className="w-72 h-20 text-xl text-opacity-80 rounded-lg text-white font sans-serif shadow-black bg-opacity-40 uppercase bg-black hover:opacity-50 shadow-sm">Proceed to CheckOut</button>
         <button onClick={generatePDF} className="w-72 h-20 ml-20 text-xl font sans-serif shadow-black whitespace-nowrap text-opacity-80 rounded-lg text-white bg-opacity-40 uppercase bg-black hover:opacity-50 shadow-sm">Download Bill</button>
+
       </div>
     </div>
   );
