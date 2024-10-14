@@ -9,7 +9,7 @@ const predefinedUsers = [
   { username: "reviews", password: "reviews123", role: "reviews" },
   { username: "accessories", password: "accessories123", role: "accessories" },
   { username: "delivery", password: "delivery123", role: "delivery" },
-  { username: "review", password: "rewiew123", role: "delivery" },
+  { username: "review", password: "review123", role: "delivery" },
 ];
 
 const LoginRegister = () => {
@@ -39,7 +39,7 @@ const LoginRegister = () => {
           navigate("/Dashboard");
         } else if (user.role === "clothing") {
           navigate("/C_AdminDB01");
-        } else if (user.role === "review") {
+        } else if (user.role === "reviews") {
           navigate("/DashboardContainer");
         } else if (user.role === "accessories") {
           navigate("/F_adminDashboard");
