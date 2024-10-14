@@ -7,6 +7,7 @@ import salon from '../../assets/salon1.jpg';
 import Heroboots from '../../assets/Heroboots.jpg';  // Images for the new sections
 import Herosneakers from '../../assets/Herosneakers.jpg';
 import Herowatch from '../../assets/Herowatch.jpg';
+import HeroFind from '../../assets/HeroFind.jpg'
 
 // Move styled components above the component definition
 const HeroContainer = styled.div`
@@ -156,13 +157,15 @@ const HeroSection = () => {
         </EqualItem>
 
         <EqualItem>
-          <HeroImage src={Heroboots} alt="Shop Casual Boots" />
+          {/* Find My Outfit section */}
+          <HeroImage src={HeroFind} alt="Find My Outfit" />
           <HeroTextBox small>
-            <HeroHeading small>Shop Casual Boots</HeroHeading>
-            <HeroDescription small>Durable and Fashionable Boots for Every Step</HeroDescription>
-            <ShopButton small href="/BootsHome">Shop Now</ShopButton>
+            <HeroHeading small>Find My Outfit</HeroHeading>
+            <HeroDescription small>Explore styles tailored to your taste</HeroDescription>
+            <ShopButton small href="/ItemList">Find My Outfit</ShopButton>
           </HeroTextBox>
         </EqualItem>
+
 
         <EqualItem>
           <HeroImage src={Herowatch} alt="Shop Watches" />
@@ -174,8 +177,7 @@ const HeroSection = () => {
         </EqualItem>
       </SneakersBootsWatchesRow>
 
-      {/* Find My Outfit button */}
-      <FindOutfitButton href="/ItemList">Find My Outfit</FindOutfitButton>
+      
     </HeroContainer>
   );
 };
