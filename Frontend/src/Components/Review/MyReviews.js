@@ -101,7 +101,7 @@ const MyReviews = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHeaderCell>UserName</TableHeaderCell>
+             
               <TableHeaderCell>Comment</TableHeaderCell>
               <TableHeaderCell>Stars</TableHeaderCell>
               <TableHeaderCell>Action</TableHeaderCell>
@@ -110,7 +110,7 @@ const MyReviews = () => {
           <TableBody>
             {currentReviews.map((review) => (
               <TableRow key={review._id}>
-                <TableCell>{review.userId}</TableCell>
+                
                 <TableCell>{review.comment}</TableCell>
                 <TableCell>
                   {Array.from({ length: review.rating }).map((_, index) => (
