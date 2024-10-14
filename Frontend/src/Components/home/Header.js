@@ -65,33 +65,35 @@ const Header = () => {
 
 export default Header;
 
+// Styled Components
 const Nav = styled.nav`
   display: flex;
-  padding: 15px 25px;
+  align-items: center; /* Vertically center all items */
+  justify-content: space-between; /* Ensure spacing between sections */
+  padding: 8px 20px; /* Reduced padding to make the navbar shorter */
   background-color: #000;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  box-sizing: border-box;
 `;
 
 const Logo = styled.img`
-  height: 50px;
+  height: 55px; /* Slightly reduced logo height */
 `;
 
 const Menu = styled.div`
-  margin-left: 50px;
   display: flex;
-  gap: 25px;
-  padding-top: 23px;
+  gap: 40px;
+  align-items: center; /* Vertically center menu items */
 `;
 
 const MenuItem = styled.a`
   color: #fff;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px; /* Slightly reduced font size */
   font-weight: bold;
-  margin-left: 15px;
 
   &:hover {
     color: #AE2012;
@@ -99,16 +101,19 @@ const MenuItem = styled.a`
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 260px;
-  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 25px;
+  margin-top: 15px; /* Adjust margin-top to align with smaller navbar */
 `;
 
 const SearchInput = styled.input`
-  padding: 12px 14px;
+  padding: 8px 10px; /* Slightly reduced padding */
   border-radius: 4px;
   border: 1px solid #ccc;
   font-size: 16px;
-  width: 150px;
+  width: 200px;
   outline: none;
 
   &:focus {
@@ -118,14 +123,13 @@ const SearchInput = styled.input`
 
 const IconContainer = styled.div`
   display: flex;
-  padding-top: 23px;
-  gap: 35px;
-  margin-left: 55px;
+  align-items: center;
+  gap: 40px; /* Slightly reduced gap */
 `;
 
 const IconLink = styled.a`
   color: #fff;
-  font-size: 20px;
+  font-size: 22px; /* Slightly reduced icon size */
   text-decoration: none;
 
   &:hover {

@@ -113,7 +113,14 @@ const EditPackagePage = () => {
 
   const handleSave = async () => {
     try {
-      const calculatedBudget = selectedItems.shirt?.price + selectedItems.trouser?.price + selectedItems.shoe?.price;
+      // Use optional chaining and nullish coalescing to handle potential null values
+      const shirtPrice = selectedItems.shirt?.price ?? 0; // Default to 0 if shirt is null
+      const trouserPrice = selectedItems.trouser?.price ?? 0; // Default to 0 if trouser is null
+      const shoePrice = selectedItems.shoe?.price ?? 0; // Default to 0 if shoe is null
+  
+      const calculatedBudget = shirtPrice + trouserPrice + shoePrice;
+  
+      // Send update request
       await axios.put(
         `http://localhost:5000/api/favoritePackages/update/${id}`,
         {
@@ -126,11 +133,15 @@ const EditPackagePage = () => {
           },
         }
       );
+  
+      // Navigate after successful update
       navigate("/FavoritePackages");
     } catch (err) {
-      setError("Error updating package.", err);
+      setError("Error updating package. Please try again."); // Updated error message
+      console.error(err); // Log the error for debugging
     }
   };
+  
 
   const handleSelect = (category, item) => {
     setSelectedItems((prev) => ({

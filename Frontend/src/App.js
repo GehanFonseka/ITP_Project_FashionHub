@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation,matchPath } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import Header from './Components/home/Header'; 
 import HeroSection from './Components/home/HeroSection';
 import LayoutWithSidebar from "./Components/Finance/LayoutWithSidebar";
 import BLayout from './Components/Budget/BLayout';
+
 
 import UserDashboard from './Components/Login1/userDashboard';
 import Register from "./Components/Login1/Register";
@@ -152,27 +153,39 @@ import Overview from "./Components/Finance/Overview";
 
 
 // Custom component to conditionally render Header and Footer
+
+
+const isMatchPath = (pattern, pathname) => matchPath(pattern, pathname);
+
 const Layout = ({ children }) => {
   const location = useLocation();
 
-  const noHeaderFooterPaths = ['/Dashboard', '/Register', '/Login','/BarChart','/balanceSheet','/displayreport','/editreport/:id','/EditReport/:id','/editReport/:id','/addreport','/Overview','/overview']; // Add paths where you don't want Header and Footer
-  const onlyHeaderPaths = ['/ItemList']
-;
+  const noHeaderFooterPaths = [
+    '/Dashboard', '/Register', '/Login', '/BarChart', '/balanceSheet',
+    '/displayreport', '/editreport/:id', '/addreport', '/Overview'
+  ];
 
+  const onlyHeaderPaths = [
+    '/ItemList', '/edit-package/:id'
+  ];
 
-  const showHeaderFooter = !noHeaderFooterPaths.includes(location.pathname);
-  const showHeader = onlyHeaderPaths.includes(location.pathname);
+  const isNoHeaderFooter = noHeaderFooterPaths.some((path) =>
+    isMatchPath(path, location.pathname)
+  );
 
+  const isOnlyHeader = onlyHeaderPaths.some((path) =>
+    isMatchPath(path, location.pathname)
+  );
 
   return (
-    <div>
-      {showHeader &&  <Header />} 
-      {children}  
-      {showHeaderFooter && !showHeader && <Footer />}
-      {showHeaderFooter && <Header/>}
-    </div>
+    <>
+      {!isNoHeaderFooter && <Header />}
+      <main>{children}</main>
+      {!isNoHeaderFooter && !isOnlyHeader && <Footer />}
+    </>
   );
 };
+
 
 
 

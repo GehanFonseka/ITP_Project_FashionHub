@@ -331,7 +331,7 @@ const DisplayReport = () => {
                     type="text"
                     value={sellerNo}
                     readOnly
-                    className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                    className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                     placeholder="Shop ID"
                   />
                 </div>
@@ -341,7 +341,7 @@ const DisplayReport = () => {
                     type="text"
                     value={getMonthName(report.month)}
                     readOnly
-                    className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                    className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                     placeholder="Month"
                   />
                 </div>
@@ -351,7 +351,7 @@ const DisplayReport = () => {
                     type="text"
                     value={report.year}
                     readOnly
-                    className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                    className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                     placeholder="Year"
                   />
                 </div>
@@ -599,29 +599,33 @@ const getShopIDFromName = (shopName) => {
           </select>
         </div>
       </div>
+      <div className="mt-2"> {/* This is the search container with more spacing */}
+  {/* Search input field and other search-related components */}
+</div>
 
-      {/* Report Cards Grid with search functionality */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {reports
-        .filter((report) => {
-          const normalizedSearchTerm = searchTerm ? searchTerm.toLowerCase() : "";
+{/* Report Cards Grid with search functionality */}
+<div className="flex flex-wrap -mx-2">
+  {reports
+    .filter((report) => {
+      const normalizedSearchTerm = searchTerm ? searchTerm.toLowerCase() : "";
+      const shopID = getShopIDFromName(normalizedSearchTerm);
+      const sellerno = shopID !== "" ? shopID : normalizedSearchTerm;
 
-          const shopID = getShopIDFromName(normalizedSearchTerm);
+      return (
+        (searchTerm
+          ? report.sellerNo && report.sellerNo.toString().includes(sellerno.toString())
+          : true) &&
+        (filters.year ? report.year === filters.year : true) &&
+        (filters.month ? report.month === filters.month : true)
+      );
+    })
+    .map((report) => (
+      <div key={report._id} className="w-1/3 px-2 mb-4"> {/* Each card takes up 1/3 width */}
+        <ReportCard report={report} />
+      </div>
+    ))}
+</div>
 
-          const sellerno = shopID !== "" ? shopID : normalizedSearchTerm;
-
-          return (
-            (searchTerm
-              ? report.sellerNo && report.sellerNo.toString().includes(sellerno.toString())
-              : true) &&
-            (filters.year ? report.year === filters.year : true) &&
-            (filters.month ? report.month === filters.month : true)
-          );
-        })
-        .map((report) => (
-          <ReportCard key={report._id} report={report} />
-        ))}
-      </div> 
 
       {/* Full Report Popup */}
       {selectedReport && (

@@ -3,61 +3,70 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+// Dashboard Container
 const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px;
-  background-color: #f4f4f4;
+  background-color: #f0f2f5; /* Soft gray background for a professional feel */
   height: 100vh;
-  font-family: Arial, sans-serif;
-  margin-top: 50px;
+  font-family: 'Roboto', sans-serif; /* Modern font */
+  margin-top: 90px;
 `;
 
+// Header
 const Header = styled.div`
   width: 100%;
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: #E76F51; /* Primary color */
+  color: #ffffff; /* White text for contrast */
   padding: 30px;
   text-align: center;
   border-radius: 12px;
   margin-bottom: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
 `;
 
+// User Name
 const UserName = styled.h2`
-  font-size: 32px;
+  font-size: 34px;
   font-weight: bold;
   margin: 0;
-  color: #007bff;
+  color: #ffffff; /* White for better visibility */
 `;
 
+// User Email
 const UserEmail = styled.p`
   font-size: 18px;
-  color: #555;
+  color: #f0f2f5; /* Light gray for subtlety */
   margin-top: 10px;
 `;
 
+// Section Container
 const Section = styled.div`
   width: 100%;
   background-color: #ffffff;
   padding: 25px;
   margin-bottom: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
 `;
 
+// Section Title
 const SectionTitle = styled.h3`
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 15px;
-  color: #333;
+  color: #5C646C; /* Secondary color */
 `;
 
+// Button
 const Button = styled(Link)`
   display: inline-block;
-  background-color: #007bff;
+  width: 200px; /* Set a fixed width for all buttons */
+  height: 50px; /* Set a fixed height for uniformity */
+  background-color: #5C646C; /* Secondary color */
   color: white;
-  padding: 12px 20px;
+  padding: 12px 20px; /* Padding can remain the same */
   border-radius: 10px;
   text-decoration: none;
   text-align: center;
@@ -67,10 +76,11 @@ const Button = styled(Link)`
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #4a575c; /* Darker shade on hover */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   }
 `;
+
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
@@ -113,6 +123,10 @@ const UserDashboard = () => {
       <Section>
         <SectionTitle>My Reviews</SectionTitle>
         <Button to="/MyReviews">View Reviews</Button>
+      </Section>
+      <Section>
+        <SectionTitle>My Salon Appointments</SectionTitle>
+        <Button to="/MyAppointmentForm">View Appointments</Button>
       </Section>
       <Section>
         <SectionTitle>Delivery Confirmation</SectionTitle>
