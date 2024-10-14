@@ -128,7 +128,7 @@ const TicketResponse = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 mt-[90px]">
+    <div className="container mx-auto p-2 mt-[90px]">
       <h1 className="text-4xl font-russo mb-8 text-primary">
         Respond to Tickets
       </h1>

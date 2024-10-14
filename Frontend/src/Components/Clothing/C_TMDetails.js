@@ -103,9 +103,35 @@ const C_TMDetails = () => {
   const { item, selectedColor, measurements } = location.state || {}; // Destructure item, selectedColor, and measurements from state
   const navigate = useNavigate();
 
-  const handleAddToCart = () => {
-    console.log('Adding to cart:', { item, selectedColor, measurements });
-    navigate('/cart'); // Example: navigate to a cart page
+  const handleAddToCart = async (item) => {
+    const cartItem = {
+      ItemsN: item.name,
+      price: item.price,
+      quantity: item.quantity || 1,
+      image: [item.image] || [],  // Assuming product.image is a string, but the schema expects an array
+      sellerNo: item.sellerNo || 0,  // If sellerNo is not available in product, default to 0
+    };
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/items/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cartItem),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Item added to cart:', result);
+      } else {
+        console.error('Failed to add item to cart:', result);
+      }
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+
+    navigate('/cart', { state: cartItem });
   };
 
   const handleDownloadPDF = () => {
@@ -152,7 +178,12 @@ const C_TMDetails = () => {
             ))}
           </MeasurementList>
         </DetailsDisplay>
-        <AddToCartButton onClick={handleAddToCart}>Add to Cart</AddToCartButton>
+        <AddToCartButton
+          onClick={() => handleAddToCart(item)}
+          
+        >
+          Add to Cart
+        </AddToCartButton>
         <DownloadButton onClick={handleDownloadPDF}>Download PDF</DownloadButton>
       </DetailsCard>
     </Container>
