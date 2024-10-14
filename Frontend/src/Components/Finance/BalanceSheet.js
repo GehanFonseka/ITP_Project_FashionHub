@@ -300,7 +300,7 @@ const handlePettyCashChange = (e) => {
                   type="text"
                   value={sellerNo}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                   placeholder="Shop ID"
                 />
               </div>
@@ -310,7 +310,7 @@ const handlePettyCashChange = (e) => {
                   type="text"
                   value={getMonthName(month)}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                   placeholder="Month"
                 />
               </div>
@@ -320,7 +320,7 @@ const handlePettyCashChange = (e) => {
                   type="text"
                   value={year}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                   placeholder="Year"
                 />
               </div>
