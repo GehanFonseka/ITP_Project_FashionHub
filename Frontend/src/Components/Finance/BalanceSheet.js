@@ -500,7 +500,7 @@ const handlePettyCashChange = (e) => {
                         // Ensure the first number is not 0
                         const value = e.target.value;
                         if (value === "" || /^[1-9][0-9]*$/.test(value)) {
-                          handleExpenseChange(e);
+                          handlePettyCashChange(e);
                         }
                       }}
                       onFocus={() => {

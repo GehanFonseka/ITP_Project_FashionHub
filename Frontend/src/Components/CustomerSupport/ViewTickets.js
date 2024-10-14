@@ -123,68 +123,62 @@ const ViewTickets = () => {
   
 
   return (
-    <div className="container mx-auto p-6 mb-56 w-50" style={{ marginTop: '90px' }}> 
-      <h1 className="text-4xl font-russo mb-8 text-primary">View Tickets</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-50">
-        {tickets.map((ticket) => (
-          <div
-            key={ticket._id}
-            className=" w-50 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 animate__animated animate__fadeIn"
-          >
-            <div className="p-6">
-              <div className="w-50 flex justify-between items-center mb-4">
-                <h2 className="w-50 text-2xl font-russo text-primary flex items-center space-x-2">
-                  {getStatusIcon(ticket.status)}
-                  <span>{ticket.subject}</span>
-                </h2>
-                <p
-                  className={`text-sm font-medium ${getStatusColor(
-                    ticket.status
-                  )}`}
-                >
-                  {ticket.status}
-                </p>
-              </div>
-              <p className="mb-3 text-gray-700">{ticket.issueDescription}</p>
-              <p className="text-sm text-gray-600 mb-4">
-                <strong className="text-gray-800">Date:</strong>{" "}
-                <span className="bg-gray-100 p-2 rounded-lg border border-gray-300 text-secondary font-medium">
-                  {format(
-                    parseISO(ticket.createdDate),
-                    "MMMM d, yyyy 'at' h:mm a"
-                  )}
-                </span>
-              </p>
-              <div className="flex justify-end space-x-3">
-                <button
-                  onClick={() => openModal(ticket)}
-                  className="px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors duration-300 flex items-center space-x-2"
-                  title="View Details"
-                >
-                  <FaEye size={20} />
-                  <span>View</span>
-                </button>
-                <button
-                  onClick={() => handleDelete(ticket._id)}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-800 transition-colors duration-300 flex items-center space-x-2"
-                  title="Delete Ticket"
-                >
-                  <FaTrash size={20} />
-                  <span>Delete</span>
-                </button>
-                <button
-                  onClick={() => downloadPDF(ticket)}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-800 transition-colors duration-300 flex items-center space-x-2"
-                  title="Download PDF"
-                >
-                  <FaDownload size={20} />
-                  <span>Download</span>
-                </button>
-              </div>
-            </div>
+    <div className="w-full mx-0 p-6 mb-56" style={{ marginTop: '90px' }}>
+  <h1 className="text-4xl font-russo mb-8 text-primary">View Tickets</h1>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {tickets.map((ticket) => (
+      <div
+        key={ticket._id}
+        className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 animate__animated animate__fadeIn"
+      >
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-russo text-primary flex items-center space-x-2">
+              {getStatusIcon(ticket.status)}
+              <span>{ticket.subject}</span>
+            </h2>
+            <p className={`text-sm font-medium ${getStatusColor(ticket.status)}`}>
+              {ticket.status}
+            </p>
           </div>
-        ))}
+          <p className="mb-3 text-gray-700">{ticket.issueDescription}</p>
+          <p className="text-sm text-gray-600 mb-4">
+            <strong className="text-gray-800">Date:</strong>{" "}
+            <span className="bg-gray-100 p-2 rounded-lg border border-gray-300 text-secondary font-medium">
+              {format(parseISO(ticket.createdDate), "MMMM d, yyyy 'at' h:mm a")}
+            </span>
+          </p>
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={() => openModal(ticket)}
+              className="px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors duration-300 flex items-center space-x-2"
+              title="View Details"
+            >
+              <FaEye size={20} />
+              <span>View</span>
+            </button>
+            <button
+              onClick={() => handleDelete(ticket._id)}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-800 transition-colors duration-300 flex items-center space-x-2"
+              title="Delete Ticket"
+            >
+              <FaTrash size={20} />
+              <span>Delete</span>
+            </button>
+            <button
+              onClick={() => downloadPDF(ticket)}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-800 transition-colors duration-300 flex items-center space-x-2"
+              title="Download PDF"
+            >
+              <FaDownload size={20} />
+              <span>Download</span>
+            </button>
+          </div>
+        </div>
       </div>
+    ))}
+  </div>
+
 
       {isModalOpen && selectedTicket && (
         

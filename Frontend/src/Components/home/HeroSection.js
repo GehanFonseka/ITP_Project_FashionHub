@@ -123,7 +123,7 @@ const HeroSection = () => {
         <HeroTextBox>
           <HeroHeading>Shop Men's Clothing</HeroHeading>
           <p>Unleash Your Inner Fashion Icon – Explore Men's Wear</p>
-          <ShopButton href="/C_Home">Shop Now</ShopButton>
+          <ShopButton href="/C_MensCasualAndFormal">Shop Now</ShopButton>
         </HeroTextBox>
       </HeroItem>
 
@@ -132,7 +132,7 @@ const HeroSection = () => {
         <HeroTextBox>
           <HeroHeading>Shop Women's Clothing</HeroHeading>
           <p>Revamp Your Wardrobe – Shop the Latest Women’s Fashion</p>
-          <ShopButton href="/C_Home">Shop Now</ShopButton>
+          <ShopButton href="/C_WomensCasualAndFormal">Shop Now</ShopButton>
         </HeroTextBox>
       </HeroItem>
 
