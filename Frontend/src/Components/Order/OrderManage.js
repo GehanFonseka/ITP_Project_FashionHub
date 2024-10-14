@@ -97,7 +97,7 @@ export default function OrderManage() {
             Back
           </div>
         </Link>
-        <h1 className="text-xl font-semibold text-gray-700">Order Management Dashboard</h1>
+        <h1 className="text-5xl font-semibold text-gray-700">Order Management Dashboard</h1>
       </div>
 
       <div className="flex justify-center mb-6 mt-10">
@@ -153,7 +153,7 @@ export default function OrderManage() {
               onClick={() => generatePDF(order)}
               className="bg-blue-500 text-white rounded px-3 py-1 mt-4 hover:bg-blue-600"
             >
-              Download PDF
+              Download Order Report
             </button>
           </div>
         ))}

@@ -162,7 +162,7 @@ export default function Cart() {
 
     const finalY = doc.lastAutoTable.finalY;
     doc.text(`Total Price: RS.${totalPrice}`, 10, finalY + 10);
-    doc.save("billReport.pdf");
+    doc.save("Your Bill.pdf");
   };
   
   function Cart() {
@@ -193,8 +193,8 @@ export default function Cart() {
   return (
     <div>
       <div className="flex justify-center items-center mt-28 mb-2">
-        <div className="flex justify-center items-center mt-3">
-          <div className="text-black uppercase font-sans-serif hover:text-red-600 cursor-pointer text-4xl">Your Fashion Cart</div>
+        <div className="flex justify-center items-center mt-10">
+          <div className="text-black uppercase font-sans-serif hover:text-red-600 cursor-pointer text-5xl">Your Fashion Cart</div>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
@@ -230,17 +230,16 @@ export default function Cart() {
         </div>
 
         <div className="flex justify-center items-center">
-          <div className="text-2xl text-red-600 font-sans-serif opacity-70">Your Total price:  RS. {totalPrice}</div>
+          <div className="text-4xl text-red-600 font-sans-serif opacity-70">Your Total price:  RS. {totalPrice}</div>
         </div>
 
-        <div className="flex justify-center items-center mt-2">
-          <button type="submit" className='w-0 bg-black rounded-full h-10 hover:text-red-200 uppercase font sans-serif text-white'>Checkout</button>
+        <div className="flex justify-center items-center mt-1">
         </div>
       </form>
 
-      <div className="flex justify-center items-center mb-8 mt-16">
-        <button onClick={handleViewOrder} className="w-52 h-10 text-opacity-80 rounded-full text-white font sans-serif shadow-black bg-opacity-90 uppercase bg-black hover:opacity-40 shadow-sm">Place Order</button>
-        <button onClick={generatePDF} className="w-52 h-10 ml-20 font sans-serif shadow-black whitespace-nowrap text-opacity-80 rounded-full text-white bg-opacity-90 uppercase bg-black hover:opacity-40 shadow-sm">Download Bill</button>
+      <div className="flex justify-center items-center mb-2 mt-6">
+        <button onClick={handleViewOrder} className="w-72 h-20 text-xl text-opacity-80 rounded-lg text-white font sans-serif shadow-black bg-opacity-40 uppercase bg-black hover:opacity-50 shadow-sm">Proceed to CheckOut</button>
+        <button onClick={generatePDF} className="w-72 h-20 ml-20 text-xl font sans-serif shadow-black whitespace-nowrap text-opacity-80 rounded-lg text-white bg-opacity-40 uppercase bg-black hover:opacity-50 shadow-sm">Download Bill</button>
       </div>
     </div>
   );
