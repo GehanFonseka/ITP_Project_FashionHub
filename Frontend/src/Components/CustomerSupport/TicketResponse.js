@@ -51,10 +51,11 @@ const TicketResponse = () => {
 
     // Filter by shop (search query)
     if (searchQuery) {
-      updatedTickets = updatedTickets.filter((ticket) =>
-        ticket.shop.toLowerCase().includes(searchQuery.toLowerCase())
+      updatedTickets = updatedTickets.filter((ticket) => 
+        ticket.shop && ticket.shop.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
+
 
     // Sort by time
     updatedTickets.sort((a, b) => {

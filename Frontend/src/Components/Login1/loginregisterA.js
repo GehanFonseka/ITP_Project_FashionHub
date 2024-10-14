@@ -37,7 +37,7 @@ const LoginRegister = () => {
         if (user.role === "finance") {
           navigate("/overview");
         } else if (user.role === "supporter") {
-          navigate("/contact");
+          navigate("/Response");
         } else if (user.role === "saloon") {
           navigate("/Dashboard");
         } else if (user.role === "clothing") {
