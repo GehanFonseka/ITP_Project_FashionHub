@@ -6,9 +6,7 @@ const predefinedUsers = [
   { username: "sup", password: "sup123", role: "supporter" },
   { username: "saloon", password: "saloon123", role: "saloon" },
   { username: "clothing", password: "clothing123", role: "clothing" },
-
   { username: "reviews", password: "reviews123", role: "reviews" },
- 
   { username: "accessories", password: "accessories123", role: "accessories" },
   { username: "delivery", password: "delivery123", role: "delivery" },
   { username: "review", password: "rewiew123", role: "delivery" },
@@ -26,14 +24,13 @@ const LoginRegister = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignUp) {
-      // Handle Registration Logic (You can add it here if needed)
       setError("Registration not available right now.");
     } else {
-      // Handle Login
       const user = predefinedUsers.find(
         (user) => user.username === username && user.password === password
       );
       if (user) {
+
         if (user.role === "finance") {
           navigate("/overview");
         } else if (user.role === "supporter") {
@@ -50,6 +47,7 @@ const LoginRegister = () => {
           navigate("/OrderManage");
         } else {
           navigate("/customer");
+
         }
       } else {
         setError("Invalid credentials");
@@ -60,10 +58,10 @@ const LoginRegister = () => {
   return (
     <div style={styles.background}>
       <div style={styles.container}>
-        <h2>{isSignUp ? "Sign Up" : "Sign In"}</h2>
+        <h2 style={styles.heading}>{isSignUp ? "Sign Up" : "Sign In"}</h2>
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.inputContainer}>
-            <label>Username:</label>
+            <label style={styles.label}>Username:</label>
             <input
               type="text"
               value={username}
@@ -73,7 +71,7 @@ const LoginRegister = () => {
             />
           </div>
           <div style={styles.inputContainer}>
-            <label>Password:</label>
+            <label style={styles.label}>Password:</label>
             <input
               type="password"
               value={password}
@@ -91,9 +89,7 @@ const LoginRegister = () => {
           onClick={() => setIsSignUp(!isSignUp)}
           style={styles.toggleButton}
         >
-          {isSignUp
-            ? "Already have an account? Sign In"
-            : "Don't have an account? Sign Up"}
+         
         </button>
       </div>
     </div>
@@ -102,19 +98,26 @@ const LoginRegister = () => {
 
 const styles = {
   background: {
-    backgroundColor: "#ffffff", // White background outside the sign-in container
+    backgroundColor: "#f0f2f5", // Light gray background for better contrast
     height: "100vh", // Full viewport height
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   container: {
-    width: "300px",
+    width: "400px", // Increased width
+    height: "400px", // Increased height
     textAlign: "center",
-    padding: "20px",
-    border: "1px solid #ccc",
+    padding: "30px",
     borderRadius: "10px",
-    backgroundColor: "#f9f9f9", // Optional: light gray background for the form container
+    backgroundColor: "#fff", // Clean white background for form
+    boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)", // Subtle shadow for elevation
+  },
+  heading: {
+    fontSize: "26px", // Increased font size
+    marginBottom: "20px",
+    fontFamily: "'Roboto', sans-serif", // Modern font
+    color: "#333", // Darker heading color
   },
   form: {
     display: "flex",
@@ -122,31 +125,52 @@ const styles = {
     alignItems: "center",
   },
   inputContainer: {
-    marginBottom: "10px",
+    marginBottom: "15px",
+    width: "100%", // Full width for containers
+  },
+  label: {
+    fontSize: "14px",
+    marginBottom: "5px",
+    display: "block",
+    fontWeight: "bold",
+    color: "#555", // Darker color for labels
   },
   input: {
-    padding: "10px",
-    width: "200px",
-    margin: "5px 0",
+    padding: "12px", // Increased padding for inputs
+    width: "100%", // Full width for inputs
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    outline: "none",
+    transition: "border-color 0.3s", // Smooth transition effect
   },
   button: {
-    padding: "10px 20px",
+    padding: "12px 20px", // Increased padding
     backgroundColor: "#e76f51",
     color: "#fff",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
+    width: "100%", // Full width for button
+    marginTop: "10px",
+    transition: "background-color 0.3s ease",
+    fontSize: "16px", // Increased font size
+  },
+  buttonHover: {
+    backgroundColor: "#d45a36", // Darker shade on hover
   },
   toggleButton: {
-    marginTop: "10px",
+    marginTop: "15px",
     cursor: "pointer",
     backgroundColor: "transparent",
     border: "none",
     color: "#007BFF",
     textDecoration: "underline",
+    fontSize: "14px",
   },
   error: {
     color: "red",
+    marginTop: "10px",
+    fontSize: "14px", // Increased error message font size
   },
 };
 

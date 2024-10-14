@@ -11,7 +11,7 @@ const Container = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   margin: auto;
-   margin-top:75px;
+  margin-top: 75px;
 `;
 
 const Title = styled.h2`
@@ -58,7 +58,7 @@ const ReportTable = styled.table`
   }
 
   th {
-    background-color: #007bff;
+    background-color: #8b0000;
     color: white;
   }
 
@@ -71,14 +71,14 @@ const DownloadButton = styled.button`
   margin: 20px auto;
   display: block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #8b0000;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #B22222;
   }
 `;
 
@@ -118,39 +118,53 @@ const C_AdminReport = () => {
 
   const downloadReportAsPDF = () => {
     const doc = new jsPDF();
-    let yPos = 20; // Initial y position for content
+    const pageWidth = doc.internal.pageSize.getWidth();
 
-    filteredData.forEach((categoryData, index) => {
-      // Add the category title with a margin
-      doc.setFontSize(14);
-      doc.text(`Category: ${categoryData.category}`, 20, yPos);
-      yPos += 10; // Move down to create space between title and table
+    // Load the logo from the public folder and convert it to base64
+    const img = new Image();
+    img.src = '/logo6.png'; // Make sure this is the correct path
+    img.onload = function() {
+      const imgWidth = 45; // Adjusted width of the image
+      const imgHeight = 15; // Adjusted height of the image
+      const xPos = (pageWidth - imgWidth) / 2; // Center the image horizontally
 
-      // Prepare the table data
-      const tableData = categoryData.items.map((item) => [
-        item.name,
-        `LKR${item.price.toFixed(2)}`,
-        item.sellerNo,
-        item.itemNo,
-        item.quantity,
-      ]);
+      doc.addImage(img, 'PNG', xPos, 10, imgWidth, imgHeight); // Adjust position and size
 
-      // Add the table
-      doc.autoTable({
-        startY: yPos, // Set the starting y position for the table
-        head: [['Name', 'Price', 'Seller No', 'Item No', 'Quantity']],
-        body: tableData,
-        theme: 'grid',
-        headStyles: { fillColor: [0, 123, 255] }, // Blue header background
-        margin: { left: 20 }, // Left margin
-        didDrawPage: (data) => {
-          yPos = data.cursor.y + 10; // Update y position for the next category
-        },
+      let yPos = 50; // Adjusted y position for content
+
+      // Now that the logo is added, generate the PDF content
+      filteredData.forEach((categoryData, index) => {
+        // Add the category title with a margin
+        doc.setFontSize(14);
+        doc.text(`Category: ${categoryData.category}`, 20, yPos);
+        yPos += 10; // Move down to create space between title and table
+
+        // Prepare the table data
+        const tableData = categoryData.items.map((item) => [
+          item.name,
+          `LKR${item.price.toFixed(2)}`,
+          item.sellerNo,
+          item.itemNo,
+          item.quantity,
+        ]);
+
+        // Add the table
+        doc.autoTable({
+          startY: yPos, // Set the starting y position for the table
+          head: [['Name', 'Price', 'Seller No', 'Item No', 'Quantity']],
+          body: tableData,
+          theme: 'grid',
+          headStyles: { fillColor: [139, 0, 0] }, // Dark red header background (#8B0000)
+          margin: { left: 20 }, // Left margin
+          didDrawPage: (data) => {
+            yPos = data.cursor.y + 10; // Update y position for the next category
+          },
+        });
       });
-    });
 
-    // Save the generated PDF
-    doc.save('Clothing_Report.pdf');
+      // Save the generated PDF
+      doc.save('Clothing_Report.pdf');
+    };
   };
 
   return (
