@@ -106,7 +106,7 @@ const ServiceListAD = () => {
           value={editingService ? editingService.price : newService.price}
           onChange={(e) => {
             const value = e.target.value;
-            // Allow only numbers and decimal points
+
             if (/^\d*\.?\d*$/.test(value)) {
               handleChange(e);
             }

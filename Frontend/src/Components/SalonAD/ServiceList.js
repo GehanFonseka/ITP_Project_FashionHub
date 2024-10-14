@@ -9,37 +9,37 @@ const categoryOrder = (category) => {
 
 
 const ServiceList = () => {
-  
+
   const [services, setServices] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
 
- 
+
   useEffect(() => {
-   
+
     const fetchServices = async () => {
 
       try {
         setLoading(true);
-     
+
         const response = await fetch('/api/services');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setServices(data); 
+        setServices(data);
       } catch (err) {
-        setError(err.message); 
+        setError(err.message);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchServices();
-  }, []); 
+  }, []);
 
-  // Conditional rendering based on state
+
   if (loading) {
     return <p>Loading services...</p>;
   }
@@ -67,7 +67,7 @@ const ServiceList = () => {
         </thead>
         <tbody>
           {services.length > 0 ? (
-             sortedServices.map((service) => (
+            sortedServices.map((service) => (
               <TableRow key={service._id}>
                 <TableData>{service.category}</TableData>
                 <TableData>{service.name}</TableData>

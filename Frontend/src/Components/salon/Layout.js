@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import Header from '../home/Header'; // Adjust path according to your structure
-import Footer from '../home/Footer'; // Adjust path according to your structure
-import Sidebar from './Sidebar'; // Correct path to Sidebar
+import Header from '../home/Header'; 
+import Footer from '../home/Footer'; 
+import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => {
   const location = useLocation();

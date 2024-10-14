@@ -6,7 +6,7 @@ import Header from './Components/home/Header';
 import HeroSection from './Components/home/HeroSection';
 import LayoutWithSidebar from "./Components/Finance/LayoutWithSidebar";
 import BLayout from './Components/Budget/BLayout';
-
+import ReportPage from './Components/SalonAD/ReportPage';
 
 import UserDashboard from './Components/Login1/userDashboard';
 import Register from "./Components/Login1/Register";
@@ -210,7 +210,7 @@ function App() {
           <Route path="/ServicePopularityReport" element={<ServicePopularityReport />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
-          
+          <Route path="/report" element={<ReportPage />} />
           
          
             {/* Finance Routes */}

@@ -2,268 +2,298 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { faCalendarAlt, faShoppingCart, faUser, faSignOutAlt, faHome, faScissors, faClipboardList } from '@fortawesome/free-solid-svg-icons';
 
 
 const DashboardContainer = styled.div`
-    display: flex;
-    height: 100vh;
-    background-color: #f7f7f7;
-    color: #333;
-    font-family: 'Roboto', sans-serif;
-    overflow: hidden;
+  display: flex;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  font-family: 'Inter', sans-serif;
 `;
 
-// Sidebar Styling
+
 const Sidebar = styled.div`
-    background-color: #111; 
-    width: 260px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: #001529; /* Dark blue */
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
 `;
 
-const SidebarProfile = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
+const SidebarLogo = styled.div`
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
 `;
 
-const ProfileImage = styled.div`
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #f44336; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 36px;
+const SidebarItem = styled.a`
+  color: #bfbfbf;
+  padding: 15px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #1890ff; /* Blue */
     color: #fff;
-`;
+  }
 
-const ProfileName = styled.h3`
-    margin-top: 15px;
+  &.active {
+    background-color: #1890ff; /* Blue */
     color: #fff;
-    font-size: 20px;
-    font-weight: 500;
+  }
+
+  svg {
+    margin-right: 15px;
+  }
 `;
 
-// Sidebar List
-const SidebarList = styled.ul`
-    list-style-type: none;
-    padding: 0;
-    width: 100%;
-`;
-
-const SidebarItem = styled.li`
-    margin: 15px 0;
-    width: 100%;
-`;
-
-const SidebarLink = styled.a`
-    color: #d3d3d3;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 12px 20px;
-    border-radius: 10px;
-    display: block;
-    transition: background-color 0.3s, color 0.3s;
-
-    &:hover {
-        background-color: #f44336; /* Red hover effect for contrast */
-        color: #fff;
-    }
-`;
-
-// Main Content Styling
 const MainContent = styled.div`
-    flex: 1;
-    padding: 30px;
-    background-color: #fff;
-    overflow-y: auto;
-    border-top-left-radius: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif;
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
 `;
 
-const Overview = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
+
+const Header = styled.div`
+  background-color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 `;
 
-const OverviewCard = styled.div`
-    flex: 1;
-    background-color: ${(props) => props.color || "#f44336"};
-    padding: 25px;
-    border-radius: 15px;
-    margin: 0 15px;
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+const HeaderTitle = styled.h1`
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
 `;
 
-const OverviewCardHeader = styled.h3`
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    text-align: center;
+const ProfileMenu = styled.div`
+  display: flex;
+  align-items: center;
+
+  .profile-name {
+    margin-right: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .profile-icon {
+    font-size: 24px;
+    color: #1890ff;
+    cursor: pointer;
+  }
 `;
 
-const OverviewCardNumber = styled.p`
-    font-size: 34px;
-    font-weight: 700;
-    text-align: center;
+
+const OverviewCards = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
 `;
 
-// Appointments Schedule Styling
-const ContentSection = styled.div`
-    flex: 1;
-    background-color: #f0f3f5;
-    padding: 30px;
-    border-radius: 20px;
-    margin: 0 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+const Card = styled.div`
+  flex: 1;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-width: 250px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+`;
+
+const CardTitle = styled.h3`
+  margin: 0;
+  font-size: 16px;
+  color: #8c8c8c;
+  margin-bottom: 10px;
+`;
+
+const CardNumber = styled.p`
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #000;
+`;
+
+
+const Section = styled.div`
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 `;
 
 const SectionTitle = styled.h2`
-    font-size: 20px;
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 15px;
-    text-align: center;
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 20px;
 `;
 
-const Schedule = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
 `;
 
-const ScheduleItem = styled.div`
-    background-color: #e1e5ee;
-    padding: 20px;
-    border-radius: 12px;
-    color: #333;
-    text-align: center;
-    border: 1px solid #f44336; 
-    transition: transform 0.3s, box-shadow 0.3s;
-
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    p {
-        margin: 5px 0;
-        font-size: 16px;
-        font-weight: 400;
-    }
+const TableHeader = styled.th`
+  text-align: left;
+  padding: 12px;
+  background-color: #fafafa;
+  color: #8c8c8c;
+  border-bottom: 1px solid #f0f0f0;
 `;
 
-const ContentRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 30px;
-    justify-content: space-between;
+const TableRow = styled.tr`
+  &:hover {
+    background-color: #fafafa;
+  }
+`;
+
+const TableData = styled.td`
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
 `;
 
 
+const Button = styled.button`
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+
+  &:hover {
+    background-color: #40a9ff;
+  }
+`;
 
 const Dashboard = () => {
-    const [totalAppointments, setTotalAppointments] = useState(0);
-    const [totalServices, setTotalServices] = useState(0);
-    const [todaysAppointments, setTodaysAppointments] = useState([]);
+  const [totalAppointments, setTotalAppointments] = useState(0);
+  const [totalServices, setTotalServices] = useState(0);
+  const [todaysAppointments, setTodaysAppointments] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/api/appointment/total');
-                setTotalAppointments(response.data.totalAppointment);
-                const servicesResponse = await axios.get('/api/services/total');
-                setTotalServices(servicesResponse.data.totalServices);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/appointment/total');
+        setTotalAppointments(response.data.totalAppointment);
 
-                // Fetch daily appointments
-                const todayResponse = await axios.get('/api/appointment/today');
-                setTodaysAppointments(todayResponse.data);
-            } catch (error) {
-                console.error('Error fetching data:', error.response ? error.response.data : error);
-                alert('Error fetching data. Please try again.');
-            }
-        };
+        const servicesResponse = await axios.get('/api/services/total');
+        setTotalServices(servicesResponse.data.totalServices);
 
-        fetchData();
-    }, []);
+        // Fetch daily appointments
+        const todayResponse = await axios.get('/api/appointment/today');
+        setTodaysAppointments(todayResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error.response ? error.response.data : error);
+        alert('Error fetching data. Please try again.');
+      }
+    };
 
-    return (
-        <DashboardContainer>
-            <Sidebar>
-                <SidebarProfile>
-                    <ProfileImage>
-                        <FontAwesomeIcon icon={faUser} />
-                    </ProfileImage>
-                    <ProfileName>Salon Manager</ProfileName>
-                </SidebarProfile>
-                <SidebarList>
-                    <SidebarItem><SidebarLink href="/">Home</SidebarLink></SidebarItem>
-                    <SidebarItem><SidebarLink href="/Salonhome">Saloon</SidebarLink></SidebarItem>
-                    <SidebarItem><SidebarLink href="/ALLAppointments">Appointments</SidebarLink></SidebarItem>
-                    <SidebarItem><SidebarLink href="/ServiceListAD">Services</SidebarLink></SidebarItem>
-                    <SidebarItem><SidebarLink href="/Register">Log Out</SidebarLink></SidebarItem>
-                  
-                </SidebarList>
-            </Sidebar>
-            <MainContent>
-                <Overview>
-                    <OverviewCard color="#2c3e50">
-                        <OverviewCardHeader>Total Appointments</OverviewCardHeader>
-                        <OverviewCardNumber>{totalAppointments}</OverviewCardNumber>
-                    </OverviewCard>
-                    <OverviewCard color="#34495e">
-                        <OverviewCardHeader>Total Services</OverviewCardHeader>
-                        <OverviewCardNumber>{totalServices}</OverviewCardNumber>
-                    </OverviewCard>
-                </Overview>
-                <ContentRow>
-                    <ContentSection>
-                        <SectionTitle><b>Today's Appointments</b></SectionTitle>
-                        <Schedule style={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-  {todaysAppointments.length === 0 ? (
-    <ScheduleItem style={{ padding: '15px', fontSize: '16px', color: '#777', textAlign: 'center' }}>
-      No appointments for today.
-    </ScheduleItem>
-  ) : (
-    todaysAppointments.map((appt) => (
-      <ScheduleItem
-        key={appt._id}
-        style={{
-          padding: '15px',
-          marginBottom: '10px',
-          backgroundColor: '#fff',
-          borderRadius: '8px',
-          border: '1px solid #e0e0e0',
-          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
-        }}
-      >
-        <p style={{ fontWeight: 'bold', fontSize: '18px', color: '#333' }}>Customer Name: {appt.name}</p>
-        <p style={{ margin: '5px 0', fontSize: '16px', color: '#555' }}>Date: {new Date(appt.date).toLocaleDateString()}</p>
-        <p style={{ margin: '5px 0', fontSize: '16px', color: '#555' }}>Time: {appt.time}</p>
-        <p style={{ margin: '5px 0', fontSize: '16px', color: '#555' }}>Services: {appt.services.join(', ')}</p>
-      </ScheduleItem>
-    ))
-  )}
-</Schedule>
+    fetchData();
+  }, []);
 
-                    </ContentSection>
-                </ContentRow>
-            </MainContent>
-        </DashboardContainer>
-    );
+  return (
+    <DashboardContainer>
+      {/* Sidebar */}
+      <Sidebar>
+        <SidebarLogo>Salon Manager</SidebarLogo>
+        <SidebarItem href="/">
+          <FontAwesomeIcon icon={faHome} />
+          Home
+        </SidebarItem>
+        <SidebarItem href="/Salonhome">
+          <FontAwesomeIcon icon={faScissors} />
+          Salon
+        </SidebarItem>
+        <SidebarItem href="/ALLAppointments">
+          <FontAwesomeIcon icon={faCalendarAlt} />
+          Appointments
+        </SidebarItem>
+        <SidebarItem href="/ServiceListAD">
+          <FontAwesomeIcon icon={faClipboardList} />
+          Services
+        </SidebarItem>
+        <SidebarItem href="/Register">
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          Log Out
+        </SidebarItem>
+      </Sidebar>
+
+      {/* Main Content */}
+      <MainContent>
+        {/* Header */}
+        <Header>
+          <HeaderTitle>Dashboard</HeaderTitle>
+          <ProfileMenu>
+            <span className="profile-name">Admin</span>
+            <FontAwesomeIcon className="profile-icon" icon={faUser} />
+          </ProfileMenu>
+        </Header>
+
+        {/* Overview Cards */}
+        <OverviewCards>
+          <Card>
+            <CardTitle>Total Appointments</CardTitle>
+            <CardNumber>{totalAppointments}</CardNumber>
+          </Card>
+          <Card>
+            <CardTitle>Total Services</CardTitle>
+            <CardNumber>{totalServices}</CardNumber>
+          </Card>
+          {/* Add more cards as needed */}
+        </OverviewCards>
+
+        {/* Today's Appointments */}
+        <Section>
+          <SectionTitle>Today's Appointments</SectionTitle>
+          {todaysAppointments.length === 0 ? (
+            <p>No appointments for today.</p>
+          ) : (
+            <Table>
+              <thead>
+                <tr>
+                  <TableHeader>Customer Name</TableHeader>
+                  <TableHeader>Date</TableHeader>
+                  <TableHeader>Time</TableHeader>
+                  <TableHeader>Services</TableHeader>
+                </tr>
+              </thead>
+              <tbody>
+                {todaysAppointments.map((appt) => (
+                  <TableRow key={appt._id}>
+                    <TableData>{appt.name}</TableData>
+                    <TableData>{new Date(appt.date).toLocaleDateString()}</TableData>
+                    <TableData>{appt.time}</TableData>
+                    <TableData>{appt.services.join(', ')}</TableData>
+                  </TableRow>
+                ))}
+              </tbody>
+            </Table>
+          )}
+        </Section>
+      </MainContent>
+    </DashboardContainer>
+  );
 };
 
 export default Dashboard;

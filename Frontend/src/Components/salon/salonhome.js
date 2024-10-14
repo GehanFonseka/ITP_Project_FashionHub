@@ -16,7 +16,7 @@ const services = [
   { id: 3, name: "Massages", image: massageImage },
   { id: 4, name: "Facial", image: facialImage },
   { id: 5, name: "MakeUp", image: makeUpImage },
-  
+
 ];
 
 // Main Salon Home Component
