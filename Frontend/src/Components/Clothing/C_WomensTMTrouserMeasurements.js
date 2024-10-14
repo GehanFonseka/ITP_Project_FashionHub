@@ -11,7 +11,7 @@ const Container = styled.div`
   min-height: 100vh;
   margin: 0;
   padding: 20px;
-  padding-top: 70px;
+  padding-top: 100px;
   padding-bottom: 50px;
 `;
 

@@ -112,7 +112,7 @@ const FindOutfitButton = styled.a`
     background-color: #006666;
   }
 `;
->>>>>>> 996dd10fe0ec9c6a97f3842961912d56197abcfd
+
 
 const HeroSection = () => {
   return (
