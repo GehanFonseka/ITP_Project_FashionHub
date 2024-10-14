@@ -81,7 +81,7 @@ const EditReport = () => {
   const handleSave = async () => {
     try {
       await axios.put(`http://localhost:5000/api/reports/${id}`, report);
-      navigate("/reportView"); 
+      navigate("/DisplayReport"); 
     } catch (error) {
       console.error("Error saving report:", error);
     }
@@ -124,7 +124,7 @@ const EditReport = () => {
                   type="text"
                   value={sellerNo}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                 />
               </div>
               <div className="flex justify-between items-center mb-2">
@@ -133,7 +133,7 @@ const EditReport = () => {
                   type="text"
                   value={report.month}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                 />
               </div>
               <div className="flex justify-between items-center mb-2">
@@ -142,7 +142,7 @@ const EditReport = () => {
                   type="text"
                   value={report.year}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                 />
               </div>
               <div className="flex justify-between items-center mb-2">
