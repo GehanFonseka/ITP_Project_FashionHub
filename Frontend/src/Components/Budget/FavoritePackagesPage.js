@@ -108,45 +108,52 @@ const FavoritePackagesPage = () => {
     // Add some space after the title
     let yPosition = 40;
   
+    // Iterate through each package
     favoritePackages.forEach((pkg, index) => {
-      // Package name and budget
-      doc.setFontSize(14);
-      doc.text(`Package: ${pkg.name} - Budget: Rs. ${pkg.budget}`, 14, yPosition);
-      yPosition += 10; // Add space after each package
+      if (pkg && pkg.items) { // Check if pkg and pkg.items are valid
+        // Package name and budget
+        doc.setFontSize(14);
+        doc.text(`Package: ${pkg.name || 'Unnamed Package'} - Budget: Rs. ${pkg.budget || 0}`, 14, yPosition);
+        yPosition += 10; // Add space after each package
   
-      // Prepare table data for this package
-      const tableColumn = ["Item Type", "Item Name", "Price (Rs)"];
-      const tableRows = [];
+        // Prepare table data for this package
+        const tableColumn = ["Item Type", "Item Name", "Price (Rs)"];
+        const tableRows = [];
   
-      Object.keys(pkg.items).forEach((itemKey) => {
-        const item = pkg.items[itemKey];
-        const rowData = [itemKey, item.name, item.price];
-        tableRows.push(rowData);
-      });
+        // Iterate through each item in the package
+        Object.keys(pkg.items).forEach((itemKey) => {
+          const item = pkg.items[itemKey];
+          if (item) { // Check if item is valid
+            const rowData = [itemKey, item.name || 'Unnamed Item', item.price || '0'];
+            tableRows.push(rowData);
+          }
+        });
   
-      // Generate table using autoTable with light orange header
-      doc.autoTable({
-        startY: yPosition, // Set the Y position for the table to begin
-        head: [tableColumn],
-        body: tableRows,
-        theme: 'grid', // Customizable theme
-        headStyles: { fillColor: [255, 165, 0] }, // Light orange color for the table headers
-        margin: { top: 10 },
-      });
+        // Generate table using autoTable with light orange header
+        doc.autoTable({
+          startY: yPosition, // Set the Y position for the table to begin
+          head: [tableColumn],
+          body: tableRows,
+          theme: 'grid', // Customizable theme
+          headStyles: { fillColor: [255, 165, 0] }, // Light orange color for the table headers
+          margin: { top: 10 },
+        });
   
-      // Move yPosition to after the table to add space before the next package
-      yPosition = doc.autoTable.previous.finalY + 20; // Adjust for spacing after the table
+        // Move yPosition to after the table to add space before the next package
+        yPosition = doc.autoTable.previous.finalY + 20; // Adjust for spacing after the table
   
-      // Check if yPosition goes beyond the page height and add a new page if necessary
-      if (yPosition >= 280) {
-        doc.addPage();
-        yPosition = 30; // Reset Y position for the new page
+        // Check if yPosition goes beyond the page height and add a new page if necessary
+        if (yPosition >= 280) {
+          doc.addPage();
+          yPosition = 30; // Reset Y position for the new page
+        }
       }
     });
   
     // Save the generated PDF
     doc.save("favorite-packages.pdf");
   };
+  
   
 
   const filteredPackages = favoritePackages.filter((pkg) =>
