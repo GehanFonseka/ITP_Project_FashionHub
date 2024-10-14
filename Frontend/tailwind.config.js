@@ -19,6 +19,9 @@ export default {
   },
   plugins: [
     daisyui,
+
     // ... other plugins
   ],
 };
+
+

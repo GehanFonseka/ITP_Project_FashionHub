@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import './AppointmentForm.css'; // Import the CSS file
-import axios from 'axios'; // Import axios for HTTP requests
+import './AppointmentForm.css'; 
+import axios from 'axios'; 
 import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const appointments = [];
 
-// Check availability and book an appointment
+
 const bookAppointment = (serviceCategory, date, time) => {
   const existingAppointment = appointments.find(appointment => 
     appointment.serviceCategory === serviceCategory &&
@@ -22,9 +23,9 @@ const bookAppointment = (serviceCategory, date, time) => {
 const AppointmentForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const editData = location.state?.editData || {}; // Get the data passed for editing, if any
+  const editData = location.state?.editData || {};
 
-  // State variables to manage form data and validation errors
+ 
   const [formData, setFormData] = useState({
     name: editData.name || "",
     contactNumber: editData.contactNumber || "",
@@ -268,9 +269,17 @@ const AppointmentForm = () => {
   const totalCostLKR = formData.services.reduce((sum, service) => sum + (servicePrices[service] || 0), 0);
 
   return (
-    <div className="appointment-form-background">
-      <div className="container">
-        <h2>Book Your Appointment</h2>
+    <div className="appointment-form-container">
+      <div className="form-column">
+        <h2 style={{ 
+          fontSize: '2.5rem',
+          color: '#E76F51', 
+          fontFamily: 'Arial, sans-serif',
+          lineHeight: '1.5',
+        }}>
+          Book Your Appointment
+        </h2>
+  
         <form onSubmit={handleSubmit}>
           {/* Personal Information */}
           <div>
@@ -285,6 +294,7 @@ const AppointmentForm = () => {
             />
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
+  
           <div>
             <label>Contact Number:</label>
             <input
@@ -297,6 +307,7 @@ const AppointmentForm = () => {
             />
             {errors.contactNumber && <p className="error">{errors.contactNumber}</p>}
           </div>
+  
           <div>
             <label>Email Address:</label>
             <input
@@ -309,89 +320,147 @@ const AppointmentForm = () => {
             />
             {errors.email && <p className="error">{errors.email}</p>}
           </div>
-
-          {/* Date and Time Selection */}
-          <div>
-            <label>Date:</label>
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              onBlur={() => validateField('date', formData.date)}
-              required
-            />
-            {errors.date && <p className="error">{errors.date}</p>}
-          </div>
-          <div>
-            <label>Time:</label>
-            <select
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              onBlur={() => validateField('time', formData.time)}
-              required
-            >
-              <option value="">Select Time</option>
-              <option value="09:00 AM">09:00 AM</option>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="11:00 AM">11:00 AM</option>
-              <option value="01:00 PM">01:00 PM</option>
-              <option value="02:00 PM">02:00 PM</option>
-              <option value="03:00 PM">03:00 PM</option>
-            </select>
-            {errors.time && <p className="error">{errors.time}</p>}
-          </div>
-
-          {/* Service Selection */}      
+  
+{/* Date and Time Selection */}
 <div>
-  <label htmlFor="services">Select Services(You can only select multiple services from the same category) :</label>
-  <div id="services" className="services">
-    {loading ? (
-      <p>Loading...</p>
-    ) : (
-      Object.keys(serviceOptions).map(category => (
-        <div key={category}>
-          <h3>{category}</h3>
-          {serviceOptions[category].map(service => (
-            <div key={service} className="service-item">
-              <input
-                type="checkbox"
-                id={service}
-                value={service}
-                checked={formData.services.includes(service)}
-                onChange={() => handleServiceChange(service)}
-              />
-              <label htmlFor={service}>{service} - {servicePrices[service]?.toFixed(0)}  LKR</label>
-            </div>
-          ))}
-        </div>
-      ))
-    )}
-  </div>
-  {errors.services && <p className="error">{errors.services}</p>}
-</div>
-
-{/* Special Requests */}
-<div className="special-requests">
-  <label>Special Requests:</label>
-  <textarea
-    name="requests"
-    value={formData.requests}
+  <label>Date:</label>
+  <input
+    type="date"
+    name="date"
+    value={formData.date}
     onChange={handleChange}
+    onBlur={() => validateField('date', formData.date)}
+    required
+    style={{
+      width: '100%', // Full width
+      padding: '12px', 
+      fontSize: '1rem', 
+      border: '2px solid #ccc', // Thicker border
+      borderRadius: '8px',
+      marginBottom: '20px',
+      boxSizing: 'border-box', // Include padding and border in width
+      backgroundColor: '#fff',
+      color: '#333',
+      fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
+      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+    }}
   />
+  {errors.date && <p className="error">{errors.date}</p>}
+</div>
+<div>
+  <label>Time:</label>
+  <select
+    name="time"
+    value={formData.time}
+    onChange={handleChange}
+    onBlur={() => validateField('time', formData.time)}
+    required
+    style={{
+      width: '100%', // Full width
+      padding: '12px', 
+      fontSize: '1rem', 
+      border: '2px solid #ccc', // Thicker border
+      borderRadius: '8px',
+      marginBottom: '20px',
+      boxSizing: 'border-box', // Include padding and border in width
+      backgroundColor: '#fff',
+      color: '#333',
+      fontFamily: "'Roboto', sans-serif", // Consistent font for input fields
+      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+    }}
+  >
+    <option value="">Select Time</option>
+    <option value="09:00 AM">09:00 AM</option>
+    <option value="10:00 AM">10:00 AM</option>
+    <option value="11:00 AM">11:00 AM</option>
+    <option value="01:00 PM">01:00 PM</option>
+    <option value="02:00 PM">02:00 PM</option>
+    <option value="03:00 PM">03:00 PM</option>
+  </select>
+  {errors.time && <p className="error">{errors.time}</p>}
 </div>
 
-
+          {/* Special Requests */}
+          
+            
+          <div style={{ marginBottom: '20px' }}>
+            <label>Special Requests:</label>
+            <textarea
+              name="requests"
+              value={formData.requests}
+              onChange={handleChange}
+            />
+          </div>
+  
           {/* Submit Button */}
           <div>
-            <h3>Total Cost: LKR {totalCostLKR.toFixed(2)}</h3>
-            <button type="submit">Submit</button>
+            <h3 style={{
+              color: '#5C646C',
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              fontFamily: 'Georgia, serif',
+              lineHeight: '1.5',
+              marginTop: '30px',
+              marginBottom: '20px',
+            }}>
+              Total Cost: <span style={{
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+              }}>
+                LKR {totalCostLKR.toFixed(2)}
+              </span>
+            </h3>
+            <button type="submit">Book Appointment</button>
           </div>
         </form>
       </div>
+  
+      <div className="services-column">
+        <h2 style={{ 
+          fontSize: '2rem',
+          color: '#5C646C', 
+          fontFamily: 'Arial, sans-serif',
+          marginBottom: '20px',
+        }}>
+          Choose Your Services.
+        </h2>
+  
+        <div id="services" className="services">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            Object.keys(serviceOptions).map(category => (
+              <div key={category} className="service-category">
+                <h3 style={{ 
+                  fontWeight: '600', 
+                  fontSize: '1.2rem', 
+                  marginBottom: '10px',
+                }}>{category}</h3>
+                {serviceOptions[category].map(service => (
+                  <div key={service} className="service-item">
+                    <input
+                      type="checkbox"
+                      id={service}
+                      value={service}
+                      checked={formData.services.includes(service)}
+                      onChange={() => handleServiceChange(service)}
+                    />
+                    <label htmlFor={service} style={{  marginLeft: '8px',
+    color: '#000000', fontSize: '1.2rem',}}>
+                      {service} - LKR {servicePrices[service]?.toFixed(0)}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            ))
+          )}
+        </div>
+        {errors.services && <p className="error">{errors.services}</p>}
+      </div>
     </div>
   );
+  
 };
 
 export default AppointmentForm

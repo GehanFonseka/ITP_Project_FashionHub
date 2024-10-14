@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   FaFacebookF,
   FaTwitter,
@@ -30,7 +31,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-16 p-6 max-w-5xl mx-auto bg-gradient-to-b from-gray-200 to-gray-100 min-h-screen font-saira transition-all duration-300"style={{ marginTop: '45px' }}>
+    <div className="pt-16 p-6 max-w-5xl mx-auto bg-gradient-to-b from-gray-200 to-gray-100 min-h-screen font-saira transition-all duration-300"style={{ marginTop: '70px' }}>
     {/* Section 1: Buttons - Grid Layout for Two Columns */}
     <div className="grid grid-cols-2 gap-4 mb-6">
       <button
@@ -49,7 +50,7 @@ const Contact = () => {
   
     {/* Section 2: Contact Information */}
     <div className="bg-white p-5 rounded-lg shadow-lg border-2 border-gray-300 transition-transform duration-300 hover:shadow-xl mb-6">
-      <h2 className="text-3xl font-bold text-primary mb-4">Contact Us</h2>
+      <h2 className="text-3xl  font-bold text-primary mb-4">Contact Us</h2>
       <p className="text-gray-600 mb-3">
         Have any questions or need assistance? Reach out to us below or use the
         contact form.
@@ -128,7 +129,7 @@ const Contact = () => {
         </div>
         <button
           type="submit"
-          className="bg-primary text-white py-2 px-4 rounded shadow-md transform transition-transform hover:scale-105"
+          className="bg-black text-white py-2 px-4 rounded shadow-md transform transition-transform hover:scale-105"
         >
           Send Message
         </button>

@@ -111,7 +111,9 @@ const C_WomensTMTrouserMeasurements = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (value >= 0 || value === '') { // Prevent negative values
+    // Regular expression to allow positive decimal numbers
+    const regex = /^\d*\.?\d*$/; // Allows numbers with optional decimals
+    if (regex.test(value) || value === '') { // Check if the value is a valid number or empty
       setMeasurements({
         ...measurements,
         [name]: value
@@ -147,26 +149,24 @@ const C_WomensTMTrouserMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="waist">Waist:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="waist"
               name="waist"
               value={measurements.waist}
               onChange={handleChange}
               placeholder="Enter waist measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure around your natural waistline, typically just above the belly button.</Description>
           </MeasurementField>
           <MeasurementField>
             <Label htmlFor="hip">Hip:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="hip"
               name="hip"
               value={measurements.hip}
               onChange={handleChange}
               placeholder="Enter hip measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure around the fullest part of your hips, keeping the tape parallel to the floor.</Description>
           </MeasurementField>
@@ -175,26 +175,24 @@ const C_WomensTMTrouserMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="length">Length:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="length"
               name="length"
               value={measurements.length}
               onChange={handleChange}
               placeholder="Enter length measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure from the base of your waist to where you want the trouser to end.</Description>
           </MeasurementField>
           <MeasurementField>
             <Label htmlFor="inseam">Inseam:</Label>
             <Input
-              type="number"
+              type="text" // Change to text to allow decimals
               id="inseam"
               name="inseam"
               value={measurements.inseam}
               onChange={handleChange}
               placeholder="Enter inseam measurement"
-              min="0" // Prevent negative values
             />
             <Description>Measure from the crotch to the bottom of the leg.</Description>
           </MeasurementField>

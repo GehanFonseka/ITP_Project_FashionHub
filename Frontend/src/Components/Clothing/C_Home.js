@@ -18,7 +18,7 @@ const Container = styled.div`
 const ImageSection = styled.div`
   display: flex;
   flex: 1;
-  min-height: 80vh; /* Ensures the image section takes half of the viewport height */
+  min-height: 80vh; 
   position: relative;
 `;
 
