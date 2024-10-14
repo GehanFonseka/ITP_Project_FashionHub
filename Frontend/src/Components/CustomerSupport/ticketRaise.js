@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
-
 
 const TicketRaisingForm = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +10,7 @@ const TicketRaisingForm = () => {
     issueType: "",
     issueDescription: "",
     subject: "",
-    shopID: "",
+    shop: "",
     filePath: "",
   });
 
@@ -29,11 +28,11 @@ const TicketRaisingForm = () => {
     switch (name) {
       case "customerName":
         if (!value.trim()) {
-          newErrors.customerName = "Customer name is required.";
-        } else if (!/^[A-Za-z]+$/.test(value)) {
-          newErrors.customerName = "Customer name must contain only letters.";
+          newErrors.customerName = "Customer name is required. (e.g. John Doe)";
+        } else if (/\d/.test(value)) {
+          newErrors.customerName = "Customer name must not contain any numbers.(e.g. John Doe)";
         } else if (!/^[A-Z]/.test(value)) {
-          newErrors.customerName = "First letter must be capital.";
+          newErrors.customerName = "First letter must be capital.(e.g. John Doe)";
         } else {
           newErrors.customerName = "";
         }
@@ -41,22 +40,22 @@ const TicketRaisingForm = () => {
 
       case "email":
         if (!value.trim()) {
-          newErrors.email = "Email is required.";
-        } else if (!/^[a-z]/.test(value)) {
-          newErrors.email = "Email must start with a lowercase letter.";
+          newErrors.email = "Email is required. (e.g. johndoe@gmail.com)" ;
+        } else if (value !== value.toLowerCase()) {
+          newErrors.email = "Email must be all lowercase.(e.g. johndoe@gmail.com)";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          newErrors.email = "Please enter a valid email address.";
+          newErrors.email = "Please enter a valid email address.(e.g. johndoe@gmail.com)";
         } else {
           newErrors.email = "";
         }
         break;
       case "phoneNumber":
         if (!value.trim()) {
-          newErrors.phoneNumber = "Phone number is required.";
+          newErrors.phoneNumber = "Phone number is required.(e.g. 1234567890)";
         } else if (!/^\d+$/.test(value)) {
-          newErrors.phoneNumber = "Phone number can't contain letters.";
+          newErrors.phoneNumber = "Phone number can't contain letters.(e.g. 1234567890)";
         }else if (!/^\d{10}$/.test(value)) {
-          newErrors.phoneNumber = "Phone number must be exactly 10 digits .";
+          newErrors.phoneNumber = "Phone number must be exactly 10 digits .(e.g. 1234567890)";
         } else {
           newErrors.phoneNumber = "";
         }
@@ -73,6 +72,9 @@ const TicketRaisingForm = () => {
           newErrors.subject = "";
         }
         break;
+      case "shop":
+          newErrors.shop = !value ? "Issue type is required." : "";
+          break;
       case "issueDescription":
         if (!value.trim()) {
           newErrors.issueDescription = "Issue description is required.";
@@ -103,10 +105,10 @@ const TicketRaisingForm = () => {
     setFormData({ ...formData, [name]: value });
 
     if (name === "phoneNumber") {
-      setIsPhoneValid(/^\d{10}$/.test(value)); // Validate phone number format
+      setIsPhoneValid(/^\d{10}$/.test(value)); 
     }
 
-    validateField(name, value); // Validate field on change
+    validateField(name, value); 
   };
 
   const handleSubmit = async (e) => {
@@ -141,7 +143,7 @@ const TicketRaisingForm = () => {
       issueType: "",
       issueDescription: "",
       subject: "",
-      shopID: "",
+      shop: "",
       filePath: "",
     });
     setErrorMessage("");
@@ -163,7 +165,7 @@ const TicketRaisingForm = () => {
         </h2>
 
         <div className="grid grid-cols-1 gap-4">
-          {/* Customer Name */}
+          
           <div className="flex flex-col mb-4">
             <label className="text-secondary mb-2">Customer Name</label>
             <input
@@ -180,7 +182,7 @@ const TicketRaisingForm = () => {
             {errors.customerName && <span className="text-red-500 text-sm">{errors.customerName}</span>}
           </div>
 
-          {/* Email */}
+          
           <div className="flex flex-col mb-4">
             <label className="text-secondary mb-2">Email</label>
             <input
@@ -197,7 +199,7 @@ const TicketRaisingForm = () => {
             {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
           </div>
 
-          {/* Phone Number */}
+         
           <div className="flex flex-col mb-4 relative">
             <label className="text-secondary mb-2">Phone Number</label>
             <input
@@ -217,7 +219,7 @@ const TicketRaisingForm = () => {
             {errors.phoneNumber && <span className="text-red-500 text-sm">{errors.phoneNumber}</span>}
           </div>
 
-          {/* Issue Type */}
+          
           <div className="flex flex-col mb-4">
             <label className="text-secondary mb-2">Issue Type</label>
             <select
@@ -257,13 +259,12 @@ const TicketRaisingForm = () => {
             {errors.subject && <span className="text-red-500 text-sm">{errors.subject}</span>}
           </div>
 
-
              {/* Shop Selection */}
           <div className="flex flex-col mb-4">
             <label className="text-secondary mb-2">Shop</label>
             <select
-              name="shopID"
-              value={formData.shopID}
+              name="shop"
+              value={formData.shop}
               onChange={handleChange}
               className="border p-2 rounded bg-gray-100 transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary border-secondary"
             >
@@ -273,9 +274,10 @@ const TicketRaisingForm = () => {
               <option value="Footwear">Footwear</option>
               <option value="Accessories">Accessories</option>
             </select>
+            {errors.shop && <span className="text-red-500 text-sm">{errors.shop}</span>}
           </div>
 
-          {/* Issue Description */}
+          
           <div className="flex flex-col mb-4">
             <label className="text-secondary mb-2">Issue Description</label>
             <textarea
@@ -308,7 +310,7 @@ const TicketRaisingForm = () => {
             {fileUrl && <a href={fileUrl} target="_blank" rel="noopener noreferrer">View Uploaded File</a>}
           </div>
 
-           {/* Submit and Cancel Buttons */}
+           
            <div className="flex justify-between">
             <button
               type="submit"

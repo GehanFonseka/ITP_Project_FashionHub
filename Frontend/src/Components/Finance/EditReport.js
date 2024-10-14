@@ -81,7 +81,7 @@ const EditReport = () => {
   const handleSave = async () => {
     try {
       await axios.put(`http://localhost:5000/api/reports/${id}`, report);
-      navigate("/reportView"); 
+      navigate("/DisplayReport"); 
     } catch (error) {
       console.error("Error saving report:", error);
     }
@@ -124,7 +124,7 @@ const EditReport = () => {
                   type="text"
                   value={sellerNo}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                 />
               </div>
               <div className="flex justify-between items-center mb-2">
@@ -133,7 +133,7 @@ const EditReport = () => {
                   type="text"
                   value={report.month}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                 />
               </div>
               <div className="flex justify-between items-center mb-2">
@@ -142,7 +142,7 @@ const EditReport = () => {
                   type="text"
                   value={report.year}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-24 text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                 />
               </div>
               <div className="flex justify-between items-center mb-2">
@@ -178,14 +178,20 @@ const EditReport = () => {
                       type="number"
                       name={`expenses.${expense}`}
                       value={report.expenses[expense]}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        // Ensure the first number is not 0
+                        const value = e.target.value;
+                        if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E" ) {
+                        // Prevent entering unwanted characters and 0 at the beginning
+                        if (
+                          ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                          (e.key === "0" && value === "")
+                        ) {
                           e.preventDefault();
                         }
                       }}
@@ -210,14 +216,20 @@ const EditReport = () => {
                       type="number"
                       name={`expenses.${expense}`}
                       value={report.expenses[expense]}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        // Ensure the first number is not 0
+                        const value = e.target.value;
+                        if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                        // Prevent entering unwanted characters and 0 at the beginning
+                        if (
+                          ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                          (e.key === "0" && value === "")
+                        ) {
                           e.preventDefault();
                         }
                       }}
@@ -246,14 +258,20 @@ const EditReport = () => {
                       type="number"
                       name={`pettyCash.${cash}`}
                       value={report.pettyCash[cash] || ""}
-                      onChange={(e) => handleChange(e)}
+                      onChange={(e) => {
+                        // Ensure the first number is not 0
+                        const value = e.target.value;
+                        if (value === "" || /^[1-9][0-9]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
-                            if (e.key === "0" && value === "") {
-                              e.preventDefault();
-                            }
-                        if (e.key === "-" || e.key === "e" || e.key === "+" || e.key === "." || e.key === "E") {
+                        // Prevent entering unwanted characters and 0 at the beginning
+                        if (
+                          ["e", "E", "+", "-", ".", " "].includes(e.key) ||
+                          (e.key === "0" && value === "")
+                        ) {
                           e.preventDefault();
                         }
                       }}

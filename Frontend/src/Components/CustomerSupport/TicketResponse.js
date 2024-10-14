@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { FaSearch } from "react-icons/fa"; 
+
 import {
   FaPaperPlane,
   FaExclamationTriangle,
   FaClock,
   FaCheckCircle,
   FaTimesCircle,
+  
 } from "react-icons/fa";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
-import "animate.css"; // Ensure animate.css is installed for animation
+import "animate.css"; 
 
 const TicketResponse = () => {
   const [tickets, setTickets] = useState([]);
@@ -20,6 +23,7 @@ const TicketResponse = () => {
   const [statusFilter, setStatusFilter] = useState("All");
   const [timeSort, setTimeSort] = useState("desc");
   const [formError, setFormError] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); 
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -38,12 +42,22 @@ const TicketResponse = () => {
   useEffect(() => {
     let updatedTickets = [...tickets];
 
+    // Filter by status
     if (statusFilter !== "All") {
       updatedTickets = updatedTickets.filter(
         (ticket) => ticket.status === statusFilter
       );
     }
 
+    // Filter by shop (search query)
+    if (searchQuery) {
+      updatedTickets = updatedTickets.filter((ticket) => 
+        ticket.shop && ticket.shop.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+
+    // Sort by time
     updatedTickets.sort((a, b) => {
       const timeA = new Date(a.createdDate).getTime();
       const timeB = new Date(b.createdDate).getTime();
@@ -51,11 +65,11 @@ const TicketResponse = () => {
     });
 
     setFilteredTickets(updatedTickets);
-  }, [statusFilter, timeSort, tickets]);
+  }, [statusFilter, timeSort, searchQuery, tickets]);
 
   const handleResponseChange = (e) => {
     setResponse(e.target.value);
-    setFormError(""); // Clear error when user types
+    setFormError(""); 
   };
 
   const handleStatusChange = (e) => {
@@ -119,7 +133,30 @@ const TicketResponse = () => {
         Respond to Tickets
       </h1>
 
-      {/* Filters */}
+      
+
+{/* Search Bar */}
+<div className="mb-6">
+  <label className="block mb-2 font-semibold text-secondary">
+  </label>
+  <div className="relative max-w-sm">
+    <input
+      type="text"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      placeholder="Enter Shop"
+      className="w-full p-2 pr-12 border border-secondary rounded bg-gray-100 transition-all duration-300 focus:border-primary focus:ring-2 focus:ring-primary"
+    />
+    <FaSearch 
+      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500" 
+      size={16} 
+    /> 
+  </div>
+</div>
+
+
+
+      
       <div className="flex space-x-4 mb-6">
         {/* Status Filter */}
         <div>
@@ -196,7 +233,7 @@ const TicketResponse = () => {
 
       {/* Modal */}
       {isModalOpen && selectedTicket && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 animate__animated animate__fadeIn animate__faster" style={{ marginTop: '100px' }}>
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 animate__animated animate__fadeIn animate__faster" style={{ marginTop: '90px' }}>
           <div className="bg-white text-dark p-6 rounded-2xl shadow-2xl max-w-xl w-full border-2 border-primary transition-transform duration-300 hover:shadow-2xl animate__animated animate__fadeIn animate__faster">
             <h2 className="text-3xl font-russo mb-10 flex items-center space-x-2">
               {getStatusIcon(selectedTicket.status)}
@@ -215,7 +252,7 @@ const TicketResponse = () => {
               <strong>Phone Number:</strong> {selectedTicket.phoneNumber}
             </p>
             <p className="mb-2">
-              <strong>Shop :</strong> {selectedTicket.shopID || "N/A"}
+              <strong>Shop :</strong> {selectedTicket.shop || "N/A"}
             </p>
 
             {/* Response Form */}
@@ -226,9 +263,7 @@ const TicketResponse = () => {
               <textarea
                 value={response}
                 onChange={handleResponseChange}
-                className={`w-full p-2 border rounded bg-gray-100 transition-all duration-300 ${
-                  formError ? "border-red-500" : "border-secondary"
-                }`}
+                className={`w-full p-2 border rounded bg-gray-100 transition-all duration-300 ${formError ? "border-red-500" : "border-secondary"}`}
                 rows="4"
                 placeholder="Write your response here..."
               />
@@ -243,9 +278,7 @@ const TicketResponse = () => {
               <select
                 value={status}
                 onChange={handleStatusChange}
-                className={`w-full p-2 border rounded bg-gray-100 transition-all duration-300 ${
-                  formError ? "border-red-500" : "border-secondary"
-                }`}
+                className={`w-full p-2 border rounded bg-gray-100 transition-all duration-300 ${formError ? "border-red-500" : "border-secondary"}`}
               >
                 <option value="Pending">Pending</option>
                 <option value="Processing">Processing</option>

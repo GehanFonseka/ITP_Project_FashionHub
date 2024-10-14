@@ -31,7 +31,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-16 p-6 max-w-5xl mx-auto bg-gradient-to-b from-gray-200 to-gray-100 min-h-screen font-saira transition-all duration-300"style={{ marginTop: '45px' }}>
+    <div className="pt-16 p-6 max-w-5xl mx-auto bg-gradient-to-b from-gray-200 to-gray-100 min-h-screen font-saira transition-all duration-300"style={{ marginTop: '70px' }}>
     {/* Section 1: Buttons - Grid Layout for Two Columns */}
     <div className="grid grid-cols-2 gap-4 mb-6">
       <button

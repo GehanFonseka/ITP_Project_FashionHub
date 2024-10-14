@@ -1,7 +1,21 @@
 import React from "react";
 import "./ItemCard.css"; // Ensure CSS is imported
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const ItemCard = ({ item, onSelect, isSelected }) => {
+
+  const navigate = useNavigate();
+
+  const handleClick = (tshirt) => {
+  
+    localStorage.setItem('selectedProduct', JSON.stringify(tshirt));
+    localStorage.setItem('productType', 'tshirt'); // Updated product type
+    navigate('/product-details');
+  };
+  
   return (
     <div
       className={`item-card ${isSelected ? "selected" : ""}`}
@@ -14,11 +28,13 @@ const ItemCard = ({ item, onSelect, isSelected }) => {
       {/* Optional button for additional actions */}
       <button
         onClick={(e) => {
-          e.stopPropagation(); /* Prevent card click */
+          e.stopPropagation(); // Prevent card click
+          handleClick(item); // Call handleClick with the tshirt data
         }}
-      >
-        View Details
-      </button>
+          >
+            View Details
+</button>
+
     </div>
   );
 };
