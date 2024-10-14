@@ -181,7 +181,6 @@ const EditReport = () => {
                       onChange={handleChange}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
                             if (e.key === "0" && value === "") {
                               e.preventDefault();
                             }
@@ -213,7 +212,6 @@ const EditReport = () => {
                       onChange={handleChange}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
                             if (e.key === "0" && value === "") {
                               e.preventDefault();
                             }
@@ -249,7 +247,6 @@ const EditReport = () => {
                       onChange={(e) => handleChange(e)}
                       onKeyDown={(e) => {
                         const { value } = e.target;
-                            // Prevent the user from typing "0" as the first character
                             if (e.key === "0" && value === "") {
                               e.preventDefault();
                             }

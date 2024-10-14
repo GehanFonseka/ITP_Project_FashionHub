@@ -111,7 +111,6 @@ const C_WomensTMTrouserMeasurements = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Regular expression to allow positive decimal numbers
     const regex = /^\d*\.?\d*$/; // Allows numbers with optional decimals
     if (regex.test(value) || value === '') { // Check if the value is a valid number or empty
       setMeasurements({
@@ -149,7 +148,7 @@ const C_WomensTMTrouserMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="waist">Waist:</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="waist"
               name="waist"
               value={measurements.waist}
@@ -158,10 +157,12 @@ const C_WomensTMTrouserMeasurements = () => {
             />
             <Description>Measure around your natural waistline, typically just above the belly button.</Description>
           </MeasurementField>
+        </Section>
+        <Section>
           <MeasurementField>
             <Label htmlFor="hip">Hip:</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="hip"
               name="hip"
               value={measurements.hip}
@@ -175,7 +176,7 @@ const C_WomensTMTrouserMeasurements = () => {
           <MeasurementField>
             <Label htmlFor="length">Length:</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="length"
               name="length"
               value={measurements.length}
@@ -184,10 +185,12 @@ const C_WomensTMTrouserMeasurements = () => {
             />
             <Description>Measure from the base of your waist to where you want the trouser to end.</Description>
           </MeasurementField>
+        </Section>
+        <Section>
           <MeasurementField>
             <Label htmlFor="inseam">Inseam:</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="inseam"
               name="inseam"
               value={measurements.inseam}

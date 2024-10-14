@@ -69,7 +69,7 @@ const SubCategoryButton = styled(Link)`
   margin-bottom: 5px;
   font-size: 1.2rem;
   color: #fff;
-  background-color: #007bff; /* Primary button color */
+  background-color: #8b0000; /* Primary button color */
   text-align: center;
   text-decoration: none;
   border-radius: 4px;
@@ -77,7 +77,7 @@ const SubCategoryButton = styled(Link)`
   transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
 
   &:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #E76F51; /* Darker shade on hover */
     transform: translateY(-2px); /* Lift effect on hover */
   }
 `;
@@ -87,7 +87,7 @@ const GenerateReportButton = styled.button`
   padding: 15px 30px;
   font-size: 1.2rem;
   color: #fff;
-  background-color: #28a745; /* Green button color */
+  background-color:  #8b0000; /* Green button color */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -95,7 +95,7 @@ const GenerateReportButton = styled.button`
   transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
   
   &:hover {
-    background-color: #218838; /* Darker shade on hover */
+    background-color: #B22222; /* Darker shade on hover */
     transform: translateY(-2px); /* Lift effect on hover */
   }
 `;
