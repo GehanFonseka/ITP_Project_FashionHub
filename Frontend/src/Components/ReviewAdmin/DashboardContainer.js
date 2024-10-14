@@ -157,6 +157,7 @@ const DashboardWrapper = styled.div`
   padding: 20px;
   background-color: #f8f8f8;
   min-height: 100vh;
+  
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 22px; 
   `;
