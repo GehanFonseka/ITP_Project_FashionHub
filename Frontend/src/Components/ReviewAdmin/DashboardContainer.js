@@ -34,7 +34,7 @@ const ReviewTable = ({ reviews }) => {
             <td>{review.shopId}</td>
             <td>{review.rating}</td>
             <td>{new Date(review.createdAt).toLocaleDateString()}</td>
-            <td>{review.comment}</td> {/* Added comment column */}
+            <td>{review.comment}</td>
           </tr>
         ))}
       </tbody>
@@ -47,15 +47,15 @@ const DashboardContainer = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // Added searchTerm state
-  const [filteredReviews, setFilteredReviews] = useState([]); // Added filtered reviews
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredReviews, setFilteredReviews] = useState([]);
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/reviews/reviews');
         setReviews(response.data);
-        setFilteredReviews(response.data); // Initially, set all reviews to filteredReviews
+        setFilteredReviews(response.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -67,50 +67,60 @@ const DashboardContainer = () => {
     fetchReviews();
   }, []);
 
-  // Function to handle search input changes
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-
     const filtered = reviews.filter((review) =>
       review.comment.toLowerCase().includes(e.target.value.toLowerCase()) ||
       review.userId.toLowerCase().includes(e.target.value.toLowerCase()) ||
       review.shopId.toLowerCase().includes(e.target.value.toLowerCase())
     );
-
     setFilteredReviews(filtered);
   };
 
-  // Function to handle data export to PDF
   const exportData = () => {
     const doc = new jsPDF();
 
-    // Add title
-    doc.text('Review Report', 14, 20);
+    const img = new Image();
+    img.src = '/logo6.png'; // Ensure this path points to the logo in the public directory
 
-    // Define the table content
-    const tableColumn = ['User', 'Shop', 'Rating', 'Date', 'Comment'];
-    const tableRows = [];
+    img.onload = () => {
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const imgWidth = 40; // Width of the logo
+      const imgHeight = 15; // Height of the logo
+      const xPosition = (pageWidth - imgWidth) / 2; // Center the logo horizontally
 
-    filteredReviews.forEach((review) => {
-      const reviewData = [
-        review.userId,
-        review.shopId,
-        review.rating,
-        new Date(review.createdAt).toLocaleDateString(),
-        review.comment,
-      ];
-      tableRows.push(reviewData);
-    });
+      doc.addImage(img, 'PNG', xPosition, 10, imgWidth, imgHeight);
+      doc.text('Review Report', pageWidth / 2, 30, { align: 'center' });
 
-    // Generate the table
-    doc.autoTable({
-      head: [tableColumn],
-      body: tableRows,
-      startY: 30, // Space between the title and the table
-    });
+      const tableColumn = ['User', 'Shop', 'Rating', 'Date', 'Comment'];
+      const tableRows = [];
 
-    // Save the generated PDF
-    doc.save('reviews.pdf');
+      filteredReviews.forEach((review) => {
+        const reviewData = [
+          review.userId,
+          review.shopId,
+          review.rating,
+          new Date(review.createdAt).toLocaleDateString(),
+          review.comment,
+        ];
+        tableRows.push(reviewData);
+      });
+
+      doc.autoTable({
+        head: [tableColumn],
+        body: tableRows,
+        startY: 40, // Space between the title and the table
+        styles: {
+          halign: 'center',
+        },
+        headStyles: {
+          fillColor: '#8b0000', // Dark red background for header
+          textColor: '#ffffff', // White text for header
+        },
+      });
+
+      doc.save('reviews.pdf');
+    };
   };
 
   if (loading) return <p>Loading...</p>;
@@ -132,11 +142,11 @@ const DashboardContainer = () => {
         <SearchBar
           placeholder="Search reviews"
           value={searchTerm}
-          onChange={handleSearch} // Added onChange handler
+          onChange={handleSearch}
         />
-        <ExportButton onClick={exportData}>Export</ExportButton> {/* Updated onClick */}
+        <ExportButton onClick={exportData}>Export</ExportButton>
       </SearchAndFilter>
-      <ReviewTable reviews={filteredReviews} /> {/* Display filtered reviews */}
+      <ReviewTable reviews={filteredReviews} />
     </DashboardWrapper>
   );
 };
@@ -147,15 +157,18 @@ const DashboardWrapper = styled.div`
   padding: 20px;
   background-color: #f8f8f8;
   min-height: 100vh;
+
+  
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-`;
+  margin-top: 22px; 
+  `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  background-color: #003366;
+  background-color: #E76F51;
   color: white;
   padding: 15px 25px;
   border-radius: 10px;
@@ -199,7 +212,7 @@ const Table = styled.table`
   }
 
   th {
-    background-color: #003366;
+    background-color: #8b0000;
     color: white;
     font-weight: bold;
   }
@@ -229,7 +242,7 @@ const SearchBar = styled.input`
 
 const ExportButton = styled.button`
   padding: 10px 20px;
-  background-color: #003366;
+  background-color: #8b0000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -237,7 +250,7 @@ const ExportButton = styled.button`
   font-size: 16px;
 
   &:hover {
-    background-color: #002244;
+    background-color: #B22222;
   }
 `;
 

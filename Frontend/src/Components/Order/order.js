@@ -34,15 +34,15 @@ export default function Bill() {
 
             <div>
                 <div className="flex justify-center items-center">
-                    <div className="font-serif text-2xl">
+                    <div className="font sans-serif text-5xl text-blue-500">
                     Order Confirmed ! 
 
                     </div>
 
                 </div>
                 <div className="flex justify-center items-center">
-                    <div className="font-thin text-md text-gray-700 w-72 ml-8 break-words">
-                    Thank you for your trust . Your order now on the way. please check you email for the receipt. 
+                    <div className="font-thin text-xl text-gray-700 w-92 ml-8 break-words">
+                    Thank you for your trust . Your order now on the way. please download the receipt. 
 
                     </div>
 
@@ -54,23 +54,16 @@ export default function Bill() {
     <img 
         src="https://img.freepik.com/free-vector/confirmed-concept-illustration_114360-416.jpg?t=st=1727697659~exp=1727701259~hmac=bb1e92d59e7e5a5ae07eb0923aa4e0650d4791a2b4fc817131e16d343bd620ec&w=1060" 
         alt="Cash Delivery Concept" 
-        className="rounded-full w-[300px] h-[300px]" 
+        className="rounded-full w-[200px] h-[200px]" 
     />
 </div>
 
          </div>
-         <div className="flex justify-center items-center mt-3">
-          <Link to={`/bill`}>
-            <div className="text-black uppercase font-serif  hover:text-red-600 cursor-pointer hover:underline">
-            back
-            </div>
-            </Link>
+         <div className="flex justify-center items-center mt-2">
           
+        
           </div>
-         <div className=" uppercase text-gray-600  font-serif ml-[400px] text-xl">
-            My order
-         </div>
-
+        
       <div className="flex justify-center items-center  gap-4">
         <div className=" flex justify-center items-center">
           <div>
@@ -79,8 +72,12 @@ export default function Bill() {
 
             </div>
           </div>
-          <div className="w-[800px] h-[400px] mt-2 shadow-sm bg-gray-100 scrollbar-none overflow-auto">
+          <div className="w-[800px] h-[600px] mt-2 shadow-sm bg-gray-200 scrollbar-none rounded-lg overflow-auto">
             <div className="flex flex-col p-4">
+            <div className=" uppercase text-gray-600  font sans-serif  text-4xl mt-2 mb-2">
+            My order details
+         </div>
+
               {orderDetailsList.map((order) => (
                 <div
                   key={order._id}
@@ -129,8 +126,8 @@ export default function Bill() {
                   </div>
 
                   {/* Display Items */}
-                  <div className="mt-2">
-                    <h4 className="font-semibold uppercase">Items:</h4>
+                  <div className="mt-4">
+                    <h4 className="font-semibold uppercase">Orderd Items:</h4>
                     {order.items.map((item) => (
                       <div key={item._id} className="flex justify-between mb-1">
                         <span className="truncate">
@@ -160,10 +157,20 @@ export default function Bill() {
           </div>
         </div>
       </div>
+      <br></br>
       <div className="flex justify-center items-center">
-        <div className="mt-10 mb-10">
+        
+          <Link to={`/bill`}>
+            <div className="text-blue uppercase font sans-serif hover:text-red-600 cursor-pointer hover:underline">
+              back to checkout
+            </div>
+          </Link>
+        </div>
+
+      <div className="flex justify-center items-center">
+        <div className="mt-8 mb-20">
           <Link to="/track">
-         <button className="bg-black w-44 h-10  text-white font-serif hover:text-red-400 rounded-full">Tracking Details</button>
+         <button className="bg-black w-60 h-20 size-xl text-white font sans-serif hover:text-red-400 rounded-md">Track Delivery</button>
          </Link>
         </div>
       </div>

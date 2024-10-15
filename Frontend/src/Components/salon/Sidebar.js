@@ -20,7 +20,7 @@ const Sidebar = () => {
         <SidebarItem href="/ServiceList">Services</SidebarItem>
         <SidebarItem href="/AppointmentForm">Book Now</SidebarItem>
         <SidebarItem href="/MyAppointmentForm">My Appointments</SidebarItem>
-        
+
       </SidebarContainer>
     </>
   );
@@ -28,7 +28,7 @@ const Sidebar = () => {
 
 const SidebarContainer = styled.div`
   height: 100vh;
-  width: ${(props) => (props.isOpen ? "200px" : "0")};
+  width: ${(props) => (props.isOpen ? "203px" : "0")};
   position: fixed;
   top: 80px;
   left: 0;
@@ -40,6 +40,7 @@ const SidebarContainer = styled.div`
   transition: width 0.3s ease;
   overflow: hidden;
   z-index: 900;
+  font-family: 'Roboto', sans-serif; /* Set font for the sidebar */
 `;
 
 const SidebarItem = styled.a`
@@ -49,6 +50,7 @@ const SidebarItem = styled.a`
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif; /* Set font for sidebar items */
 
   &:hover {
     color: #ae2012;
@@ -66,10 +68,12 @@ const ToggleButton = styled.button`
   cursor: pointer;
   z-index: 1000;
   transition: left 0.3s ease;
+  font-family: 'Lato', sans-serif; /* Set font for toggle button */
 
   &:hover {
     background-color: #ae2012;
   }
 `;
+
 
 export default Sidebar;

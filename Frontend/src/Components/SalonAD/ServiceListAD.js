@@ -60,7 +60,7 @@ const ServiceListAD = () => {
       console.error('Error updating service:', error);
     }
   };
-  
+
   const deleteService = async (id) => {
     if (window.confirm('Are you sure you want to delete this service?')) {
       try {
@@ -71,7 +71,7 @@ const ServiceListAD = () => {
       }
     }
   };
-  
+
   return (
     <Container>
       <TitleContainer>
@@ -104,9 +104,16 @@ const ServiceListAD = () => {
         <Input
           name="price"
           value={editingService ? editingService.price : newService.price}
-          onChange={handleChange}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            if (/^\d*\.?\d*$/.test(value)) {
+              handleChange(e);
+            }
+          }}
           placeholder="LKR"
         />
+
         <Button onClick={editingService ? () => updateService(editingService._id) : addService}>
           {editingService ? 'Update Service' : 'Add Service'}
         </Button>
@@ -146,6 +153,7 @@ const ServiceListAD = () => {
 const Container = styled.div`
   margin-top: 100px;
   padding: 20px;
+  font-family: 'Open Sans', sans-serif; /* Body font */
 `;
 
 const TitleContainer = styled.div`
@@ -153,15 +161,16 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: #333;
+  font-family: 'Montserrat', sans-serif; /* Heading font */
 `;
 
 const FormContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 50px;
 `;
@@ -170,25 +179,28 @@ const Select = styled.select`
   padding: 10px;
   flex: 1;
   min-width: 150px;
+  font-family: 'Open Sans', sans-serif; /* Body font */
 `;
 
 const Input = styled.input`
   padding: 10px;
   flex: 1;
   min-width: 150px;
-  background-color: #fff; 
+  background-color: #fff;
   color: #000;
-  border: 1px solid #000; 
+  border: 1px solid #000;
+  font-family: 'Open Sans', sans-serif; /* Body font */
 `;
 
 const Button = styled.button`
-  padding: 8px 16px; 
+  padding: 8px 16px;
   background-color: #ae2012;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  font-family: 'Lato', sans-serif; /* Button text */
   transition: background-color 0.3s;
 
   &:hover {
@@ -201,6 +213,7 @@ const Button = styled.button`
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  font-family: 'Open Sans', sans-serif; /* Body font */
 `;
 
 const TableRow = styled.tr`
@@ -214,10 +227,15 @@ const TableHeader = styled.th`
   background-color: #333;
   color: #fff;
   text-align: left;
+  font-family: 'Roboto', sans-serif; 
+  font-size:1.2rem;
+ 
 `;
 
 const TableData = styled.td`
-  padding: 12px; 
+  padding: 12px;
+  font-family: 'Merriweather', serif;
+  
 `;
 
 export default ServiceListAD;

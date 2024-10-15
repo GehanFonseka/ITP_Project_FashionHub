@@ -2,14 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 
-
 const ChatBot = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
   const [currentStage, setCurrentStage] = useState("initial");
-  const [selectedStore, setSelectedStore] = useState(""); // Track selected store
-  const [view, setView] = useState("main"); // Track which view (main or instant answers)
+  const [selectedStore, setSelectedStore] = useState(""); 
+  const [view, setView] = useState("main");
   const chatWindowRef = useRef(null);
 
   // Updated suggestions for various stages
@@ -20,41 +19,43 @@ const ChatBot = ({ onClose }) => {
       "Book a parking spot",
       "Report an issue",
     ],
-    promotions: ["SHID01", "SHID02", "SHID03", "SHID04"],
-    storeHours: ["SHID01", "SHID02", "SHID03", "SHID04"],
-    parkingSpot: ["Ground Floor", "Basement Parking", "Valet Parking"],
+    promotions: ["saloon", "clothing", "footwear", "accessories"],
+    storeHours: ["saloon", "clothing", "footwear", "accessories"],
+    parkingSpot: ["ground floor", "basement parking", "valet parking"],
   };
 
   const responses = {
     "Check store hours":
-      "Please select the store for which you want to know the hours.",
-    "View promotions": "Which store's promotions are you interested in?",
-    "Book a parking spot": "Please choose a parking location.",
+      "Please select the store for which you want to know the hours: (Saloon, Clothing, Footwear, Accessories.)",
+    "View promotions": 
+      "Which store's promotions are you interested in? (Saloon, Clothing, Footwear, Accessories.)",
+    "Book a parking spot": 
+      "Please choose a parking location. (Ground Floor, Basement Parking, Valet Parking.)",
     "Report an issue":
       "Please contact customer care or raise a ticket for assistance.",
 
-    // Store Hours Responses
-    "SHID01 hours": "Store SHID01 is open from 9 AM to 9 PM.",
-    "SHID02 hours": "Store SHID02 is open from 10 AM to 8 PM.",
-    "SHID03 hours": "Store SHID03 is open from 11 AM to 7 PM.",
-    "SHID04 hours": "Store SHID04 is open from 9 AM to 6 PM.",
+    
+    "saloon hours": "Store Saloon is open from 9 AM to 9 PM.",
+    "clothing hours": "Store Clothing is open from 10 AM to 8 PM.",
+    "footwear hours": "Store Footwear is open from 11 AM to 7 PM.",
+    "accessories hours": "Store Accessories is open from 9 AM to 6 PM.",
 
-    // Promotions Responses
-    "SHID01 promotions":
-      "Store SHID01 offers discounts on electronics and Buy 1 Get 1 Free on selected items.",
-    "SHID02 promotions":
-      "Store SHID02 is offering 50% off on clothing for this week only.",
-    "SHID03 promotions":
-      "Store SHID03 has special deals on kitchenware products.",
-    "SHID04 promotions":
-      "Store SHID04 offers discounts on furniture, with up to 30% off.",
+    
+    "saloon promotions":
+      "Store Saloon offers 20% off on all grooming services and free haircuts with premium packages.",
+    "clothing promotions":
+      "Store Clothing is offering up to 70% off on summer wear, plus an extra 10% off on all clearance items.",
+    "footwear promotions":
+      "Store Footwear is running a Buy 2 Get 1 Free sale on all sneakers and casual shoes.",
+    "accessories promotions":
+      "Store Accessories is offering 40% off on all jewelry and handbags, and up to 50% off on select watches.",
 
-    // Parking Spot Responses
-    "Ground Floor":
+    
+    "ground Floor":
       "You have successfully booked a parking spot on the Ground Floor.",
-    "Basement Parking":
+    "basement Parking":
       "You have successfully booked a parking spot in the Basement Parking.",
-    "Valet Parking":
+    "valet Parking":
       "Valet Parking has been booked for you. Please present your booking code at the entrance.",
   };
 
@@ -108,11 +109,11 @@ const ChatBot = ({ onClose }) => {
 
   const handleSuggestionClick = (suggestion) => {
     sendMessage(suggestion);
-    setView("instantAnswers"); // Switch to the instant answers view
+    setView("instantAnswers"); 
   };
-
+  
   const returnToMainChat = () => {
-    setView("main"); // Return to the main chat view
+    setView("main"); 
   };
 
   useEffect(() => {
@@ -125,7 +126,7 @@ const ChatBot = ({ onClose }) => {
     <div className="fixed bottom-32 right-6 bg-white shadow-xl p-4 rounded-lg w-80 h-[450px] z-50">
       <div className="relative h-full flex flex-col">
         <div className="p-4 bg-gray-800 text-white rounded-t-lg flex justify-between items-center">
-          <h2 className="text-xl font-bold">Chat with us</h2>
+          <h2 className="text-xl font-bold text-white">Chat with us</h2>
           <button onClick={onClose} className="text-white">
             <AiOutlineClose size={20} />
           </button>
@@ -133,17 +134,12 @@ const ChatBot = ({ onClose }) => {
 
         {view === "main" ? (
           <>
-            <div className="px-4 py-2">
-              <p className="text-sm">
-                👋 Hi, message us with any questions. We're happy to help!
-              </p>
-              <button
-                className="w-full bg-gray-400 text-white py-2 mt-2 rounded"
-                onClick={returnToMainChat}
-              >
-                Return to chat
-              </button>
+            <div className="px-4 py-2 flex items-center justify-center text-center" style={{ marginTop: '15px' }}>
+              <p className="text-sm font-bold">
+                  👋 Hi, message us with any questions. We're happy to help!
+             </p>
             </div>
+
 
             <div className="p-4 flex flex-col">
               <p className="font-semibold">Instant answers</p>

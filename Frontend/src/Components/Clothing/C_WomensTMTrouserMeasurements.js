@@ -11,7 +11,7 @@ const Container = styled.div`
   min-height: 100vh;
   margin: 0;
   padding: 20px;
-  padding-top: 70px;
+  padding-top: 100px;
   padding-bottom: 50px;
 `;
 
@@ -111,15 +111,21 @@ const C_WomensTMTrouserMeasurements = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Regular expression to allow positive decimal numbers
-    const regex = /^\d*\.?\d*$/; // Allows numbers with optional decimals
-    if (regex.test(value) || value === '') { // Check if the value is a valid number or empty
-      setMeasurements({
-        ...measurements,
-        [name]: value
-      });
+  
+    // Allow only numbers and a single decimal point
+    if (/^\d*\.?\d{0,1}$/.test(value) || value === '') {
+      const numValue = parseFloat(value);
+  
+      // Ensure that the value is either empty or between 5 and 200
+      if (value === '' || (numValue >= 1 && numValue <= 200)) {
+        setMeasurements({
+          ...measurements,
+          [name]: value
+        });
+      }
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -147,9 +153,9 @@ const C_WomensTMTrouserMeasurements = () => {
       <Form onSubmit={handleSubmit}>
         <Section>
           <MeasurementField>
-            <Label htmlFor="waist">Waist:</Label>
+            <Label htmlFor="waist">Waist(cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="waist"
               name="waist"
               value={measurements.waist}
@@ -158,10 +164,12 @@ const C_WomensTMTrouserMeasurements = () => {
             />
             <Description>Measure around your natural waistline, typically just above the belly button.</Description>
           </MeasurementField>
+        </Section>
+        <Section>
           <MeasurementField>
-            <Label htmlFor="hip">Hip:</Label>
+            <Label htmlFor="hip">Hip(cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="hip"
               name="hip"
               value={measurements.hip}
@@ -173,9 +181,9 @@ const C_WomensTMTrouserMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="length">Length:</Label>
+            <Label htmlFor="length">Length(cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="length"
               name="length"
               value={measurements.length}
@@ -184,10 +192,12 @@ const C_WomensTMTrouserMeasurements = () => {
             />
             <Description>Measure from the base of your waist to where you want the trouser to end.</Description>
           </MeasurementField>
+        </Section>
+        <Section>
           <MeasurementField>
-            <Label htmlFor="inseam">Inseam:</Label>
+            <Label htmlFor="inseam">Inseam(cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="inseam"
               name="inseam"
               value={measurements.inseam}

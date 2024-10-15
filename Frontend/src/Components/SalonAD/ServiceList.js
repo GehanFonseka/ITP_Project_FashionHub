@@ -9,37 +9,37 @@ const categoryOrder = (category) => {
 
 
 const ServiceList = () => {
-  
+
   const [services, setServices] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
 
- 
+
   useEffect(() => {
-   
+
     const fetchServices = async () => {
 
       try {
         setLoading(true);
-     
+
         const response = await fetch('/api/services');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setServices(data); 
+        setServices(data);
       } catch (err) {
-        setError(err.message); 
+        setError(err.message);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchServices();
-  }, []); 
+  }, []);
 
-  // Conditional rendering based on state
+
   if (loading) {
     return <p>Loading services...</p>;
   }
@@ -67,7 +67,7 @@ const ServiceList = () => {
         </thead>
         <tbody>
           {services.length > 0 ? (
-             sortedServices.map((service) => (
+            sortedServices.map((service) => (
               <TableRow key={service._id}>
                 <TableData>{service.category}</TableData>
                 <TableData>{service.name}</TableData>
@@ -86,15 +86,14 @@ const ServiceList = () => {
   );
 };
 
-// Styled Components
-
 const Container = styled.div`
   margin: 80px;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top:100px;
+  margin-top: 100px;
+  font-family: 'Roboto', sans-serif; /* Body font */
 `;
 
 const TitleContainer = styled.div`
@@ -108,6 +107,7 @@ const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   color: #333;
+  font-family: 'Playfair Display', serif; /* Heading font */
 `;
 
 const BookNowButton = styled.a`
@@ -118,6 +118,7 @@ const BookNowButton = styled.a`
   font-weight: bold;
   border-radius: 5px;
   transition: background-color 0.3s;
+  font-family: 'Lato', sans-serif; /* Button font */
 
   &:hover {
     background-color: #5C646C;
@@ -127,6 +128,7 @@ const BookNowButton = styled.a`
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  font-family: 'Roboto', sans-serif; /* Body font */
 `;
 
 const TableRow = styled.tr`
@@ -141,13 +143,16 @@ const TableHeader = styled.th`
   color: #fff;
   text-align: left;
   border-bottom: 2px solid #ddd;
+  font-family: 'Poppins', sans-serif; /* Heading font for table */
 `;
 
 const TableData = styled.td`
   padding: 15px;
   border-bottom: 1px solid #ddd;
   color: #333;
+  font-family: 'Roboto', sans-serif; /* Body font */
 `;
+
 
 
 export default ServiceList;

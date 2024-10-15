@@ -291,21 +291,21 @@ const handleDeleteall = async () => {
   return (
     
     <div className="min-h-screen">
-      <div className="flex justify-center mt-28  items-center gap-4">
+      <div className="flex justify-center mt-0  items-center gap-50">
         <div>
-          <div className="mb-20 text-4xl font-sans-serif ml-[5px]">
+          <div className="mb-50 text-5xl font-sans-serif ml-[2px]">
             <h1>Fashion Hub</h1>
           </div>
           <div className="flex justify-center items-center mt-3">
           <Link to={`/`}>
-            <div className="text-black uppercase font sans-serif  hover:text-red-600 cursor-pointer hover:underline">
-            back to your cart
+            <div className="text-orange uppercase font sans-serif  hover:text-red-600 cursor-pointer hover:underline">
+            ⬅️back to your cart
             </div>
             </Link>
           
           </div>
           <form className="" onSubmit={handleSubmit}>
-            <div className="max-h-[550px] mt-2 overflow-y-auto scrollbar-none">
+            <div className="max-h-[550px] mt-5 overflow-y-auto scrollbar-none">
               <div>
                 <h3 className="font-sans-serif text-gray-700 ml-1 text-xl">Email</h3>
                 <input
@@ -426,6 +426,7 @@ const handleDeleteall = async () => {
                   type="text"
                   placeholder="phone"
                   id="Phone" // Ensure this ID matches
+                  maxLength={10}
                   onChange={handleContactChange}
                 />
                 {validation && (
@@ -438,14 +439,14 @@ const handleDeleteall = async () => {
               <div className="h-20 w-[750px] mt-6 rounded-3xl bg-gray-200  bg-opacity-40">
                 <div className="">
                   <button className=" ml-6 mt-6 text-xl font-sans-serif opacity-50 ">
-                  Delivery within standard 2-3 business Days
+                  Your Order will Delivery within standard 2-3 business Days
                   </button>
                 </div>
               </div>
 
-              <div className="ml-80">
-                <div className="font sans-serif text-gray-600 text-xl mt-4">
-                  Payment
+              <div className="ml-60">
+                <div className="font sans-serif text-gray-600 text-xl mt-6">
+                  Enter Your Payment Details
                 </div>
               </div>
 
@@ -455,7 +456,7 @@ const handleDeleteall = async () => {
                 className="w-52 h-10 mt-10 opacity-70"
               />
 
-              <div className="mt-5"> 
+              <div className="mt-4"> 
                 <input
                   className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-[750px] h-11" // Changed width to match Card Number
                   type="text"
@@ -525,14 +526,15 @@ const handleDeleteall = async () => {
               type="submit"
             >
               <div className="flex items-center justify-center">
-                <div className="font-serif text-xl uppercase opacity-75">CheckOut</div>
+                <br></br>
+                <div className="font sans-serif text-xl uppercase opacity-75">Place Order</div>
               </div>
             </button>
           </form>
         </div>
 
         <div className="">
-          <div className="w-[400px] h-screen mt-6 ml-36 shadow-sm scrollbar-none rounded-lg bg-gray-300 overflow-auto">
+          <div className="w-[400px] h-screen mt-40 ml-36 shadow-sm scrollbar-none rounded-lg bg-gray-300 overflow-auto">
             <div className="flex flex-col p-4">
                
               {orderDetailsList.map((order) => (
@@ -540,6 +542,7 @@ const handleDeleteall = async () => {
                   key={order._id}
                   className="mb-4 p-4 border shadow-xl border-gray-300 rounded-lg bg-white shadow-md"
                 >
+                  <h4 className="font sans-serif text-xl uppercase">CheckOut</h4>
                    {/* Cart Image at the top */}
                    <div className="flex justify-center mb-8">
                     <img 

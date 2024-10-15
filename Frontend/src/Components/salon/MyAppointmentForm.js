@@ -9,21 +9,21 @@ const MyAppointmentForm = () => {
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      
+
       try {
-        const response = await axios.get('/api/appointment');
+        const response = await axios.get('/api/appointment/');
         setAppointments(response.data);
       } catch (error) {
         console.error('Error fetching appointments:', error);
       } finally {
-        
+
       }
     };
 
     fetchAppointments();
   }, []);
 
-  
+
 
   const handleEdit = (appointment) => {
     navigate('/AppointmentForm', { state: { editData: appointment } });
@@ -74,7 +74,7 @@ const MyAppointmentForm = () => {
                 <TableData>{new Date(appt.date).toLocaleDateString()}</TableData>
                 <TableData>{appt.time}</TableData>
                 <TableData>{appt.services.join(', ')}</TableData>
-                <TableData>{appt.totalCost ? appt.totalCost.toFixed(2) : 'N/A'}</TableData> {/* Handle undefined totalCost */}
+                <TableData>{appt.totalCost ? appt.totalCost.toFixed(2) : 'N/A'}</TableData>
                 <TableData>
                   <ActionButtonContainer>
                     <ActionButton onClick={() => handleEdit(appt)}>Edit</ActionButton>
@@ -90,14 +90,15 @@ const MyAppointmentForm = () => {
   );
 };
 
-// Styled Components (same as before)
+
 const Container = styled.div`
   margin: 80px;
-  background-color: #fff;
+  margin-top: 100px;
   padding: 20px;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 100px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
 `;
 
 const TitleContainer = styled.div`
@@ -108,48 +109,55 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h1`
+  margin: 0;
   font-size: 2rem;
-  font-weight: bold;
-  color: #333;
+  font-weight: 700;
+  color: #333333;
+  line-height: 1.2;
 `;
 
 const BookNowButton = styled.a`
   padding: 10px 20px;
   background-color: #E76F51;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
   border-radius: 5px;
   transition: background-color 0.3s;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
 
   &:hover {
-    background-color: #5C646;
+    background-color: #C65D3A;
   }
 `;
 
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
 `;
 
 const TableHeader = styled.th`
   padding: 15px;
-  background-color: #333;
-  color: #fff;
+  background-color: #333333;
+  color: #ffffff;
   text-align: left;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid #dddddd;
+  font-weight: 600;
+  font-size: 1rem;
 `;
 
 const TableRow = styled.tr`
   &:nth-child(even) {
-    background-color: #f8f8f8;
+    background-color: #F7F7F7;
   }
 `;
 
 const TableData = styled.td`
   padding: 15px;
-  border-bottom: 1px solid #ddd;
-  color: #333;
+  border-bottom: 1px solid #dddddd;
+  color: #333333;
+  font-size: 0.95rem;
 `;
 
 const ActionButtonContainer = styled.div`
@@ -158,19 +166,23 @@ const ActionButtonContainer = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background-color: #ae2012;
-  color: white;
-  border: none;
+  flex: 1;
   padding: 8px 12px;
+  background-color: #AE2012;
+  color: #ffffff;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  flex: 1;
   text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  transition: background-color 0.3s;
 
   &:hover {
-    background-color: #920d0d;
+    background-color: #920D0D;
   }
 `;
+
 
 export default MyAppointmentForm;
