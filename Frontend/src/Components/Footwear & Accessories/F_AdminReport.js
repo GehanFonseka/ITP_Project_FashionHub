@@ -4,7 +4,6 @@ import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Import jsPDF AutoTable
 
-
 const ReportContainer = styled.div`
   padding: 20px;
   margin-top: 80px;
@@ -152,74 +151,77 @@ const F_AdminReport = () => {
 
   const downloadPDF = () => {
     const pdf = new jsPDF();
-  
-    // Add FashionHub header
-    pdf.setFontSize(24);
-    pdf.setTextColor(255, 165, 0); // Set text color to orange (RGB: 255, 165, 0)
-  
-    // Center the FashionHub text on the page
-    const headerText = 'FashionHub';
-    const headerX = (pdf.internal.pageSize.getWidth() - pdf.getTextWidth(headerText)) / 2;
-    pdf.text(headerText, headerX, 20); // Positioning the header text
-  
-    // Add the main title aligned to the left
-    pdf.setFontSize(15);
-    pdf.setTextColor(0, 0, 0); // Reset text color to black for the title
-    pdf.text('Footwear and Accessories Inventory Report', 20, 30); // Left-aligned position
-  
-    pdf.setFontSize(12);
-  
-    // Prepare data for autoTable
-    const tableData = [];
-  
-    Object.keys(filteredData).forEach(category => {
-      // Add category as a header row
-      tableData.push([{ content: category, colSpan: 5, styles: { halign: 'center', fillColor: '#a0522d', textColor: '#fff', fontStyle: 'bold' } }]);
-  
-      filteredData[category].forEach(item => {
-        const row = [
-          item.sellerNo !== undefined ? item.sellerNo : 'N/A',
-          item.itemNo !== undefined ? item.itemNo : 'N/A',
-          item.name !== undefined ? item.name : 'N/A',
-          item.price !== undefined ? `LKR ${item.price.toFixed(2)}` : 'N/A',
-          item.quantity !== undefined ? item.quantity : 'N/A',
-        ];
-        tableData.push(row);
+
+    // Load and add the logo image
+    const img = new Image();
+    img.src = '/logo6.png'; // Adjust the path to your logo image
+
+    img.onload = function() {
+      const imgWidth = 45; // Set the width of the logo
+      const imgHeight = 15; // Set the height of the logo
+      const xPos = (pdf.internal.pageSize.getWidth() - imgWidth) / 2; // Center the image horizontally
+
+      // Add the logo to the PDF
+      pdf.addImage(img, 'PNG', xPos, 10, imgWidth, imgHeight);
+
+      // Add the main title after the logo
+      pdf.setFontSize(15);
+      pdf.setTextColor(0, 0, 0); // Set text color to black
+      pdf.text('Footwear and Accessories Inventory Report', 20, 40); // Position after the logo
+
+      pdf.setFontSize(12);
+
+      // Prepare data for autoTable
+      const tableData = [];
+
+      Object.keys(filteredData).forEach(category => {
+        // Add category as a header row
+        tableData.push([{ content: category, colSpan: 5, styles: { halign: 'center', fillColor: '#a0522d', textColor: '#fff', fontStyle: 'bold' } }]);
+
+        filteredData[category].forEach(item => {
+          const row = [
+            item.sellerNo !== undefined ? item.sellerNo : 'N/A',
+            item.itemNo !== undefined ? item.itemNo : 'N/A',
+            item.name !== undefined ? item.name : 'N/A',
+            item.price !== undefined ? `LKR ${item.price.toFixed(2)}` : 'N/A',
+            item.quantity !== undefined ? item.quantity : 'N/A',
+          ];
+          tableData.push(row);
+        });
+
+        // Add a blank row after each category
+        tableData.push(['', '', '', '', '']); // Empty row for spacing
       });
-  
-      // Add a blank row after each category
-      tableData.push(['', '', '', '', '']); // Empty row for spacing
-    });
-  
-    // Define columns
-    const columns = [
-      { header: 'Seller No', dataKey: 'sellerNo' },
-      { header: 'Item No', dataKey: 'itemNo' },
-      { header: 'Name', dataKey: 'name' },
-      { header: 'Price', dataKey: 'price' },
-      { header: 'Quantity', dataKey: 'quantity' },
-    ];
-  
-    // Generate the table using autoTable
-    pdf.autoTable({
-      head: [columns.map(col => col.header)],
-      body: tableData,
-      startY: 40, // Start after the title
-      styles: { overflow: 'linebreak' }, // Allow line breaks in cells
-      columnStyles: {
-        0: { cellWidth: 30 }, // Adjust column widths as needed
-        1: { cellWidth: 30 },
-        2: { cellWidth: 70 },
-        3: { cellWidth: 30 },
-        4: { cellWidth: 30 },
-      },
-    });
-  
-    // Save the PDF
-    pdf.save('report.pdf');
+
+      // Define columns
+      const columns = [
+        { header: 'Seller No', dataKey: 'sellerNo' },
+        { header: 'Item No', dataKey: 'itemNo' },
+        { header: 'Name', dataKey: 'name' },
+        { header: 'Price', dataKey: 'price' },
+        { header: 'Quantity', dataKey: 'quantity' },
+      ];
+
+      // Generate the table using autoTable
+      pdf.autoTable({
+        head: [columns.map(col => col.header)],
+        body: tableData,
+        startY: 50, // Start after the title and logo
+        styles: { overflow: 'linebreak' }, // Allow line breaks in cells
+        columnStyles: {
+          0: { cellWidth: 30 }, // Adjust column widths as needed
+          1: { cellWidth: 30 },
+          2: { cellWidth: 70 },
+          3: { cellWidth: 30 },
+          4: { cellWidth: 30 },
+        },
+      });
+
+      // Save the PDF
+      pdf.save('report.pdf');
+    };
   };
-  
-  
+
   return (
     <ReportContainer>
       <ReportTitle>Footwear and Accessories Inventory Report</ReportTitle>
