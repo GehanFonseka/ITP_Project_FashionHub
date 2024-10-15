@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaDownload, FaSearch } from "react-icons/fa";
+import { FaDownload, 
+         FaSearch,
+         FaEye,
+         FaPaperPlane,
+         FaTrash,} from "react-icons/fa";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+
 
 
 const DisplayReport = () => {
@@ -240,16 +245,17 @@ const DisplayReport = () => {
               e.stopPropagation(); 
               handleCardClick(report);
             }}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
+            className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors duration-300 flex items-center space-x-2 mr-2"
           >
-            View
+           <FaEye size={20} />
+           <span>View</span>
           </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
               handleEditClick(report._id);
             }}
-            className="bg-primary text-white px-4 py-2 rounded hover:bg-yellow-600 mr-2"
+            className="bg-primary text-white px-4 py-2 rounded hover:bg-yellow-600 mr-2 "
           >
             Edit
           </button>
@@ -506,10 +512,10 @@ const DisplayReport = () => {
 
 const getShopIDFromName = (shopName) => {
   const lowerCaseShopName = shopName.toLowerCase();
-  if (lowerCaseShopName === "clothing") return 1101;
-  if (lowerCaseShopName === "shoes") return 1010;
-  if (lowerCaseShopName === "accessories") return 5000;
-  if (lowerCaseShopName === "saloon") return 1000;
+  if (lowerCaseShopName === "cl") return 1101;
+  if (lowerCaseShopName === "sh") return 1010;
+  if (lowerCaseShopName === "ac") return 1011;
+  if (lowerCaseShopName === "sa") return 1000;
   return "";
 };
 
@@ -599,8 +605,8 @@ const getShopIDFromName = (shopName) => {
           </select>
         </div>
       </div>
-      <div className="mt-2"> {/* This is the search container with more spacing */}
-  {/* Search input field and other search-related components */}
+      <div className="mt-2"> 
+
 </div>
 
 {/* Report Cards Grid with search functionality */}
@@ -620,7 +626,7 @@ const getShopIDFromName = (shopName) => {
       );
     })
     .map((report) => (
-      <div key={report._id} className="w-1/3 px-2 mb-4"> {/* Each card takes up 1/3 width */}
+      <div key={report._id} className="w-1/3 px-2 mb-4"> 
         <ReportCard report={report} />
       </div>
     ))}

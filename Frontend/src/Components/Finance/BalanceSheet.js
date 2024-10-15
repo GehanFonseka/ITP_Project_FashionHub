@@ -65,6 +65,7 @@ const BalanceSheet = () => {
   const [totalPettyCash, setTotalPettyCash] = useState("");
   const [netProfit, setNetProfit] = useState("");
   const [reportId, setReportId] = useState(initialReportId || null);
+  const [errors, setErrors] = useState({});
 
   const formatDate = (month, year) => {
     const date = new Date(`${year}-${month}-01`);
@@ -177,6 +178,7 @@ const handleExpenseChange = (e) => {
                        "internetBill",
                        "waterBill",
                        "employeeSalaries",
+                       "purchasingCost",
                        ]; 
 
   const isReqEx = reqExFields.includes(e.target.name); 
@@ -253,7 +255,7 @@ const handlePettyCashChange = (e) => {
       }
     } catch (error) {
       console.error("Error handling submit:", error);
-      alert("Failed to submit report");
+      alert("Please fill the all required fields");
     }
   };
 
@@ -269,7 +271,7 @@ const handlePettyCashChange = (e) => {
     }
   };
 
-  const requiredFields = ["electricityBill","internetBill","waterBill","employeeSalaries"];
+  const requiredFields = ["electricityBill","internetBill","waterBill","employeeSalaries","purchasingCost"];
   const requiredCashFields = ["transportationCost", "bankFees","courierFees",];
 
 
@@ -300,7 +302,7 @@ const handlePettyCashChange = (e) => {
                   type="text"
                   value={sellerNo}
                   readOnly
-                  className="border border-[#E76F51] p-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
+                  className="border border-[#E76F51] pb-1 rounded w-full max-w-[150px] text-dark bg-[#F4F4F4]"
                   placeholder="Shop ID"
                 />
               </div>
@@ -375,6 +377,19 @@ const handlePettyCashChange = (e) => {
                             if (value === "" || /^[1-9][0-9]*$/.test(value)) {
                               handleExpenseChange(e);
                             }
+                          }}
+                          onFocus={() => {
+                            
+                            if (requiredFields.includes(expense) && !expenses[expense]) {
+                              setExpenses((prevState) => ({
+                                ...prevState,
+                                [`${expense}Error`]: "This field is required",
+                              }));
+                            }
+                          }}
+                          onBlur={(e) => {
+                            
+                            handleExpenseChange(e);
                           }}
                           onKeyDown={(e) => {
                             // Prevent entering unwanted characters and 0 at the beginning
