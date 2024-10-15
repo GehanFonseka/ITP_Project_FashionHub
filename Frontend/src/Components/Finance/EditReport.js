@@ -84,6 +84,7 @@ const EditReport = () => {
       navigate("/DisplayReport"); 
     } catch (error) {
       console.error("Error saving report:", error);
+      alert("Please fill the all required fields");
     }
   };
 
