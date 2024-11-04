@@ -6,7 +6,7 @@ FashionHub is an advanced e-commerce platform tailored for fashion-related busin
 | No.  | Name with Initials                 | Registration Number |Github Username    |
 |------|------------------------------------|---------------------|--------------------|
 | 1    | Fonseka W G K                      | IT22248794          | GehanFonseka       |
-| 2    | Viduranga M A O 0                  | IT22255624          | OmashV             |
+| 2    | Viduranga M A O                    | IT22255624          | OmashV             |
 | 3    | Munasinghe M A M C                 | IT22130716          | MiniduMunasinghe   |
 | 4    | Balasooriya B M M S                | IT22229748          | malindusahan       |
 | 5    | Deshan M A K                       | IT22195616          | deshanMAK          |
