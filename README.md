@@ -3,16 +3,17 @@
 FashionHub is a comprehensive web application built using the MERN stack, designed to manage various aspects of a fashion and retail platform. The system integrates multiple functions, enhancing the user experience and streamlining operational processes. Below is an overview of the key functionalities:
 
 ## Team Members
-| No. | Name               |
-|-----|---------------------|
-| 1   | Viduranga M A O     |
-| 2   | Jayantha C H        |
-| 3   | Munasinghe M A M C  |
-| 4   | Balasooriya B M M S |
-| 5   | Deshan M A K        |
-| 6   | Mudiyanselage K     |
-| 7   | Fonseka W G K       |
-| 8   | Somasundara M M     |
+| No.  |                    Name                       |
+|------|-----------------------------------------------|
+| 1    |  Fonseka W G K                                |
+| 2    |  Viduranga M A O                              |
+| 3    |  Munasinghe M A M C                           |
+| 4    |  Balasooriya B M M S                          |
+| 5    |  Deshan M A K                                 |
+| 6    |  Mudiyanselage K                              |
+| 7    |  Jayantha C H                                 |
+| 8    |  Somasundara M M                              |
+ 
 
 ## 1. Financial Management
 This module automates the financial processes, allowing users to:
