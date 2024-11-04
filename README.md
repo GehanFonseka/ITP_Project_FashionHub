@@ -1,6 +1,6 @@
 # FashionHub - MERN Stack
 
-Fashion Fusion Hub is a comprehensive web application built using the MERN stack, designed to manage various aspects of a fashion and retail platform. The system integrates multiple functions, enhancing the user experience and streamlining operational processes. Below is an overview of the key functionalities:
+FashionHub is a comprehensive web application built using the MERN stack, designed to manage various aspects of a fashion and retail platform. The system integrates multiple functions, enhancing the user experience and streamlining operational processes. Below is an overview of the key functionalities:
 
 ## 1. Financial Management
 This module automates the financial processes, allowing users to:
