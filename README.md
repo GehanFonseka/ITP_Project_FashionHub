@@ -1,6 +1,6 @@
-# FashionHub - MERN Stack
+# FashionHub - MERN Stack E-commerce Platform
 
-FashionHub is a comprehensive web application built using the MERN stack, designed to manage various aspects of a fashion and retail platform. The system integrates multiple functions, enhancing the user experience and streamlining operational processes. Below is an overview of the key functionalities:
+FashionHub is an advanced e-commerce platform tailored for fashion-related businesses, offering a comprehensive suite of tools for managing salons, clothing, footwear, accessories, customer support, and more. Built using the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS), FashionHub provides a modern, scalable solution to optimize daily operations and improve user experience.
 
 ## Team Members
 | No.  | Name with Initials                 | Registration Number |Github Username    |
@@ -15,7 +15,7 @@ FashionHub is a comprehensive web application built using the MERN stack, design
 | 8    | Somasundara M M                    | IT22100320          | MatheeshaMenuranga |
 
   
-
+###Key Features
 ## 1. Salon Management
 Focused on service optimization, this system allows:
 - Manual addition, editing, and deletion of salon services by managers.
