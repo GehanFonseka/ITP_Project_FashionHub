@@ -3,7 +3,7 @@
 FashionHub is a comprehensive web application built using the MERN stack, designed to manage various aspects of a fashion and retail platform. The system integrates multiple functions, enhancing the user experience and streamlining operational processes. Below is an overview of the key functionalities:
 
 ## Team Members
-| No.  | Name with Initials                 | Registration Number | Github Username    |
+| No.  | Name with Initials                 | Registration Number |Github Username    |
 |------|------------------------------------|---------------------|--------------------|
 | 1    | Fonseka W G K                      | IT22248794          | GehanFonseka       |
 | 2    | Viduranga M A O 0                  | IT22255624          | OmashV             |
