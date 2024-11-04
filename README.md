@@ -16,7 +16,14 @@ FashionHub is a comprehensive web application built using the MERN stack, design
 
   
 
-## 1. Financial Management
+## 1. Salon Management
+Focused on service optimization, this system allows:
+- Manual addition, editing, and deletion of salon services by managers.
+- Real-time service scheduling and performance reporting through a dashboard.
+- Client-side features to book, change, or cancel appointments.
+- Enhanced customer flexibility and satisfaction through service visibility and ease of booking.
+
+## 2. Financial Management
 This module automates the financial processes, allowing users to:
 - Input balance sheet and petty cash data to automatically calculate profits or losses.
 - Generate detailed financial reports such as profit & loss statements and monthly overviews.
@@ -24,16 +31,7 @@ This module automates the financial processes, allowing users to:
 - Customize report searches by various criteria (e.g., daily sales).
 - Navigate a user-friendly dashboard that consolidates all financial activities.
 - Benefit from robust data validation and error handling for accurate financial reports.
-
-## 2. Customer Support Management
-Designed to streamline support processes, this module offers:
-- Automatic ticket generation with unique IDs for support inquiries.
-- Real-time ticket tracking for customers and agents.
-- A chatbot for instant support, with escalation to human agents when necessary.
-- Comprehensive ticket history reports, available for download.
-- Intuitive dashboards that consolidate all support-related activities.
-- Data validation measures for accurate ticket submission.
-
+  
 ## 3. Clothing Management
 This system simplifies inventory management by:
 - Automatically adjusting stock levels in real-time based on sales.
@@ -66,12 +64,14 @@ The Order Management System facilitates:
 - Dispatch management for efficient assignment of delivery personnel.
 - Sales reports that summarize orders and fulfillment rates.
 
-## 7. Salon Management
-Focused on service optimization, this system allows:
-- Manual addition, editing, and deletion of salon services by managers.
-- Real-time service scheduling and performance reporting through a dashboard.
-- Client-side features to book, change, or cancel appointments.
-- Enhanced customer flexibility and satisfaction through service visibility and ease of booking.
+## 7.  Customer Support Management
+Designed to streamline support processes, this module offers:
+- Automatic ticket generation with unique IDs for support inquiries.
+- Real-time ticket tracking for customers and agents.
+- A chatbot for instant support, with escalation to human agents when necessary.
+- Comprehensive ticket history reports, available for download.
+- Intuitive dashboards that consolidate all support-related activities.
+- Data validation measures for accurate ticket submission.
 
 ## 8. Accessories & Footwear Management
 This module streamlines the management of accessories and footwear with features like:
