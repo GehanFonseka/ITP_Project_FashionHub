@@ -15,7 +15,7 @@ FashionHub is an advanced e-commerce platform tailored for fashion-related busin
 | 8    | Somasundara M M                    | IT22100320          | MatheeshaMenuranga |
 
   
-##Key Features
+## Key Features
 
 ## 1. Salon Management
 Focused on service optimization, this system allows:
