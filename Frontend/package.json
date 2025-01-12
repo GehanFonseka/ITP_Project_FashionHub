@@ -55,10 +55,11 @@
     "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test"
+ "scripts": {
+  "start": "react-app-rewired start",
+  "build": "react-app-rewired build",
+  "test": "react-app-rewired test",
+  "dev": "react-app-rewired start --host 0.0.0.0"
   },
   "eslintConfig": {
     "extends": [

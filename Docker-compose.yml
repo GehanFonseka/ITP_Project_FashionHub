@@ -1,0 +1,40 @@
+services:
+  mongo:
+    image: mongo
+    container_name: mongo_container
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  server:
+    build: ./Backend
+    container_name: server_container
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./Backend:/app
+      - /Backend/node_modules
+    environment:
+      - MONGODB_URI=mongodb+srv://gehanfonseka76:FASHIONHUB@fashionhub.ysch7.mongodb.net/?retryWrites=true&w=majority&appName=FashionHub
+
+
+  client:
+    build: ./Frontend
+    container_name: client_container
+    ports:
+      - "3000:3000"
+      - "3000:3000"
+    depends_on:
+      - server
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./Frontend:/app
+      - /Frontend/node_modules
+    
+volumes:
+  mongo_data:
+  
