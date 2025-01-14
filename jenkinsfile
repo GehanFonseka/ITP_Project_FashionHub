@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_PASSWORD = credentials('dockerhub-password') // DockerHub credentials
+    }
+
+    stages {
+        stage('Use MONGODB_URI') {
+            steps {
+                withCredentials([string(credentialsId: 'mongodb-uri', variable: 'MONGODB_URI')]) {
+                    sh 'echo "Using MongoDB URI: [REDACTED]"'
+                }
+            }
+        }
+
+        stage('SCM Checkout') {
+            steps {
+                echo "Starting Git checkout with optimizations"
+
+                // Clean workspace or use Jenkins Git plugin
+                sh 'rm -rf ITP_Project_FashionHub'
+
+                // Configure Git settings
+                sh 'git config --global http.postBuffer 524288000'
+
+                // Clone repository
+                sh 'git clone https://github.com/GehanFonseka/ITP_Project_FashionHub.git'
+            }
+        }
+
+         stage('Build Docker Images') {
+            steps {
+                echo "Building Docker images for frontend and backend"
+
+                // Build frontend image
+                dir('ITP_Project_FashionHub/Frontend') {
+                    sh "docker build -t gehanfonseka/fashionhub-client:latest-${env.BUILD_NUMBER} -f Dockerfile ."
+                }
+
+                // Build backend image
+                dir('ITP_Project_FashionHub/Backend') {
+                    sh "docker build -t gehanfonseka/fashionhub-server:latest-${env.BUILD_NUMBER} -f Dockerfile ."
+                }
+            }
+        }
+
+
+        stage('Login to Docker Hub') {
+            steps {
+                echo "Logging in to Docker Hub"
+                withCredentials([string(credentialsId: 'dockerhub-password', variable: 'DOCKER_PASSWORD')]) {
+                    script {
+                        sh "echo '${DOCKER_PASSWORD}' | docker login -u gehanfonseka --password-stdin"
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Images') {
+            steps {
+                echo "Pushing Docker images to Docker Hub"
+                sh "docker push gehanfonseka/fashionhub-client:latest-${env.BUILD_NUMBER}"
+                sh "docker push gehanfonseka/fashionhub-server:latest-${env.BUILD_NUMBER}"
+            }
+        }
+    }
+}
