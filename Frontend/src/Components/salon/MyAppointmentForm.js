@@ -9,21 +9,16 @@ const MyAppointmentForm = () => {
 
   useEffect(() => {
     const fetchAppointments = async () => {
-
       try {
         const response = await axios.get('/api/appointment/');
         setAppointments(response.data);
       } catch (error) {
         console.error('Error fetching appointments:', error);
-      } finally {
-
       }
     };
 
     fetchAppointments();
   }, []);
-
-
 
   const handleEdit = (appointment) => {
     navigate('/AppointmentForm', { state: { editData: appointment } });
@@ -90,7 +85,6 @@ const MyAppointmentForm = () => {
   );
 };
 
-
 const Container = styled.div`
   margin: 80px;
   margin-top: 100px;
@@ -99,6 +93,11 @@ const Container = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Helvetica Neue', Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    margin: 20px;
+    padding: 15px;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -106,6 +105,11 @@ const TitleContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Title = styled.h1`
@@ -114,6 +118,10 @@ const Title = styled.h1`
   font-weight: 700;
   color: #333333;
   line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const BookNowButton = styled.a`
@@ -124,10 +132,13 @@ const BookNowButton = styled.a`
   font-weight: 600;
   border-radius: 5px;
   transition: background-color 0.3s;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
 
   &:hover {
     background-color: #C65D3A;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
   }
 `;
 
@@ -135,6 +146,10 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   font-family: 'Helvetica Neue', Arial, sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const TableHeader = styled.th`
@@ -145,6 +160,11 @@ const TableHeader = styled.th`
   border-bottom: 2px solid #dddddd;
   font-weight: 600;
   font-size: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
 `;
 
 const TableRow = styled.tr`
@@ -158,6 +178,11 @@ const TableData = styled.td`
   border-bottom: 1px solid #dddddd;
   color: #333333;
   font-size: 0.95rem;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
 `;
 
 const ActionButtonContainer = styled.div`
@@ -176,13 +201,16 @@ const ActionButton = styled.button`
   text-align: center;
   font-size: 0.9rem;
   font-weight: 600;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   transition: background-color 0.3s;
 
   &:hover {
     background-color: #920D0D;
   }
-`;
 
+  @media (max-width: 768px) {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+`;
 
 export default MyAppointmentForm;

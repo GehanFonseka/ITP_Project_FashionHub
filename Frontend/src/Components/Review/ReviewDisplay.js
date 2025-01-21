@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-const ReviewDisplay = ({storeID}) => {
-  console.log(storeID);
+const ReviewDisplay = ({ storeID }) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchReviews = async (storeID) => { 
-      console.log("dsfdhjfhjdhj",storeID);
+    const fetchReviews = async (storeID) => {
       try {
         const response = await axios.get(`http://localhost:5000/api/reviews/reviews/shop/${storeID}`);
         setReviews(response.data);
@@ -24,6 +22,7 @@ const ReviewDisplay = ({storeID}) => {
 
     fetchReviews(storeID);
   }, []);
+
   const calculateReviewStats = (reviews) => {
     const totalReviews = reviews.length;
     const starCounts = [0, 0, 0, 0, 0];
@@ -99,11 +98,15 @@ const ReviewDisplay = ({storeID}) => {
   );
 };
 
-// Styled components
+// Styled components with mobile responsiveness
 const Container = styled.div`
   padding: 20px;
   background: #f9f9f9;
   min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const ReviewSummary = styled.div`
@@ -114,6 +117,13 @@ const ReviewSummary = styled.div`
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
 `;
 
 const AverageRating = styled.div`
@@ -132,6 +142,13 @@ const AverageRating = styled.div`
     font-weight: bold;
     color: #333;
   }
+
+  @media (max-width: 768px) {
+    max-width: 200px;
+    span {
+      font-size: 50px;
+    }
+  }
 `;
 
 const Stars = styled.div`
@@ -140,6 +157,10 @@ const Stars = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const Star = styled.span`
@@ -157,12 +178,21 @@ const RatingBreakdown = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 const RatingRow = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const RatingBar = styled.div`
@@ -171,6 +201,11 @@ const RatingBar = styled.div`
   height: 10px;
   border-radius: 5px;
   margin: 0 15px;
+
+  @media (max-width: 768px) {
+    width: 120px;
+    margin: 5px 0;
+  }
 `;
 
 const FilledBar = styled.div`
@@ -183,6 +218,10 @@ const FilledBar = styled.div`
 const RatingCount = styled.div`
   font-size: 16px;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const ReviewContainer = styled.div`
@@ -190,6 +229,10 @@ const ReviewContainer = styled.div`
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
 `;
 
 const ReviewCard = styled.div`
@@ -207,6 +250,11 @@ const ReviewCard = styled.div`
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   }
+
+  @media (max-width: 768px) {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 `;
 
 const ReviewHeader = styled.div`
@@ -218,12 +266,20 @@ const UserName = styled.h3`
   color: #333;
   margin: 0;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 const Rating = styled.div`
   font-size: 20px;
   color: #ffcc00;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 const ReviewInfo = styled.div`
@@ -232,6 +288,11 @@ const ReviewInfo = styled.div`
   font-size: 14px;
   margin-bottom: 20px;
   color: #666;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const ColorInfo = styled.div`
@@ -246,6 +307,10 @@ const ReviewText = styled.p`
   font-size: 16px;
   color: #555;
   line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export default ReviewDisplay;

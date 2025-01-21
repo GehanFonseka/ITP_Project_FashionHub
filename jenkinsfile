@@ -64,5 +64,29 @@ pipeline {
                 sh "docker push gehanfonseka/fashionhub-server:latest-${env.BUILD_NUMBER}"
             }
         }
+        stage('Deploy Updated Services') {
+            steps {
+                echo "Deploying updated services with Docker Compose"
+                sh """
+                cd ITP_Project_FashionHub
+                docker-compose down || true
+                docker-compose pull
+                docker-compose up -d --build
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline executed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs for details."
+        }
+        always {
+            echo "Cleaning up unused Docker resources"
+            sh 'docker system prune -f || true'
+        }
     }
 }

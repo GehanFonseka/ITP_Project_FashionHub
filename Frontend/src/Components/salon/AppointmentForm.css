@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lora:wght@400;700&display=swap');
 
-
 .appointment-form-background {
   background: linear-gradient(135deg, #0172B2 0%, #001645 100%);
   background-size: cover;
@@ -14,7 +13,6 @@
   font-family: 'Roboto', sans-serif;
 }
 
-
 .main-container {
   display: flex;
   flex-direction: row;
@@ -25,9 +23,7 @@
   margin: 0 auto;
   margin-top: 50px;
   gap: 30px;
-
 }
-
 
 .container {
   background-color: transparent;
@@ -39,7 +35,6 @@
   margin-top: 50px;
 }
 
-/* Services container styling */
 .services {
   padding: 30px;
   border-radius: 12px;
@@ -52,7 +47,6 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Headings */
 h2 {
   font-family: 'Lora', serif;
   font-size: 3rem;
@@ -71,14 +65,12 @@ h3 {
   font-weight: 900;
 }
 
-
 label {
   display: block;
   font-size: 1rem;
   color: #333;
   margin-bottom: 5px;
   font-weight: 500;
-
 }
 
 input[type="text"],
@@ -87,21 +79,15 @@ input[type="date"],
 select,
 textarea {
   width: 100%;
-
   padding: 12px;
   font-size: 1rem;
   border: 2px solid #ccc;
-
   border-radius: 8px;
   margin-bottom: 20px;
   box-sizing: border-box;
-
   background-color: #fff;
-
   color: #333;
-
   font-family: 'Roboto', sans-serif;
-
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -109,23 +95,17 @@ input:focus,
 textarea:focus,
 select:focus {
   border-color: #4c5baf;
-
   outline: none;
-
   box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
-
 }
-
 
 input[type="checkbox"] {
   -webkit-appearance: none;
-
   -moz-appearance: none;
   appearance: none;
   width: 20px;
   height: 20px;
   border: 2px solid #f5f5f5;
-
   border-radius: 4px;
   outline: none;
   cursor: pointer;
@@ -136,7 +116,6 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
   background-color: #E76F51;
-
   border-color: #E76F51;
 }
 
@@ -151,13 +130,10 @@ input[type="checkbox"]:checked::after {
   line-height: 1;
 }
 
-/* Special requests textarea */
 textarea {
   height: 120px;
   resize: none;
-
 }
-
 
 ul {
   list-style-type: none;
@@ -167,7 +143,6 @@ ul {
 li {
   font-size: 0.95rem;
   color: #f5f5f5;
-
   margin-bottom: 8px;
 }
 
@@ -175,11 +150,9 @@ li {
   font-size: 2.15rem;
   font-weight: bold;
   color: #ffffff;
-
   margin-top: 10px;
 }
 
-/* Button styling */
 button[type="submit"] {
   background-color: #E76F51;
   color: #fff;
@@ -190,18 +163,14 @@ button[type="submit"] {
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
-
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button[type="submit"]:hover {
   background-color: #E76F51;
-
   transform: translateY(-2px);
-
 }
 
-/* Error message styles */
 .error {
   color: #e74c3c;
   background-color: #fdecea;
@@ -215,9 +184,7 @@ button[type="submit"]:hover {
 .appointment-form-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
-
   gap: 40px;
-
   padding: 20px;
   margin-top: 100px;
 }
@@ -225,7 +192,6 @@ button[type="submit"]:hover {
 .form-column,
 .services-column {
   background: #fff;
-
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -240,10 +206,122 @@ button[type="submit"]:hover {
   display: flex;
   align-items: center;
   gap: 15px;
-
 }
 
-/* Checkbox container */
 .checkbox-group {
   margin-top: 20px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .appointment-form-background {
+    padding: 50px 0;
+  }
+
+  .main-container {
+    flex-direction: column;
+    margin-top: 30px;
+    gap: 20px;
+  }
+
+  .container,
+  .services {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .appointment-form-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  .services {
+    font-size: 1.2rem;
+  }
+
+  label,
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 0.95rem;
+  }
+
+  .total-cost {
+    font-size: 1.75rem;
+  }
+
+  button[type="submit"] {
+    font-size: 1.1rem;
+  }
+
+  .error {
+    font-size: 0.75rem;
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .appointment-form-background {
+    padding: 30px 0;
+  }
+
+  .main-container {
+    gap: 10px;
+  }
+
+  .container,
+  .services {
+    padding: 15px;
+  }
+
+  .appointment-form-container {
+    margin-top: 60px;
+    padding: 0 15px;
+  }
+
+  h2 {
+    font-size: 2rem;
+    
+    
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  .services {
+    font-size: 1rem;
+  }
+
+  label,
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 0.9rem;
+  }
+
+  .total-cost {
+    font-size: 1.5rem;
+  }
+
+  button[type="submit"] {
+    font-size: 1rem;
+  }
+
+  .error {
+    font-size: 0.7rem;
+  }
 }

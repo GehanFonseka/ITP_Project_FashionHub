@@ -16,7 +16,6 @@ const services = [
   { id: 3, name: "Massages", image: massageImage },
   { id: 4, name: "Facial", image: facialImage },
   { id: 5, name: "MakeUp", image: makeUpImage },
-
 ];
 
 // Main Salon Home Component
@@ -89,6 +88,10 @@ const MainContainer = styled.div`
 const Content = styled.div`
   width: 100%;
   padding: 40px; /* Increased padding for spacious feel */
+
+  @media (max-width: 768px) {
+    padding: 20px; /* Reduced padding for smaller screens */
+  }
 `;
 
 const HeaderText = styled.div`
@@ -100,6 +103,10 @@ const Heading = styled.h1`
   font-size: 3rem;
   font-weight: bold;
   color: #ae2012; /* Accent color for the heading */
+
+  @media (max-width: 768px) {
+    font-size: 2rem; /* Adjust font size for smaller screens */
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -116,6 +123,11 @@ const StyledImage = styled.img`
   margin: 0 auto; /* Center the image */
   max-height: 500px; /* Optional: limit the height to maintain design */
   border-radius: 15px; /* Rounded corners for a softer look */
+
+  @media (max-width: 768px) {
+    width: 100%; /* Image takes full width on smaller screens */
+    max-height: none; /* Remove height restriction for better fitting */
+  }
 `;
 
 const DescriptionContainer = styled.div`
@@ -126,12 +138,20 @@ const DescriptionContainer = styled.div`
   background-color: #fff; /* White background for text area */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+
+  @media (max-width: 768px) {
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
 `;
 
 const LeftText = styled.p`
   font-size: 1.2rem;
   line-height: 1.6;
   text-align: justify; /* Justified text for a neat look */
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
 `;
 
 const OurServicesContainer = styled.div`
@@ -145,11 +165,19 @@ const OurServicesHeading = styled.h2`
   font-weight: bold;
   margin-bottom: 20px;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 2rem; /* Adjust font size for smaller screens */
+  }
 `;
 
 const OurServicesDescription = styled.p`
   font-size: 1.2rem;
   line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
 `;
 
 const ServicesContainer = styled.div`
@@ -157,6 +185,11 @@ const ServicesContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ServiceItem = styled.div`
@@ -172,6 +205,11 @@ const ServiceItem = styled.div`
   &:hover {
     transform: translateY(-5px); /* Lift effect on hover */
   }
+
+  @media (max-width: 768px) {
+    width: 80%; /* Adjust width on mobile */
+    margin-bottom: 15px; /* Reduce margin on mobile */
+  }
 `;
 
 const ServiceImage = styled.img`
@@ -185,12 +223,21 @@ const ServiceLabel = styled.h3`
   font-size: 1.2rem;
   font-weight: bold;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ActionButton = styled.a`
@@ -208,6 +255,12 @@ const ActionButton = styled.a`
   &:hover {
     background-color: #000;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+    padding: 8px 12px; /* Adjust padding for smaller screens */
+    margin: 10px 0; /* Adjust margin for mobile */
+  }
 `;
 
 const ReviewSection = styled.div`
@@ -216,18 +269,30 @@ const ReviewSection = styled.div`
   padding: 40px;
   background-color: #f8f8f8;
   border-radius: 10px; /* Rounded corners */
+
+  @media (max-width: 768px) {
+    padding: 30px; /* Adjust padding for smaller screens */
+  }
 `;
 
 const ReviewHeading = styled.h2`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 2rem; /* Adjust font size for smaller screens */
+  }
 `;
 
 const ReviewDescription = styled.p`
   font-size: 1.2rem;
   color: #555;
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
 `;
 
 const ReviewButton = styled.a`
@@ -243,6 +308,11 @@ const ReviewButton = styled.a`
 
   &:hover {
     background-color: #000;
+  }
+
+  @media (max-width: 768px) {
+    padding: 12px 24px; /* Adjust padding for mobile */
+    font-size: 1rem; /* Adjust font size for mobile */
   }
 `;
 

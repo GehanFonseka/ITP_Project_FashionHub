@@ -30,7 +30,7 @@ const SidebarContainer = styled.div`
   height: 100vh;
   width: ${(props) => (props.isOpen ? "203px" : "0")};
   position: fixed;
-  top: 80px;
+  top: 71px;
   left: 0;
   background-color: #000;
   color: #fff;
@@ -59,7 +59,7 @@ const SidebarItem = styled.a`
 
 const ToggleButton = styled.button`
   position: fixed;
-  top: 125px;
+  top: 110px;
   left: ${(props) => (props.isOpen ? "210px" : "29px")};
   background-color: #000;
   color: #fff;
