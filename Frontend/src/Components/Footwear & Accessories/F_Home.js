@@ -10,9 +10,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin: 0; /* Ensure there's no margin affecting the layout */
-  position: relative; /* Needed for the separator */
-  padding-top:75px;
+  margin: 0;
+  position: relative;
+  padding-top: 75px;
+
+  @media (max-width: 768px) {
+    padding-top: 60px;  /* Adjust padding on smaller screens */
+  }
 `;
 
 // Styles for each side (left and right)
@@ -25,9 +29,8 @@ const Side = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  cursor: pointer; /* Shows a pointer cursor on hover */
-  
-  // Use background-image property to set different images for each side
+  cursor: pointer;
+
   &:first-child {
     background-image: url(${s4});
   }
@@ -35,17 +38,22 @@ const Side = styled.div`
   &:last-child {
     background-image: url(${s2});
   }
-  
-  /* Add a separator line between sections */
+
   &::after {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
-    width: 4px; /* Width of the separator line */
+    width: 4px;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Color of the separator line */
-    z-index: 1; /* Ensure separator is above the background */
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    height: 200px;
+    flex: 0 0 100%;
+    background-size: cover;
   }
 `;
 
@@ -53,7 +61,7 @@ const Side = styled.div`
 const Label = styled.div`
   position: absolute;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
+  background: rgba(0, 0, 0, 0.7);
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -62,33 +70,56 @@ const Label = styled.div`
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2; /* Ensure label is above the separator */
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 15px 0;
+  }
 `;
 
 // Wrapper for the image section
 const ImageSection = styled.div`
   display: flex;
   flex: 1;
-  min-height: 80vh; /* Ensures the image section takes half of the viewport height */
+  min-height: 80vh;
   position: relative;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    min-height: 50vh;
+  }
 `;
 
 const ReviewSection = styled.div`
   text-align: center;
   padding: 40px;
   background-color: #f8f8f8;
+
+  @media (max-width: 768px) {
+    padding: 30px;
+  }
 `;
 
 const ReviewHeading = styled.h2`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 const ReviewDescription = styled.p`
   font-size: 1.2rem;
   color: #555;
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const ReviewButton = styled.a`
@@ -105,6 +136,10 @@ const ReviewButton = styled.a`
   &:hover {
     background-color: #000;
   }
+
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+  }
 `;
 
 const Footer = styled.footer`
@@ -113,10 +148,7 @@ const Footer = styled.footer`
   text-align: center;
 `;
 
-
-
-
-
+// Main page component
 const F_Home = () => {
 
   let storeId = 'S003';
@@ -130,12 +162,12 @@ const F_Home = () => {
   return (
     <Container>
       <ImageSection>
-      <Side onClick={() => handleNavigation('/F_WomensCasualAndFormal')}>
-        <Label>Women's Footwear</Label>
-      </Side>
-      <Side onClick={() => handleNavigation('/F_MensCasualAndFormal')}>
-        <Label>Men's Footwear</Label>
-      </Side>
+        <Side onClick={() => handleNavigation('/F_WomensCasualAndFormal')}>
+          <Label>Women's Footwear</Label>
+        </Side>
+        <Side onClick={() => handleNavigation('/F_MensCasualAndFormal')}>
+          <Label>Men's Footwear</Label>
+        </Side>
       </ImageSection>
 
       <ReviewSection>
@@ -146,13 +178,12 @@ const F_Home = () => {
         <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
       </ReviewSection>
 
-       {/* Display the ReviewDisplay component */}
-       <ReviewDisplay storeID={storeId} />
-       
+      {/* Display the ReviewDisplay component */}
+      <ReviewDisplay storeID={storeId} />
 
-
-
-
+      <Footer>
+        <p>&copy; 2025 Company Name</p>
+      </Footer>
     </Container>
   );
 };

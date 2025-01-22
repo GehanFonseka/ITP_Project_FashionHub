@@ -287,96 +287,99 @@ const handleDeleteall = async () => {
 };
 
 
+return (
+  <div className="min-h-screen">
+    <div className="flex flex-col md:flex-row justify-center mt-0 items-center gap-6 md:gap-12">
+      {/* Left Side - Form Section */}
+      <div className="max-w-2xl w-full px-4 md:px-0 mt-10" >
+        <div className="mb-12 text-5xl font-sans-serif ml-[2px] mt-20">
+          <h1>Fashion Hub</h1>
+        </div>
 
-  return (
-    
-    <div className="min-h-screen">
-      <div className="flex justify-center mt-0  items-center gap-50">
-        <div>
-          <div className="mb-50 text-5xl font-sans-serif ml-[2px]">
-            <h1>Fashion Hub</h1>
-          </div>
-          <div className="flex justify-center items-center mt-3">
+        <div className="flex justify-center items-center mt-3">
           <Link to={`/`}>
-            <div className="text-orange uppercase font sans-serif  hover:text-red-600 cursor-pointer hover:underline">
-            ⬅️back to your cart
+            <div className="text-orange uppercase font-sans-serif hover:text-red-600 cursor-pointer hover:underline">
+              ⬅️ back to your cart
             </div>
-            </Link>
-          
-          </div>
-          <form className="" onSubmit={handleSubmit}>
-            <div className="max-h-[550px] mt-5 overflow-y-auto scrollbar-none">
-              <div>
-                <h3 className="font-sans-serif text-gray-700 ml-1 text-xl">Email</h3>
-                <input
-                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-[750px] h-11"
-                  type="email"
-                  placeholder="name@company.com"
-                  id="email"
-                  onChange={handleEmailChange}
-                />
-                 {emailValidation && <p className="text-red-500 mt-2">{emailValidation}</p>}
-              </div>
-              <div className="mt-4">
-                <h3 className="font-sans-serif text-gray-700 ml-2 text-xl">Delivery address</h3>
-                <input
-                  className=" bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[750px] h-11"
-                  type="text"
-                  placeholder=""
-                  id="delivery"
-                  onChange={handlchange}
-                />
-              </div>
-              <div className="flex gap-12 mt-3">
-                <div>
-                  <input
-                    className=" bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[350px] h-11"
-                    type="text"
-                    placeholder="First name"
-                    id="Fname"
-                    onChange={handlchange}
-                  />
-                </div>
-                <div>
-                  <input
-                    className="bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[350px] h-11"
-                    type="text"
-                    placeholder="Last name"
-                    id="Lname"
-                    onChange={handlchange}
-                  />
-                </div>
-              </div>
+          </Link>
+        </div>
 
-              <div className="mt-2">
-                <input
-                  className=" bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[750px] h-11"
-                  type="text"
-                  placeholder="Address"
-                  id="Address"
-                  onChange={handlchange}
-                />
-              </div>
-              <div className="mt-2">
-                <input
-                  className=" bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[750px] h-11"
-                  type="text"
-                  placeholder="Apartment"
-                  id="Apartment"
-                  onChange={handlchange}
-                />
-              </div>
-              <div className="flex gap-12 mt-3">
-              <div>
-              <select
-                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-[350px] h-11"
-                id="City"
+        <form onSubmit={handleSubmit}>
+          <div className="max-h-[550px] mt-5 overflow-y-auto scrollbar-none">
+            <div>
+              <h3 className="font-sans-serif text-gray-700 ml-1 text-xl">Email</h3>
+              <input
+                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[750px] h-11"
+                type="email"
+                placeholder="name@company.com"
+                id="email"
+                onChange={handleEmailChange}
+              />
+              {emailValidation && <p className="text-red-500 mt-2">{emailValidation}</p>}
+            </div>
+
+            <div className="mt-4">
+              <h3 className="font-sans-serif text-gray-700 ml-2 text-xl">Delivery address</h3>
+              <input
+                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[750px] h-11"
+                type="text"
+                placeholder=""
+                id="delivery"
                 onChange={handlchange}
-              >
-                <option value="" disabled selected>
-                  Select District
-                </option>
-                <option value="Ampara">Ampara</option>
+              />
+            </div>
+
+            <div className="flex gap-6 md:gap-12 mt-3 flex-col md:flex-row">
+              <div className="flex-1">
+                <input
+                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full h-11"
+                  type="text"
+                  placeholder="First name"
+                  id="Fname"
+                  onChange={handlchange}
+                />
+              </div>
+              <div className="flex-1">
+                <input
+                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full h-11"
+                  type="text"
+                  placeholder="Last name"
+                  id="Lname"
+                  onChange={handlchange}
+                />
+              </div>
+            </div>
+
+            <div className="mt-2">
+              <input
+                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[750px] h-11"
+                type="text"
+                placeholder="Address"
+                id="Address"
+                onChange={handlchange}
+              />
+            </div>
+            <div className="mt-2">
+              <input
+                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[750px] h-11"
+                type="text"
+                placeholder="Apartment"
+                id="Apartment"
+                onChange={handlchange}
+              />
+            </div>
+
+            <div className="flex gap-6 md:gap-12 mt-3 flex-col md:flex-row">
+              <div className="flex-1">
+                <select
+                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full h-11"
+                  id="City"
+                  onChange={handlchange}
+                >
+                  <option value="" disabled selected>
+                    Select District
+                  </option>
+                  <option value="Ampara">Ampara</option>
                 <option value="Anuradhapura">Anuradhapura</option>
                 <option value="Badulla">Badulla</option>
                 <option value="Batticaloa">Batticaloa</option>
@@ -401,195 +404,163 @@ const handleDeleteall = async () => {
                 <option value="Ratnapura">Ratnapura</option>
                 <option value="Trincomalee">Trincomalee</option>
                 <option value="Vavuniya">Vavuniya</option>
-              </select>
-            </div>
-                <div className="">
-                  <input
-                    className=" bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[350px] h-11"
-                    type="text"
-                    placeholder="postal code"
-                    id="Postal"
-                    maxLength={5}
-                    onChange={handlepostlaChange}
-                  />
-                   {postalvalidation && (
-                    <p className="mt-0 text-red-600 h-0   text-sm   rounded-lg text-center ">
-                      {postalvalidation}
-                    </p>
-                  )}
-                   
-                </div>
+                </select>
               </div>
-              <div className="mt-4">
+
+              <div className="flex-1">
                 <input
-                  className=" bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-[750px] h-11"
+                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[350px] h-11"
                   type="text"
-                  placeholder="phone"
-                  id="Phone" // Ensure this ID matches
-                  maxLength={10}
-                  onChange={handleContactChange}
+                  placeholder="postal code"
+                  id="Postal"
+                  maxLength={5}
+                  onChange={handlepostlaChange}
                 />
-                {validation && (
-                    <p className="mt-0 text-red-600 h-0 text-sm     rounded-lg text-center ">
-                      {validation}
-                    </p>
-                  )}
+                {postalvalidation && <p className="mt-0 text-red-600 text-sm">{postalvalidation}</p>}
               </div>
+            </div>
 
-              <div className="h-20 w-[750px] mt-6 rounded-3xl bg-gray-200  bg-opacity-40">
-                <div className="">
-                  <button className=" ml-6 mt-6 text-xl font-sans-serif opacity-50 ">
-                  Your Order will Delivery within standard 2-3 business Days
-                  </button>
-                </div>
-              </div>
-
-              <div className="ml-60">
-                <div className="font sans-serif text-gray-600 text-xl mt-6">
-                  Enter Your Payment Details
-                </div>
-              </div>
-
-              <img
-                src="https://e7.pngegg.com/pngimages/739/826/png-clipart-logo-credit-card-payment-card-american-express-credit-card-text-display-advertising-thumbnail.png"
-                alt=""
-                className="w-52 h-10 mt-10 opacity-70"
+            <div className="mt-4">
+              <input
+                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[750px] h-11"
+                type="text"
+                placeholder="phone"
+                id="Phone"
+                maxLength={10}
+                onChange={handleContactChange}
               />
+              {validation && <p className="mt-0 text-red-600 text-sm">{validation}</p>}
+            </div>
 
-              <div className="mt-4"> 
-                <input
-                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-[750px] h-11" // Changed width to match Card Number
-                  type="text"
-                  placeholder="Cardholder Name"
-                  onChange={handleCardNameChange}
-                />
-                {cardNameValidation && <p className="text-red-500 mt-2">{cardNameValidation}</p>} {/* Margin to error text */}
-              </div>
-
-              <div className="mt-4">
-                <h3 className="font sans-serif text-gray-700 ml-2 text-xl">
-                  Card Number
-                </h3>
-                <input
-                  className=" bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[750px] h-11"
-                  type="text"
-                  placeholder="number"
-                  id="CardN"
-                  maxLength={16}
-                  onChange={handlecartnChange}
-                />
-                {carN&& (
-                    <p className="mt-0 text-red-600 h-0 text-sm     rounded-lg text-center ">
-                      {carN}
-                    </p>
-                  )}
-              </div>
-              <div className="flex gap-12 mt-3">
-                <div>
-                  <h3 className="font sans-serif text-gray-700 ml-2 text-xl">
-                    Expired Date
-                  </h3>
-                  <input
-                    className=" bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[350px] h-11"
-                    type="text"
-                    placeholder="mm/yy"
-                    id="Exdate"
-                    maxLength={5}
-                    onChange={handlchange}
-                  />
-                 
-                    <p className="mt-0 text-red-600 h-0 text-sm     rounded-lg text-center ">
-                     please use this format mm/yy
-                    </p>
-                 
-                </div>
-                <div>
-                  <h3 className="font sans-serif text-gray-700 ml-2 text-xl">CVC</h3>
-                  <input
-                    className="bg-gray-100  border-white border-opacity-50  p-3 rounded-lg w-[350px] h-11"
-                    type="text"
-                    placeholder="CVC"
-                    id="cvc"
-                    maxLength={3}
-                    onChange={handlecvcChange}
-                  />
-                  {cvc && (
-                    <p className="mt-0 text-red-600 h-0   text-sm   rounded-lg text-center  ">
-                      {cvc}
-                    </p>
-                  )}
-                </div>
+            <div className="h-20 w-full sm:w-[750px] mt-6 rounded-3xl bg-gray-200 bg-opacity-40">
+              <div>
+                <button className="ml-6 mt-6 text-xl font-sans-serif opacity-50">
+                  Your Order will Delivery within standard 2-3 business Days
+                </button>
               </div>
             </div>
-            <button
-              className="bg-black border-white border border-opacity-50 text-white font-serif p-2 hover:text-red-300 rounded-lg w-[200px] h-[45px] hover:opacity-90"
-              type="submit"
-            >
-              <div className="flex items-center justify-center">
-                <br></br>
-                <div className="font sans-serif text-xl uppercase opacity-75">Place Order</div>
+
+            <div className="ml-0 sm:ml-36">
+              <div className="font sans-serif text-gray-600 text-xl mt-6">
+                Enter Your Payment Details
               </div>
-            </button>
-          </form>
-        </div>
+            </div>
 
-        <div className="">
-          <div className="w-[400px] h-screen mt-40 ml-36 shadow-sm scrollbar-none rounded-lg bg-gray-300 overflow-auto">
-            <div className="flex flex-col p-4">
-               
-              {orderDetailsList.map((order) => (
-                <div
-                  key={order._id}
-                  className="mb-4 p-4 border shadow-xl border-gray-300 rounded-lg bg-white shadow-md"
-                >
-                  <h4 className="font sans-serif text-xl uppercase">CheckOut</h4>
-                   {/* Cart Image at the top */}
-                   <div className="flex justify-center mb-8">
-                    <img 
-                      src="https://img.freepik.com/free-vector/shoppers-walking-past-fashion-outlet-window-customers-wheeling-cart-with-bags-packages-flat-vector-illustration-consumerism-purchase-concept_74855-10153.jpg?t=st=1728732153~exp=1728735753~hmac=758d3cb7ce8916b7e0a6b26fc93c6a666e09b9a479d767188f34330e7d2b33de&w=1800" // Replace with the actual image URL
-                      alt="Cart"
-                      className="w-76 h-56" // Adjust size as needed
-                    />
-                  </div>
-                  <h3 className="font sans-serif break-words w-76 text-lg text-black">Your Order ID: {order._id}</h3>
+            <img
+              src="https://e7.pngegg.com/pngimages/739/826/png-clipart-logo-credit-card-payment-card-american-express-credit-card-text-display-advertising-thumbnail.png"
+              alt="Payment Logo"
+              className="w-52 h-10 mt-10 opacity-70"
+            />
 
-                 
-                  <div className="mt-2">
-                    <h4 className="font sans-serif text-xl uppercase">Your Items:</h4>
-                    {order.items.map((item) => (
-                      <div key={item._id} className="flex justify-between mb-1">
-                        <span className="truncate w-36">
-                          {item.ItemsN} (x{item.quantity})
-                        </span>
-                        <span className="text-red-600">
-                          RS. {item.price * item.quantity}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <hr  className="text-black h-2"/>
-                  <div className="mt-2">
-                    <strong className="uppercase">Shipping:</strong>{" "}
-                    <span className="text-red-600">Rs.{shippingPrice}</span>
-                  </div>
-                  <div className="mt-2">
-                    <strong className="uppercase">Total Price:</strong>{" "}
-                    <span className="text-red-600">
-                      Rs.{order.totalPrice + shippingPrice}
-                    </span>
-                  </div>
-                  <div className="mt-1">
-                    <strong className="uppercase">Date:</strong>{" "}
-                    <span className="text-opacity-70">
-                      {new Date(order.createdAt).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-              ))}
+            <div className="mt-4">
+              <input
+                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[750px] h-11"
+                type="text"
+                placeholder="Cardholder Name"
+                onChange={handleCardNameChange}
+              />
+              {cardNameValidation && <p className="text-red-500 mt-2">{cardNameValidation}</p>}
+            </div>
+
+            <div className="mt-4">
+              <h3 className="font sans-serif text-gray-700 ml-2 text-xl">Card Number</h3>
+              <input
+                className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[750px] h-11"
+                type="text"
+                placeholder="number"
+                id="CardN"
+                maxLength={16}
+                onChange={handlecartnChange}
+              />
+              {carN && <p className="mt-0 text-red-600 text-sm">{carN}</p>}
+            </div>
+
+            <div className="flex gap-6 md:gap-12 mt-3 flex-col md:flex-row">
+              <div className="flex-1">
+                <h3 className="font sans-serif text-gray-700 ml-2 text-xl">Expired Date</h3>
+                <input
+                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[350px] h-11"
+                  type="text"
+                  placeholder="mm/yy"
+                  id="Exdate"
+                  maxLength={5}
+                  onChange={handlchange}
+                />
+                <p className="mt-0 text-red-600 text-sm">please use this format mm/yy</p>
+              </div>
+              <div className="flex-1">
+                <h3 className="font sans-serif text-gray-700 ml-2 text-xl">CVC</h3>
+                <input
+                  className="bg-gray-100 border-white border-opacity-50 p-3 rounded-lg w-full sm:w-[350px] h-11"
+                  type="text"
+                  placeholder="CVC"
+                  id="cvc"
+                  maxLength={3}
+                  onChange={handlecvcChange}
+                />
+                {cvc && <p className="mt-0 text-red-600 text-sm">{cvc}</p>}
+              </div>
             </div>
           </div>
+
+          <button
+            className="bg-black border-white border border-opacity-50 text-white font-serif p-2 hover:text-red-300 rounded-lg w-full sm:w-[200px] h-[45px] hover:opacity-90 mt-6"
+            type="submit"
+          >
+            <div className="flex items-center justify-center">
+              <div className="font sans-serif text-xl uppercase opacity-75">Place Order</div>
+            </div>
+          </button>
+        </form>
+      </div>
+
+      {/* Right Side - Order Details */}
+      <div className="w-full sm:w-[400px] h-auto mt-12 sm:mt-0 ml-0 sm:ml-36 shadow-sm rounded-lg bg-gray-300 overflow-auto">
+        <div className="flex flex-col p-4">
+          {orderDetailsList.map((order) => (
+            <div
+              key={order._id}
+              className="mb-4 p-4 border shadow-xl border-gray-300 rounded-lg bg-white shadow-md"
+            >
+              <h4 className="font sans-serif text-xl uppercase">CheckOut</h4>
+              <div className="flex justify-center mb-8">
+                <img
+                  src="https://img.freepik.com/free-vector/shoppers-walking-past-fashion-outlet-window-customers-wheeling-cart-with-bags-packages-flat-vector-illustration-consumerism-purchase-concept_74855-10153.jpg"
+                  alt="Cart"
+                  className="w-76 h-56"
+                />
+              </div>
+              <h3 className="font sans-serif text-lg text-black">Your Order ID: {order._id}</h3>
+
+              <div className="mt-2">
+                <h4 className="font sans-serif text-xl uppercase">Your Items:</h4>
+                {order.items.map((item) => (
+                  <div key={item._id} className="flex justify-between mb-1">
+                    <span className="truncate w-36">{item.ItemsN} (x{item.quantity})</span>
+                    <span className="text-red-600">RS. {item.price * item.quantity}</span>
+                  </div>
+                ))}
+              </div>
+
+              <hr className="text-black h-2" />
+
+              <div className="mt-2">
+                <strong className="uppercase">Shipping:</strong>
+                <span className="text-red-600">Rs.{shippingPrice}</span>
+              </div>
+              <div className="mt-2">
+                <strong className="uppercase">Total Price:</strong>
+                <span className="text-red-600">Rs.{order.totalPrice + shippingPrice}</span>
+              </div>
+              <div className="mt-1">
+                <strong className="uppercase">Date:</strong>
+                <span className="text-opacity-70">{new Date(order.createdAt).toLocaleDateString()}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

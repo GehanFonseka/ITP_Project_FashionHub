@@ -9,7 +9,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  margin-top: 70px;
+  margin-top: 90px;
 `;
 
 const Heading = styled.h2`
@@ -33,6 +33,21 @@ const ProductBox = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    width: 45%; /* Adjust the size for mobile */
+  }
+
+  @media (max-width: 480px) {
+    width: 100%; /* Full width on very small screens */
+  }
 `;
 
 const ProductImage = styled.img`
@@ -49,6 +64,9 @@ const ProductInfo = styled.div`
 
 const Footer = styled.footer`
   margin-top: 30px;
+  text-align: center;
+  font-size: 1rem;
+  color: #777;
 `;
 
 const F_WomensCasualBoots = () => {
@@ -80,23 +98,22 @@ const F_WomensCasualBoots = () => {
 
       <ProductContainer>
         {bootsData.map(boots => (
-          <ProductBox key={boots.itemNo}>
-            <div onClick={() => handleClick(boots)} style={{ cursor: 'pointer' }}>
-              <ProductImage
-                src={`http://localhost:5000/uploads/${boots.image}`}
-                alt={boots.name}
-                onError={(e) => e.target.src = 'path-to-placeholder-image.jpg'}
-              />
-              <ProductInfo>
-                {boots.name} - LKR {boots.price}
-              </ProductInfo>
-            </div>
+          <ProductBox key={boots.itemNo} onClick={() => handleClick(boots)}>
+            <ProductImage
+              src={`http://localhost:5000/uploads/${boots.image}`}
+              alt={boots.name}
+              onError={(e) => e.target.src = 'path-to-placeholder-image.jpg'}
+            />
+            <ProductInfo>
+              {boots.name} - LKR {boots.price}
+            </ProductInfo>
           </ProductBox>
         ))}
       </ProductContainer>
 
       <Footer>
         {/* Your footer content here */}
+        <p>&copy; 2025 Boots Collection. All rights reserved.</p>
       </Footer>
     </Container>
   );

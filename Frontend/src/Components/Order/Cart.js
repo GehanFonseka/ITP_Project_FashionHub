@@ -174,7 +174,7 @@ export default function Cart() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', marginTop: '120px', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', marginTop: '150px', maxWidth: '1200px', margin: '0 auto' }}>
       <h1 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '20px', color: '#333' }}>Shopping Cart</h1>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

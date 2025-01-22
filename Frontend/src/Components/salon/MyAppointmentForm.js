@@ -47,39 +47,41 @@ const MyAppointmentForm = () => {
       {appointments.length === 0 ? (
         <p>No appointments found.</p>
       ) : (
-        <Table>
-          <thead>
-            <tr>
-              <TableHeader>Name</TableHeader>
-              <TableHeader>Contact Number</TableHeader>
-              <TableHeader>Email</TableHeader>
-              <TableHeader>Date</TableHeader>
-              <TableHeader>Time</TableHeader>
-              <TableHeader>Services</TableHeader>
-              <TableHeader>Total Cost (LKR)</TableHeader>
-              <TableHeader>Action</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {appointments.map((appt) => (
-              <TableRow key={appt._id}>
-                <TableData>{appt.name}</TableData>
-                <TableData>{appt.contactNumber}</TableData>
-                <TableData>{appt.email}</TableData>
-                <TableData>{new Date(appt.date).toLocaleDateString()}</TableData>
-                <TableData>{appt.time}</TableData>
-                <TableData>{appt.services.join(', ')}</TableData>
-                <TableData>{appt.totalCost ? appt.totalCost.toFixed(2) : 'N/A'}</TableData>
-                <TableData>
-                  <ActionButtonContainer>
-                    <ActionButton onClick={() => handleEdit(appt)}>Edit</ActionButton>
-                    <ActionButton onClick={() => handleDelete(appt._id)}>Delete</ActionButton>
-                  </ActionButtonContainer>
-                </TableData>
-              </TableRow>
-            ))}
-          </tbody>
-        </Table>
+        <TableWrapper>
+          <Table>
+            <thead>
+              <tr>
+                <TableHeader>Name</TableHeader>
+                <TableHeader>Contact Number</TableHeader>
+                <TableHeader>Email</TableHeader>
+                <TableHeader>Date</TableHeader>
+                <TableHeader>Time</TableHeader>
+                <TableHeader>Services</TableHeader>
+                <TableHeader>Total Cost (LKR)</TableHeader>
+                <TableHeader>Action</TableHeader>
+              </tr>
+            </thead>
+            <tbody>
+              {appointments.map((appt) => (
+                <TableRow key={appt._id}>
+                  <TableData>{appt.name}</TableData>
+                  <TableData>{appt.contactNumber}</TableData>
+                  <TableData>{appt.email}</TableData>
+                  <TableData>{new Date(appt.date).toLocaleDateString()}</TableData>
+                  <TableData>{appt.time}</TableData>
+                  <TableData>{appt.services.join(', ')}</TableData>
+                  <TableData>{appt.totalCost ? appt.totalCost.toFixed(2) : 'N/A'}</TableData>
+                  <TableData>
+                    <ActionButtonContainer>
+                      <ActionButton onClick={() => handleEdit(appt)}>Edit</ActionButton>
+                      <ActionButton onClick={() => handleDelete(appt._id)}>Delete</ActionButton>
+                    </ActionButtonContainer>
+                  </TableData>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </TableWrapper>
       )}
     </Container>
   );
@@ -142,6 +144,16 @@ const BookNowButton = styled.a`
   }
 `;
 
+const TableWrapper = styled.div`
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  @media (max-width: 768px) {
+    /* Make sure the table scrolls horizontally on smaller screens */
+    max-width: 100%;
+  }
+`;
+
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -149,6 +161,7 @@ const Table = styled.table`
 
   @media (max-width: 768px) {
     font-size: 0.85rem;
+    min-width: 600px; /* Ensure that the table is wide enough to contain all columns */
   }
 `;
 

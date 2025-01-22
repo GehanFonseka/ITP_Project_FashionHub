@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:3001',  // Replace with your frontend URL if different
+  origin: 'http://localhost:3000',  // Replace with your frontend URL if different
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));

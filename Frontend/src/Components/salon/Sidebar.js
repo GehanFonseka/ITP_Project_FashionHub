@@ -20,7 +20,6 @@ const Sidebar = () => {
         <SidebarItem href="/ServiceList">Services</SidebarItem>
         <SidebarItem href="/AppointmentForm">Book Now</SidebarItem>
         <SidebarItem href="/MyAppointmentForm">My Appointments</SidebarItem>
-
       </SidebarContainer>
     </>
   );
@@ -40,7 +39,13 @@ const SidebarContainer = styled.div`
   transition: width 0.3s ease;
   overflow: hidden;
   z-index: 900;
-  font-family: 'Roboto', sans-serif; /* Set font for the sidebar */
+  font-family: 'Roboto', sans-serif;
+  
+  /* Media query for mobile responsiveness */
+  @media (max-width: 768px) {
+    width: ${(props) => (props.isOpen ? "44%" : "0")};
+    top: 60px; /* Adjust top value for better alignment */
+  }
 `;
 
 const SidebarItem = styled.a`
@@ -50,7 +55,7 @@ const SidebarItem = styled.a`
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
-  font-family: 'Poppins', sans-serif; /* Set font for sidebar items */
+  font-family: 'Poppins', sans-serif;
 
   &:hover {
     color: #ae2012;
@@ -68,12 +73,19 @@ const ToggleButton = styled.button`
   cursor: pointer;
   z-index: 1000;
   transition: left 0.3s ease;
-  font-family: 'Lato', sans-serif; /* Set font for toggle button */
+  font-family: 'Lato', sans-serif;
 
   &:hover {
     background-color: #ae2012;
   }
-`;
 
+  /* Media query for mobile responsiveness */
+  @media (max-width: 768px) {
+    left: ${(props) => (props.isOpen ? "45%" : "10px")};
+    top: 85px;
+    font-size: 12px;
+    padding: 12px 18px;
+  }
+`;
 
 export default Sidebar;

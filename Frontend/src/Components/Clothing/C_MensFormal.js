@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import C7 from '../../assets/C7.jpeg'; 
 import C8 from '../../assets/C8.jpg';
@@ -9,7 +9,8 @@ const Container = styled.div`
   display: flex;
   height: 100vh;
   margin: 0; /* Ensure there's no margin affecting the layout */
-  padding-top:75px;
+  padding-top: 70px;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 `;
 
 // Styles for each section (left and right)
@@ -19,13 +20,14 @@ const Section = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  background-size: cover; /* Ensure the image covers the section */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent image repetition */
-  overflow: hidden; /* Hide any overflow */
-  cursor: pointer; /* Add pointer cursor on hover */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  cursor: pointer;
+  height: 100vh; /* Ensure sections take full height */
+  transition: background 0.3s ease-in-out; /* Smooth background transition */
 
-  // Use background-image property to set different images for each section
   &:first-child {
     background-image: url(${C8});
   }
@@ -45,6 +47,16 @@ const Section = styled.div`
     background: rgba(0, 0, 0, 0.7); /* Color of the separator line */
     z-index: 1; /* Ensure separator is above the background */
   }
+
+  @media (max-width: 768px) {
+    flex: 0 0 50%; /* Stack sections on medium screens */
+    height: 50vh; /* Adjust height for smaller screens */
+  }
+
+  @media (max-width: 480px) {
+    flex: 0 0 100%; /* Stack sections on small screens */
+    height: 50vh; /* Adjust height further for small screens */
+  }
 `;
 
 // Black label with partial transparency
@@ -59,7 +71,16 @@ const BlackLabel = styled.div`
   font-size: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2; /* Ensure label is above the overlay and separator */
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem; /* Adjust font size for medium screens */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem; /* Adjust font size for small screens */
+    padding: 15px 0; /* Reduce padding for small screens */
+  }
 `;
 
 // Overlay to improve text visibility

@@ -18,9 +18,11 @@ const Container = styled.div`
 const ImageSection = styled.div`
   display: flex;
   flex: 1;
-  min-height: 80vh; 
+  min-height: 80vh;
   position: relative;
+  flex-wrap: wrap; /* Allow images to wrap on smaller screens */
 `;
+
 
 // Styles for each side (left and right)
 const Side = styled.div`
@@ -33,6 +35,7 @@ const Side = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
+  min-height: 100%; /* Ensure both sides take full height */
 
   &:first-child {
     background-image: url(${C2});
@@ -51,6 +54,12 @@ const Side = styled.div`
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
   }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    flex: 1 100%;
+    min-height: 50vh;
+  }
 `;
 
 // Black label with partial transparency
@@ -66,24 +75,46 @@ const Label = styled.div`
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 15px 0;
+  }
 `;
 
 const ReviewSection = styled.div`
   text-align: center;
   padding: 40px;
   background-color: #f8f8f8;
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    padding: 30px 15px;
+  }
 `;
 
 const ReviewHeading = styled.h2`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 const ReviewDescription = styled.p`
   font-size: 1.2rem;
   color: #555;
   margin-bottom: 30px;
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
 `;
 
 const ReviewButton = styled.a`
@@ -100,12 +131,23 @@ const ReviewButton = styled.a`
   &:hover {
     background-color: #000;
   }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
 `;
 
 const Footer = styled.footer`
   background-color: #f1f1f1;
   padding: 20px;
   text-align: center;
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const C_Home = () => {
@@ -116,10 +158,6 @@ const C_Home = () => {
   };
 
   let storeId = 'S001';
-
-  
-
-
 
   return (
     <Container>
@@ -154,4 +192,3 @@ const C_Home = () => {
 };
 
 export default C_Home;
-

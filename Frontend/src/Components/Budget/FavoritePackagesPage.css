@@ -1,12 +1,16 @@
-/* FavoritePackagesPage.css */
+/* General Styles */
 .favorite-packages-container {
   padding: 20px;
+  background-color: #f4f4f4;
+  margin-top: 50px;
 }
 
 h1 {
   text-align: center;
   margin-top: 50px;
   margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
 }
 
 .favorite-packages-list {
@@ -20,11 +24,17 @@ h1 {
 .package-card {
   border: 1px solid #ddd;
   padding: 20px;
-  max-width: 400px; /* Limit the width of each package */
+  max-width: 400px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  flex: 1 1 300px; /* Allow cards to grow and shrink */
+  flex: 1 1 300px;
   margin: 10px;
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.package-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .package-header {
@@ -68,7 +78,6 @@ h1 {
 .delete-button {
   background-color: #ff4d4f;
   color: white;
-  
 }
 
 .delete-button:hover {
@@ -110,7 +119,6 @@ h1 {
   font-size: 1rem;
   background-color: #ddd;
   color: #333;
-  
 }
 
 .comparison-table {
@@ -138,30 +146,30 @@ h1 {
   border-radius: 5px;
   cursor: pointer;
   background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  color: white;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .add-to-cart-button:hover {
-  background-color: #45a049; /* Darker green on hover */
-  transform: translateY(-2px); /* Slight lift effect */
+  background-color: #45a049;
+  transform: translateY(-2px);
 }
 
 .add-to-cart-button:active {
-  background-color: #3e8e41; /* Even darker green when active */
-  transform: translateY(1px); /* Pressed down effect */
+  background-color: #3e8e41;
+  transform: translateY(1px);
 }
 
 .package-actions-bottom {
   display: flex;
-  justify-content: space-between; /* Align items on opposite sides */
-  align-items: center; /* Center items vertically */
-  margin-top: 15px; /* Space above */
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .pdf-button-container {
   text-align: right;
-  margin-bottom: 10px; /* Optional: To add some spacing between the button and other content */
+  margin-bottom: 10px;
 }
 
 .small-pdf-button {
@@ -180,8 +188,60 @@ h1 {
   color: #333;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .favorite-packages-list {
+    flex-direction: column;
+    gap: 15px;
+  }
 
+  .package-card {
+    max-width: 100%;
+    margin: 10px 0;
+  }
 
+  .package-details h2 {
+    font-size: 1.3rem;
+  }
 
+  .package-budget {
+    font-size: 1rem;
+  }
 
+  .edit-button, .delete-button {
+    font-size: 0.9rem;
+  }
 
+  .package-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .package-items .item-card {
+    margin-bottom: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    padding: 8px;
+  }
+
+  .package-card {
+    padding: 15px;
+  }
+
+  .add-to-cart-button {
+    padding: 6px 10px;
+  }
+
+  .small-pdf-button {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}

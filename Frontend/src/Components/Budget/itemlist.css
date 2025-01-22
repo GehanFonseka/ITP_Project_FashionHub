@@ -1,237 +1,210 @@
-/* Main grid container to divide screen into three equal sections */
-.grid-container {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping of items on smaller screens */
-  width: 100vw; /* Full viewport width */
-  height: calc(
-    100vh - 100px
-  ); /* Adjust height to account for filters and other elements */
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Ensure padding and border are included in width/height */
+  line-height: 1.6;
 }
 
-/* Category section styling for equal space division */
-.category-section {
-  flex: 1; /* Each section takes up equal space */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-right: 1px solid #ddd; /* Border to distinguish sections */
-  box-sizing: border-box; /* Include padding and border in width calculation */
-  overflow-y: auto; /* Allow vertical scrolling if content exceeds section height */
-  min-width: 0; /* Prevent section from shrinking too much */
-  /* Ensure sections don't shrink on smaller screens */
-  flex-grow: 1;
-}
-
-/* Remove right border for the last section */
-.category-section:last-child {
-  border-right: none;
-}
-
-/* Header styling */
-.category-section h2 {
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 2rem;
-}
-
-/* Styling for item cards within each category */
-.category-section .item-card {
-  margin-bottom: 20px;
-  width: 100%; /* Ensure cards take full width of the section */
-}
-
-/* Hover effect for section */
-.category-section:hover {
-  background-color: #f0f0f0;
-  transition: background-color 0.3s ease;
-}
-
-/* Container for filter inputs */
-.filters-container {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping of filters on smaller screens */
-  justify-content: space-around;
-  padding: 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px; /* Space below the filters to separate from grid */
-}
-
-/* Filter category styling */
-.filter-category {
-  flex: 1;
-  margin: 0 10px;
-  min-width: 200px; /* Ensure filters don't shrink too much */
-  
-}
-
-.filter-category h3 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.filter-category label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.filter-category input {
-  margin-left: 10px;
-  padding: 5px;
-  font-size: 1rem;
-  background-color: #E5E7EB;
-  color: #333;
-}
-
-/* Overlay for selected items in the upper-right corner */
-.selected-items-overlay {
-  margin-top: 120px;
-  position: fixed;
-  top: 10px; /* Adjust to ensure it's visible */
-  right: 10px; /* Adjust to ensure it's visible */
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(128, 113, 113, 0.1);
-  z-index: 1000; /* Ensure it's on top of other elements */
-  max-height: calc(
-    100vh - 20px
-  ); /* Ensure overlay doesn't exceed viewport height */
-  overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
-  width: 300px; /* Fixed width for the overlay */
-}
-
-/* Selected item styling */
-.selected-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.remove-button {
-  background: none;
-  border: none;
-  color: red;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.remove-button:hover {
-  color: darkred;
-}
-
-/* Styling for the search bar */
-.search-bar-container {
-  width: 100%; /* Full width */
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  background-color: white;
-}
-
+/* Search Bar */
 .search-bar {
-  margin-top: 60px;
-  width: 60%; /* Adjust width for larger screens */
-  padding: 10px;
+  width: 100%;
+  padding: 12px;
   font-size: 1rem;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-  background-color: #ddd;
+  box-sizing: border-box;
+  margin: 20px 0;
 }
 
-.search-bar:focus {
-  outline: none;
-  border-color: #007bff; /* Highlight border on focus */
-  box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.2); /* Increase shadow on focus */
-}
-
-.search-bar input{
-  background-color: #E5E7EB;
-  color: #333;
-}
-
-/* Responsive styles */
-@media (max-width: 1200px) {
-  .category-section {
-    flex-basis: 50%; /* Two sections per row */
-  }
-}
-
-@media (max-width: 768px) {
-  .filters-container {
-    flex-direction: column; /* Stack filters vertically */
-    align-items: stretch; /* Stretch filters to full width */
-  }
-
-  .filter-category {
-    margin-bottom: 20px; /* Add space between filters */
-  }
-
-  .grid-container {
-    flex-direction: column; /* Stack categories vertically on small screens */
-  }
-
-  .category-section {
-    flex-basis: 100%; /* Full width for each section */
-    border-right: none; /* Remove right border for all sections */
-  }
-
-  .selected-items-overlay {
-    width: 100%; /* Full width for overlay on small screens */
-    top: auto; /* Allow it to flow naturally */
-    bottom: 0; /* Position at the bottom of the viewport */
-    right: 0;
-    box-shadow: none; /* Remove shadow for small screens */
-  }
-
-  .search-bar {
-    width: 80%; /* Adjust search bar width for smaller screens */
-  }
-}
-
-@media (max-width: 480px) {
-  .category-section h2 {
-    font-size: 1.5rem; /* Smaller font size for headers */
-  }
-
-  .filter-category h3 {
-    font-size: 1.25rem; /* Smaller font size for filter headers */
-  }
-
-  .filter-category input {
-    font-size: 0.875rem; /* Smaller font size for inputs */
-  }
-
-  .search-bar {
-    width: 90%; /* Make search bar nearly full width on small screens */
-  }
-}
-
+/* Navigation Link */
 .navigate-link-container {
-  background-color: white;
-  margin-top: 20px;
   text-align: center;
+  margin-top: 20px;
 }
 
 .navigate-link {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #8b0000;
-  color: white;
-  text-decoration: none; /* Remove underline */
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  color: #2980b9;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .navigate-link:hover {
-  background-color: #0056b3;
+  text-decoration: underline;
 }
 
+/* Selected Items Display Below Search Bar */
+.selected-items-display {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.selected-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 1rem;
+}
+
+.selected-item button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.selected-item button:hover {
+  background-color: #c0392b;
+}
+
+.add-to-favorites-button {
+  margin-top: 15px;
+  background-color: #8b0000;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.add-to-favorites-button:hover {
+  background-color: #5d1c1c;
+}
+
+/* Filters Section */
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.filter-category {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.filter-category h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.filter-category label {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.filter-category input {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 1200px) {
+  .filters-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .filter-category {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .selected-items-display {
+    padding: 10px;
+    margin-top: 15px;
+  }
+
+  .search-bar {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .navigate-link {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile Devices (768px and below) */
+@media (max-width: 768px) {
+  .search-bar {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .filters-container {
+    padding: 15px;
+  }
+
+  .filter-category {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .selected-items-display {
+    padding: 10px;
+  }
+
+  .add-to-favorites-button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .navigate-link {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
+
+/* Small Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+  .search-bar {
+    padding: 8px;
+    font-size: 1rem;
+  }
+
+  .filters-container {
+    padding: 10px;
+  }
+
+  .filter-category input {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  .selected-items-display {
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  .add-to-favorites-button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .navigate-link {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .filter-category h3 {
+    font-size: 1rem;
+  }
+}

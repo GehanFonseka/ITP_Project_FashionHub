@@ -21,7 +21,7 @@ const ReviewDisplay = ({ storeID }) => {
     };
 
     fetchReviews(storeID);
-  }, []);
+  }, [storeID]);
 
   const calculateReviewStats = (reviews) => {
     const totalReviews = reviews.length;
@@ -38,11 +38,11 @@ const ReviewDisplay = ({ storeID }) => {
   };
 
   if (loading) {
-    return <p>Loading reviews...</p>;
+    return <LoadingText>Loading reviews...</LoadingText>;
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorText>{error}</ErrorText>;
   }
 
   const { totalReviews, averageRating, starCounts } = calculateReviewStats(reviews);
@@ -98,15 +98,28 @@ const ReviewDisplay = ({ storeID }) => {
   );
 };
 
-// Styled components with mobile responsiveness
+// Styled components with improved mobile responsiveness
 const Container = styled.div`
   padding: 20px;
   background: #f9f9f9;
   min-height: 100vh;
+  font-family: 'Arial', sans-serif;
 
   @media (max-width: 768px) {
     padding: 15px;
   }
+`;
+
+const LoadingText = styled.p`
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+`;
+
+const ErrorText = styled.p`
+  text-align: center;
+  font-size: 18px;
+  color: red;
 `;
 
 const ReviewSummary = styled.div`
@@ -118,6 +131,7 @@ const ReviewSummary = styled.div`
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
   flex-wrap: wrap;
+  text-align: center;
 
   @media (max-width: 768px) {
     flex-direction: column;

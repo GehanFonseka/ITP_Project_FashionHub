@@ -62,6 +62,23 @@ const BlackLabel = styled.div`
   bottom: 0;
   z-index: 2;
 `;
+const UnavailableText = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  z-index: 3;
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Smaller font for mobile */
+  }
+`;
 
 const C_WomensCasual = () => {
   const navigate = useNavigate(); // Use navigate hook for redirection
@@ -75,13 +92,15 @@ const C_WomensCasual = () => {
     <Container>
       <Quote>Elevate Your Everyday Style – Discover the Perfect Blend of Comfort and Class</Quote>
       <Row>
-        <ImageBox style={{ backgroundImage: `url(${C18})` }} onClick={() => handleNavigation('/C_WomensCasualshirt')}>
+        <ImageBox style={{ backgroundImage: `url(${C18})` }} >
+        <UnavailableText>Currently Unavailable</UnavailableText>
           <BlackLabel>Pants</BlackLabel>
         </ImageBox>
         <ImageBox style={{ backgroundImage: `url(${C19})` }} onClick={() => handleNavigation('/C_WomensCasualTshirt')}>
           <BlackLabel>T-Shirts</BlackLabel>
         </ImageBox>
-        <ImageBox style={{ backgroundImage: `url(${C20})` }} onClick={() => handleNavigation('/shirts')}>
+        <ImageBox style={{ backgroundImage: `url(${C20})` }}>
+        <UnavailableText>Currently Unavailable</UnavailableText>
           <BlackLabel>Shirts</BlackLabel>
         </ImageBox>
       </Row>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import b1 from '../../assets/b1.webp';
 import b2 from '../../assets/b2.webp';
@@ -14,6 +14,11 @@ const Container = styled.div`
   height: 100vh;
   margin: 0;
   padding-top: 50px;
+  
+  @media (max-width: 768px) {
+    padding-top: 30px; /* Reduced padding for mobile */
+    margin-bottom: 350px; /* Add margin at the bottom for mobile */
+  }
 `;
 
 // Quote section
@@ -24,6 +29,11 @@ const Quote = styled.h2`
   font-size: 1.8rem;
   text-align: center;
   padding: 0 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem; /* Adjusted font size for mobile */
+    margin-top: 50px;
+  }
 `;
 
 // Row container for categories
@@ -32,6 +42,12 @@ const Row = styled.div`
   justify-content: space-around;
   width: 80%;
   margin-bottom: 30px;
+  flex-wrap: wrap; /* Allow images to wrap on smaller screens */
+  
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack images vertically on mobile */
+    width: 100%;
+  }
 `;
 
 // Styled image box for categories with a black label
@@ -50,6 +66,12 @@ const ImageBox = styled.div`
   text-transform: uppercase;
   font-weight: bold;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 768px) {
+    width: 100%; /* Full width on mobile */
+    height: 250px; /* Reduced height for mobile */
+    margin-bottom: 20px; /* Add margin between stacked items */
+  }
 `;
 
 // Black label with partial transparency
@@ -64,6 +86,30 @@ const BlackLabel = styled.div`
   font-size: 1.5rem;
   bottom: 0;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem; /* Adjust label font size for mobile */
+  }
+`;
+
+// Unavailable text style
+const UnavailableText = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  z-index: 3;
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Smaller font size on mobile */
+  }
 `;
 
 const A_Mens = () => {
@@ -78,9 +124,11 @@ const A_Mens = () => {
         </Link>
         <ImageBox style={{ backgroundImage: `url(${b2})` }}>
           <BlackLabel>Belts</BlackLabel>
+          <UnavailableText>Currently Unavailable</UnavailableText>
         </ImageBox>
         <ImageBox style={{ backgroundImage: `url(${w1})` }}>
           <BlackLabel>Watches</BlackLabel>
+          <UnavailableText>Currently Unavailable</UnavailableText>
         </ImageBox>
       </Row>
       {/* Add more rows as needed */}

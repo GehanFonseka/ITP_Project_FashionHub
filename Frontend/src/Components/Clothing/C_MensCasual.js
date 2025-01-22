@@ -11,9 +11,9 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100vh;
+  height: auto; /* Adjusted for content height */
   margin: 0;
-  padding-top: 50px;
+  padding: 50px 20px; /* Added padding for smaller screens */
 `;
 
 // Quote section
@@ -24,33 +24,67 @@ const Quote = styled.h2`
   font-size: 1.8rem;
   text-align: center;
   padding: 0 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-top: 50px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    margin-top: 30px;
+  }
 `;
 
 // Row container for categories
 const Row = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: 80%;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  justify-content: center; /* Center-align items */
+  gap: 20px; /* Space between items */
+  width: 100%; /* Full width for responsiveness */
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    gap: 15px; /* Reduce spacing for smaller screens */
+  }
 `;
 
 // Styled image box for categories with a black label
 const ImageBox = styled.div`
-  width: 300px;  /* Increased size */
-  height: 300px; /* Increased size */
+  width: 300px; /* Default size for larger screens */
+  height: 300px;
   background-size: cover;
   background-position: center;
-  position: relative; /* Needed for overlay */
+  position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem; /* Adjusted font size */
+  font-size: 1.5rem;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
-  cursor: pointer; /* Show pointer cursor on hover */
+  cursor: pointer;
+
+  @media (max-width: 1024px) {
+    width: 250px;
+    height: 250px;
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 200px;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 150px;
+    height: 150px;
+    font-size: 1rem;
+  }
 `;
 
 // Black label with partial transparency
@@ -62,27 +96,51 @@ const BlackLabel = styled.div`
   text-align: center;
   padding: 10px 0;
   text-transform: uppercase;
-  font-size: 1.5rem; /* Adjusted font size */
+  font-size: 1.5rem;
   bottom: 0;
-  z-index: 2; /* Ensure label is above the overlay */
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 8px 0;
+  }
+`;
+const UnavailableText = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  z-index: 3;
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Smaller font for mobile */
+  }
 `;
 
 const C_MensCasual = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
-  // Function to handle navigation to the Pants page
+  // Navigation handlers
   const handlePantsClick = () => {
-    navigate('/C_MensCasualPants'); // Navigate to the C_MensCasualPants page
+    navigate('/C_MensCasualPants'); // Navigate to the Pants page
   };
 
-  // Function to handle navigation to the T-Shirts page
   const handleTShirtsClick = () => {
-    navigate('/C_MensCasualTShirts'); // Replace with actual path if needed
+    navigate('/OutOfStockPage'); // Navigate to the T-Shirts page
   };
 
-  // Function to handle navigation to the Shirts page
   const handleShirtsClick = () => {
-    navigate('/C_MensCasualShirts'); // Replace with actual path if needed
+    navigate('/OutOfStockPage'); // Navigate to the Shirts page
   };
 
   return (
@@ -97,18 +155,17 @@ const C_MensCasual = () => {
         </ImageBox>
         <ImageBox 
           style={{ backgroundImage: `url(${C10})` }} 
-          onClick={handleTShirtsClick} // Add onClick to navigate
-        >
+          
+        ><UnavailableText>Currently Unavailable</UnavailableText>
           <BlackLabel>T-Shirts</BlackLabel>
         </ImageBox>
         <ImageBox 
           style={{ backgroundImage: `url(${C11})` }} 
-          onClick={handleShirtsClick} // Add onClick to navigate
-        >
+         
+        ><UnavailableText>Currently Unavailable</UnavailableText>
           <BlackLabel>Shirts</BlackLabel>
         </ImageBox>
       </Row>
-      {/* Add more rows as needed */}
     </Container>
   );
 };

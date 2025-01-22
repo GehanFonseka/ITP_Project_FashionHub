@@ -8,21 +8,21 @@ const Footer = () => {
       <FooterContent>
         <FooterColumn>
           <FooterTitle>MENU</FooterTitle>
-          <FooterLink href="#">HOME</FooterLink>
-          <FooterLink href="#">CLOTHING</FooterLink>
-          <FooterLink href="#">SALON</FooterLink>
-          <FooterLink href="/DashboardContainer">ACCESSORIES</FooterLink>
-          <FooterLink href="/Overview">HELP</FooterLink>
+          <FooterLink href="/">HOME</FooterLink>
+          <FooterLink href="/C_Home">CLOTHING</FooterLink>
+          <FooterLink href="/Salonhome">SALON</FooterLink>
+          <FooterLink href="/A_Home">ACCESSORIES</FooterLink>
+          <FooterLink href="/Contact">HELP</FooterLink>
         </FooterColumn>
 
         <FooterColumn>
           <FooterTitle>SUPPORT</FooterTitle>
-          <FooterLink href="C_AdminDB01">CAREERS</FooterLink>
-          <FooterLink href="/F_AdminDB01">FAQ</FooterLink>
-          <FooterLink href="/ReviewDisplay">SUBMIT A REQUEST</FooterLink>
-          <FooterLink href="/MyReviews">RETURNS & EXCHANGES</FooterLink>
-          <FooterLink href="/DashboardContainer">SHIPPING POLICY</FooterLink>
-          <FooterLink href="/Response/">CONTACT US</FooterLink>
+          <FooterLink href="/">CAREERS</FooterLink>
+          <FooterLink href="/">FAQ</FooterLink>
+          <FooterLink href="/ticket">SUBMIT A REQUEST</FooterLink>
+          <FooterLink href="/">RETURNS & EXCHANGES</FooterLink>
+          <FooterLink href="/">SHIPPING POLICY</FooterLink>
+          <FooterLink href="/"></FooterLink>
         </FooterColumn>
 
         <FooterColumn>
@@ -71,6 +71,10 @@ const FooterContainer = styled.footer`
   color: white;
   padding: 40px 20px;
   font-family: "Roboto", sans-serif;
+
+  @media (max-width: 768px) {
+    padding: 20px 10px; // Reduced padding for mobile
+  }
 `;
 
 const FooterContent = styled.div`
@@ -80,9 +84,10 @@ const FooterContent = styled.div`
   gap: 20px;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    flex-direction: row; // Changed from column to row for mobile view
+    align-items: flex-start; // Aligning to the start for better distribution
+    text-align: left; // Align text to the left
+    gap: 15px; // Reduced gap between columns
   }
 `;
 
@@ -95,6 +100,12 @@ const FooterTitle = styled.h3`
   margin-bottom: 15px;
   color: #8b0000;
   font-family: "Poppins", sans-serif;
+  font-size: 1.2em; // Adjusted font size
+
+  @media (max-width: 768px) {
+    font-size: 1em; // Smaller font size for mobile
+    margin-bottom: 10px; // Reduced margin
+  }
 `;
 
 const FooterLink = styled.a`
@@ -107,15 +118,25 @@ const FooterLink = styled.a`
   &:hover {
     color: #8b0000;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.9em; // Adjusted font size for mobile
+  }
 `;
 
 const FooterText = styled.p`
   margin-bottom: 20px;
   font-family: "Roboto", sans-serif;
+  font-size: 1em; // Adjusted font size for mobile
+
+  @media (max-width: 768px) {
+    font-size: 0.9em; // Smaller font size for mobile
+    margin-bottom: 10px; // Reduced margin
+  }
 `;
 
 const FooterInput = styled.input`
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: 5px;
   border: none;
   width: 100%;
@@ -123,12 +144,12 @@ const FooterInput = styled.input`
   font-family: "Lato", sans-serif;
 
   @media (max-width: 768px) {
-    width: 90%;
+    width: 80%; // Adjusted width for mobile
   }
 `;
 
 const SubscribeButton = styled.button`
-  padding: 10px 20px;
+  padding: 8px 15px;
   background-color: #8b0000;
   color: white;
   border: none;
@@ -138,6 +159,10 @@ const SubscribeButton = styled.button`
 
   &:hover {
     background-color: #ae2012;
+  }
+
+  @media (max-width: 768px) {
+    padding: 6px 12px; // Smaller button for mobile
   }
 `;
 
@@ -152,6 +177,7 @@ const FooterBottom = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     text-align: center;
+    gap: 15px; // Adjusted gap for mobile
   }
 `;
 
@@ -168,24 +194,35 @@ const SocialLink = styled.a`
   &:hover {
     color: #ae2012;
   }
+
+  @media (max-width: 768px) {
+    font-size: 20px; // Smaller icons for mobile
+  }
 `;
 
 const FooterCopyright = styled.p`
   font-family: "Roboto", sans-serif;
+  font-size: 0.9em; // Smaller text for mobile
 `;
 
 const PaymentMethods = styled.div`
   img {
     margin-right: 10px;
-    height: 80px;
+    height: 60px; // Adjusted image height for mobile
   }
 
   @media (max-width: 768px) {
     margin-top: 10px;
+    display: flex;
+    justify-content: center;
   }
 `;
 
 const StyledLogo = styled.img`
   height: 90px;
   margin-right: 10px;
+
+  @media (max-width: 768px) {
+    height: 60px; // Smaller logo for mobile
+  }
 `;

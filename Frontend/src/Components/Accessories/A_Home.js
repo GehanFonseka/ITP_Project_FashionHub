@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import A1 from '../../assets/A1.webp'; 
+import A1 from '../../assets/A1.webp';
 import A2 from '../../assets/A2.jpg';
 import ReviewDisplay from '../Review/ReviewDisplay';
 
@@ -10,9 +10,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin: 0; /* Ensure there's no margin affecting the layout */
-  position: relative; /* Needed for the separator */
-  padding-top:75px;
+  margin: 0;
+  position: relative;
+  padding-top: 75px;
+  
+  @media (max-width: 768px) {
+    padding-top: 40px; /* Reduced padding on mobile */
+  }
 `;
 
 // Styles for each side (left and right)
@@ -25,9 +29,8 @@ const Side = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  cursor: pointer; /* Shows a pointer cursor on hover */
+  cursor: pointer;
   
-  // Use background-image property to set different images for each side
   &:first-child {
     background-image: url(${A2});
   }
@@ -35,17 +38,24 @@ const Side = styled.div`
   &:last-child {
     background-image: url(${A1});
   }
-  
-  /* Add a separator line between sections */
+
   &::after {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
-    width: 4px; /* Width of the separator line */
+    width: 4px;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Color of the separator line */
-    z-index: 1; /* Ensure separator is above the background */
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 300px; /* Reduced height for mobile */
+    &::after {
+      display: none; /* No separator line on mobile */
+    }
   }
 `;
 
@@ -53,7 +63,7 @@ const Side = styled.div`
 const Label = styled.div`
   position: absolute;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
+  background: rgba(0, 0, 0, 0.7);
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -62,33 +72,55 @@ const Label = styled.div`
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2; /* Ensure label is above the separator */
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem; /* Smaller label font on mobile */
+  }
 `;
 
 // Wrapper for the image section
 const ImageSection = styled.div`
   display: flex;
   flex: 1;
-  min-height: 80vh; /* Ensures the image section takes half of the viewport height */
+  min-height: 80vh;
   position: relative;
+  flex-wrap: wrap; /* Allow images to stack on smaller screens */
+  
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack images vertically on mobile */
+    min-height: 60vh;
+  }
 `;
 
 const ReviewSection = styled.div`
   text-align: center;
   padding: 40px;
   background-color: #f8f8f8;
+  
+  @media (max-width: 768px) {
+    padding: 20px; /* Reduced padding on mobile */
+  }
 `;
 
 const ReviewHeading = styled.h2`
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem; /* Smaller heading on mobile */
+  }
 `;
 
 const ReviewDescription = styled.p`
   font-size: 1.2rem;
   color: #555;
   margin-bottom: 30px;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Smaller description on mobile */
+  }
 `;
 
 const ReviewButton = styled.a`
@@ -105,6 +137,11 @@ const ReviewButton = styled.a`
   &:hover {
     background-color: #000;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Adjust button font size on mobile */
+    padding: 10px 15px; /* Adjust button padding on mobile */
+  }
 `;
 
 const A_Home = () => {
@@ -119,15 +156,12 @@ const A_Home = () => {
   return (
     <Container>
       <ImageSection>
-
-      
-      <Side onClick={() => handleNavigation('/A_Mens')}>
-        <Label> Mens accessories</Label>
-      </Side>
-      <Side onClick={() => handleNavigation('/A_Womens')}>
-        <Label>Womes accessories</Label>
-      </Side>
-
+        <Side onClick={() => handleNavigation('/A_Mens')}>
+          <Label>Mens Accessories</Label>
+        </Side>
+        <Side onClick={() => handleNavigation('/A_Womens')}>
+          <Label>Womens Accessories</Label>
+        </Side>
       </ImageSection>
 
       <ReviewSection>
@@ -138,9 +172,8 @@ const A_Home = () => {
         <ReviewButton href={`/ReviewForm/${storeId}`}>Write a Review</ReviewButton>
       </ReviewSection>
 
-       {/* Display the ReviewDisplay component */}
-       <ReviewDisplay storeID={storeId} />
-       
+      {/* Display the ReviewDisplay component */}
+      <ReviewDisplay storeID={storeId} />
     </Container>
   );
 };

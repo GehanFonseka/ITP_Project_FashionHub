@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../utilities/axios'; 
 import styled from 'styled-components';
 
-// Define styled components
+// Styled Components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,26 +13,54 @@ const Container = styled.div`
 `;
 
 const Heading = styled.h2`
+  margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   text-align: center;
+  color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const ProductContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 80%;
-  margin-bottom: 50px;
+  gap: 20px; /* Added gap for spacing */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Limit max width for large screens */
 `;
 
 const ProductBox = styled.div`
-  width: 30%;
-  margin-bottom: 20px;
+  width: 30%; /* Default width for larger screens */
+  max-width: 300px; /* Max width for consistent design */
+  min-width: 200px; /* Minimum width to prevent excessive shrinking */
   text-align: center;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    width: 45%; /* Adjust for tablet screens */
+  }
+
+  @media (max-width: 480px) {
+    width: 90%; /* Full width on small screens */
+  }
 `;
 
 const ProductImage = styled.img`
@@ -45,10 +73,25 @@ const ProductInfo = styled.div`
   padding: 10px;
   font-size: 1.2rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const Footer = styled.footer`
   margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const C_MensCasualPants = () => {
@@ -96,7 +139,7 @@ const C_MensCasualPants = () => {
       </ProductContainer>
 
       <Footer>
-        {/* Your footer content here */}
+        © 2025 Your Company Name. All Rights Reserved.
       </Footer>
     </Container>
   );

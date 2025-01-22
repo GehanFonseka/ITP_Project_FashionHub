@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import F6 from '../../assets/F6.jpg';
 import s3 from '../../assets/s3.webp'; 
 
-
-
 // Container for the entire page
 const Container = styled.div`
   display: flex;
   height: 100vh;
-  margin: 0; /* Ensure there's no margin affecting the layout */
+  margin: 0;
   padding-top: 75px;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack sections vertically on smaller screens */
+  }
 `;
 
 // Styles for each section (left and right)
@@ -21,31 +23,29 @@ const Section = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  background-size: cover; /* Ensure the image covers the section */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent image repetition */
-  overflow: hidden; /* Hide any overflow */
-  cursor: pointer; /* Shows a pointer cursor on hover */
-  
-  // Use background-image property to set different images for each section
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
   &:first-child {
     background-image: url(${F6});
   }
-  
+
   &:last-child {
     background-image: url(${s3});
   }
 
-  // Add a separator line between sections
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 4px; /* Width of the separator line */
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Color of the separator line */
-    z-index: 1; /* Ensure separator is above the background */
+  // Hover effects
+  &:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    height: 50vh; /* Adjust the height for mobile screens */
   }
 `;
 
@@ -53,15 +53,20 @@ const Section = styled.div`
 const BlackLabel = styled.div`
   position: absolute;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
+  background: rgba(0, 0, 0, 0.7);
   color: white;
   text-align: center;
   padding: 20px 0;
   text-transform: uppercase;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2; /* Ensure label is above the overlay and separator */
+  z-index: 2;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem; /* Adjust font size for mobile */
+  }
 `;
 
 // Overlay to improve text visibility
@@ -71,8 +76,8 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
-  z-index: 1; /* Ensure overlay is below the text */
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 `;
 
 const F_WomensCasualAndFormal = () => {

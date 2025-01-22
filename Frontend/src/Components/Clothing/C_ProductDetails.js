@@ -1,28 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-// Define styled components
+// Styled Components
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
-  margin-top: 70px;
+  margin-top: 90px;
   gap: 40px;
   min-height: calc(100vh - 100px);
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ImageContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Image = styled.img`
   width: 100%;
   max-width: 400px;
   height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+  }
 `;
 
 const Details = styled.div`
@@ -31,12 +47,20 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-bottom: 50px;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+  }
 `;
 
 const Heading = styled.h2`
   margin-bottom: 20px;
   font-size: 2rem;
+  color: #333;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Price = styled.p`
@@ -48,6 +72,11 @@ const Price = styled.p`
 const Description = styled.p`
   font-size: 1.2rem;
   color: #333;
+  margin-bottom: 10px;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const ItemNo = styled.p`
@@ -60,6 +89,7 @@ const ItemNo = styled.p`
 const AvailableQuantity = styled.p`
   font-size: 1.2rem;
   color: #333;
+  margin: 10px 0;
 `;
 
 const AddToCartButton = styled.button`
@@ -86,23 +116,36 @@ const Select = styled.select`
   margin: 10px 0;
   padding: 10px;
   font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  &:focus {
+    border-color: #28a745;
+    outline: none;
+  }
+`;
+
+const Label = styled.label`
+  font-size: 1.1rem;
+  margin: 5px 0;
+  color: #555;
 `;
 
 const C_ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState('M');
+  const [size, setSize] = useState("M");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedProduct = JSON.parse(localStorage.getItem('selectedProduct'));
+    const savedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
 
     if (savedProduct) {
       setProduct(savedProduct);
       console.log("Saved Product:", savedProduct); // Debugging output
     } else {
-      navigate('/');
+      navigate("/");
     }
 
     setLoading(false);
@@ -113,34 +156,31 @@ const C_ProductDetails = () => {
       ItemsN: product.name,
       price: product.price,
       quantity: quantity,
-      image: [product.image],  // Assuming product.image is a string, but the schema expects an array
-      sellerNo: product.sellerNo || 0,  // If sellerNo is not available in product, default to 0
+      image: [product.image], // Assuming product.image is a string, but the schema expects an array
+      sellerNo: product.sellerNo || 0, // If sellerNo is not available in product, default to 0
     };
-  
+
     try {
-      const response = await fetch('http://localhost:5000/api/items/cart', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/api/items/cart", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(cartItem),
       });
-  
+
       const result = await response.json();
       if (response.ok) {
-        console.log('Item added to cart:', result);
+        console.log("Item added to cart:", result);
       } else {
-        console.error('Failed to add item to cart:', result);
+        console.error("Failed to add item to cart:", result);
       }
     } catch (error) {
-      console.error('Error adding item to cart:', error);
+      console.error("Error adding item to cart:", error);
     }
 
-    navigate('/cart', { state: cartItem });
+    navigate("/cart", { state: cartItem });
   };
-  
-
-  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -150,13 +190,15 @@ const C_ProductDetails = () => {
     return <div>No product found.</div>;
   }
 
-  // New attribute for available quantity
-  const availableQuantity = product.quantity; // Assuming this comes from the database
+  const availableQuantity = product.quantity;
 
   return (
     <Container>
       <ImageContainer>
-        <Image src={`http://localhost:5000/uploads/${product.image}`} alt={product.name} />
+        <Image
+          src={`http://localhost:5000/uploads/${product.image}`}
+          alt={product.name}
+        />
       </ImageContainer>
       <Details>
         <Heading>{product.name}</Heading>
@@ -164,10 +206,14 @@ const C_ProductDetails = () => {
         <Description>{product.description}</Description>
         <Price>LKR {product.price}</Price>
         <AvailableQuantity>Available Quantity: {availableQuantity}</AvailableQuantity>
-        
+
         {/* Size Selector */}
-        <label htmlFor="size">Size:</label>
-        <Select id="size" value={size} onChange={(e) => setSize(e.target.value)}>
+        <Label htmlFor="size">Size:</Label>
+        <Select
+          id="size"
+          value={size}
+          onChange={(e) => setSize(e.target.value)}
+        >
           <option value="XS">XS</option>
           <option value="S">S</option>
           <option value="M">M</option>
@@ -176,10 +222,16 @@ const C_ProductDetails = () => {
         </Select>
 
         {/* Quantity Selector */}
-        <label htmlFor="quantity">Select Quantity:</label>
-        <Select id="quantity" value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}>
+        <Label htmlFor="quantity">Select Quantity:</Label>
+        <Select
+          id="quantity"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+        >
           {[...Array(availableQuantity).keys()].map((num) => (
-            <option key={num + 1} value={num + 1}>{num + 1}</option>
+            <option key={num + 1} value={num + 1}>
+              {num + 1}
+            </option>
           ))}
         </Select>
 
@@ -189,7 +241,6 @@ const C_ProductDetails = () => {
         >
           Add to Cart
         </AddToCartButton>
-
       </Details>
     </Container>
   );

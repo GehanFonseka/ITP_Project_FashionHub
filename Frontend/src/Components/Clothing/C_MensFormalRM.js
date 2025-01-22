@@ -11,9 +11,9 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100vh;
+  height: auto; /* Adjusted for responsive height */
   margin: 0;
-  padding-top: 50px;
+  padding: 50px 20px; /* Added padding for small screens */
 `;
 
 // Quote section
@@ -24,32 +24,66 @@ const Quote = styled.h2`
   font-size: 1.8rem;
   text-align: center;
   padding: 0 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-top: 50px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    margin-top: 30px;
+  }
 `;
 
 // Row container for categories
 const Row = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: 80%;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  justify-content: center;
+  gap: 20px; /* Space between items */
+  width: 100%; /* Full width for responsiveness */
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
 `;
 
 // Styled image box for categories with a black label
 const ImageBox = styled.div`
-  width: 300px;  /* Increased size */
-  height: 300px; /* Increased size */
+  width: 300px;  /* Default size for larger screens */
+  height: 300px; /* Default size for larger screens */
   background-size: cover;
   background-position: center;
-  position: relative; /* Needed for overlay */
+  position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem; /* Adjusted font size */
+  font-size: 1.5rem;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 1024px) {
+    width: 250px;
+    height: 250px;
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 200px;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 150px;
+    height: 150px;
+    font-size: 1rem;
+  }
 `;
 
 // Black label with partial transparency
@@ -61,9 +95,35 @@ const BlackLabel = styled.div`
   text-align: center;
   padding: 10px 0;
   text-transform: uppercase;
-  font-size: 1.5rem; /* Adjusted font size */
+  font-size: 1.5rem;
   bottom: 0;
-  z-index: 2; /* Ensure label is above the overlay */
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 8px 0;
+  }
+`;
+const UnavailableText = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  z-index: 3;
+  @media (max-width: 768px) {
+    font-size: 1rem; /* Smaller font for mobile */
+  }
 `;
 
 const C_MensFormalRM = () => {
@@ -76,18 +136,19 @@ const C_MensFormalRM = () => {
             <BlackLabel>Blazers</BlackLabel>
           </ImageBox>
         </Link>
-        <Link to="/trousers" style={{ textDecoration: 'none' }}>
+        <Link to="/OutOfStockPage" style={{ textDecoration: 'none' }}>
           <ImageBox style={{ backgroundImage: `url(${C13})` }}>
             <BlackLabel>Trousers</BlackLabel>
+            <UnavailableText>Currently Unavailable</UnavailableText>
           </ImageBox>
         </Link>
-        <Link to="/shirts" style={{ textDecoration: 'none' }}>
+        <Link to="/OutOfStockPage" style={{ textDecoration: 'none' }}>
           <ImageBox style={{ backgroundImage: `url(${C14})` }}>
+          <UnavailableText>Currently Unavailable</UnavailableText>
             <BlackLabel>Shirts</BlackLabel>
           </ImageBox>
         </Link>
       </Row>
-      {/* Add more rows as needed */}
     </Container>
   );
 };

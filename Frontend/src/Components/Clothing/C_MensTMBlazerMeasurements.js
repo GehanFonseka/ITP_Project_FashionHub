@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-// Define all styled components at the top of the file
+// Styled components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,36 +13,38 @@ const Container = styled.div`
   padding: 20px;
   padding-top: 100px;
   padding-bottom: 50px;
+  background-color: #f0f0f5;
 `;
 
 const Heading = styled.h2`
   margin-bottom: 20px;
-  color: #333;
-  font-size: 2rem; /* Increased font size */
+  color: #222;
+  font-size: 2.2rem; /* Larger font for better readability */
   text-align: center;
 `;
 
 const SelectionDisplay = styled.div`
   margin-bottom: 30px;
-  font-size: 1.4rem; /* Increased font size */
-  color: #555;
+  font-size: 1.4rem;
+  color: #444;
+  text-align: center;
+  line-height: 1.5;
 `;
 
 const Form = styled.form`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
-  width: 80%;
-  max-width: 900px;
+  width: 100%;
+  max-width: 600px;
 `;
 
 const Section = styled.section`
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const MeasurementField = styled.div`
@@ -52,54 +54,59 @@ const MeasurementField = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 1.1rem; /* Increased font size */
+  font-size: 1.1rem;
   margin-bottom: 5px;
-  color: #333;
+  color: #222;
 `;
 
 const Description = styled.p`
-  font-size: 1.1rem; /* Increased font size */
-  color: #444;
+  font-size: 1rem;
+  color: #555;
   margin-top: 5px;
   margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #eee;
   border-radius: 5px;
-  background-color: #f5f5f5;
+  background-color: #fafafa;
 `;
 
 const Input = styled.input`
-  padding: 10px;
-  font-size: 1.1rem; /* Increased font size */
+  padding: 12px;
+  font-size: 1.1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
+  outline: none;
+
+  &:focus {
+    border-color: #333;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const SubmitButton = styled.button`
-  padding: 10px 20px;
+  padding: 12px 20px;
   background-color: #333;
   color: #fff;
   border: none;
   cursor: pointer;
-  font-size: 1.1rem; /* Font size */
-  border-radius: 5px;
-  margin-top: 20px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+  max-width: 200px;
   align-self: center;
   transition: background-color 0.3s;
-  max-width: 200px; /* Set maximum width */
-  width: 100%; /* Ensure button takes up full width within the max-width constraint */
-  text-align: center; /* Center text inside the button */
 
   &:hover {
     background-color: #555;
   }
 `;
 
-// Component definition
+// Component
 const C_MensTMBlazerMeasurements = () => {
   const location = useLocation();
-  const { item, selectedColor } = location.state || {}; // Destructure item and selectedColor from state
+  const { item, selectedColor } = location.state || {};
   const navigate = useNavigate();
 
   const [measurements, setMeasurements] = useState({
@@ -111,12 +118,12 @@ const C_MensTMBlazerMeasurements = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     // Allow only numbers and a single decimal point
     if (/^\d*\.?\d{0,1}$/.test(value) || value === '') {
       const numValue = parseFloat(value);
-  
-      // Ensure that the value is either empty or between 5 and 200
+
+      // Ensure value is empty or between 1 and 200
       if (value === '' || (numValue >= 1 && numValue <= 200)) {
         setMeasurements({
           ...measurements,
@@ -125,7 +132,6 @@ const C_MensTMBlazerMeasurements = () => {
       }
     }
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -148,14 +154,14 @@ const C_MensTMBlazerMeasurements = () => {
       <SelectionDisplay>
         <p><strong>Item Type:</strong> {item?.name}</p>
         <p><strong>Selected Color:</strong> {selectedColor}</p>
-        <p><strong>Price:</strong> LKR{item?.price}</p>
+        <p><strong>Price:</strong> LKR {item?.price}</p>
       </SelectionDisplay>
       <Form onSubmit={handleSubmit}>
         <Section>
           <MeasurementField>
-            <Label htmlFor="chest">Chest(cm):</Label>
+            <Label htmlFor="chest">Chest (cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="chest"
               name="chest"
               value={measurements.chest}
@@ -167,9 +173,9 @@ const C_MensTMBlazerMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="waist">Waist(cm):</Label>
+            <Label htmlFor="waist">Waist (cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="waist"
               name="waist"
               value={measurements.waist}
@@ -181,9 +187,9 @@ const C_MensTMBlazerMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="sleeve">Sleeve(cm):</Label>
+            <Label htmlFor="sleeve">Sleeve (cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="sleeve"
               name="sleeve"
               value={measurements.sleeve}
@@ -195,9 +201,9 @@ const C_MensTMBlazerMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="length">Length(cm):</Label>
+            <Label htmlFor="length">Length (cm):</Label>
             <Input
-              type="text" // Change to text to allow decimals
+              type="text"
               id="length"
               name="length"
               value={measurements.length}

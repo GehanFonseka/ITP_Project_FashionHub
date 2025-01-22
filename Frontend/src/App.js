@@ -65,6 +65,8 @@ import C_TMWomensTrouser from './Components/Clothing/C_TMWomensTrouser';
 import C_WomensTMTrouserMeasurements from './Components/Clothing/C_WomensTMTrouserMeasurements';
 import C_ColorSelection from './Components/Clothing/C_ColorSection';
 import C_AdminReport from './Components/Clothing/C_AdminReport';
+import OutOfStockPage from './Components/Clothing/OutOfStockPage';
+
 //matheesha
 import F_Home from './Components/Footwear & Accessories/F_Home';
 import F_MensCasualAndFormal from './Components/Footwear & Accessories/F_Men\'sCasualAndFormal';
@@ -272,6 +274,7 @@ function App() {
         <Route path="C_TMWomensTrouser" element={<C_TMWomensTrouser/>}/>
         <Route path="C_WomensTMTrouserMeasurements" element={<C_WomensTMTrouserMeasurements/>}/>
         <Route path="C_ColorSelection" element={<C_ColorSelection/>}/>
+        <Route path="/OutOfStockPage" element={<OutOfStockPage/>} />
 
         <Route path="/C_AdminReport" element={<C_AdminReport/>} />
         <Route path="/product-details" element={<C_ProductDetails />} />

@@ -116,7 +116,7 @@ const C_WomensTMTrouserMeasurements = () => {
     if (/^\d*\.?\d{0,1}$/.test(value) || value === '') {
       const numValue = parseFloat(value);
   
-      // Ensure that the value is either empty or between 5 and 200
+      // Ensure that the value is either empty or between 1 and 200
       if (value === '' || (numValue >= 1 && numValue <= 200)) {
         setMeasurements({
           ...measurements,
@@ -125,7 +125,6 @@ const C_WomensTMTrouserMeasurements = () => {
       }
     }
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -148,12 +147,12 @@ const C_WomensTMTrouserMeasurements = () => {
       <SelectionDisplay>
         <p><strong>Item Type:</strong> {item?.name}</p>
         <p><strong>Selected Color:</strong> {selectedColor}</p>
-        <p><strong>Price:</strong> LKR{item?.price}</p>
+        <p><strong>Price:</strong> LKR {item?.price}</p>
       </SelectionDisplay>
       <Form onSubmit={handleSubmit}>
         <Section>
           <MeasurementField>
-            <Label htmlFor="waist">Waist(cm):</Label>
+            <Label htmlFor="waist">Waist (cm):</Label>
             <Input
               type="text"
               id="waist"
@@ -167,7 +166,7 @@ const C_WomensTMTrouserMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="hip">Hip(cm):</Label>
+            <Label htmlFor="hip">Hip (cm):</Label>
             <Input
               type="text"
               id="hip"
@@ -181,7 +180,7 @@ const C_WomensTMTrouserMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="length">Length(cm):</Label>
+            <Label htmlFor="length">Length (cm):</Label>
             <Input
               type="text"
               id="length"
@@ -195,7 +194,7 @@ const C_WomensTMTrouserMeasurements = () => {
         </Section>
         <Section>
           <MeasurementField>
-            <Label htmlFor="inseam">Inseam(cm):</Label>
+            <Label htmlFor="inseam">Inseam (cm):</Label>
             <Input
               type="text"
               id="inseam"

@@ -3,8 +3,6 @@ import axios from "axios";
 import ItemCard from "./ItemCard";
 import "./itemlist.css";
 
-
-
 const ItemList = () => {
   const [products, setProducts] = useState({
     category1: [],
@@ -24,7 +22,6 @@ const ItemList = () => {
   const [trouserMaxPrice, setTrouserMaxPrice] = useState("");
   const [shoeMinPrice, setShoeMinPrice] = useState("");
   const [shoeMaxPrice, setShoeMaxPrice] = useState("");
-
   const [searchTerm, setSearchTerm] = useState(""); // New state for search term
 
   // Fetching products from 3 different APIs and setting them into categories
@@ -81,16 +78,8 @@ const ItemList = () => {
     };
 
     return {
-      category1: filterCategory(
-        products.category1,
-        shirtMinPrice,
-        shirtMaxPrice
-      ),
-      category2: filterCategory(
-        products.category2,
-        trouserMinPrice,
-        trouserMaxPrice
-      ),
+      category1: filterCategory(products.category1, shirtMinPrice, shirtMaxPrice),
+      category2: filterCategory(products.category2, trouserMinPrice, trouserMaxPrice),
       category3: filterCategory(products.category3, shoeMinPrice, shoeMaxPrice),
     };
   };
@@ -143,8 +132,6 @@ const ItemList = () => {
         break;
     }
   };
-  
-  
 
   const handleAddToFavorites = async () => {
     const totalBudget =
@@ -159,11 +146,11 @@ const ItemList = () => {
     };
 
     // Prompt the user for a package name
-  const packageName = prompt("Please enter a name for your favorite package:");
-  if (!packageName) {
-    alert("Package name cannot be empty. Please try again.");
-    return; // Exit if no name is provided
-  }
+    const packageName = prompt("Please enter a name for your favorite package:");
+    if (!packageName) {
+      alert("Package name cannot be empty. Please try again.");
+      return; // Exit if no name is provided
+    }
 
     try {
       await axios.post("http://localhost:5000/api/favoritePackages/save", {
@@ -188,13 +175,12 @@ const ItemList = () => {
 
   return (
     <div>
-      
       <br />
       <br />
       <br />
       <br />
 
-      {/* Add the search bar */}
+      {/* Search Bar */}
       <input
         type="text"
         placeholder="Search items..."
@@ -202,16 +188,63 @@ const ItemList = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-bar"
       />
+      {/* Favorite Packages Link */}
+      <div className="navigate-link-container">
+        <a
+          href="/FavoritePackages" // Use the appropriate path for the Favorite Packages page
+          className="navigate-link"
+        >
+          View Favorite Packages
+        </a>
+      </div>
 
-    <div className="navigate-link-container">
-      <a
-        href="/FavoritePackages" // Use the appropriate path for the Favorite Packages page
-        className="navigate-link"
-      >
-        View Favorite Packages
-      </a>
-    </div>
 
+      {/* Selected Items Display Below Search Bar */}
+      <div className="selected-items-display">
+        {selectedItems.shirt && (
+          <div className="selected-item">
+            <span>Shirt: {selectedItems.shirt.name}</span>
+            <button
+              className="remove-button"
+              onClick={() => handleRemoveItem("shirt", selectedItems.shirt)}
+            >
+              ✕
+            </button>
+          </div>
+        )}
+        {selectedItems.trouser && (
+          <div className="selected-item">
+            <span>Trousers: {selectedItems.trouser.name}</span>
+            <button
+              className="remove-button"
+              onClick={() => handleRemoveItem("trouser", selectedItems.trouser)}
+            >
+              ✕
+            </button>
+          </div>
+        )}
+        {selectedItems.shoe && (
+          <div className="selected-item">
+            <span>Shoe: {selectedItems.shoe.name}</span>
+            <button
+              className="remove-button"
+              onClick={() => handleRemoveItem("shoe", selectedItems.shoe)}
+            >
+              ✕
+            </button>
+          </div>
+        )}
+        {(selectedItems.shirt || selectedItems.trouser || selectedItems.shoe) && (
+          <button
+            className="add-to-favorites-button"
+            onClick={handleAddToFavorites}
+          >
+            Add to Favorites
+          </button>
+        )}
+      </div>
+
+      {/* Filters */}
       <div className="filters-container">
         <div className="filter-category justify-center text-center">
           <h3>Filter Shirts</h3>
@@ -234,6 +267,7 @@ const ItemList = () => {
             />
           </label>
         </div>
+
         <div className="filter-category justify-center text-center">
           <h3>Filter Trousers</h3>
           <label>
@@ -255,6 +289,7 @@ const ItemList = () => {
             />
           </label>
         </div>
+
         <div className="filter-category justify-center text-center">
           <h3>Filter Shoes</h3>
           <label>
@@ -278,6 +313,7 @@ const ItemList = () => {
         </div>
       </div>
 
+      {/* Product Categories */}
       <div className="grid-container">
         <div className="category-section overflow-y-hidden">
           <h2 className="text-center">Shirts</h2>
@@ -286,12 +322,11 @@ const ItemList = () => {
               key={item._id}
               item={item}
               onSelect={() => handleSelect("shirt", item)}
-              isSelected={
-                selectedItems.shirt && selectedItems.shirt._id === item._id
-              }
+              isSelected={selectedItems.shirt && selectedItems.shirt._id === item._id}
             />
           ))}
         </div>
+
         <div className="category-section">
           <h2 className="text-center">Trousers</h2>
           {searchedProducts.category2.map((item) => (
@@ -299,12 +334,11 @@ const ItemList = () => {
               key={item._id}
               item={item}
               onSelect={() => handleSelect("trouser", item)}
-              isSelected={
-                selectedItems.trouser && selectedItems.trouser._id === item._id
-              }
+              isSelected={selectedItems.trouser && selectedItems.trouser._id === item._id}
             />
           ))}
         </div>
+
         <div className="category-section">
           <h2 className="text-center">Shoes</h2>
           {searchedProducts.category3.map((item) => (
@@ -312,58 +346,10 @@ const ItemList = () => {
               key={item._id}
               item={item}
               onSelect={() => handleSelect("shoe", item)}
-              isSelected={
-                selectedItems.shoe && selectedItems.shoe._id === item._id
-              }
+              isSelected={selectedItems.shoe && selectedItems.shoe._id === item._id}
             />
           ))}
         </div>
-      </div>
-
-      <div className="selected-items-overlay">
-        {selectedItems.shirt && (
-          <div className="selected-item">
-            <span>Shirt: {selectedItems.shirt.name}</span>
-            <button
-              className="remove-button"
-              onClick={() => handleRemoveItem("shirt",selectedItems.shirt)}
-            >
-              ✕
-            </button>
-          </div>
-        )}
-        {selectedItems.trouser && (
-          <div className="selected-item">
-            <span>Trousers: {selectedItems.trouser.name}</span>
-            <button
-              className="remove-button"
-              onClick={() => handleRemoveItem("trouser",selectedItems.trouser)}
-            >
-              ✕
-            </button>
-          </div>
-        )}
-        {selectedItems.shoe && (
-          <div className="selected-item">
-            <span>Shoe: {selectedItems.shoe.name}</span>
-            <button
-              className="remove-button"
-              onClick={() => handleRemoveItem("shoe",selectedItems.shoe)}
-            >
-              ✕
-            </button>
-          </div>
-        )}
-        {(selectedItems.shirt ||
-          selectedItems.trouser ||
-          selectedItems.shoe) && (
-          <button
-            className="add-to-favorites-button"
-            onClick={handleAddToFavorites}
-          >
-            Add to Favorites
-          </button>
-        )}
       </div>
     </div>
   );

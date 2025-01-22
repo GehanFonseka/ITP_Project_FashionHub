@@ -39,7 +39,10 @@ const Header = () => {
   return (
     <>
       <Nav>
-        <Logo src={logo} alt="Logo" />
+        <LogoLink href="/">
+          <Logo src={logo} alt="Logo" />
+        </LogoLink>
+
         <MenuIcon onClick={toggleSidebar}>
           <FontAwesomeIcon icon={faBars} />
         </MenuIcon>
@@ -125,6 +128,10 @@ const Nav = styled.nav`
   }
 `;
 
+const LogoLink = styled.a`
+  text-decoration: none;
+`;
+
 const Logo = styled.img`
   height: 55px;
 `;
@@ -176,7 +183,7 @@ const SearchInput = styled.input`
   font-size: 16px;
   width: 200px;
   outline: none;
-  margin-top:15px;
+  margin-top: 15px;
 
   &:focus {
     border-color: #ae2012;

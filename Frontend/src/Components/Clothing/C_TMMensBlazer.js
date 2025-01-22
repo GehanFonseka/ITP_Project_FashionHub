@@ -14,6 +14,7 @@ const Container = styled.div`
   padding-top: 50px;
   padding-bottom: 50px;
   position: relative;
+  background-color: #f9f9f9; /* Subtle background for professionalism */
 `;
 
 // Quote section (or header)
@@ -24,6 +25,14 @@ const Quote = styled.h2`
   font-size: 1.8rem;
   text-align: center;
   padding: 0 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem; /* Adjust font size for smaller screens */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem; /* Further adjust for very small screens */
+  }
 `;
 
 // Row container for blazer and its info
@@ -33,7 +42,22 @@ const BlazerRow = styled.div`
   width: 80%;
   margin-bottom: 30px;
   cursor: pointer;
-  border: ${(props) => (props.isSelected ? '3px solid #333' : 'none')}; // Highlight selected blazer
+  border: ${(props) => (props.isSelected ? '3px solid #333' : '1px solid #ddd')}; /* Highlight selected blazer */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: ${(props) =>
+    props.isSelected ? '0 4px 8px rgba(0, 0, 0, 0.2)' : '0 2px 4px rgba(0, 0, 0, 0.1)'};
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: scale(1.02); /* Slight zoom effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack items vertically for mobile */
+    width: 90%; /* Adjust width for mobile */
+  }
 `;
 
 // Image container for each blazer
@@ -42,7 +66,18 @@ const ImageBox = styled.div`
   height: 300px;
   background-size: cover;
   background-position: center;
-  position: relative;
+  background-color: #eee; /* Fallback color for empty images */
+  background-repeat: no-repeat;
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    width: 100%; /* Full width on mobile */
+    height: 220px; /* Reduce height for smaller screens */
+  }
+
+  @media (max-width: 480px) {
+    height: 180px; /* Further reduce height for very small screens */
+  }
 `;
 
 // Information box next to each blazer
@@ -54,6 +89,25 @@ const InfoBox = styled.div`
   font-size: 1.2rem;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #222;
+  }
+
+  p {
+    margin-bottom: 5px;
+    font-size: 1rem;
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem; /* Adjust font size for smaller screens */
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.8rem; /* Further adjust for very small screens */
+    }
+  }
 `;
 
 // Styled Next button
@@ -74,6 +128,16 @@ const NextButton = styled.button`
   &:hover {
     background-color: #555;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Adjust button font size */
+    padding: 8px 16px; /* Adjust padding for smaller screens */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
 `;
 
 const C_TMMensBlazer = () => {
@@ -87,7 +151,7 @@ const C_TMMensBlazer = () => {
         const response = await axios.get('/api/tm-mensblazers'); // Update the API endpoint as needed
         setBlazers(response.data);
       } catch (error) {
-        console.error("Error fetching blazers:", error);
+        console.error('Error fetching blazers:', error);
       }
     };
 
@@ -119,7 +183,7 @@ const C_TMMensBlazer = () => {
             style={{ backgroundImage: `url(http://localhost:5000/uploads/${blazer.image})` }}
           />
           <InfoBox>
-            <h3>{blazer.name}</h3> 
+            <h3>{blazer.name}</h3>
             <p>Price: LKR{blazer.price}</p>
             <p>{blazer.description}</p>
           </InfoBox>
