@@ -1,6 +1,7 @@
 # FashionHub - MERN Stack E-commerce Platform
 
-FashionHub is an advanced e-commerce platform tailored for fashion-related businesses, offering a comprehensive suite of tools for managing salons, clothing, footwear, accessories, customer support, and more. Built using the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS), FashionHub provides a modern, scalable solution to optimize daily operations and improve user experience. 
+FashionHub is an advanced e-commerce platform tailored for fashion-related businesses, offering a comprehensive suite of tools for managing salons, clothing, footwear, accessories, customer support, and more. Built using the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS), FashionHub provides a modern, scalable solution to optimize daily operations and improve user experience. The project has been containerized using Docker, with build pipelines configured through Jenkins for streamlined deployment. It is hosted on AWS and can be accessed at [FashionHub](http://fashionhub.publicvm.com/)
+
 
 ## Team Members
 | No.  | Name with Initials                 | Registration Number |Github Username    |
